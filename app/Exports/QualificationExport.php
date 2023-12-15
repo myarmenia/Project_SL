@@ -21,7 +21,6 @@ class QualificationExport implements FromArray, WithEvents
     private string $to;
     private array $titles = [];
     private array $values = [];
-    private array $exists = [];
     public int $total_row_count = 0;
 
     public function __construct($from, $to)
@@ -33,20 +32,27 @@ class QualificationExport implements FromArray, WithEvents
 
     public function array(): array
     {
+        $agencies_with_root_parent = Report::getAgenciesWithRoot();
         $data = Report::getQualified($this->from, $this->to);
-
-
+        $exists = [];
         foreach ($data as $datum) {
+            $agency_id = isset($agencies_with_root_parent[$datum->agency_id]) ? $agencies_with_root_parent[$datum->agency_id]->parent_id : $datum->agency_id;
             $this->titles[$datum->qualification_id] = $datum->qualification_name;
-            $this->exists[$datum->agency_id][$datum->qualification_id] = $datum->total;
+            if (isset($exists[$agency_id][$datum->qualification_id])) {
+                $exists[$agency_id][$datum->qualification_id] += $datum->total;
+            } else {
+                $exists[$agency_id][$datum->qualification_id] = $datum->total;
+            }
         }
 
         $empty = array_fill_keys(array_keys($this->titles), '');
 
         foreach ($data as $datum) {
-            $this->values[$datum->agency_id]['opened_subunit'] = $datum->opened_subunit;
-            $this->values[$datum->agency_id] = array_replace($empty, $this->exists[$datum->agency_id]);
-            array_unshift($this->values[$datum->agency_id], $datum->opened_subunit);
+            $agency_id = isset($agencies_with_root_parent[$datum->agency_id]) ? $agencies_with_root_parent[$datum->agency_id]->parent_id : $datum->agency_id;
+            $agency_name = isset($agencies_with_root_parent[$datum->agency_id]) ? $agencies_with_root_parent[$datum->agency_id]->name : $datum->opened_subunit;
+            $this->values[$agency_id]['opened_subunit'] = $datum->opened_subunit;
+            $this->values[$agency_id] = array_replace($empty, $exists[$agency_id]);
+            array_unshift($this->values[$agency_id], $agency_name);
         }
 
         $this->total_row_count = count($this->values) + 2;

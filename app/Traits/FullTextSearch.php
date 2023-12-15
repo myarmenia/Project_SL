@@ -2,6 +2,9 @@
 
 namespace App\Traits;
 
+use App\Models\FirstName;
+use App\Services\SearchService;
+
 
 trait FullTextSearch
 {
@@ -65,4 +68,17 @@ trait FullTextSearch
             return $query;
     }
 
+    function soundArmenian($model,$searchInput,$col,SearchService $searchService)
+    {
+        $datas = $model::lazy();
+        foreach ($datas as  $data)
+        {
+            if ( $searchService->soundExArmenian("{$searchInput}",$data->$col)) {
+
+                $ids[] = $data->id;
+            }
+        }
+
+        return $ids ?? '' ;
+    }
 }

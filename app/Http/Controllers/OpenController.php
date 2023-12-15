@@ -91,6 +91,9 @@ class OpenController extends Controller
 
     public function openWithBibliography($lang, $page, $id, Request $request)
     {
+
+        $bibliography_id = $id;
+
         $model = ModelRelationService::get_model_class($page);
 
         $model_ids = Bibliography::find($id)->$page->pluck('id');
@@ -101,6 +104,6 @@ class OpenController extends Controller
 
         $total = $model::orderBy('id', 'desc')->get()->count();
 
-        return view('open.' . $page, compact('page', 'data', 'add', 'total'));
+        return view('open.' . $page, compact('page', 'data', 'add', 'total', 'bibliography_id'));
     }
 }

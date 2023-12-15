@@ -107,16 +107,22 @@ color: white;
     align-items: center;
     background-color: #F6F9FF;
     border-radius: 10px;
-    width: 63%;
+    width: 100%;
     padding: 20px;
-    margin: 20px auto;
   }
-
-  .helper h2{
-    font-size: 20px;
-  }
-
 
   form{
     width: 100%;
+  }
+
+
+  .help_icon{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 30px;
+    color: gray;
+  }
+
+  .help_icon:active{
+    color: black;
   }

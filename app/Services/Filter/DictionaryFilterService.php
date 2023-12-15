@@ -15,7 +15,7 @@ class DictionaryFilterService
 
         $selected_fields = [];
 
-        $result = DB::table($table_name)->where('id', '>', 0);
+        $result = DB::table($table_name)->where('deleted_at', null);
 
         $action = null;
         $value = null;

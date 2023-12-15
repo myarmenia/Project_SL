@@ -577,6 +577,7 @@ $fileId = File::create($fileDetails)->id;
         $word2 = Str::lower($word2);
         $wordCode1 = self::getCodeSoundEx(strtolower($word1));
         $wordCode2 = self::getCodeSoundEx(strtolower($word2));
+
         if( $wordCode1 != $wordCode2) {
             return false;
         }
@@ -602,56 +603,79 @@ $fileId = File::create($fileDetails)->id;
             "յէ"=>"ե",
             "այ"=>"ա",
             "ոյ"=>"ո",
-            "վհ" =>"վ",
+            "յո"=>"ո",
+            "վհ"=>"վ",
             "րհ"=>"ր",
+            "բբ"=>"բ",
+            "գգ"=>"գ",
+            "դդ"=>"դ",
+            "ձձ"=>"ձ",
+            "ջջ"=>"ջ",
+            "զզ"=>"զ",
+            "ժժ"=>"ժ",
+            "ղղ"=>"ղ",
+            "վվ"=>"վ",
+            "պպ"=>"պ",
+            "կկ"=>"կ",
+            "տտ"=>"տ",
+            "ծծ"=>"ծ",
+            "ճճ"=>"ճ",
+            "սս"=>"ս",
+            "շշ"=>"շ",
+            "խխ"=>"խ",
+            "ֆֆ"=>"ֆ",
+            "հհ"=>"հ",
+            "փփ"=>"փ",
+            "քք"=>"ք",
+            "թթ"=>"թ",
+            "ցց"=>"ց",
+            "չչ"=>"չ",
+            "լլ"=>"լ",
+            "ռռ"=>"ռ",
+            "րր"=>"ր",
             "նն"=>"ն",
+            "մմ"=>"մ",
+            "յյ"=>"յ",
         );
 
         foreach ($substitutions as $letter => $substitution) {
             $word = str_replace($letter,$substitution,$word);
         }
 
-        $len=strlen($word);
+        $len = mb_strlen($word,'UTF-8');
         $wordNew = preg_split('/(?<!^)(?!$)/u', $word);
         $codingTable=array(
-            0=>array("ա"),
-            1=>array("ե","է"),
-            2=>array("ը"),
-            3=>array("ի"),
-            4=>array("լ"),
-            5=>array("մ"),
-            6=>array("յ"),
-            7=>array("ն"),
-            8=>array("ս"),
-            9=>array("ր", "ռ"),
-            10=>array("օ", "ո"),
-            11=>array("ու"),
-            12=>array("և"),
-            13=>array("հ"),
-            14=>array("բ","պ","փ"),
-            15=>array("գ","կ","ք"),
-            16=>array("դ","տ","թ"),
-            17=>array("ձ","ծ","ց"),
-            18=>array("ջ","ճ","չ"),
-            19=>array("զ","ս",),
-            20=>array("ժ","շ"),
-            21=>array("ղ","խ"),
-            22=>array("վ","ֆ"),
+            'a'=>array("ա"),
+            'b'=>array("ե","է"),
+            'c'=>array("ը"),
+            'd'=>array("ի"),
+            'e'=>array("լ"),
+            'f'=>array("մ"),
+            'g'=>array("յ"),
+            'h'=>array("ն"),
+            'i'=>array("ս"),
+            'j'=>array("ր", "ռ"),
+            'k'=>array("օ", "ո"),
+            'l'=>array("ու"),
+            'm'=>array("և"),
+            'n'=>array("հ"),
+            'o'=>array("բ","պ","փ"),
+            'p'=>array("գ","կ","ք"),
+            'q'=>array("դ","տ","թ"),
+            'r'=>array("ձ","ծ","ց"),
+            's'=>array("ջ","ճ","չ"),
+            't'=>array("զ","ս",),
+            'u'=>array("ժ","շ"),
+            'v'=>array("ղ","խ"),
+            'w'=>array("վ","ֆ"),
         );
         $value = [];
         for ($i=0;$i<$len;$i++){
-          $value[$i]="";
           foreach ($codingTable as $code=>$letters) {
-              if (isset($wordNew[$i+1]) and in_array($wordNew[$i],$letters)) {
+              if (in_array($wordNew[$i],$letters)) {
                    $value[$i]=$code;
               }
           }
-        }
-        $len=count($value);
-        for ($i=1;$i<$len;$i++){
-            if ($value[$i]==$value[$i-1]) {
-                $value[$i]="";
-            }
         }
         $value=array_filter($value);
         $value=implode("",$value);

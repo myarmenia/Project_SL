@@ -1,7 +1,6 @@
 @extends('layouts.auth-app')
 
 @section('style')
-
 @endsection
 
 @section('content')
@@ -40,8 +39,8 @@
                                         <th></th>
                                     @endcan
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
-                                            aria-hidden="true" data-field-name='id'></i></th>
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i
+                                            class="bi bi-funnel-fill" aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.content_materials_actions') }} <i class="bi bi-funnel-fill"
@@ -49,8 +48,8 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.qualification_fact') }} <i class="bi bi-funnel-fill" aria-hidden="true"
-                                            data-field-name='action_qualification'></i></th>
+                                        {{ __('content.qualification_fact') }} <i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name='action_qualification'></i></th>
 
                                     {{-- <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.short_man') }}<i class="bi bi-funnel-fill" aria-hidden="true"
@@ -166,12 +165,12 @@
                                             </td>
                                         @endif
                                         @can($page . '-delete')
-                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
-                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                data-id="{{ $action->id }}"><i class="bi bi-trash3"></i>
-                                            </button>
-                                        </td>
-                                    @endcan
+                                            <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                    data-id="{{ $action->id }}"><i class="bi bi-trash3"></i>
+                                                </button>
+                                            </td>
+                                        @endcan
                                     </tr>
                                 @endforeach
 
@@ -197,24 +196,24 @@
             document.querySelector('#clear_button').style.display = 'none'
         @endif
 
-            let allow_change = ''
-            let allow_delete = ''
+        let allow_change = ''
+        let allow_delete = ''
 
-            @can($page . '-edit')
-                allow_change = true
-            @else
-                allow_change = false
-            @endcan
+        @can($page . '-edit')
+            allow_change = true
+        @else
+            allow_change = false
+        @endcan
 
-            @can($page . '-delete')
-                allow_delete = true
-            @else
-                allow_delete = false
-            @endcan
+        @can($page . '-delete')
+            allow_delete = true
+        @else
+            allow_delete = false
+        @endcan
 
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
-       
+
         let parent_table_name = "{{ __('content.action') }}"
 
         let fieldName = 'action_id'
@@ -228,16 +227,19 @@
         let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
-        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let contains = "{{ __('content.contains') }}" // parunakum e
         let start = "{{ __('content.start') }}" // sksvum e
-        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let search_as = "{{ __('content.search_as') }} " // pntrel nayev
         let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
         // filter translate //
+        let bibliography_id = null
 
-
+        @if (isset($bibliography_id))
+            bibliography_id = "{{ $bibliography_id }}"
+        @endif
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

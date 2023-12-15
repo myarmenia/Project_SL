@@ -88,7 +88,7 @@ class TableContentService
 
                         foreach ($cell as $key => $item) {
 
-                            // if($data==6){
+                            if ($data == 0) {
                                 // dd($item->getElements()[0]->getElements());
 
 
@@ -124,7 +124,7 @@ class TableContentService
 
                                         $translated_name = $result['armenian'];
                                         $dataToInsert[$data]['name'] = $translated_name;
-                                    }else {
+                                    } else {
 
                                         $cell_arr = '';
 
@@ -227,8 +227,7 @@ class TableContentService
                                                 $cell_arr = $unicude_result;
                                             } else {
 
-                                                $cell_arr=count($item->getElements()[0]->getElements())== 0?null:$item->getElements()[0]->getElements()[0]->getText();
-
+                                                $cell_arr = count($item->getElements()[0]->getElements()) == 0 ? null : $item->getElements()[0]->getElements()[0]->getText();
                                             }
 
                                             $dataToInsert[$data]['patronymic'] = $cell_arr;
@@ -240,6 +239,7 @@ class TableContentService
 
                                     $dataToInsert = self::get_birthday($key, $data, $column_name, $item, $dataToInsert);
                                 }
+                            }
 
                             // }
 
@@ -290,7 +290,7 @@ class TableContentService
 
 
         // dd($item->getElements()[0]->getElements());
-        if ($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextBreak || count($item->getElements()[0]->getElements())==0) {
+        if ($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextBreak || count($item->getElements()[0]->getElements()) == 0) {
 
             $dataToInsert[$data]['birth_year'] = null;
             $dataToInsert[$data]['birthday_str'] = null;
@@ -364,7 +364,7 @@ class TableContentService
                 }
             }
         }
-// dd($dataToInsert);
+        // dd($dataToInsert);
         return $dataToInsert;
     }
     public static function get_address($key, $data, $column_name, $item, $dataToInsert)
@@ -400,18 +400,16 @@ class TableContentService
                 // $dataToInsert[$data]['address']['full_address']=$full_address;
                 $dataToInsert[$data]['address'] = $full_address;
                 // dd($dataToInsert);
-            }else{
+            } else {
                 $dataToInsert[$data]['address'] = null;
             }
-
         }
         // dd($dataToInsert);
         return $dataToInsert;
-
     }
     public static function get_full_name($lang, $key, $data, $column_name, $item, $text, $dataToInsert)
     {
-// dd($item);
+        // dd($item);
         // dd($item->getElements()[0]);
         $arr = $item->getElements()[0]->getElements();
         // dd($arr);
@@ -429,7 +427,6 @@ class TableContentService
         $a = 0;
         //   dd($names_array);
         foreach ($names_array as  $exploded_key) {
-
             // dd($keys_array[$a]);
             $k[$keys_array[$a]] = $exploded_key->getText();
             //   dd($k);
@@ -448,6 +445,7 @@ class TableContentService
                 $k[$i] = $result['armenian'];
             }
         }
+        //dd($k);
 
         if (isset($request['fonetic'])) {
             // dd($k);
@@ -460,10 +458,50 @@ class TableContentService
             // dd($k['last_name']);
         }
 
-        $dataToInsert[$data]['name'] = $k['first_name'];
-        $dataToInsert[$data]['patronymic'] = $k['middle_name'];
-        $dataToInsert[$data]['surname'] = $k['last_name'];
-        // dd($dataToInsert);
+
+        // $dataToInsert[$data]['name'] = $k['first_name'];
+        // $dataToInsert[$data]['patronymic'] = $k['middle_name'];
+        // $dataToInsert[$data]['surname'] = $k['last_name'];
+        if (isset($k['first_name'])) {
+            $dataToInsert[$data]['name'] = $k['first_name'];
+        } else {
+            $dataToInsert[$data]['name'] = null;
+        }
+        if (isset($k['middle_name'])) {
+            $dataToInsert[$data]['patronymic'] = $k['middle_name'];
+        } else {
+            $dataToInsert[$data]['patronymic'] =  null;
+        }
+
+        if (isset($k['last_name'])) {
+            $dataToInsert[$data]['surname'] = $k['last_name'];
+        } else {
+
+
+            foreach ($keys_array as $key => $value) {
+                //dd($key);
+                if ($key == 2 && $value == 'last_name') {
+                    //dd($keys_array[$key-1]);
+                    if (isset($k['middle_name'])) {
+                        $surname = $k['middle_name'];
+                        $exp_last_name = explode(' ', $surname);
+                        if (count($exp_last_name) > 1) {
+                            $total = count($exp_last_name);
+                            //dd($exp_last_name[$total-1]);
+                            $dataToInsert[$data]['surname'] = $exp_last_name[1];
+                            $dataToInsert[$data]['patronymic'] =  $exp_last_name[0];
+                        }
+                    }
+                }
+            }
+            // $dataToInsert[$data]['surname'] =null;
+
+
+        }
+
+
+        //dd($dataToInsert);
+
         return $dataToInsert;
     }
 }

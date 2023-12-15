@@ -9,7 +9,6 @@ class FilterBiblyographyController extends Controller
 {
     public function filter1(Request $request)
     {
-
         $data = $request->all();
 
         $id = $data[0]['table_id'];
@@ -18,10 +17,12 @@ class FilterBiblyographyController extends Controller
         $find_text = str_contains($table_name, '_');
 
         $model = ModelRelationService::get_model_class($table_name);
+
         $curent_data = $model->find($id);
         $man = $curent_data->man;
         $man_ids = $man->pluck('id');
         $model = app('App\Models\\' . ucfirst("man") . '\\' . ucfirst('man'));
+
         $filtered_value = $model->whereIn('id', $man_ids);
 
         $action = null;
@@ -30,7 +31,6 @@ class FilterBiblyographyController extends Controller
         $returned_array = [];
 
         foreach ($data as $data1) {
-
             if (isset($data1['actions'])) {
                 foreach ($data1['actions'] as $data_action) {
                     $name = $data1['name'];
@@ -54,17 +54,18 @@ class FilterBiblyographyController extends Controller
                         $filtered_value = $filtered_value->where($name, $like_or_equal, $action);
                     }
                 }
-                $filtered_value = $filtered_value->get();
             }
         }
 
+        $filtered_value = $filtered_value->get();
+
         foreach ($filtered_value as $f_v) {
+
             $finish_first_name = '';
             $finish_last_name = '';
             $finish_middle_name = '';
 
             foreach ($f_v->first_name as $f_name => $first_name) {
-
                 $finish_first_name .= $first_name->first_name . ($f_name !== array_key_last($f_v->first_name->toArray()) ? ' ' : '');
             }
 
@@ -75,7 +76,6 @@ class FilterBiblyographyController extends Controller
             foreach ($f_v->middle_name as $m_name => $middle_name) {
                 $finish_middle_name .= $middle_name->middle_name . ($m_name !== array_key_last($f_v->middle_name->toArray()) ? ' ' : '');;
             }
-
 
             $finish_array = [
                 'id' => $f_v->id,

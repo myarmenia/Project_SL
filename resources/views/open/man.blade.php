@@ -302,10 +302,13 @@
                                             @endforeach
                                         </td>
                                         <td>{{ $man->attention ?? '' }}</td>
-                                        <td>
-                                            @foreach ($man->more_data as $more_data)
-                                                {{ $more_data->text }}
-                                            @endforeach
+                                        <td
+                                            style="display: block; overflow-x: hidden; overflow-y: auto; height:70px; padding:10px">
+                                            <div style="white-space: initial;">
+                                                @foreach ($man->more_data as $more_data)
+                                                    {{ $more_data->text }}
+                                                @endforeach
+                                            </div>
                                         </td>
                                         <td>{{ $man->religion->name ?? '' }}</td>
                                         <td>{{ $man->occupation }}</td>
@@ -345,7 +348,6 @@
                                         <td>{{ $man->resource->name ?? '' }}</td>
 
                                         @if (request()->model === 'bibliography')
-
                                             <td style="text-align: center">
                                                 <a
                                                     href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
@@ -376,6 +378,7 @@
                                                 </button>
                                             </td>
                                         @endcan
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -481,6 +484,11 @@
             let and_search = "{{ __('content.and') }}" // ev
             let or_search = "{{ __('content.or') }}" // kam
             // filter translate //
+            let bibliography_id = null
+
+            @if (isset($bibliography_id))
+                bibliography_id = "{{ $bibliography_id }}"
+            @endif
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

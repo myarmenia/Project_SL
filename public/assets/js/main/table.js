@@ -632,10 +632,26 @@ function printResponsData(responseData) {
                             obj_keys[i] !== "man_passed_by_signal"
                         ) {
                             let td = document.createElement("td");
-                            obj_values[i] === "null"
-                                ? (td.innerText = "")
-                                : (td.innerText = obj_values[i]);
-                            tr.appendChild(td);
+                           
+                                if(i === 18 && tb_name === 'man'){
+                                    let div = document.createElement('div')
+                                    div.style = `
+                                    white-space: initial;
+                                    `
+                                    td.style = `
+                                    display: block;overflow-x: hidden; overflow-y: auto; height:70px; padding:10px
+                                    `
+                                    obj_values[i] === "null"
+                                    ? (div.innerText = "")
+                                    : (div.innerText = obj_values[i]);
+                                    td.appendChild(div)
+                                    tr.appendChild(td);
+                                }else{
+                                    obj_values[i] === "null"
+                                    ? (td.innerText = "")
+                                    : (td.innerText = obj_values[i]);
+                                    tr.appendChild(td);
+                                }
                         }
                     } else if (i === 31 && main_route) {
                         let td = document.createElement("td");
@@ -823,39 +839,15 @@ async function postData(propsData, method, url, parent) {
 }
 // -------------------------------- fetch post end ---------------------------- //
 
-// -------------------------------- fetch get --------------------------------- //
-
-function fetchData() {
-    const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
-    fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-            handleData(data);
-            page++;
-        })
-        .catch((error) => {
-            console.error("Ошибка при загрузке данных:", error);
-        });
-}
-
-// ------------------------ print data function ------------------------------- //
-
-function handleData(data) {
-    // console.log(data);
-}
-
-// ------------------------ end print data function ------------------------------- //
-
 // ------------------------ scroll fetch ------------------------------------------ //
 
 const table_div = document.querySelector(".table_div");
-
 table_div?.addEventListener("scroll", () => {
     const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {
         const totalHeight = table_div.scrollHeight;
         const visibleHeight = table_div.clientHeight;
-        if (totalHeight - (scrollPosition + visibleHeight) < 1) {
+        if (totalHeight - (scrollPosition + visibleHeight) <= 1) {
             page++;
             if (last_page > current_page) {
                 searchFetch();
@@ -922,6 +914,7 @@ function searchFetch(parent, inputValue, obj) {
         } else {
             search_result = {
                 id:id_filter_input.value,
+                bibliography_id:bibliography_id,
                 first_name: man_search_inputs[0].value,
                 last_name: man_search_inputs[1].value,
                 middle_name: man_search_inputs[2].value,
@@ -964,6 +957,7 @@ function searchFetch(parent, inputValue, obj) {
             parentObj = {
                 name: field_name,
                 sort: el.parentElement.getAttribute("data-sort"),
+                bibliography_id:bibliography_id,
                 actions: [
                     {
                         action: selectblockChildren[1].value,
@@ -987,6 +981,7 @@ function searchFetch(parent, inputValue, obj) {
                 parentObj = {
                     name: field_name,
                     sort: el.parentElement.getAttribute("data-sort"),
+                    bibliography_id:bibliography_id,
                     actions: [
                         {
                             action: selectblockChildren[1].value,
@@ -1008,6 +1003,7 @@ function searchFetch(parent, inputValue, obj) {
                 selectblockChildren[5].value === "")
         ) {
             parentObj = {
+                bibliography_id:bibliography_id,
                 name: field_name,
                 sort: el.parentElement.getAttribute("data-sort"),
                 table_name: tb_name,
@@ -1253,6 +1249,7 @@ function searchInputsFunc(){
     page = 1
     let obj = {
         id: id_filter_input.value,
+        bibliography_id:bibliography_id,
         first_name: man_search_inputs[0].value,
         last_name: man_search_inputs[1].value,
         middle_name: man_search_inputs[2].value,

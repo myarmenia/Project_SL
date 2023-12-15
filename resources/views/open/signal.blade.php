@@ -8,7 +8,6 @@
                 @if (request()->routeIs('optimization.*'))
                     @include('layouts.table_buttons')
                 @endif
-
                 <!-- global button -->
                 <x-btn-create-clear-component route="signal.create" />
                 <!-- global button end -->
@@ -34,7 +33,7 @@
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.reg_number_signal') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='reg_num'></i></th>
 
@@ -373,6 +372,7 @@
             let relation = "{{ request()->relation }}"
             let main_route = "{{ request()->main_route }}"
             let model_id = "{{ request()->model_id }}"
+
             // filter translate //
             let equal = "{{ __('content.equal') }}" // havasar e
             let not_equal = "{{ __('content.not_equal') }}" // havasar che
@@ -388,6 +388,13 @@
             let and_search = "{{ __('content.and') }}" // ev
             let or_search = "{{ __('content.or') }}" // kam
             // filter translate //
+
+            let bibliography_id = null
+
+            @if(isset($bibliography_id))
+                bibliography_id = "{{$bibliography_id}}"
+            @endif
+
         </script>
 
 

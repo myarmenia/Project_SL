@@ -183,11 +183,11 @@
             @endif
         </div>
 
-        <div class="forForm">
+        {{-- <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
             <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
-        </div>
+        </div> --}}
 
         <div class="buttons">
 
@@ -196,7 +196,7 @@
     </form>
 </div>
   {{-- ================= modal =========================== --}}
-  <x-fullscreen-modal/>
+  {{-- <x-fullscreen-modal/> --}}
 
 @section('js-include')
 
@@ -211,6 +211,21 @@
     var currentInputIdPhone;
     var searchInput;
     $(document).ready(function(){
+
+        let inputPhone = document.getElementById('searchPhonePhoneNumber')
+
+        inputPhone.addEventListener('input', (e) =>{
+
+        let arr = inputPhone.value.split('')
+
+        for (let i = 0; i < arr.length; i++) {
+        if (arr[i] != +arr[i] && arr[i] !== '(' && arr[i] !== ')'){
+        arr[i] = ''
+        }
+
+        inputPhone.value = arr.join('').replaceAll(' ', '')
+        }
+        })
 
         $('input').map(function(){
             if($(this).hasClass('oneInputSaveEnter')){
