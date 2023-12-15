@@ -56,16 +56,17 @@ class Teg extends Component
         $this->related = $related;
         $this->tableName = $tableName;
         $this->relationtype = $relationtype;
+
         if ($this->relations){
             $relation = $this->label;
             $this->relation = $this->item->$relation;
             $this->item->curentId = $this->item[$this->labels['id']];
             $this->item->curentModel = $this->item[$this->labels['type']];
             $this->item->label = trans('content.'.$this->item[$this->labels['type']]).' : '.$this->item[$this->labels['id']];
-
         }
         elseif ($relation && $this->item->$relation) {
-            $this->item->label = $this->label ? $this->label.' : '.$this->item->$relation[$this->name] : $this->item[$this->name];
+            $this->item->label =  trans('content.'.$this->relation).' : '.$this->item[$this->relation]['id'];
+            $this->item->curentModel = $this->relation;
         }elseif ($item){
             $this->item->label = $this->label.' : '.$item['id'];
         }
