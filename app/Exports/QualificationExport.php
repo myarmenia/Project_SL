@@ -55,6 +55,8 @@ class QualificationExport implements FromArray, WithEvents
             array_unshift($this->values[$agency_id], $agency_name);
         }
 
+        $this->values = $this->sortByConfig($this->values);
+
         $this->total_row_count = count($this->values) + 2;
         $this->columns_count = count($this->titles);
 
@@ -77,6 +79,43 @@ class QualificationExport implements FromArray, WithEvents
             $this->values,
             $totals
         ];
+    }
+
+    /**
+     * @param array $values
+     * @return array
+     *
+     * Sorts the array by given identifiers,
+     * elements not found in the config
+     * are added to the end of the array in descending order
+     */
+    private function sortByConfig(array $values): array
+    {
+        $result = $exists_in_order = [];
+        $order = config('report.agency_id_order', []);
+        $others = [];
+        foreach ($values as $id => $value) {
+            if (in_array($id, $order)) {
+                $exists_in_order[$id] = $value;
+            } else {
+                $others[$id] = $value;
+            }
+        }
+        unset($values);
+
+        if ($exists_in_order) {
+            uksort($exists_in_order, function ($key1, $key2) use ($order) {
+                return (array_search($key1, $order) > array_search($key2, $order));
+            });
+            $result += $exists_in_order;
+        }
+
+        if ($others) {
+            krsort($others);
+            $result = $result + $others;
+        }
+
+        return $result;
     }
 
 
