@@ -127,12 +127,8 @@ plusIcon.forEach((plus) => {
 
 console.log('ppppppppppp')
 function openModal() {
-<<<<<<< HEAD
     console.log(333)
     plusBtn = this
-=======
-    plusBtn = this;
->>>>>>> 6fbd172069dc1d9c4d531c41f5674e745b4d0cef
     // ============== im grac mas start ===============
     document.getElementById("addNewInfoInp").value = "";
     document.getElementById("table_id").innerHTML = "";
@@ -158,20 +154,12 @@ function openModal() {
             if (!res) {
                 console.log("error");
                 //   const validation = await res.json()
-<<<<<<< HEAD
             }
             else {
                 const data = await res.json()
                 const result_object = data.result
                 const model_name = data.model_name
 console.log(result_object)
-=======
-            } else {
-                const data = await res.json();
-                const result_object = data.result;
-                const model_name = data.model_name;
-
->>>>>>> 6fbd172069dc1d9c4d531c41f5674e745b4d0cef
                 // every time on open modal we clean input value
                 document.getElementById("addNewInfoInp").value = "";
                 // getting object value and in map creating tr
@@ -298,6 +286,7 @@ append_datalist_info.forEach((inp) => {
 //===========================
 
 function fetchInputTitle(el) {
+    console.log(11111)
     const get_table_name = el
         .closest(".forForm")
         .querySelector(".my-plus-class")
@@ -342,7 +331,7 @@ function fetchInputTitle(el) {
                     const option = document.createElement("option");
                     option.innerText = element.name;
                     option.setAttribute("data-modelid", element.id);
-                    el.closest(".col")
+                    el.closest(".forForm")
                         .querySelector("datalist")
                         .appendChild(option);
                 });

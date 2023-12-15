@@ -9,7 +9,6 @@ class FilterBiblyographyController extends Controller
 {
     public function filter1(Request $request)
     {
-
         $data = $request->all();
 
         $id = $data[0]['table_id'];
@@ -19,17 +18,12 @@ class FilterBiblyographyController extends Controller
 
         $model = ModelRelationService::get_model_class($table_name);
 
-        if ($id != null) {
-            $curent_data = $model->find($id);
-            $man = $curent_data->man;
-            $man_ids = $man->pluck('id');
-            $model = app('App\Models\\' . ucfirst("man") . '\\' . ucfirst('man'));
+        $curent_data = $model->find($id);
+        $man = $curent_data->man;
+        $man_ids = $man->pluck('id');
+        $model = app('App\Models\\' . ucfirst("man") . '\\' . ucfirst('man'));
 
-            $filtered_value = $model->whereIn('id', $man_ids);
-        } else {
-            $filtered_value = $model->where('id', '>', 0);
-        }
-
+        $filtered_value = $model->whereIn('id', $man_ids);
 
         $action = null;
         $value = null;

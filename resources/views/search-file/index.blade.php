@@ -12,8 +12,8 @@
         <div class="col">
             <div class="card">
                 <div class="card-body search_fil_card_body">
+                <div class="help_icon"><i class="bi bi-question-square" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></div>
                     <!-- Bordered Table -->
-
                     <form action="{{ route('search_file') }}" method="post">
 
                         <div class="search-count-block">
@@ -96,6 +96,7 @@
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
+
                                                         {{-- <td class="checked-input-td"
                                                             style="text-align:center; vertical-align: middle;"><input
                                                                 type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}'></td> --}}
@@ -145,7 +146,7 @@
                                             @else
 
 
-                                                    <td class="checked-input-td"
+                                                    {{-- <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
                                                             type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}' ></td>
                                                     <td scope="row">---</td>
@@ -183,7 +184,7 @@
                                                     <td></td>
                                                     <td> </td>
                                                     <td></td>
-                                                    <td class="reg-date"></td>
+                                                    <td class="reg-date"></td> --}}
 
 
                                             @endif
@@ -199,22 +200,39 @@
 
                     </section>
 
+                    <x-search-file-modal />
+                            
+
+<!-- Modal -->
+                    <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ __('search.searche_file_title') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
                             <div class="helper">
-                                    <h2>{{ __('search.searche_file_title') }}</h2>
-                                    <div class="help-info">
-                                        <p>{{ __('search.searche_file_info_1') }}</p>
-                                        <p>{{ __('search.searche_file_info_2') }}</p>
-                                        <p>{{ __('search.searche_file_info_3') }}</p>
-                                        <p>{{ __('search.searche_file_info_4') }}</p>
-                                        <p>{{ __('search.searche_file_info_5') }}</p>
-                                        <p>{{ __('search.searche_file_info_6') }}</p>
+                                        <div class="help-info">
+                                            <p>{{ __('search.searche_file_info_1') }}</p>
+                                            <p>{{ __('search.searche_file_info_2') }}</p>
+                                            <p>{{ __('search.searche_file_info_3') }}</p>
+                                            <p>{{ __('search.searche_file_info_4') }}</p>
+                                            <p>{{ __('search.searche_file_info_5') }}</p>
+                                            <p>{{ __('search.searche_file_info_6') }}</p>
+                                            <p>{{ __('search.searche_file_info_7') }}</p>
+                                            <p>{{ __('search.searche_file_info_8') }}</p>
+                                            <p>{{ __('search.searche_file_info_9') }}</p>
+                                            <p>{{ __('search.searche_file_info_10') }}</p>
+                                        </div>
                                     </div>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
 
                 </div>
             </div>
-
-            <x-search-file-modal />
 
             <!-- Bordered Table -->
             @yield('permissions-content')
@@ -247,7 +265,7 @@
         let response_file_not_generated = "{{ __('messages.response_file_not_generated') }}"
 
     </script>
-    {{-- <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
     {{-- <script src="{{ asset('assets/js/error_modal.js') }}"></script> --}}
     {{-- <script>
       function validateInput() {

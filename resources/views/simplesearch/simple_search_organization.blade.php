@@ -351,11 +351,11 @@
             @endif
         </div>
 
-        <div class="forForm">
+        {{-- <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
             <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
-        </div>
+        </div> --}}
 
         <div class="buttons">
 
@@ -364,23 +364,13 @@
     </form>
 </div>
   {{-- ================= modal =========================== --}}
-<<<<<<< HEAD
-  {{-- @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+  @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
 
     <x-fullscreen-modal/>
-@endif --}}
-=======
-  {{-- <x-fullscreen-modal/> --}}
->>>>>>> 6fbd172069dc1d9c4d531c41f5674e745b4d0cef
+@endif
 
 @section('js-include')
-
-<script>
-    let open_modal_url = `{{ route('open.modal') }}`
-    let get_filter_in_modal = `{{ route('get-model-filter') }}`
-</script>
-{{-- <script src="{{ asset('assets-include/js/script.js') }}" class="aa"></script> --}}
-
+<script src="{{ asset('assets-include/js/script.js') }}" ></script>
 <script>
     var currentInputNameOrgan;
     var currentInputIdOrgan;

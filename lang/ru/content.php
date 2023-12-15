@@ -562,6 +562,7 @@ return [
     'read_more' => 'Читать далее...',
     'operation' => 'Действие',
     'table_name' => 'Имя таблицы',
+    'second_object_relation_man' => 'Лицо',
 
     //loging
     'logging_login' => 'Вход',
@@ -785,11 +786,11 @@ return [
     'new' =>'Отсутствующие',
     'some' => 'Некие',
     'radio_new' =>'Отсутствующий',
-    'radio_some' => 'Какой-то',
+    'radio_some' => 'Некий',
     'radio_like' => 'Похожий',
      'like' => 'Присутствуют',
      'singular_new' =>'Новый',
-     'singular_some' =>'Какой-то',
+     'singular_some' =>'Некий',
      'singular_like' =>'Похожий',
 
 

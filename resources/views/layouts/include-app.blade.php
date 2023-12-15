@@ -134,12 +134,10 @@
 
 @section('js-scripts')
     <script src="{{ asset('assets-include/js/default.js') }}"></script>
-    {{-- <script src="{{ asset('assets-include/js/script.js') }}" class="aa"></script> --}}
-
 @endsection
 @yield('js-include')
 
-<script src="{{ asset('assets-include/js/script.js') }}"></script>
+{{-- <script src="{{ asset('assets-include/js/script.js') }}"></script> --}}
 
 
 @endsection
