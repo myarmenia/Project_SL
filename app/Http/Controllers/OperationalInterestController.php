@@ -42,7 +42,7 @@ class OperationalInterestController extends Controller
     {
         $modelData = HelpersTraits::getModelFromUrl();
 
-        OperationalInterestService::store($modelData->id, $request->validated(), $modelData->name);
+        OperationalInterestService::store($modelData->id, $request->validated(), $modelData->name, $request->model_relation);
 
         return redirect()->route($modelData->redirect.'.edit', $modelData->id);
     }

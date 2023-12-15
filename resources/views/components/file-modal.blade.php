@@ -21,7 +21,6 @@
                     <div class="mb-3 announcement-input-block textarea-block">
                         <textarea class="text_area_modal form-control-text" id="exampleFormControlTextarea1" rows="10"></textarea>
                     </div>
-
                 </div>
                 <div class="modal-buttons">
                     <button class="btn btn-primary add-file-btn" data-bs-dismiss="modal">{{ __('button.save') }}</button>
