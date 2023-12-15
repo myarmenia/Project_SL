@@ -364,10 +364,14 @@
     </form>
 </div>
   {{-- ================= modal =========================== --}}
+<<<<<<< HEAD
   {{-- @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
 
     <x-fullscreen-modal/>
 @endif --}}
+=======
+  {{-- <x-fullscreen-modal/> --}}
+>>>>>>> 6fbd172069dc1d9c4d531c41f5674e745b4d0cef
 
 @section('js-include')
 

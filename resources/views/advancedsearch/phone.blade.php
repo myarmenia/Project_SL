@@ -14,18 +14,16 @@
     </form>
     <div style="clear: both;"></div>
 
-    <div id="tabstrip">
-        <ul>
-            <li class="k-state-active" id="phoneAdv">{{ __('content.telephone') }}</li>
-            <li id="manAdv">{{ __('content.face') }}</li>
-            <li id="organizationAdv">{{ __('content.organization') }}</li>
-            <li id="actionAdv">{{ __('content.action') }}</li>
-        </ul>
-    </div>
-<div id="x-fullscreen-modal">
-        <x-fullscreen-modal />
+<div id="tabstrip" >
+    <ul>
+        <li class="k-state-active" id="phoneAdv">{{ __('content.telephone') }}</li>
+        <li id="manAdv">{{ __('content.face') }}</li>
+        <li id="organizationAdv">{{ __('content.organization') }}</li>
+        <li id="actionAdv">{{ __('content.action') }}</li>
+    </ul>
+</div>
 
-    </div>
+<x-fullscreen-modal/>
 
 @section('js-include')
  {{-- <script src="{{ asset('assets-include/js/script.js') }}"></script> --}}
@@ -39,7 +37,7 @@
 
             $('#tabstrip ul li').live('click', function() {
                 $('#' + $(this).attr('id')).addClass('active_tab');
-               
+
             });
 
 

@@ -206,6 +206,20 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $query .= $qq;
                 }elseif(!is_null($field[0])){
+                    if ($table_col == 'car_rel')
+                    {
+                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
+                        $new_filed = str_replace($reservedSymbols, '', $field[0]);
+                        if ($type !='NOT') {
+
+                           $qq = " HAVING $table_col LIKE '{$new_filed}%'";
+                           $query .= $qq;
+
+                        }else{
+                            $qq = " HAVING $table_col NOT LIKE '{$new_filed}%'";
+                            $query .= $qq;
+                        }
+                    }
                     if (is_numeric($field[0]) && $table_col == 'phone_rel') {
                         $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
                         $new_filed = str_replace($reservedSymbols, '', $field[0]);
@@ -221,10 +235,10 @@ class SimplesearchModel extends Model
                             if (strpos($new_filed,'0') == 0) {
                                 $number = '374'.substr($new_filed,1);
                             }
-                            $qq = " HAVING $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}%'";
+                            $qq = " HAVING $table_col NOT LIKE '{$new_filed}%' OR $table_col NOT LIKE '{$number}%'";
                             $query .= $qq;
                         }
-                    }else{
+                    }elseif($table_col != 'car_rel' && $table_col != 'phone_rel'){
                         $q = $this->search([$table_col],$field[0],$distance);
                         $query .= $q;
                     }
@@ -1907,7 +1921,7 @@ class SimplesearchModel extends Model
 
         public function searchCar($data, $files_flag = false, $files = null){
 
-            $query = " SELECT car.* , car_category.name AS car_category , car_mark.name AS car_mark , color.name AS car_color
+            $query = " SELECT car.* , car_category.name AS car_category , car_mark.name AS car_mark , color.name AS car_color,REGEXP_REPLACE(car.number, '[^[:alnum:]]+', '') as car_rel
                     FROM car
                     LEFT JOIN car_category ON car_category.id = car.category_id
                     LEFT JOIN car_mark ON car_mark.id = car.mark_id
@@ -1948,7 +1962,7 @@ class SimplesearchModel extends Model
                 $q = $this->searchFieldString(
                     $data['number'],
                     $data['number_type'],
-                    '`number`',
+                    'car_rel',
                     $data['car_number_distance']
                 );
                 $query .= $q;
@@ -2024,7 +2038,10 @@ class SimplesearchModel extends Model
                 $query .= " AND bibliography_has_file.file_id IN (-1) AND bibliography_has_file.bibliography_id IS NOT NULL ";
             }
 
-            $query .= '  GROUP BY(car.id)';
+            if (!isset($data['number'][0])) {
+                $query .= '  GROUP BY(car.id)';
+            }
+
             // $this->_setSql($query);
             // return $this->getAll();
             return DB::select($query);
