@@ -254,14 +254,14 @@
                             </div>
                         </div>
 
-
+{{-- {{dd($bibliography->video)}} --}}
 
                         <div class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class">
                             <span class="form-label">17) {{ __('content.video') }}</span>
 
                             <div class="form-check my-formCheck-class">
-                                {{-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/> --}}
-                                <i class="bi bi-check2 {{ $bibliography->video == 1 ? 'change-video-style' : null }}"></i>
+
+                                <i class="bi bi-check2 {{ $bibliography->video == 1 ? 'change-video-style' : 'change-video-display-none' }}"></i>
                                 <input id="hiddenInp" type="hidden">
                             </div>
                         </div>

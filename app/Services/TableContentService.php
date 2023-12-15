@@ -119,7 +119,6 @@ class TableContentService
                                     if ($lang != 'armenian') {
                                         $translate_text = $item->getElements()[0]->getElements()[0]->getText();
 
-
                                         $result = LearningSystemService::get_info($translate_text);
 
                                         $translated_name = $result['armenian'];
@@ -141,15 +140,20 @@ class TableContentService
                                             $unicude_result = ConvertUnicode::convertArm($cell_arr);
 
                                             $cell_arr = $unicude_result;
-                                        } else {
-                                            $cell_arr = $item->getElements()[0]->getElements()[0]->getText();
+                                        }else{
+
+                                            $get_multiple_data = self::check_multiple_string($item);
+
+                                            $cell_arr = $get_multiple_data;
+
+
                                         }
 
 
                                         $dataToInsert[$data]['name'] = $cell_arr;
 
-                                        // $dataToInsert[$data]['name'] = $item->getElements()[0]->getElements()[0]->getText();
 
+                                        // dd($dataToInsert[$data]['name']);
 
                                     }
                                 } elseif ($key == $column_name['last_name']) {
@@ -194,7 +198,10 @@ class TableContentService
 
                                             $cell_arr = $unicude_result;
                                         } else {
-                                            $cell_arr = $item->getElements()[0]->getElements()[0]->getText();
+
+                                            // $cell_arr = $item->getElements()[0]->getElements()[0]->getText();
+                                            $get_multiple_data=self::check_multiple_string($item);
+                                            $cell_arr = $get_multiple_data;
                                         }
 
                                         //    $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
@@ -227,7 +234,11 @@ class TableContentService
                                                 $cell_arr = $unicude_result;
                                             } else {
 
-                                                $cell_arr = count($item->getElements()[0]->getElements()) == 0 ? null : $item->getElements()[0]->getElements()[0]->getText();
+                                                $get_multiple_data = self::check_multiple_string($item);
+
+                                                $cell_arr = $get_multiple_data;
+
+                                                // $cell_arr = count($item->getElements()[0]->getElements()) == 0 ? null : $item->getElements()[0]->getElements()[0]->getText();
                                             }
 
                                             $dataToInsert[$data]['patronymic'] = $cell_arr;
@@ -239,17 +250,16 @@ class TableContentService
 
                                     $dataToInsert = self::get_birthday($key, $data, $column_name, $item, $dataToInsert);
                                 }
-                            
+
 
                             // }
-
-
 
                         }
                     }
                 }
             }
         }
+
         // dd($dataToInsert);
         if ($bibliographyId == null) {
 
@@ -503,5 +513,27 @@ class TableContentService
         //dd($dataToInsert);
 
         return $dataToInsert;
+    }
+    public static function check_multiple_string($item){
+        $collect_items='';
+        // dd($item);
+        $check_empty = $item->getElements()[0]->getElements();
+
+        $array = array_filter( $check_empty, function ($value) {
+
+            return $value->getText() !== ' ';
+        });
+
+        foreach($array as $key=>$itm){
+
+            if($key!==0){
+                $collect_items .=' ';
+            }
+            $collect_items .= $itm->getText();
+
+        }
+
+        return  $collect_items;
+
     }
 }
