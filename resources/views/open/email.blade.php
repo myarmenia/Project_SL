@@ -156,6 +156,12 @@
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
+        let bibliography_id = null
+
+        @if(isset($bibliography_id))
+            bibliography_id = "{{$bibliography_id}}"
+        @endif
+
         // filter translate //
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
