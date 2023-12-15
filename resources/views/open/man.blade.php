@@ -301,13 +301,14 @@
                                                 {{ $lang->name }}
                                             @endforeach
                                         </td>
-                                        <td >{{ $man->attention ?? '' }}</td>
-                                        <td style="display: block; overflow-x: hidden; overflow-y: auto; height:70px; padding:10px">
+                                        <td>{{ $man->attention ?? '' }}</td>
+                                        <td
+                                            style="display: block; overflow-x: hidden; overflow-y: auto; height:70px; padding:10px">
                                             <div style="white-space: initial;">
                                                 @foreach ($man->more_data as $more_data)
-                                                {{ $more_data->text }}
+                                                    {{ $more_data->text }}
                                                 @endforeach
-                                            </div> 
+                                            </div>
                                         </td>
                                         <td>{{ $man->religion->name ?? '' }}</td>
                                         <td>{{ $man->occupation }}</td>
@@ -347,7 +348,6 @@
                                         <td>{{ $man->resource->name ?? '' }}</td>
 
                                         @if (request()->model === 'bibliography')
-
                                             <td style="text-align: center">
                                                 <a
                                                     href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
@@ -363,7 +363,6 @@
                                                 </a>
                                             </td>
                                         @elseif(isset(request()->main_route) && !isset(request()->relation))
-
                                             <td style="text-align: center">
                                                 <a
                                                     href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->route_id ?? request()->model_id, 'redirect' => request()->redirect]) }}">
@@ -379,7 +378,7 @@
                                                 </button>
                                             </td>
                                         @endcan
-                                    
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -464,7 +463,7 @@
 
             let dinamic_field_name = "{{ __('content.field_name') }}"
             let dinamic_content = "{{ __('content.content') }}"
-            
+
             let parent_table_name = "{{ __('content.man') }}"
             let fieldName = 'man_id'
             let relation = "{{ request()->relation }}"
@@ -485,6 +484,11 @@
             let and_search = "{{ __('content.and') }}" // ev
             let or_search = "{{ __('content.or') }}" // kam
             // filter translate //
+            let bibliography_id = null
+
+            @if (isset($bibliography_id))
+                bibliography_id = "{{ $bibliography_id }}"
+            @endif
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
