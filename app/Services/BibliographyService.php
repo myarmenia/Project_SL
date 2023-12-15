@@ -104,8 +104,19 @@ class BibliographyService
                 $getMimeType=$value->getClientMimeType();
                if($getMimeType == 'video/mp4' || $getMimeType =='video/mov'){
 
-                    $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
+
+
+
+
+
+                    $update_file = DB::table('file')->where('id',$file)->update([
                         'video' => 1
+                    ]);
+                    $get_count_video=self::check_video_count($table_id);
+
+
+                    $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
+                        'video' => $get_count_video >0 ? 1 : 0 ,
                     ]);
 
                }
@@ -113,6 +124,24 @@ class BibliographyService
             return $file;
 
 
+
+    }
+    public static function check_video_count(){
+        $bib=Bibliography::find(14);
+        // dd($bib->files);
+        $count=0;
+        if(isset($bib->files)){
+
+            foreach($bib->files as $fl){
+                // dd
+                if($fl->video==1){
+                    $count+=1;
+                }
+
+            }
+        }
+        // dd($count);
+        return $count;
 
     }
 }

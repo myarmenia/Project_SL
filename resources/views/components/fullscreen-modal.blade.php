@@ -6,7 +6,7 @@
 <div
       class="modal fade my-modal"
       id="fullscreenModal"
-      tabindex="-1"
+      
       aria-hidden="true"
     >
       <div class="modal-dialog modal-fullscreen">
@@ -14,7 +14,7 @@
             <div class="modal-header">
                 <form id="addNewInfoBtn">
                     <div class="form-floating">
-                       <div class="modal_inp_label_div"> 
+                       <div class="modal_inp_label_div">
                             <h6 class="modal_inp_label"></h6>
                             <input
                                 type="text"
@@ -52,5 +52,5 @@
             </div>
       </div>
 
-    </div> 
+    </div>
 
