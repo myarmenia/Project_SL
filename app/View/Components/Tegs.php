@@ -52,7 +52,7 @@ class Tegs extends Component
         $this->related = $related;
         $this->tableName = $tableName;
         $this->moreData = $moreData;
-dump($this->moreData);
+
         if (!$this->dataItem) return;
         if ($scope) {
             $this->dataWithrelation = $this->dataItem->$relation()->$scope($scopeParam);
