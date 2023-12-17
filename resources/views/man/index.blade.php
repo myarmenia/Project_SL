@@ -303,8 +303,7 @@
                             <label class="form-label">22) {{ __('content.additional_information_person') }}</label>
                             <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal" data-bs-target="#additional_information">{{ __('content.addTo') }}
                             </button>
-                            <x-tegs :data="$man" relation="more_data" name="id" relationtype="has_many"
-                                delete />
+                            <x-tegs :data="$man" relation="more_data" name="id" relationtype="has_many" delete moreData />
                         </div>
 
                         <!-- Select -->
