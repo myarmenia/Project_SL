@@ -19,7 +19,7 @@ class ManBeanCountry extends Model
 
     protected $tableFields = ['id'];
 
-    protected $manyFilter = ['entry_date', 'exit_date'];
+    protected $manyFilter = ['entry_date', 'exit_date', 'created_at'];
 
     public $relation = [
         'goal',
@@ -36,6 +36,7 @@ class ManBeanCountry extends Model
         'exit_date',
         'region',
         'locality',
+        'created_at'
     ];
 
     // protected $fillable = [

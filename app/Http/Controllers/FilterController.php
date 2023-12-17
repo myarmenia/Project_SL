@@ -22,9 +22,13 @@ class FilterController extends Controller
 
         $ids = null;
 
-        $sort_array = array_filter($search, function ($value) {
-            return $value !== null;
-        });
+        if (isset($search)) {
+            $sort_array = array_filter($search, function ($value) {
+                return $value !== null;
+            });
+        } else {
+            $sort_array = [];
+        }
 
         if (count($sort_array) != 0) {
             if ($search['full_name'] != null) {
@@ -110,5 +114,11 @@ class FilterController extends Controller
 
             return response()->json($finish_data);
         }
+    }
+
+    public function filterMan(Request $request, $page)
+    {
+        $request['page'] = $page;
+        return response()->json(Man::byRelations($request->all(['filter', 'search']))->paginate(20));
     }
 }

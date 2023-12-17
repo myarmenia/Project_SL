@@ -52,6 +52,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class Man extends Model
@@ -94,17 +95,16 @@ class Man extends Model
         'fixing_moment',
     ];
 
-    // 'start_wanted', 'entry_date', 'exit_date'
 
-    public $relationFields = ['religion', 'resource', 'gender', 'nation'];
+    // public $relationFields = ['religion', 'resource', 'gender', 'nation'];
 
-    protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou', 'full_name', 'start_year'];
+    // protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou', 'full_name', 'start_year'];
 
-    protected $manyFilter = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
+    // protected $manyFilter = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
 
-    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data', 'fullName'];
+    // protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data', 'fullName'];
 
-    protected $addressFields = ['country_ate', 'region', 'locality'];
+    // protected $addressFields = ['country_ate', 'region', 'locality'];
 
     public $uniqueFields = [
         'gender_id', 'nation_id', 'religion_id',
@@ -120,60 +120,95 @@ class Man extends Model
         'car', 'use_car', 'weapon', 'first_object_relation_man', 'second_object_relation_man', 'second_object_relation_organization'
     ];
 
-    public $relation = [
-        'bornAddress',
-        'first_name',
-        'last_name',
-        'middle_name',
-        'passport',
-        'gender',
-        'nation',
-        'country',
-        'knows_languages',
-        'more_data',
-        'religion',
-        'search_country',
-        'operation_category',
-        'education',
-        'party',
-        'nickname',
-        'resource',
-        // 'photo_count1',
-    ];
+    // public $relation = [
+    //     'bornAddress',
+    //     'first_name',
+    //     'last_name',
+    //     'middle_name',
+    //     'passport',
+    //     'gender',
+    //     'nation',
+    //     'country',
+    //     'knows_languages',
+    //     'more_data',
+    //     'religion',
+    //     'search_country',
+    //     'operation_category',
+    //     'education',
+    //     'party',
+    //     'nickname',
+    //     'resource',
+    //     // 'photo_count1',
+    // ];
 
-    public $relationColumn = [
-        'id',
-        'last_name',
-        'first_name',
-        'middle_name',
-        'birth_day',
-        'birth_month',
-        'birth_year',
-        'full_name',
-        'countryAte',
-        'region',
-        'locality',
-        'start_year',
-        'passport',
-        'gender',
-        'nation',
-        'country',
-        'knows_languages',
-        'attention',
-        'more_data',
-        'religion',
-        'occupation',
-        'search_country',
-        'operation_category',
-        'start_wanted',
-        'entry_date',
-        'exit_date',
-        'education',
-        'party',
-        'nickname',
-        'opened_dou',
-        'resource',
-        // 'photo_count1'
+    // public $relationColumn = [
+    //     'id',
+    //     'last_name',
+    //     'first_name',
+    //     'middle_name',
+    //     'birth_day',
+    //     'birth_month',
+    //     'birth_year',
+    //     'full_name',
+    //     'countryAte',
+    //     'region',
+    //     'locality',
+    //     'start_year',
+    //     'passport',
+    //     'gender',
+    //     'nation',
+    //     'country',
+    //     'knows_languages',
+    //     'attention',
+    //     'more_data',
+    //     'religion',
+    //     'occupation',
+    //     'search_country',
+    //     'operation_category',
+    //     'start_wanted',
+    //     'entry_date',
+    //     'exit_date',
+    //     'education',
+    //     'party',
+    //     'nickname',
+    //     'opened_dou',
+    //     'resource',
+    //     // 'photo_count1'
+    // ];
+
+    public static $column_mapping = [
+        'id' => 'man.id',
+        'last_name' => 'last_name.last_name',
+        'first_name' => 'first_name.first_name',
+        'middle_name' => 'middle_name.middle_name',
+        'birth_day' => 'man.birth_day',
+        'birth_month' => 'man.birth_month',
+        'birth_year' => 'man.birth_year',
+        'full_name' => 'man.full_name',
+        'countryAte' => 'country_ate_name',
+        'region' => 'region_name',
+        'locality' => 'locality_name',
+        'start_year' => 'man.start_year',
+        'passport' => 'passport.number',
+        'gender' => 'gender_name',
+        'nation' => 'nation_name',
+        'country' => 'country_name',
+        'knows_languages' => 'language_name',
+        'attention' => 'man.attention',
+        'more_data' => 'more_data.text',
+        'religion' => 'religion_name',
+        'occupation' => 'man.occupation',
+        'search_country' => 'search_country_name',
+        'operation_category' => 'operation_category_name',
+        'start_wanted' => 'man.start_wanted',
+        'entry_date' => 'man.entry_date',
+        'exit_date' => 'man.exit_date',
+        'education' => 'education_name',
+        'party' => 'party_name',
+        'nickname' => 'nickname_name',
+        'opened_dou' => 'man.opened_dou',
+        'resource' => 'resource_name',
+        'created_at' => 'man.created_at',
     ];
 
     // public $bibliography_short_filter = [
@@ -182,6 +217,145 @@ class Man extends Model
     //     'last_name',
     //     'middle_name',
     // ]
+
+    public static function byRelations(array $filters)
+    {
+        $query = self::query()->selectRaw("
+                  man.id,
+                  group_concat(last_name.last_name separator ',') last_name,
+                  group_concat(first_name.first_name separator ',') first_name,
+                  group_concat(middle_name.middle_name separator ',') middle_name,
+                  man.birth_day,
+                  man.birth_month,
+                  man.birth_year,
+                  man.full_name,
+                  country_ate.name as country_ate_name,
+                  region.name as region_name,
+                  locality.name as locality_name,
+                  CONCAT(man.start_year,' ',man.end_year) as start_year,
+                  group_concat(passport.number separator ',') passport_number,
+                  gender.name as gender_name,
+                  nation.name as nation_name,
+                  group_concat(c.name separator ',') country_name,
+                  group_concat(language.name separator ',') language_name,
+                  man.attention,
+                  group_concat(more_data_man.text separator ',') more_data_text,
+                  religion.name as religion_name,
+                  man.occupation,
+                  group_concat(country_search.name separator ',') search_country_name,
+                  group_concat(operation_category.name separator ',') operation_category_name,
+                  man.start_wanted,
+                  man.entry_date,
+                  man.exit_date,
+                  group_concat(education.name separator ',') education_name,
+                  group_concat(party.name separator ',') party_name,
+                  group_concat(nickname.name separator ',') nickname_name,
+                  man.opened_dou,
+                  resource.name as resource_name,
+                  man.created_at as created_at,
+                  SUM(IF(passed_signal.end_date IS NOT NULL OR has_signal.end_date IS NOT NULL, 1, 0)) as signal_count
+
+            ")
+            ->leftJoin('man_passed_by_signal', 'man.id', '=', 'man_passed_by_signal.man_id')
+            ->leftJoin('signal as passed_signal', 'man_passed_by_signal.signal_id', '=', 'passed_signal.id')
+            ->leftJoin('signal_has_man', 'man.id', '=', 'signal_has_man.man_id')
+            ->leftJoin('signal as has_signal', 'signal_has_man.signal_id', '=', 'has_signal.id')
+            ->leftJoin('address', 'man.born_address_id', '=', 'address.id')
+            ->leftJoin('country_ate', 'address.country_ate_id', '=', 'country_ate.id')
+            ->leftJoin('region', 'address.region_id', '=', 'region.id')
+            ->leftJoin('locality', 'address.locality_id', '=', 'locality.id')
+            ->leftJoin('man_has_first_name', 'man.id', '=', 'man_has_first_name.man_id')
+            ->leftJoin('first_name', 'man_has_first_name.first_name_id', '=', 'first_name.id')
+            ->leftJoin('man_has_last_name', 'man.id', '=', 'man_has_last_name.man_id')
+            ->leftJoin('last_name', 'man_has_last_name.last_name_id', '=', 'last_name.id')
+            ->leftJoin('man_has_middle_name', 'man.id', '=', 'man_has_middle_name.man_id')
+            ->leftJoin('middle_name', 'man_has_middle_name.middle_name_id', '=', 'middle_name.id')
+            ->leftJoin('man_has_passport', 'man.id', '=', 'man_has_passport.man_id')
+            ->leftJoin('passport', 'man_has_passport.passport_id', '=', 'passport.id')
+            ->leftJoin('gender', 'man.gender_id', '=', 'gender.id')
+            ->leftJoin('nation', 'man.nation_id', '=', 'nation.id')
+            ->leftJoin('man_belongs_country', 'man.id', '=', 'man_belongs_country.man_id')
+            ->leftJoin('country as c', 'man_belongs_country.country_id', '=', 'c.id')
+            ->leftJoin('man_knows_language', 'man.id', '=', 'man_knows_language.man_id')
+            ->leftJoin('language', 'man_knows_language.language_id', '=', 'language.id')
+            ->leftJoin('more_data_man', 'man.id', '=', 'more_data_man.man_id')
+            ->leftJoin('religion', 'man.religion_id', '=', 'religion.id')
+            ->leftJoin('country_search_man', 'man.id', '=', 'country_search_man.man_id')
+            ->leftJoin('country as country_search', 'country_search_man.country_id', '=', 'country_search.id')
+            ->leftJoin('man_has_operation_category', 'man.id', '=', 'man_has_operation_category.man_id')
+            ->leftJoin('operation_category', 'man_has_operation_category.operation_category_id', '=', 'operation_category.id')
+            ->leftJoin('man_has_education', 'man.id', '=', 'man_has_education.man_id')
+            ->leftJoin('education', 'man_has_education.education_id', '=', 'education.id')
+            ->leftJoin('man_has_party', 'man.id', '=', 'man_has_party.man_id')
+            ->leftJoin('party', 'man_has_party.party_id', '=', 'party.id')
+            ->leftJoin('man_has_nickname', 'man.id', '=', 'man_has_nickname.man_id')
+            ->leftJoin('nickname', 'man_has_nickname.nickname_id', '=', 'nickname.id')
+            ->leftJoin('resource', 'man.resource_id', '=', 'resource.id')
+            ->groupBy('man.id');
+
+        foreach ($filters['search'] as $col_name => $value) {
+            if (trim($value)) {
+                $query->where($col_name, '=', $value);
+            }
+        }
+
+        $order_default = true;
+
+        foreach ($filters['filter'] as $item) {
+            $sort_type = $item['sort'];
+            $col_name = self::$column_mapping[$item['name']] ?? $col_name;
+
+            if ($sort_type !== 'null') {
+                $order_default = false;
+                $query->orderBy($col_name, $sort_type);
+            }
+
+            if (isset($item['actions'])) {
+                $condition_type = $item['query'] ?? 'and';
+                $actions = $item['actions'];
+                if (!empty($actions)) {
+                    if (
+                        count($actions) === 1
+                    ) {
+                        $action = $actions[0];
+                        self::buildCondition($query, $action, $col_name);
+                    } else {
+                        $query->where(function ($q) use ($col_name, $actions, $condition_type) {
+                            foreach ($actions as $action) {
+                                self::buildCondition($q, $action, $col_name, $condition_type);
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
+        if ($order_default) {
+            $query->orderBy('man.id', 'desc');
+        }
+
+        return $query;
+    }
+
+
+    private static function buildCondition(Builder &$q, array $action, $col_name, $condition_type = 'and'): void
+    {
+
+        if ($action['action'] == '-%' || $action['action'] == '%-%') {
+            $action = str_replace('-', $action['value'], $action['action']);
+            if ($condition_type === 'or') {
+                $q->orWhere($col_name, 'like', $action);
+            } else {
+                $q->where($col_name, 'like', $action);
+            }
+        } else {
+            if ($condition_type === 'or') {
+                $q->orWhere($col_name, $action['action'], $action['value']);
+            } else {
+                $q->where($col_name, $action['action'], $action['value']);
+            }
+        }
+    }
 
 
     // public $asYouType = true;
@@ -203,10 +377,10 @@ class Man extends Model
         $newUser['full_name'] = $man['name'] . $surname . $patronymic;
 
         try {
-           if($date = Carbon::createFromFormat('d.m.Y', $birthDay)){
-            $newUser['birthday'] = $date->format('Y-m-d');
-            $newUser['birthday_str'] = $birthDay;
-           };
+            if ($date = Carbon::createFromFormat('d.m.Y', $birthDay)) {
+                $newUser['birthday'] = $date->format('Y-m-d');
+                $newUser['birthday_str'] = $birthDay;
+            };
         } catch (\Exception $e) {
             $newUser['birthday_str'] = $birthDay;
         }
@@ -728,20 +902,22 @@ class Man extends Model
         return $this->belongsToMany(CheckUserList::class, 'check_user_list_man');
     }
 
-    public function tmp_man(){
-        return $this->hasMany(TmpManFindText::class,'find_man_id');
+    public function tmp_man()
+    {
+        return $this->hasMany(TmpManFindText::class, 'find_man_id');
     }
 
 
-    public function signalCount() {
+    public function signalCount()
+    {
         $passed_signal = $this->man_passed_by_signal->whereNull('end_date')->count();
         $has_signal = $this->signal_has_man->whereNull('end_date')->count();
 
         return $passed_signal + $has_signal;
     }
-    public function paragraph_files(){
+    public function paragraph_files()
+    {
 
         return $this->hasMany(ParagraphFile::class);
     }
-
 }
