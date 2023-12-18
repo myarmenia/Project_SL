@@ -59,7 +59,7 @@
                         @enderror
                         <div class="col">
                                 <div class="form-floating input-date-wrapper">
-                                    <input type="date" id="deadline" class="form-control pb-0 pt-0" name="deadline"
+                                    <input type="date" data-type="date"  id="deadline" class="form-control pb-0 pt-0" name="deadline"
                                            min="{{ Carbon\Carbon::today()->format("Y-m-d") }}"/>
                                     <label for="deadline" class="form-label">{{ __('search.control_deadline') }}</label>
                                 </div>

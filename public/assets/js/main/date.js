@@ -91,7 +91,7 @@ function updateInput(date) {
 }
 
 
-// const date_inp_text = document.querySelectorAll('.calendarInput')
+const date_inp_text = document.querySelectorAll('.calendarInput')
 // date_inp_text.forEach(el => {
 //   const revVal = el.value.split('-').reverse().join('-')
 //   el.value = revVal

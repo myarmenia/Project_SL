@@ -80,6 +80,7 @@
                                     data-type="birthday"
                                     class="form-control save_input_data"
                                     name="birthday"
+                                    data-type="date"
                                 />
 
                                 <label for="inputDate1" class="form-label">6)
@@ -370,7 +371,7 @@
                         <!-- Date Inputs -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" id="start_date"
+                                <input type="date" data-type="date" placeholder="" id="start_date"
                                     value="{{ $man->start_wanted ?? null }}" class="form-control save_input_data"
                                     name="start_wanted" tabindex="21" data-type="update_field" />
                                 <label for="start_date" class="form-label">27)
@@ -379,7 +380,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" id="entry_date"
+                                <input type="date" data-type="date" placeholder="" id="entry_date"
                                     class="form-control save_input_data" name="entry_date" tabindex="22"
                                     value="{{ $man->entry_date ?? null }}" data-type="update_field" />
                                 <label for="entry_date" class="form-label">28) {{ __('content.home_monitoring_start') }}
@@ -388,7 +389,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" id="exit_date" class="form-control save_input_data"
+                                <input type="date" data-type="date" placeholder="" id="exit_date" class="form-control save_input_data"
                                     name="exit_date" value="{{ $man->exit_date ?? null }}" tabindex="23"
                                     data-type="update_field" />
                                 <label for="exit_date" class="form-label">29)

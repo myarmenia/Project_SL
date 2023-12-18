@@ -76,6 +76,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp6"
+                      data-type="date"
                     />
                     <label for="inputDate1" class="form-label"
                       >3) Հիմնադրման ամսաթիվ գրանցում</label

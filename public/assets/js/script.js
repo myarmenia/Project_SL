@@ -499,6 +499,13 @@ function onBlur(e) {
             }
 
         }
+
+        if(this.getAttribute("data-type") == "date"){
+           let inpVal = this.value 
+           console.log(inpVal + 'hhhhhhhhhh');
+        }
+
+        
     const hasValue = current_tags.some(c_tag => c_tag === checkvalue)
 
     console.log(!hasValue  ,this.value !== '',current_tags)
