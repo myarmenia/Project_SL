@@ -30,7 +30,7 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
 
-                                <input type="date" id="inputDate1" class="form-control save_input_data" name="date"
+                                <input type="date" data-type="date" id="inputDate1" class="form-control save_input_data" name="date"
                                     value="{{ $miaSummary->date ?? null }}" data-type="update_field" />
                                 <label for="inputDate1" class="form-label">1) Ամփոփագրի գրանցման ասաթիվ</label>
                                 <!-- </div> -->

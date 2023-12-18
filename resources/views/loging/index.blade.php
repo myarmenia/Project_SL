@@ -32,21 +32,10 @@
                             value="{{ request()->input('last_name') }}">
                         <select name="type" class="form-select loging-search-select">
                             <option value="" hidden>{{ __('table.action') }}</option>
-
                             @foreach ($actions_array as $action)
                                 <option value="{{ $action }}"
                                     {{ $action == request()->input('type') ? 'selected' : '' }}>
                                     {{ __('table.' . $action) }}
-                                </option>
-                            @endforeach
-                        </select>
-
-                        <select name="tb_name" class="form-select loging-search-select">
-                            <option value="" hidden>{{ __('table.table_name') }}</option>
-                            @foreach ($permissions as $permission)
-                                <option value="{{ $permission }}"
-                                    {{ $permission == request()->input('tb_name') ? 'selected' : '' }}>
-                                    {{ __('name.' . $permission) }}
                                 </option>
                             @endforeach
                         </select>

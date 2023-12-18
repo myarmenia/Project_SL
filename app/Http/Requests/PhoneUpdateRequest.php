@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PhoneCreateRequest extends FormRequest
+class PhoneUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,9 @@ class PhoneCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => ['required','string','min:9'],
+            'number' => ['nullable','string','min:9'],
             'character_id' => ['nullable','exists:character,id'],
             'more_data' => ['nullable']
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'number' => __('validation.required',['attribute' => __('content.phone_number')]).' '.__('content.error_phone'),
         ];
     }
 }

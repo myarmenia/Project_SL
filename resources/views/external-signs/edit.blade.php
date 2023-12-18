@@ -38,6 +38,7 @@
                                         @if($edit)
                                             value="{{$manExternalSignHasSign->fixed_date}}"
                                         @endif
+                                        data-type="date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >1) {{__('content.time_fixation')}}</label

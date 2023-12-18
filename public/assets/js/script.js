@@ -499,6 +499,14 @@ function onBlur(e) {
             }
 
         }
+
+        if(this.getAttribute("data-type") == "date"){
+                let elVal = this.value.split(' ')
+                let elValJoin = elVal[0].split('-').reverse().join('-')
+                this.value = elValJoin
+        }
+
+        
     const hasValue = current_tags.some(c_tag => c_tag === checkvalue)
 
     console.log(!hasValue  ,this.value !== '',current_tags)
