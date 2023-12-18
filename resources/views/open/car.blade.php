@@ -1,7 +1,6 @@
 @extends('layouts.auth-app')
 
 @section('style')
-
 @endsection
 
 @section('content')
@@ -75,6 +74,12 @@
                                         <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="note"></i>
                                     </th>
 
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
+                                    </th>
+
+
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
                                         <th></th>
@@ -96,7 +101,8 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         @can($page . '-edit')
                                             <td style=" text-align:center; align-items: center;">
-                                                <a href="{{ route('car.edit', [$car->id,'page'=>request()->page,'main_route'=>request()->main_route,'model'=>request()->model,'id' => request()->model_id])}}">
+                                                <a
+                                                    href="{{ route('car.edit', [$car->id, 'page' => request()->page, 'main_route' => request()->main_route, 'model' => request()->model, 'id' => request()->model_id]) }}">
                                                     <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
                                                 </a>
                                             </td>
@@ -112,6 +118,13 @@
                                         <td>{{ $car->number ?? '' }}</td>
                                         <td>{{ $car->count ?? '' }}</td>
                                         <td>{{ $car->note ?? '' }}</td>
+                                        <td>
+                                            @if ($car->created_at != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($car->created_at));
+                                                @endphp
+                                            @endif
+                                        </td>
 
 
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
@@ -177,7 +190,7 @@
 
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
-      
+
         let parent_table_name = "{{ __('content.car') }}"
         let fieldName = 'car_id'
         let relation = "{{ request()->relation }}"
@@ -190,9 +203,9 @@
         let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
-        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let contains = "{{ __('content.contains') }}" // parunakum e
         let start = "{{ __('content.start') }}" // sksvum e
-        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let search_as = "{{ __('content.search_as') }} " // pntrel nayev
         let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev

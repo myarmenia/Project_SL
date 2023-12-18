@@ -92,6 +92,10 @@ Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAd
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
 
+// anpayman poxel
+
+Route::post('/filter/man/man/{page}', [FilterController::class, 'filterMan'])->name('filter.man');
+
 Route::post('/filter-biblyography', [FilterBiblyographyController::class, 'filter1'])->name('filter.biblyography');
 
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
@@ -104,7 +108,6 @@ Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file')
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
-
 
         Route::group(['middleware' => ['auth', 'checkRoleSearch']], function () {
             Route::post('/police-search', [PoliceSearchController::class, 'searchPolice'])->name('police-search');
@@ -418,6 +421,7 @@ Route::group(
             Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
+            Route::get('open/man/man', [OpenController::class, 'manPage'])->name('open.man');
             Route::get('open/{page}/{id}', [OpenController::class, 'openWithBibliography'])->name('open.page.bibliography');
 
 

@@ -20,6 +20,8 @@ class Weapon extends Model
 
     public $modelRelations = ['man', 'organization', 'action', 'event'];
 
+    protected $manyFilter = ['created_at'];
+
     public $relation = [];
 
     public $relationColumn = [
@@ -30,6 +32,7 @@ class Weapon extends Model
         'model',
         'reg_num',
         'count',
+        'created_at'
     ];
 
     public function man()
