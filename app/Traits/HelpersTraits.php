@@ -57,10 +57,10 @@ trait HelpersTraits
 
     public static function backToRoute(string $page = '', $model = null): RedirectResponse
     {
-        if (request()->model || $model) {
-            return redirect()->route(($model ?? request()->model).'.edit', request()->id ??  request()->model_id);
+        if ((request()->model|| request()->model_name )|| $model) {
+            return redirect()->route(($model ?? request()->model ?? request()->model_name).'.edit', request()->id ??  request()->model_id);
         }
-
+dd(request());
         return redirect()->route('open.page',$page);
     }
 }
