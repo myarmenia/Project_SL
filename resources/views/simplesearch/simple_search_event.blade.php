@@ -473,7 +473,7 @@
             $('#searchEventEnsuingEffectsId').val("<?php echo $search_params['aftermath_id'][sizeof($search_params['aftermath_id'])-1] ?>");
             $('#searchEventEnsuingEffects').val("<?php echo html_entity_decode($search_params['aftermath_name']) ?>");
             $('#searchEventDateSecurityDate').val("<?php echo $search_params['date'] ?>");
-            $('#fileSearch').val("<?php echo html_entity_decode($search_params['content']) ?>");
+            
         <?php } ?>
 
     });

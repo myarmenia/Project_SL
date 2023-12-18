@@ -85,7 +85,7 @@ class BibliographyController extends Controller
 
     public function updateFile($lang, Request $request, Bibliography $bibliography)
     {
-
+// dd($request->all());
        $file= $this->bibliographyService->updateFile($request, 'bibliography', $bibliography->id);
         // return response()->noContent();
         return response()->json(['message'=>$file]);
@@ -93,7 +93,7 @@ class BibliographyController extends Controller
 
     public function deleteteTeg(Request $request): JsonResponse
     {
-        // dd(444);
+       
         Session::put('returnNames', true);
         $tableNames = (new ComponentService)->deleteFromTable($request);
         $countryId = count($tableNames['model'][$tableNames['pivot_table_name']]) ? $tableNames['model'][$tableNames['pivot_table_name']]->first()->pivot->country_id : null;

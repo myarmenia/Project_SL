@@ -566,7 +566,7 @@
             $('#searchOrganNumberWorker').val(`{{ html_entity_decode($search_params['employers_count'][sizeof($search_params['employers_count'])-1]) }}`);
             $('#searchOrganAttention').val(`{{ html_entity_decode($search_params['attension'][sizeof($search_params['attension'])-1]) }}`);
             $('#searchOrganOrganizationDow').val(`{{ html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
+           
         <?php } ?>
     });
 

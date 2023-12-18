@@ -2,7 +2,7 @@
     <div class="tegs-div-content">
         @if (isset($dataWithrelation) && count($dataWithrelation))
             @foreach ($dataWithrelation as $item)
-                <div class="Myteg @if  ($comment) video-teg-class @endif">
+                <div class="Myteg @if ($comment) video-teg-class @endif">
                     @if($related)
                         <span class="teg-text date_text open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->id }}"> {{ $item->label }}</span>
                     @else

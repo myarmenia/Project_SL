@@ -934,7 +934,7 @@ class SimplesearchModel extends Model
         }
 
         public function searchMan($data, $files_flag = false, $files = null){
-           // dd($this->searchBetweenWords(['search_between'=> 'Ազատության բնակարան']));
+
             $query = " SELECT man.*, gender.name AS gender , nation.name AS nation , religion.name AS religion , resource.name AS resource ,
                                       locality.name AS locality , region.name AS region , country_ate.name AS country_ate,
                                       birth_year AS birthday_y, birth_month AS birthday_m, birth_day AS birthday_d,
@@ -1030,7 +1030,6 @@ class SimplesearchModel extends Model
             $queryHaving = " HAVING 1=1 ";
 
             if(isset($data['first_name'])){
-
                if (isset($data['first_name_type']) || strpos($data['first_name'][0], '*') !== false || strpos($data['first_name'][0], '?') !== false) {
                     $data['first_name'] = array_filter($data['first_name']);
                     if(!empty($data['first_name'])){
@@ -1065,12 +1064,21 @@ class SimplesearchModel extends Model
                     $query .= $q;
                 }
 
-                if (isset($data['soundArmenianInput'],$data['first_name'][0]) && $data['soundArmenianInput'] == 1)
+                if (isset($data['soundArmenianInput'],$data['first_name'][0]) && $data['soundArmenianInput'] == 1 )
                 {
+                   $distance = $data['first_name_distance'];
+                   $first = $data['first_name'][0];
                    $ids = $this->soundArmenian(FirstName::class,$data['first_name'][0],'first_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
 
                    $ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$ids);
-                   $q = " AND `first_name`.id IN ({$implod_ids})";
+
+                   if (!empty($ids)) {
+
+                     $q = " AND `first_name`.id IN ({$implod_ids})";
+                   }else {
+                     $q = " AND LEVENSHTEIN(first_name, '$first') <=  $distance";
+                   }
+
                    $query .= $q;
 
                 }
@@ -1121,11 +1129,21 @@ class SimplesearchModel extends Model
 
                 if (isset($data['soundArmenianInput'],$data['last_name'][0]) && $data['soundArmenianInput'] == 1)
                 {
+                    $distance = $data['last_name_distance'];
+                    $first = $data['last_name'][0];
+
                    $ids = $this->soundArmenian(LastName::class,$data['last_name'][0],'last_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
 
                    $ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$ids);
-                   $q = " AND `last_name`.id IN ({$implod_ids})";
-                   $query .= $q;
+
+                   if (!empty($ids)) {
+
+                    $q = " AND `last_name`.id IN ({$implod_ids})";
+                    }else {
+                        $q = " AND LEVENSHTEIN(last_name, '$first') <=  $distance";
+                    }
+
+                    $query .= $q;
 
                 }
             }
@@ -1170,13 +1188,21 @@ class SimplesearchModel extends Model
 
                 if (isset($data['soundArmenianInput'], $data['middle_name'][0]) && $data['soundArmenianInput'] == 1)
                 {
+                   $distance = $data['middle_name_distance'];
+                   $first = $data['middle_name'][0];
+
                    $ids = $this->soundArmenian(MiddleName::class,$data['middle_name'][0],'middle_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
 
                    $ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$ids);
-                   $q = " AND `middle_name`.id IN ({$implod_ids})";
-                   $query .= $q;
 
+                   if (!empty($ids))
+                   {
+                        $q = " AND `middle_name`.id IN ({$implod_ids})";
+                   }else {
+                        $q = " AND LEVENSHTEIN(middle_name, '$first') <=  $distance";
+                   }
 
+                    $query .= $q;
                 }
 
             }
@@ -1751,12 +1777,14 @@ class SimplesearchModel extends Model
                 $query .= " AND bibliography_has_file.file_id IN (-1) AND bibliography_has_file.bibliography_id IS NOT NULL ";
             }
 
-            $query .= '  GROUP BY(man.id) ';
+        //    $query .= '  GROUP BY(man.id) ';
 
 
-            if(isset($data['auto_name'])){
+            if(isset($data['auto_name']) ){
+
                 $data['auto_name'] = array_filter($data['auto_name']);
-                if(!empty($data['auto_name'])){
+                if(!empty($data['auto_name']) && !isset($data['soundArmenianInput'])){
+
                     $first = $data['auto_name'][0];
                     $first = trim($first);
                     $first = str_replace('*','%',$first);
@@ -1778,11 +1806,53 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $queryHaving .= $qq;
                 }
+
+                if (isset($data['soundArmenianInput'], $data['auto_name'][0]) && $data['soundArmenianInput'] == 1)
+                {
+                   $first =$data['auto_name'][0];
+
+                   $first_name_ids = $this->soundArmenian(FirstName::class,$data['auto_name'][0],'first_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
+
+                   $first_name_ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$first_name_ids);
+
+                   if (!empty($first_name_ids))
+                   {
+                        $q = " AND `first_name`.id IN ({$implod_ids})";
+                   }else {
+                        $q = " AND LEVENSHTEIN(first_name, '$first') <=  2";
+                   }
+
+                   $last_name_ids = $this->soundArmenian(LastName::class,$data['auto_name'][0],'last_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
+
+                   $last_name_ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$last_name_ids);
+
+                   if (!empty($last_name_ids))
+                   {
+                        $q .= " OR `last_name`.id IN ({$implod_ids})";
+                   }else {
+                        $q .= " OR LEVENSHTEIN(last_name, '$first') <=  2";
+                   }
+
+                   $middle_name_ids = $this->soundArmenian(MiddleName::class,$data['auto_name'][0],'middle_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
+
+                   $middle_name_ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$middle_name_ids);
+
+                   if (!empty($middle_name_ids))
+                   {
+                        $q .= " OR `middle_name`.id IN ({$implod_ids})";
+                   }else {
+                        $q .= " OR LEVENSHTEIN(middle_name, '$first') <=  2";
+                   }
+
+                    $query .= $q;
+                }
+
             }
 
-            // $query .= $queryHaving;
+             $query .= $queryHaving;
             // $this->_setSql($query);
             // return $this->getAll();
+           // dd($query);
             return DB::select($query);
 
         }

@@ -637,7 +637,7 @@
             $('#criminalWorkerPost').val(`{{ html_entity_decode($search_params['worker_post']) }}`);
             $('#searchCriminalNatureMaterialsPaint').val(`{{ html_entity_decode($search_params['character'][sizeof($search_params['character'])-1]) }}`);
             $('#searchCriminalInitiatedDow').val(`{{ html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
+           
         <?php } ?>
     });
 

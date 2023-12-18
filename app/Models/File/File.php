@@ -25,7 +25,8 @@ class File extends Model
         'via_summary',
         'show_folder',
         'file_lang',
-        'file_phonetic'
+        'file_phonetic',
+        'video',
     ];
 
     // public static function addFile($fileDetail): int

@@ -625,11 +625,34 @@
 
         });
 
-        function closeFancyAction(name, id) {
-            //        alert('name = '+name+' id = '+id);
-            $('#' + currentInputNameAction).val(name);
-            $('#' + currentInputIdAction).val(id);
-            var field = $('#' + currentInputIdAction).attr('name');
+
+        <?php if (isset($search_params)) { ?>
+            $('#searchActionContentMaterialsActions').val(`{{  html_entity_decode($search_params['material_content'][sizeof($search_params['material_content'])-1]) }}`);
+            $('#searchActionQualificationFactId').val(`{{  $search_params['action_qualification_id'][sizeof($search_params['action_qualification_id'])-1] }}`);
+            $('#searchActionQualificationFact').val(`{{  html_entity_decode($search_params['action_qualification']) }}`);
+            $('#searchActionDurationDActionId').val(`{{  $search_params['duration_id'][sizeof($search_params['duration_id'])-1] }}`);
+            $('#searchActionDurationDAction').val(`{{  html_entity_decode($search_params['duration_name']) }}`);
+            $('#searchActionPurposeMotiveReasonId').val(`{{  $search_params['goal_id'][sizeof($search_params['goal_id'])-1] }}`);
+            $('#searchActionPurposeMotiveReason').val(`{{  html_entity_decode($search_params['goal_name']) }}`);
+            $('#searchActionTermsActionsId').val(`{{  $search_params['terms_id'][sizeof($search_params['terms_id'])-1] }}`);
+            $('#searchActionTermsActions').val(`{{  html_entity_decode($search_params['terms_name']) }}`);
+            $('#searchActionEnsuingEffectsId').val(`{{  $search_params['aftermath_id'][sizeof($search_params['aftermath_id'])-1] }}`);
+            $('#searchActionEnsuingEffects').val(`{{  html_entity_decode($search_params['aftermath_name']) }}`);
+            $('#searchActionSourceInformationActions').val(`{{  $search_params['source'][sizeof($search_params['source'])-1] }}`);
+            $('#searchActionOpenedDow').val(`{{  html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) }}`);
+            $('#searchActionEndActionDate').val(`{{  $search_params['end_date'] }}`);
+            $('#searchActionStartActionDate').val(`{{  $search_params['start_date'] }}`);
+        <?php } ?>
+
+    });
+
+    function closeFancyAction(name,id){
+        //        alert('name = '+name+' id = '+id);
+        $('#'+currentInputNameAction).val(name);
+        $('#'+currentInputIdAction).val(id);
+        var field = $('#'+currentInputIdAction).attr('name');
+
+
 
             $.fancybox.close();
         }

@@ -32,7 +32,10 @@ class ObjectsRelation extends Model
 
     public $modelRelations = ['first_relation', 'second_relation'];
 
-    public $tegsRelations = ['first_obj_relation','second_obj_relation'];
+    public $tegsRelations = [
+        ['id'=>'first_object_id','type'=>'first_object_type','relation' => 'first_obj_relation'],
+        ['id'=>'second_object_id','type'=>'second_obejct_type','relation' => 'second_obj_relation']
+    ];
 
     public $relation = [
         'relation_type'
