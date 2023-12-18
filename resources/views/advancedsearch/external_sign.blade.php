@@ -20,8 +20,10 @@
 
     </ul>
 </div>
+<x-fullscreen-modal/>
 
 @section('js-include')
+
 
 <script>
 

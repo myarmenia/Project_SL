@@ -3,7 +3,7 @@
     <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
 @endsection
 
-@php
+{{-- @php
 // Get the previous URL
 $previousUrl = url()->previous();
 
@@ -18,15 +18,15 @@ if ($previousUrl) {
     // Set the $checkUrll variable
     $checkUrl = $route ? $route->getAction()['as'] : null;
 }
-@endphp
+@endphp --}}
 
 @section('content-include')
     <a class="closeButton"></a>
     <div class="inContent">
         <form id="externalSignForm" action="/{{ app()->getLocale() }}/simplesearch/result_external_signs" method="post">
             <!--input type="hidden" name="man_id" value="" /-->
-            @csrf
-            @if(!empty($checkUrl) && $checkUrl == 'simple_search')
+
+            @if (!empty($checkUrl) && $checkUrl !== 'advancedsearch')
                 <x-back-previous-url />
             @endif
             <div class="buttons">
@@ -64,19 +64,21 @@ if ($previousUrl) {
             </div>
             <?php } ?>
             <div class="forForm">
-                <label for="searchSignSign">{{ __('content.signs') }}'</label>
+                <label for="searchSignSign">{{ __('content.signs') }}</label>
                 <input type="button" dataName="searchSignSign" dataId="searchSignSignId" dataTableName="fancy/sign"
-                    class="addMore k-icon k-i-plus my-plus-class" data-bs-toggle="modal"
-                    data-bs-target="#fullscreenModal" data-fieldname="name"
-                    data-table-name="sign" />
+                    class="addMore k-icon k-i-plus my-plus-class" data-bs-toggle="modal" data-bs-target="#fullscreenModal"
+                    data-fieldname="name" data-table-name="sign" />
                 <input type="text" name="signs" id="searchSignSign" dataTableName="sign" dataInputId="searchSignSignId"
                     class="oneInputSaveEnter fetch_input_title get_datalist" list="signs" />
                 @if (isset($search_params['sign_id_type']) && $search_params['sign_id_type'] == 'OR')
-                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignSignOp">{{ __('content.or') }}</span>
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;"
+                        id="searchSignSignOp">{{ __('content.or') }}</span>
                 @elseif (isset($search_params['sign_id_type']) && $search_params['sign_id_type'] == 'AND')
-                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignSignOp">{{ __('content.and') }}</span>
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;"
+                        id="searchSignSignOp">{{ __('content.and') }}</span>
                 @elseif (isset($search_params['sign_id_type']) && $search_params['sign_id_type'] == 'NOT')
-                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignSignOp">{{ __('content.not_equal') }}</span>
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;"
+                        id="searchSignSignOp">{{ __('content.not_equal') }}</span>
                 @endIF
                 <input type="hidden" name="sign_id[]" id="searchSignSignId" />
                 <datalist id="signs" class="input_datalists" style="width: 500px;"></datalist>
@@ -96,14 +98,12 @@ if ($previousUrl) {
         </form>
     </div>
 
-   {{-- ================= modal =========================== --}}
-   <x-fullscreen-modal/>
+    {{-- ================= modal =========================== --}}
+    @if (!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+        <x-fullscreen-modal />
+    @endif
 
 @section('js-include')
-    <script>
-        let open_modal_url = `{{ route('open.modal') }}`
-        let get_filter_in_modal = `{{ route('get-model-filter') }}`
-    </script>
     <script src="{{ asset('assets-include/js/script.js') }}"></script>
 
     <script>
@@ -118,7 +118,7 @@ if ($previousUrl) {
                 }
             });
 
-            showHideDistance('fileSearch','distance_fileSearch');
+            showHideDistance('fileSearch', 'distance_fileSearch');
 
             searchMultiSelectMakerAutoComplete('searchSignSign', 'sign_id');
 
@@ -233,7 +233,7 @@ if ($previousUrl) {
             <?php if (isset($search_params)) { ?>
             $('#searchSignTimeFixation').val(`{{ $search_params['fixed_date'] }}`);
             $('#searchSignSign').val(`{{ html_entity_decode($search_params['signs']) }}`);
-            $('#searchSignSignId').val(`{{ $search_params['sign_id'][sizeof($search_params['sign_id'])-1] }}`);
+            $('#searchSignSignId').val(`{{ $search_params['sign_id'][sizeof($search_params['sign_id']) - 1] }}`);
             $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
             <?php } ?>
         });
