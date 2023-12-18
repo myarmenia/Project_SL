@@ -27,6 +27,7 @@
         <li id="addressAdv">{{ __('content.address') }}</li>
     </ul>
 </div>
+<x-fullscreen-modal/>
 
 @section('js-include')
 

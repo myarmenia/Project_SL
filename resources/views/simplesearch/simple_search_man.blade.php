@@ -1095,7 +1095,7 @@
     @endif
 
 @section('js-include')
-    
+
     <script src="{{ asset('assets-include/js/script.js') }}"></script>
 
     <script>
@@ -1543,7 +1543,7 @@
             $('#' + currentInputIdMan).val(id);
             var field = $('#' + currentInputIdMan).attr('name');
             $.fancybox.close();
-            $('#' + currentInputNameMan).focus();
+            // $('#' + currentInputNameMan).focus();
         }
     </script>
 @endsection

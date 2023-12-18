@@ -19,6 +19,7 @@
         <li id="biblAdv">{{ __('content.bibliography') }}</li>
     </ul>
 </div>
+<x-fullscreen-modal/>
 
 @section('js-include')
 

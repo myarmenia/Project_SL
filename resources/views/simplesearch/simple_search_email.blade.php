@@ -70,8 +70,10 @@
 
         </form>
     </div>
+  {{-- ================= modal =========================== --}}
 
 @section('js-include')
+
     <script>
         var currentInputNameEmail;
         var currentInputIdEmail;
