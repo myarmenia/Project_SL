@@ -206,36 +206,37 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $query .= $qq;
                 }elseif(!is_null($field[0])){
+
+                    $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~',' '];
+                    $new_filed = str_replace($reservedSymbols, '', $field[0]);
+
                     if ($table_col == 'car_rel')
                     {
-                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~',' '];
-                        $new_filed = str_replace($reservedSymbols, '', $field[0]);
                         if ($type !='NOT') {
 
-                           $qq = " HAVING $table_col LIKE '{$new_filed}%'";
+                           $qq = " AND $table_col LIKE '{$new_filed}%'";
                            $query .= $qq;
 
                         }else{
-                            $qq = " HAVING $table_col NOT LIKE '{$new_filed}%'";
+                            $qq = " AND $table_col NOT LIKE '{$new_filed}%'";
                             $query .= $qq;
                         }
                     }
-                    if (is_numeric($field[0]) && $table_col == 'phone_rel') {
-                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~',' '];
-                        $new_filed = str_replace($reservedSymbols, '', $field[0]);
+                    if (is_numeric($new_filed) && $table_col == 'phone_rel') {
+
                         if ($type !='NOT') {
 
                             if (strpos($new_filed,'0') == 0) {
                                 $number = '374'.substr($new_filed,1);
                             }
-                           $qq = " HAVING $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}%'";
+                           $qq = " AND $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}%'";
                            $query .= $qq;
 
                         }else{
                             if (strpos($new_filed,'0') == 0) {
                                 $number = '374'.substr($new_filed,1);
                             }
-                            $qq = " HAVING $table_col NOT LIKE '{$new_filed}%' OR $table_col NOT LIKE '{$number}%'";
+                            $qq = " AND $table_col NOT LIKE '{$new_filed}%' OR $table_col NOT LIKE '{$number}%'";
                             $query .= $qq;
                         }
                     }elseif($table_col != 'car_rel' && $table_col != 'phone_rel'){
@@ -2000,6 +2001,8 @@ class SimplesearchModel extends Model
                     LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
                     WHERE `car`.deleted_at IS NULL AND 1=1";
 
+                    $queryHaving = " HAVING 1=1 ";
+
             if(isset($data['category_id'])){
 
                 $q = $this->fieldId($data['category_id'],$data['category_id_type'],'`category_id`','`car`.id');
@@ -2034,7 +2037,7 @@ class SimplesearchModel extends Model
                     'car_rel',
                     $data['car_number_distance']
                 );
-                $query .= $q;
+                $queryHaving .= $q;
 
             }
 
@@ -2107,10 +2110,9 @@ class SimplesearchModel extends Model
                 $query .= " AND bibliography_has_file.file_id IN (-1) AND bibliography_has_file.bibliography_id IS NOT NULL ";
             }
 
-            if (!isset($data['number'][0])) {
                 $query .= '  GROUP BY(car.id)';
-            }
 
+                $query .=  $queryHaving;
             // $this->_setSql($query);
             // return $this->getAll();
             return DB::select($query);
@@ -3191,6 +3193,8 @@ class SimplesearchModel extends Model
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
                 WHERE `phone`.deleted_at IS NULL AND 1=1 ";
 
+                $queryHaving = " HAVING 1=1 ";
+
             if(isset($data['character_man_id'])){
 
                 $q = $this->fieldId(
@@ -3222,7 +3226,7 @@ class SimplesearchModel extends Model
                     'phone_rel',
                     $data['number_distance']
                 );
-                $query .= $q;
+                $queryHaving .= $q;
 
             }
 
@@ -3247,9 +3251,9 @@ class SimplesearchModel extends Model
             } elseif ($files_flag) {
                 $query .= " AND bibliography_has_file.file_id IN (-1) AND bibliography_has_file.bibliography_id IS NOT NULL ";
             }
-            if (!is_numeric($data['number'][0])) {
-                $query .= '  GROUP BY(phone.id)';
-            }
+
+            $query .= '  GROUP BY(phone.id)';
+            $query .=  $queryHaving;
 
             // $this->_setSql($query);
             // return $this->getAll();
