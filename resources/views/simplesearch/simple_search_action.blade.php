@@ -644,6 +644,7 @@
             $('#searchActionStartActionDate').val(`{{  $search_params['start_date'] }}`);
         <?php } ?>
 
+
     function closeFancyAction(name,id){
         //        alert('name = '+name+' id = '+id);
         $('#'+currentInputNameAction).val(name);
