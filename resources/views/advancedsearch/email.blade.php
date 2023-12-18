@@ -30,6 +30,7 @@
             </div>
         </div>
     </section>
+    <x-fullscreen-modal/>
 @section('js-include')
     <script>
         var countAjax = 0;

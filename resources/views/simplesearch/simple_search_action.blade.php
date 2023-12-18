@@ -384,10 +384,7 @@
 
 
 @section('js-include')
-    <script>
-        let open_modal_url = `{{ route('open.modal') }}`
-        let get_filter_in_modal = `{{ route('get-model-filter') }}`
-    </script>
+    
     <script src="{{ asset('assets-include/js/script.js') }}"></script>
 
     <script>

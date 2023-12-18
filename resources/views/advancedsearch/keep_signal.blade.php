@@ -19,6 +19,7 @@
         <li id="signalAdv">{{ __('content.signal')}}</li>
     </ul>
 </div>
+<x-fullscreen-modal/>
 
 @section('js-include')
 
