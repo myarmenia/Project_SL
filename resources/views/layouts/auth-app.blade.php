@@ -8,12 +8,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', '') }}</title>
     <!-- Fonts -->
-    {{-- <link rel="dns-prefetch" href="https://fonts.gstatic.com">--}}
+    {{-- <link rel="dns-prefetch" href="https://fonts.gstatic.com"> --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-    
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-     
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- <script src="{{ asset('js/jquery.js') }}"></script>
@@ -60,23 +60,25 @@
         <div class="container">
             {{-- =============== --}}
             {{-- {{dd(request()->segment(2))}} --}}
-            @if (!request()->routeIs('home') )
-            {{-- @if (!request()->routeIs('home') && (!request()->segment(2) == 'advancedsearch' || !request()->segment(2) == 'simplesearch'
-            )) --}}
+            @if (!request()->routeIs('home'))
+                {{-- @if (!request()->routeIs('home') && (!request()->segment(2) == 'advancedsearch' || !request()->segment(2) == 'simplesearch')) --}}
 
-            <div class="pagetitle-wrapper">
-                <div class="pagetitle">
-                    @php
-                        $arr = Session::get('crumbs_url');
-                    @endphp
+                <div class="pagetitle-wrapper">
+                    <div class="pagetitle">
+                        @php
+                            $arr = Session::get('crumbs_url');
+                        @endphp
 
-                    <h1>{{ __('pagetitle.' . end($arr)['title']) }}</h1>
-                    <nav>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('pagetitle.main') }}</a>
-                            </li>
-                            @foreach ($arr as $key => $crumb)
-                                @if($crumb['name'])
+                        <h1 id="title">{{ __('pagetitle.' . end($arr)['title']) }}</h1>
+                        {{-- <h1 id="title"></h1> --}}
+
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a
+                                        href="{{ route('home') }}">{{ __('pagetitle.main') }}</a>
+                                </li>
+                                @foreach ($arr as $key => $crumb)
+                                @if ($crumb['name'])
                                     <li
                                         class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] && $key == array_key_last($arr) ? 'active' : '' }}">
                                         @if ($crumb['name'] === end($arr)['name'] && $key == array_key_last($arr))
@@ -94,10 +96,10 @@
                                     </li>
                                 @endif
                             @endforeach
-                        </ol>
-                    </nav>
+                            </ol>
+                        </nav>
+                    </div>
                 </div>
-            </div>
             @endif
             {{-- ==================== --}}
             @yield('content')
@@ -124,11 +126,13 @@
         let lang = "{{ app()->getLocale() }}"
         let open_modal_url = "{{ route('open.modal') }}"
         let get_filter_in_modal = "{{ route('get-model-filter') }}"
-        let lang_modal_full_screen = "{{__('content.addTo')}}"
+        let lang_modal_full_screen = "{{ __('content.addTo') }}"
         let ties = "{{ __('content.ties') }}"
     </script>
     <script src="{{ asset('assets/js/main/main.js') }}"></script>
     <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+    {{-- <script src='{{ asset('assets/js/breadcrumbs/script.js') }}'></script> --}}
+
     <script>
         // sessionStorage.setItem('reload', 'yes');
     </script>

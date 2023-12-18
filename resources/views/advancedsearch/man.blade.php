@@ -48,7 +48,9 @@
         <li id="emailAdv">{{ __('content.email') }}</li>
     </ul>
 </div>
+
 <x-fullscreen-modal/>
+
 @section('js-include')
 <script>
 

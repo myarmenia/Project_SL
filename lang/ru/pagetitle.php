@@ -53,6 +53,7 @@ return [
     'mia_summary' => 'Сводка МВД',
     'action' => 'Действие',
     'checked-file-data' => 'Ввод данных через файлы',
+    'organization' => 'Организация',
 
 
 

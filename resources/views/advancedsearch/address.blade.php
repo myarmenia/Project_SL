@@ -27,6 +27,7 @@
         <li id="carAdv">{{ __('content.car') }}</li>
     </ul>
 </div>
+<x-fullscreen-modal/>
 
 @section('js-include')
 
