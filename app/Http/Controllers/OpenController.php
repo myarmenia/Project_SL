@@ -106,4 +106,8 @@ class OpenController extends Controller
 
         return view('open.' . $page, compact('page', 'data', 'add', 'total', 'bibliography_id'));
     }
+
+    public function manPage() {
+        return view('open.man_new');
+    }
 }

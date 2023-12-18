@@ -17,6 +17,8 @@ class Email extends Model
 
     protected $tableFields = ['id', 'address'];
 
+    protected $manyFilter = ['created_at'];
+
     protected $fillable = [
         'address',
     ];
@@ -25,7 +27,8 @@ class Email extends Model
 
     public $relationColumn = [
         'id',
-        'address'
+        'address',
+        'created_at'
     ];
 
     public $modelRelations = ['man', 'organization'];

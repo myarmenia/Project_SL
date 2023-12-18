@@ -90,7 +90,12 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.opened_dou') }} <i class="bi bi-funnel-fill" aria-hidden="true"
-                                            data-field-name='opened_dou'></i></th>
+                                            data-field-name='opened_dou'></i>
+                                    </th>
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name=" NB VGHF" data-section-name="open"></i>
+                                    </th>
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route) || !empty($add))

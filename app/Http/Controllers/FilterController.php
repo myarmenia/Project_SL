@@ -9,6 +9,7 @@ use App\Services\Filter\DictionaryFilterService;
 use App\Services\Filter\ResponseResultService;
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
 class FilterController extends Controller
 {
@@ -22,9 +23,13 @@ class FilterController extends Controller
 
         $ids = null;
 
-        $sort_array = array_filter($search, function ($value) {
-            return $value !== null;
-        });
+        if (isset($search)) {
+            $sort_array = array_filter($search, function ($value) {
+                return $value !== null;
+            });
+        } else {
+            $sort_array = [];
+        }
 
         if (count($sort_array) != 0) {
             if ($search['full_name'] != null) {
@@ -111,4 +116,18 @@ class FilterController extends Controller
             return response()->json($finish_data);
         }
     }
+
+    public function filterMan(Request $request, $page)
+    {
+        $request['page'] = $page;
+
+        // var_dump(Man::byRelations($request->all(['filter', 'search']))->limit(1)->toSql());
+        // exit;
+        $limit = 20;
+        $count = Man::countMan($request->all(['filter', 'search']));
+        $result = Man::byRelations($request->all(['filter', 'search']))->offset(($page - 1) * $limit)->limit($limit)->get();
+        $paginator = new Paginator($result, $count, $limit, $page);
+        return response()->json($paginator);
+    }
 }
+
