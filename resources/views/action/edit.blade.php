@@ -69,11 +69,10 @@
                                     {{ __('content.start_action_time') }}</label>
                             </div>
                         </div>
-
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder=""
-                                    value="{{ $action->end_date ? date('Y-m-d', strtotime($action->end_date)) : null }}"
+                                <input type="text" placeholder=""
+                                    value="{{ $action->end_date }}"
                                     id="end_date" tabindex="4" data-type="date" class="form-control save_input_data"
                                     name="end_date" />
                                 <label for="end_date" class="form-label"> 5) {{ __('content.end_action_date') }}</label>
