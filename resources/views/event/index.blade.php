@@ -40,8 +40,8 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
 
-                                <input type="date" placeholder=""
-                                    value="{{ $event->date ? date('Y-m-d', strtotime($event->date)) : null }}"
+                                <input type="text" placeholder=""
+                                    value="{{ $event->date }}"
                                     id="item2" tabindex="2" data-type="update_field"
                                     class="form-control save_input_data" name="date" />
                                 <label for="item2" class="form-label">2) {{ __('content.date_security_date') }}</label>

@@ -124,6 +124,11 @@ class Event extends Model
         return $this->belongsToMany(Action::class, 'action_has_event');
     }
 
+    public function getDateAttribute($value)
+    {
+        return substr($value, 0, 10);
+    }
+
     public function relation_field()
     {
         return [
@@ -132,7 +137,7 @@ class Event extends Model
             __('content.ensuing_effects') =>  $this->aftermath->name ?? null,
             __('content.investigation_requested') => $this->agency->name ?? null,
             __('content.results_event') => $this->result ?? null,
-            __('content.source_event') => $this->resource->name ?? null
+            __('content.source_event') => $this->resource->name ?? null,
 
         ];
     }
