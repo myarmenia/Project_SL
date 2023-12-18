@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/action/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
 
 @endsection
 
@@ -49,12 +50,18 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder=""
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input 
+                                    autocomplete="off" onblur="handleBlur(this)"
+                                    type="text" 
+                                    placeholder=""
                                     value="{{ $action->start_date ? date('Y-m-d', strtotime($action->start_date)) : null }}"
-                                    id="start_date" tabindex="2" data-type="date" class="form-control save_input_data"
-                                    name="start_date" />
-                                <label for="start_date" class="form-label"> 3)
+                                    id="start_date" tabindex="2" data-type="date" class="form-control save_input_data calendarInput"
+                                    name="start_date"
+                                    
+                                     />
+                                     <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+                                    <label for="start_date" class="form-label"> 3)
                                     {{ __('content.start_action_date') }}</label>
                             </div>
                         </div>
@@ -71,11 +78,13 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder=""
-                                    value="{{ $action->end_date ? date('Y-m-d', strtotime($action->end_date)) : null }}"
-                                    id="end_date" tabindex="4" data-type="date" class="form-control save_input_data"
-                                    name="end_date" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input  type="text" placeholder=""
+                                        autocomplete="off" onblur="handleBlur(this)"
+                                        value="{{ $action->end_date ? $action->end_date : null }}"
+                                        id="end_date" tabindex="4" data-type="date" class="form-control save_input_data calendarInput"
+                                        name="end_date" />
+                                        <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="end_date" class="form-label"> 5) {{ __('content.end_action_date') }}</label>
                             </div>
                         </div>
@@ -329,6 +338,7 @@
     <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src='{{ asset('assets/js/action/script.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
 
 @endsection
 @endsection

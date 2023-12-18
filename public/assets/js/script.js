@@ -448,6 +448,7 @@ function onBlur(e) {
                 value: get_model_id ?? this.value,
                 fieldName: this.name
             }
+           
             if(this.value=='' ){
                 newInfo.delete_relation=true
 
@@ -466,7 +467,7 @@ function onBlur(e) {
 
             }
         }
-
+        console.log(newInfo);
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
