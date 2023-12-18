@@ -211,51 +211,134 @@ class Man extends Model
         'created_at' => 'man.created_at',
     ];
 
-    // public $bibliography_short_filter = [
-    //     'id',
-    //     'first_name',
-    //     'last_name',
-    //     'middle_name',
-    // ]
+    public $bibliography_short_filter = [
+        'id',
+        'first_name',
+        'last_name',
+        'middle_name',
+    ];
+
+    public static function countMan(array $filters)
+    {
+
+        $query = self::query();
+        $use_search_man = true;
+        foreach ($filters['search'] as $orig_col_name => $value) {
+            if (is_null($value)) continue;
+            $col_name = self::$column_mapping[$orig_col_name] ?? $orig_col_name;
+            if ($orig_col_name === 'full_name') {
+                $query->where($col_name, 'like', sprintf('%%%s%%', $value));
+                $use_search_man = false;
+                break;
+            } elseif ($orig_col_name === 'id') {
+                $query->where($col_name, '=', $value);
+                $use_search_man = false;
+                break;
+            }
+        }
+
+        // if ($use_search_man) {
+        //     $ids = getSearchMan($filters['search'], 1);
+        //     if (!empty($ids)) {
+        //         $query->whereIn(self::$column_mapping['id'], $ids);
+        //     }
+        // }
+
+
+
+        foreach ($filters['filter'] as $item) {
+            $col_name = self::$column_mapping[$item['name']] ?? $col_name;
+            if (isset($item['actions'])) {
+                $condition_type = $item['query'] ?? 'and';
+                $actions = $item['actions'];
+                if (!empty($actions)) {
+                    if (count($actions) === 1) {
+                        $action = $actions[0];
+                        if ($col_name === 'more_data.text') {
+                            $value = $action['value'];
+
+                            $raw_query = '';
+                            if ($action['action'] == '-%' || $action['action'] == '%-%') {
+                                $value = str_replace('-', $value, $action['action']);
+                                $raw_query .= sprintf("and %s like '%s'", $col_name, $value);
+                            } else {
+                                $raw_query .= sprintf("and %s %s '%s'", $col_name, $action['action'], $value);
+                            }
+
+                            $select_columns[18] = DB::raw("(select group_concat(m.text separator ', ') from more_data_man m where man.id = m.man_id $raw_query) as more_data_text");
+
+                            continue;
+                        }
+                        $values = explode(' ', $action['value']);
+                        if (count($values) > 1) {
+                            $query->where(
+                                function ($q) use ($values, $col_name, $action, $condition_type) {
+                                    foreach ($values as $value) {
+                                        $value = trim($value);
+                                        $condition_type = 'or';
+                                        $_action = ['value' => $value, 'action' => $action['action']];
+                                        self::buildCondition($q, $_action, $col_name, $condition_type);
+                                    }
+                                }
+                            );
+                        } else {
+                            self::buildCondition($query, $action, $col_name, $condition_type);
+                        }
+                    } else {
+                        $query->where(function ($q) use ($col_name, $actions, $condition_type) {
+                            foreach ($actions as $action) {
+                                self::buildCondition($q, $action, $col_name, $condition_type);
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
+        return $query->count();
+    }
 
     public static function byRelations(array $filters)
     {
-        $query = self::query()->selectRaw("
-                  man.id,
-                  group_concat(last_name.last_name separator ',') last_name,
-                  group_concat(first_name.first_name separator ',') first_name,
-                  group_concat(middle_name.middle_name separator ',') middle_name,
-                  man.birth_day,
-                  man.birth_month,
-                  man.birth_year,
-                  man.full_name,
-                  country_ate.name as country_ate_name,
-                  region.name as region_name,
-                  locality.name as locality_name,
-                  CONCAT(man.start_year,' ',man.end_year) as start_year,
-                  group_concat(passport.number separator ',') passport_number,
-                  gender.name as gender_name,
-                  nation.name as nation_name,
-                  group_concat(c.name separator ',') country_name,
-                  group_concat(language.name separator ',') language_name,
-                  man.attention,
-                  group_concat(more_data_man.text separator ',') more_data_text,
-                  religion.name as religion_name,
-                  man.occupation,
-                  group_concat(country_search.name separator ',') search_country_name,
-                  group_concat(operation_category.name separator ',') operation_category_name,
-                  man.start_wanted,
-                  man.entry_date,
-                  man.exit_date,
-                  group_concat(education.name separator ',') education_name,
-                  group_concat(party.name separator ',') party_name,
-                  group_concat(nickname.name separator ',') nickname_name,
-                  man.opened_dou,
-                  resource.name as resource_name,
-                  man.created_at as created_at,
-                  SUM(IF(passed_signal.end_date IS NOT NULL OR has_signal.end_date IS NOT NULL, 1, 0)) as signal_count
 
-            ")
+        $select_columns = [
+            DB::raw('man.id'),
+            DB::raw("group_concat(last_name.last_name separator ',') last_name"),
+            DB::raw("group_concat(first_name.first_name separator ',') first_name"),
+            DB::raw("group_concat(middle_name.middle_name separator ',') middle_name"),
+            DB::raw("man.birth_day"),
+            DB::raw("man.birth_month"),
+            DB::raw("man.birth_year"),
+            DB::raw("man.full_name"),
+            DB::raw("country_ate.name as country_ate_name"),
+            DB::raw("region.name as region_name"),
+            DB::raw("locality.name as locality_name"),
+            DB::raw("CONCAT(man.start_year,' ',man.end_year) as start_year"),
+            DB::raw("group_concat(passport.number separator ',') passport_number"),
+            DB::raw("gender.name as gender_name"),
+            DB::raw("nation.name as nation_name"),
+            DB::raw("group_concat(c.name separator ',') country_name"),
+            DB::raw("group_concat(language.name separator ',') language_name"),
+            DB::raw("man.attention"),
+            DB::raw("(select group_concat(m.text separator ', ') from more_data_man m where man.id = m.man_id) as more_data_text"),
+            DB::raw("religion.name as religion_name"),
+            DB::raw("man.occupation"),
+            DB::raw("group_concat(country_search.name separator ',') search_country_name"),
+            DB::raw("group_concat(operation_category.name separator ',') operation_category_name"),
+            DB::raw("man.start_wanted"),
+            DB::raw("man.entry_date"),
+            DB::raw("man.exit_date"),
+            DB::raw("group_concat(education.name separator ',') education_name"),
+            DB::raw("group_concat(party.name separator ',') party_name"),
+            DB::raw("group_concat(nickname.name separator ',') nickname_name"),
+            DB::raw("man.opened_dou"),
+            DB::raw("resource.name as resource_name"),
+            DB::raw("DATE_FORMAT(man.created_at,'%d-%m-%Y') as created"),
+            DB::raw("SUM(IF(passed_signal.end_date IS NOT NULL OR has_signal.end_date IS NOT NULL, 1, 0)) as signal_count")
+        ];
+
+
+        $query = self::query()
             ->leftJoin('man_passed_by_signal', 'man.id', '=', 'man_passed_by_signal.man_id')
             ->leftJoin('signal as passed_signal', 'man_passed_by_signal.signal_id', '=', 'passed_signal.id')
             ->leftJoin('signal_has_man', 'man.id', '=', 'signal_has_man.man_id')
@@ -278,7 +361,6 @@ class Man extends Model
             ->leftJoin('country as c', 'man_belongs_country.country_id', '=', 'c.id')
             ->leftJoin('man_knows_language', 'man.id', '=', 'man_knows_language.man_id')
             ->leftJoin('language', 'man_knows_language.language_id', '=', 'language.id')
-            ->leftJoin('more_data_man', 'man.id', '=', 'more_data_man.man_id')
             ->leftJoin('religion', 'man.religion_id', '=', 'religion.id')
             ->leftJoin('country_search_man', 'man.id', '=', 'country_search_man.man_id')
             ->leftJoin('country as country_search', 'country_search_man.country_id', '=', 'country_search.id')
@@ -293,15 +375,33 @@ class Man extends Model
             ->leftJoin('resource', 'man.resource_id', '=', 'resource.id')
             ->groupBy('man.id');
 
-        foreach ($filters['search'] as $col_name => $value) {
-            if (trim($value)) {
+        $use_search_man = true;
+        foreach ($filters['search'] as $orig_col_name => $value) {
+            if (is_null($value)) continue;
+            $col_name = self::$column_mapping[$orig_col_name] ?? $orig_col_name;
+            if ($orig_col_name === 'full_name') {
+                $query->where($col_name, 'like', sprintf('%%%s%%', $value));
+                $use_search_man = false;
+                break;
+            } elseif ($orig_col_name === 'id') {
                 $query->where($col_name, '=', $value);
+                $use_search_man = false;
+                break;
             }
         }
+
+        // if ($use_search_man) {
+        //     $ids = getSearchMan($filters['search'], 1);
+        //     if (!empty($ids)) {
+        //         $query->whereIn(self::$column_mapping['id'], $ids);
+        //     }
+        // }
 
         $order_default = true;
 
         foreach ($filters['filter'] as $item) {
+
+
             $sort_type = $item['sort'];
             $col_name = self::$column_mapping[$item['name']] ?? $col_name;
 
@@ -311,14 +411,44 @@ class Man extends Model
             }
 
             if (isset($item['actions'])) {
+
                 $condition_type = $item['query'] ?? 'and';
                 $actions = $item['actions'];
+
+
                 if (!empty($actions)) {
-                    if (
-                        count($actions) === 1
-                    ) {
+                    if (count($actions) === 1) {
                         $action = $actions[0];
-                        self::buildCondition($query, $action, $col_name);
+                        if ($col_name === 'more_data.text') {
+                            $value = $action['value'];
+
+                            $raw_query = '';
+                            if ($action['action'] == '-%' || $action['action'] == '%-%') {
+                                $value = str_replace('-', $value, $action['action']);
+                                $raw_query .= sprintf("and %s like '%s'", $col_name, $value);
+                            } else {
+                                $raw_query .= sprintf("and %s %s '%s'", $col_name, $action['action'], $value);
+                            }
+
+                            $select_columns[18] = DB::raw("(select group_concat(m.text separator ', ') from more_data_man m where man.id = m.man_id $raw_query) as more_data_text");
+
+                            continue;
+                        }
+                        $values = explode(' ', $action['value']);
+                        if (count($values) > 1) {
+                            $query->where(
+                                function ($q) use ($values, $col_name, $action, $condition_type) {
+                                    foreach ($values as $value) {
+                                        $value = trim($value);
+                                        $condition_type = 'or';
+                                        $_action = ['value' => $value, 'action' => $action['action']];
+                                        self::buildCondition($q, $_action, $col_name, $condition_type);
+                                    }
+                                }
+                            );
+                        } else {
+                            self::buildCondition($query, $action, $col_name, $condition_type);
+                        }
                     } else {
                         $query->where(function ($q) use ($col_name, $actions, $condition_type) {
                             foreach ($actions as $action) {
@@ -330,6 +460,8 @@ class Man extends Model
             }
         }
 
+        $query->select($select_columns);
+
         if ($order_default) {
             $query->orderBy('man.id', 'desc');
         }
@@ -337,22 +469,22 @@ class Man extends Model
         return $query;
     }
 
-
-    private static function buildCondition(Builder &$q, array $action, $col_name, $condition_type = 'and'): void
+    private static function buildCondition(Builder &$q, array $action, $col_name, $condition_type = 'and')
     {
 
+        $value = $action['value'];
         if ($action['action'] == '-%' || $action['action'] == '%-%') {
-            $action = str_replace('-', $action['value'], $action['action']);
+            $value = str_replace('-', $value, $action['action']);
             if ($condition_type === 'or') {
-                $q->orWhere($col_name, 'like', $action);
+                $q->orWhere($col_name, 'like', $value);
             } else {
-                $q->where($col_name, 'like', $action);
+                $q->where($col_name, 'like', $value);
             }
         } else {
             if ($condition_type === 'or') {
-                $q->orWhere($col_name, $action['action'], $action['value']);
+                $q->orWhere($col_name, $action['action'], $value);
             } else {
-                $q->where($col_name, $action['action'], $action['value']);
+                $q->where($col_name, $action['action'], $value);
             }
         }
     }
@@ -427,9 +559,6 @@ class Man extends Model
     {
         return $this->belongsToMany(NickName::class, 'man_has_nickname', 'man_id', 'nickname_id');
     }
-
-
-
 
     public function address(): BelongsToMany
     {
@@ -714,8 +843,6 @@ class Man extends Model
     {
         return $this->belongsToMany(Car::class, 'man_use_car');
     }
-
-
 
     public function man_belongs_country(): BelongsToMany
     {

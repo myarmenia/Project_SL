@@ -22,6 +22,7 @@ return new class extends Migration
 
             $table->longText('file_comment')->nullable();
             // $table->boolean('show_folder')->default(false);
+           
 
             $table->timestamps();
 

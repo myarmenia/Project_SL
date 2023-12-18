@@ -10,7 +10,10 @@
 <div class="inContent">
     <form id="organizationForm" action="/{{ app()->getLocale() }}/simplesearch/result_organization" method="post">
         @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+            888/88
             <x-back-previous-url />
+            @else
+            777777
         @endif
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="organization_and" />
@@ -361,16 +364,13 @@
     </form>
 </div>
   {{-- ================= modal =========================== --}}
-  {{-- <x-fullscreen-modal/> --}}
+  @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+
+    <x-fullscreen-modal/>
+@endif
 
 @section('js-include')
-
-<script>
-    let open_modal_url = `{{ route('open.modal') }}`
-    let get_filter_in_modal = `{{ route('get-model-filter') }}`
-</script>
-<script src="{{ asset('assets-include/js/script.js') }}"></script>
-
+<script src="{{ asset('assets-include/js/script.js') }}" ></script>
 <script>
     var currentInputNameOrgan;
     var currentInputIdOrgan;
@@ -569,7 +569,7 @@
             $('#searchOrganNumberWorker').val(`{{ html_entity_decode($search_params['employers_count'][sizeof($search_params['employers_count'])-1]) }}`);
             $('#searchOrganAttention').val(`{{ html_entity_decode($search_params['attension'][sizeof($search_params['attension'])-1]) }}`);
             $('#searchOrganOrganizationDow').val(`{{ html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
+           
         <?php } ?>
     });
 

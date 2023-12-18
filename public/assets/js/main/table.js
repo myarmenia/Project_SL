@@ -580,7 +580,7 @@ function printResponsDictionary(data) {
 function printResponsData(responseData) {
     let data = responseData.data;
     let count = document.querySelector(".count_block b");
-    count.innerText = responseData.result_count;
+    count.innerText = responseData.total;
 
     let table_tbody = document.querySelector(".table").querySelector("tbody");
     if (page == 1) {
@@ -626,7 +626,7 @@ function printResponsData(responseData) {
                     td.appendChild(contactBtn);
                     tr.appendChild(td);
                 } else {
-                    if (i < 33) {
+                    if (i < 32) {
                         if (
                             obj_keys[i] !== "signal_count"
                             // &&
@@ -654,7 +654,7 @@ function printResponsData(responseData) {
                                 tr.appendChild(td);
                             }
                         }
-                    } else if (i === 33 && main_route) {
+                    } else if (i === 32 && main_route) {
                         let td = document.createElement("td");
                         td.innerHTML = `
                                 <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
@@ -663,7 +663,7 @@ function printResponsData(responseData) {
                         text-align:center;
                         `;
                         tr.appendChild(td);
-                    } else if (i === 34 && allow_delete === true) {
+                    } else if (i === 33 && allow_delete === true) {
                         let td = document.createElement("td");
                         td.style = `
                         text-align:center;
@@ -907,9 +907,9 @@ function sort(el) {
     searchFetch();
 }
 // if (sc_name && sc_name !== "open") {
-    th.forEach((el) => {
-        el.addEventListener("click", () => sort(el));
-    });
+th.forEach((el) => {
+    el.addEventListener("click", () => sort(el));
+});
 // }
 
 function searchFetch(parent, inputValue, obj) {
@@ -1021,6 +1021,7 @@ function searchFetch(parent, inputValue, obj) {
             parentObj = {};
         }
     });
+    console.log(data);
     let ressult = {
         filter: data,
         search: search_result,
@@ -1282,3 +1283,15 @@ if (tb_name == "man") {
         searchFetch();
     };
 }
+
+// let simplesearch_date_select = document.querySelectorAll('.date-search-select')
+// simplesearch_date_select.forEach(el => el.addEventListener('change' , () => {
+//     if(el.value === 'interval'){
+//         let simpelsearch_date_input = el.closest('.date-search-block').querySelector('.date-search-input');
+//         simpelsearch_date_input.style.display = 'block'
+//     }else{
+//         let simpelsearch_date_input = el.closest('.date-search-block').querySelector('.date-search-input');
+//         simpelsearch_date_input.style.display = 'none'
+//     }
+
+// }))

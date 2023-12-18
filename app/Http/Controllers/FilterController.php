@@ -9,6 +9,7 @@ use App\Services\Filter\DictionaryFilterService;
 use App\Services\Filter\ResponseResultService;
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
 class FilterController extends Controller
 {
@@ -119,6 +120,14 @@ class FilterController extends Controller
     public function filterMan(Request $request, $page)
     {
         $request['page'] = $page;
-        return response()->json(Man::byRelations($request->all(['filter', 'search']))->paginate(20));
+
+        // var_dump(Man::byRelations($request->all(['filter', 'search']))->limit(1)->toSql());
+        // exit;
+        $limit = 20;
+        $count = Man::countMan($request->all(['filter', 'search']));
+        $result = Man::byRelations($request->all(['filter', 'search']))->offset(($page - 1) * $limit)->limit($limit)->get();
+        $paginator = new Paginator($result, $count, $limit, $page);
+        return response()->json($paginator);
     }
 }
+

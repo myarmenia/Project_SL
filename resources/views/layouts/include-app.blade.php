@@ -129,9 +129,15 @@
         let trs_enter_number = `{{ __('content.enter_number') }}`
         let trs_enter_correct = `{{ __('content.enter_correct') }}`
     </script>
+
+
+
 @section('js-scripts')
     <script src="{{ asset('assets-include/js/default.js') }}"></script>
-
-    @yield('js-include')
 @endsection
+@yield('js-include')
+
+{{-- <script src="{{ asset('assets-include/js/script.js') }}"></script> --}}
+
+
 @endsection

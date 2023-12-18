@@ -84,6 +84,7 @@ class OpenController extends Controller
                 'model_name' => $request->model,
                 'model_id' => $request->model_id,
                 'redirect' => $request->redirect,
+                'model_relation' => $request->model_relation,
             ]
         );
     }
