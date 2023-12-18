@@ -76,15 +76,15 @@
                                     {{ __('content.start_action_time') }}</label>
                             </div>
                         </div>
-
                         <div class="col">
                             <div class="form-floating input-date-wrapper calendar-container">
                                 <input  type="text" placeholder=""
                                         autocomplete="off" onblur="handleBlur(this)"
-                                        value="{{ $action->end_date ? $action->end_date : null }}"
+                                        value="{{ $action->end_date}}"
                                         id="end_date" tabindex="4" data-type="date" class="form-control save_input_data calendarInput"
                                         name="end_date" />
                                         <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="end_date" class="form-label"> 5) {{ __('content.end_action_date') }}</label>
                             </div>
                         </div>

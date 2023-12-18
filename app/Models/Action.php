@@ -68,8 +68,7 @@ class Action extends Model
     ];
 
     protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime',
+
     ];
 
     public function material_content()
@@ -174,11 +173,15 @@ class Action extends Model
         return $relation1->union($relation2);
     }
 
+    public function getEndDateAttribute($value)
+    {
+        return substr($value, 0, 10);
+    }
+
     public function address()
     {
         return $this->belongsTo(Address::class, 'address_id');
     }
-
 
     public function relation_field()
     {
