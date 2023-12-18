@@ -168,7 +168,7 @@
                 <input type="text" name="birthday" id="searchManDateOfBirth" style="width: 505px;"
                     onkeydown="validateNumber(event,'searchManDateOfBirth',12)"
                     class="oneInputSaveDateMan oneInputSaveEnter" />
-                    {{-- <x-date-filter-search /> --}}
+                     <x-date-filter-search name="date_search_birthday" inpName="end_birthday" />
             </div>
 
             <?php if (isset($search_params) && isset($search_params['approximate_year'])) { ?>
