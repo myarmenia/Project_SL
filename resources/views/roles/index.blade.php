@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 
-    
+
     <!-- End Page Title -->
 
     <section class="section">
