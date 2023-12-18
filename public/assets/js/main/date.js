@@ -39,20 +39,20 @@ function handleBlur(inp) {
   if (parseInt(year, 10) < 41 && year.length == 2) {
     year = '20' + year;
     const formattedDate = `${day}-${year}`;
-    inp.value = formattedDate;
+    inp.value = formattedDate.split('-').reverse().join('-');
 
 
   }
   else if (parseInt(year, 10) > 41 && year.length == 2) {
     year = '19' + year;
     const formattedDate = `${day}-${year}`;
-    inp.value = formattedDate;
+    inp.value = formattedDate.split('-').reverse().join('-');
     console.log(formattedDate);
 
   }
   else{
     const formattedDate = `${day}-${year}`;
-    inp.value = formattedDate;
+    inp.value = formattedDate.split('-').reverse().join('-');
     console.log(formattedDate);
 
   }
@@ -116,6 +116,13 @@ function handleInput() {
 
 
 handleInput()
+
+
+  date_inp_text.forEach(el => {
+    let elVal = el.value.split(' ')
+    let elValJoin = elVal[0].split('-').reverse().join('-')
+    el.value = elValJoin
+  });
 
 
 

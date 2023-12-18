@@ -501,8 +501,9 @@ function onBlur(e) {
         }
 
         if(this.getAttribute("data-type") == "date"){
-           let inpVal = this.value 
-           console.log(inpVal + 'hhhhhhhhhh');
+                let elVal = this.value.split(' ')
+                let elValJoin = elVal[0].split('-').reverse().join('-')
+                this.value = elValJoin
         }
 
         

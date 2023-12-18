@@ -39,7 +39,6 @@
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-
                                 <input type="text" placeholder=""
                                     value="{{ $event->date }}"
                                     id="item2" tabindex="2" data-type="update_field"

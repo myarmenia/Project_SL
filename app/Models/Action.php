@@ -173,11 +173,6 @@ class Action extends Model
         return $relation1->union($relation2);
     }
 
-    public function getEndDateAttribute($value)
-    {
-        return substr($value, 0, 10);
-    }
-
     public function address()
     {
         return $this->belongsTo(Address::class, 'address_id');
