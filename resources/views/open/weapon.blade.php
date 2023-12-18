@@ -64,7 +64,10 @@
                                     <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.count') }}
                                         <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="count"></i>
                                     </th>
-
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
+                                    </th>
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
@@ -86,7 +89,8 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         @can($page . '-edit')
                                             <td style=" text-align:center; align-items: center;">
-                                                <a href="{{ route('weapon.edit',[$weapon->id,'page'=>request()->page,'main_route'=>request()->main_route,'model'=>request()->model,'id' => request()->model_id]) }}">
+                                                <a
+                                                    href="{{ route('weapon.edit', [$weapon->id, 'page' => request()->page, 'main_route' => request()->main_route, 'model' => request()->model, 'id' => request()->model_id]) }}">
                                                     <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
                                                 </a>
                                             </td>
@@ -104,6 +108,14 @@
                                         <td>{{ $weapon->model ?? '' }}</td>
                                         <td>{{ $weapon->reg_num ?? '' }}</td>
                                         <td>{{ $weapon->count ?? '' }}</td>
+
+                                        <td>
+                                            @if ($weapon->created_at != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($weapon->created_at));
+                                                @endphp
+                                            @endif
+                                        </td>
 
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
@@ -180,14 +192,19 @@
         let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
-        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let contains = "{{ __('content.contains') }}" // parunakum e
         let start = "{{ __('content.start') }}" // sksvum e
-        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let search_as = "{{ __('content.search_as') }} " // pntrel nayev
         let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
         // filter translate //
+        let bibliography_id = null
+
+        @if (isset($bibliography_id))
+            bibliography_id = "{{ $bibliography_id }}"
+        @endif
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

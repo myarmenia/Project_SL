@@ -206,11 +206,11 @@
             @endif
         </div>
 
-        <div class="forForm">
+        {{-- <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
             <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
-        </div>
+        </div> --}}
 
         <div class="buttons">
 
@@ -276,7 +276,6 @@
             $('#searchWeaponMark').val(`{{ html_entity_decode($search_params['model'][sizeof($search_params['model'])-1]) }}`);
             $('#searchWeaponAccountNumber').val(`{{ html_entity_decode($search_params['reg_num'][sizeof($search_params['reg_num'])-1]) }}`);
             $('#searchWeaponCount').val(`{{ html_entity_decode($search_params['count'][sizeof($search_params['count'])-1]) }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
         <?php } ?>
     });
 

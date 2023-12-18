@@ -429,9 +429,9 @@ return [
     'modal_text' => 'Вы уверены, что хотите удалить эту запись?',
 
 /////////////////////////////////
-
+    
     'create_response_file' => 'Создать',
-
+    'interval' => 'Интервал',
     'search_word' => 'Поисковое слово',
     'available' => 'Созданный',
     'answer_file' => 'Отв. файл',
@@ -562,6 +562,7 @@ return [
     'read_more' => 'Читать далее...',
     'operation' => 'Действие',
     'table_name' => 'Имя таблицы',
+    'second_object_relation_man' => 'Лицо',
 
     //loging
     'logging_login' => 'Вход',
@@ -746,7 +747,8 @@ return [
     'yes' => 'Да',
     'no'  => 'Нет',
 
-    //matching
+    //matching 
+    'match_word' => 'Ошибка и Фонетика',
     'match' => 'Совпадение',
     'choose_the_size' => 'Выберите размер',
 
@@ -785,11 +787,11 @@ return [
     'new' =>'Отсутствующие',
     'some' => 'Некие',
     'radio_new' =>'Отсутствующий',
-    'radio_some' => 'Какой-то',
+    'radio_some' => 'Некий',
     'radio_like' => 'Похожий',
      'like' => 'Присутствуют',
      'singular_new' =>'Новый',
-     'singular_some' =>'Какой-то',
+     'singular_some' =>'Некий',
      'singular_like' =>'Похожий',
 
 

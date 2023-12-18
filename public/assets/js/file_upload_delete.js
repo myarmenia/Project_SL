@@ -2,7 +2,7 @@
 
 
 function drowNewFileTeg(tegTxt,$id,parent_id) {
-   
+
   const oneTeg = document.createElement('div')
   const txt = document.createElement('span')
   txt.textContent = tegTxt + '...'
@@ -55,6 +55,7 @@ function drowNewFileTeg(tegTxt,$id,parent_id) {
       file_id_word_input.files[0].type === "video/mkv") {
 
       document.querySelector('.my-formCheck-class i').classList.add('change-video-style')
+      document.querySelector('.my-formCheck-class i').classList.remove('change-video-display-none')
       const hiddenInp = document.getElementById('hiddenInp')
       hiddenInp.value = true
       formData.append("value", file_id_word_input.files[0]);
@@ -102,6 +103,7 @@ function drowNewFileTeg(tegTxt,$id,parent_id) {
 
     }
 
+    console.log(file_updated_route);
     fetch(file_updated_route, requestOption)
 
       .then(async res => {
@@ -110,9 +112,9 @@ function drowNewFileTeg(tegTxt,$id,parent_id) {
         }
         else {
           const data = await res.json()
-          console.log(fileName,'5555');
-          console.log(data.message);
-          console.log(parent_id);
+        //   console.log(fileName,'5555');
+        //   console.log(data.message);
+        //   console.log(parent_id);
 
 
           newfile.appendChild(drowNewFileTeg(fileName,data.message,parent_id))
@@ -146,6 +148,7 @@ function drowNewFileTeg(tegTxt,$id,parent_id) {
 //     el.addEventListener('click', deleted_items_fn)
 // })
 function deleted_items_fn(){
+    console.log(5555);
 
  let deleted_route_params = document.getElementById('deleted_route')
     const deleted_url = deleted_route_params.value
@@ -162,9 +165,18 @@ function deleted_items_fn(){
                 headers: {'Content-Type':'application/json','X-CSRF-TOKEN':csrf},
                 body: JSON.stringify({id, pivot_table_name, model_name, model_id}),
             }).then(async response => {
+                const data = await response.json()
+                const result=data.message
                 this.parentElement.remove();
-               console.log(response);
-               document.querySelector('.bi-check2').classList.remove("change-video-style");
+               console.log(data.message);
+               console.log(741)
+
+               console.log((result['video']));
+               if(result['video']==0){
+                    document.querySelector('.bi-check2').classList.add("change-video-display-none");
+
+               }
+
             })
 
 

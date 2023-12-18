@@ -18,20 +18,51 @@ async function getFileData(files) {
             throw new Error("Network response was not ok");
         } else {
             let responce =  await response.json()
-            console.log(responce.message);
-            let loader = document.body.querySelector('#loader-wrapper')
-            loader?.remove()
-            if(responce.message=='file_has_been_gererated'){
-                errorModal(answer_message)
-            }else{
+
+            if(Array.isArray(responce.message)){
+                let result=responce.message
+                result.forEach(el => {
+                    console.log(el);
+                    const downloadTag = `<a href="/${lang}/download?path=${el}" class='parag_file'>download</a>`;
+
+                    console.log(downloadTag)
+                        document.getElementById('downloaded_file').innerHTML+=downloadTag
+                      
+
+
+                })
+                document.querySelectorAll('.parag_file')?.forEach(el =>{
+                    console.log(444);
+                    console.log(el);
+                    el.click()
+                })
+                // console.log(document.querySelectorAll('.parag_file'));
+
+
+            }
+            if(responce.message=='response file not generated'){
                 errorModal(response_file_not_generated)
             }
-            clearCheckedInput()
+
+
+            let loader = document.body.querySelector('#loader-wrapper')
+            loader?.remove()
+            // if(responce.message=='file_has_been_gererated'){
+
+            //     let downloadTeg="<a href=/"+lang+"/download?path="+result.message+" id='parag_file' >download</a>"
+            //     document.getElementById('downloaded_file').innerHTML=downloadTeg
+            //     document.getElementById('parag_file').click()
+            //     errorModal(answer_message)
+            // }else{
+            //
+            // }
+            // clearCheckedInput()
         }
     } catch (error) {
         console.error("Error:", error);
     }
 }
+
 // ============================================
 // file generate fetch end
 // ============================================
@@ -119,7 +150,7 @@ function saveFunction() {
     let allCheckedInput = document.querySelectorAll(".checked-input");
     let idArr = [];
     allCheckedInput.forEach((el) => {
-        if (el.checked) { 
+        if (el.checked) {
             idArr.push(el.getAttribute('data-id'));
         }
     });

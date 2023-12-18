@@ -34,12 +34,18 @@
                                         <th></th>
                                     @endcan
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
-                                            aria-hidden="true" data-field-name='id'></i></th>
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i
+                                            class="bi bi-funnel-fill" aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.address') }} <i class="bi bi-funnel-fill" aria-hidden="true"
-                                            data-field-name='address'></i></th>
+                                            data-field-name='address'></i>
+                                    </th>
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
+                                    </th>
+
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
                                         <th></th>
@@ -71,6 +77,13 @@
                                         </td>
                                         <td>{{ $email->id }}</td>
                                         <td>{{ $email->address }}</td>
+                                        <td>
+                                            @if ($email->created_at != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($email->created_at));
+                                                @endphp
+                                            @endif
+                                        </td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))
@@ -136,7 +149,7 @@
 
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
-       
+
         let parent_table_name = "{{ __('content.email') }}"
         let fieldName = 'email_id'
         let relation = "{{ request()->relation }}"
@@ -149,13 +162,19 @@
         let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
-        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let contains = "{{ __('content.contains') }}" // parunakum e
         let start = "{{ __('content.start') }}" // sksvum e
-        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let search_as = "{{ __('content.search_as') }} " // pntrel nayev
         let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
+        let bibliography_id = null
+
+        @if (isset($bibliography_id))
+            bibliography_id = "{{ $bibliography_id }}"
+        @endif
+
         // filter translate //
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>

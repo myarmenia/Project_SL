@@ -58,11 +58,11 @@
                 @endif
             </div>
 
-            <div class="forForm">
+            {{-- <div class="forForm">
                 <label for="fileSearch">{{ __('content.file_search') }}</label>
                 <input type="text" name="content" id="fileSearch" />
                 <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
-            </div>
+            </div> --}}
 
             <div class="buttons">
 
@@ -70,8 +70,10 @@
 
         </form>
     </div>
+  {{-- ================= modal =========================== --}}
 
 @section('js-include')
+
     <script>
         var currentInputNameEmail;
         var currentInputIdEmail;
@@ -132,14 +134,7 @@
 
 
 
-            @if (!empty($search_params))
-                let searchEmail =
-                    `{{ html_entity_decode($search_params['address'][sizeof($search_params['address']) - 1]) }}`
-                let fileSearch = `{{ html_entity_decode($search_params['content']) }}`
-                $('#searchEmailEmail').val(`${searchEmail}`);
-                $('#fileSearch').val(`${fileSearch}`);
-            @endif
-
+            
 
         });
     </script>

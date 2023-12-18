@@ -34,8 +34,8 @@
                                     @endcan
                                     <th></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
-                                            aria-hidden="true" data-field-name="id"></i></th>
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i
+                                            class="bi bi-funnel-fill" aria-hidden="true" data-field-name="id"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.purpose_visit') }} <i class="bi bi-funnel-fill" aria-hidden="true"
@@ -62,8 +62,13 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.locality') }} <i class="bi bi-funnel-fill" aria-hidden="true"
-                                            data-field-name="locality"></i></th>
+                                            data-field-name="locality"></i>
+                                    </th>
 
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
+                                    </th>
 
                                     {{-- <th></th> --}}
                                     {{-- <th></th> --}}
@@ -112,6 +117,13 @@
                                         </td>
                                         <td>{{ $b_country->region ? $b_country->region->name : '' }}</td>
                                         <td>{{ $b_country->locality ? $b_country->locality->name : '' }}</td>
+                                        <td>
+                                            @if ($b_country->created_at != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($b_country->created_at));
+                                                @endphp
+                                            @endif
+                                        </td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
@@ -170,7 +182,7 @@
 
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
-       
+
         let parent_table_name = "{{ __('content.man_bean_country') }}"
         // let fieldName = 'man_id'
         // let relation = "{{ request()->relation }}"
@@ -184,14 +196,19 @@
         let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
-        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let contains = "{{ __('content.contains') }}" // parunakum e
         let start = "{{ __('content.start') }}" // sksvum e
-        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let search_as = "{{ __('content.search_as') }} " // pntrel nayev
         let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
         // filter translate //
+        let bibliography_id = null
+
+        @if (isset($bibliography_id))
+            bibliography_id = "{{ $bibliography_id }}"
+        @endif
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

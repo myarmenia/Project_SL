@@ -431,6 +431,7 @@ return [
     'modal_text' => 'Իսկապե՞ս ուզում եք ջնջել այս գրառումը:',
 
 /////////////////////////////////
+    'interval' => 'Ինտերվալ',
     'create_response_file' => 'Ստեղծել',
     'search_word' => 'Որոնվող բառ',
     'available' => 'Ստեղծված',
@@ -563,6 +564,7 @@ return [
     'read_more' => 'Կարդալ ավելին...',
     'operation' => 'Գործողություն',
     'table_name' => 'Աղյուսակի անվանում',
+    'second_object_relation_man' => 'Անձ',
 
 
 
@@ -745,6 +747,7 @@ return [
     'yes' => 'Այո',
     'no'  => 'Ոչ',
     //matching
+    'match_word' => 'Տառասխալ և Հնչյուն.',
     'confirm' => 'Հաստատված',
     'match' => 'Համընկնում',
     'choose_the_size' => 'ընտրել չափը',

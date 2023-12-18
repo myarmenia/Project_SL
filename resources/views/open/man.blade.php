@@ -218,6 +218,11 @@
                                             data-field-name="resource" data-section-name="open"></i>
                                     </th>
 
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
+                                    </th>
+
                                     {{-- <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.short_photo') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="photo_count" data-section-name="open"></i>
@@ -235,12 +240,10 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($data as $man)
-                                    <tr style="background-color: {{ $man->signalCount() > 0 ? '#f44336d1' : 'none' }}">
-                                        {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
+                                {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="tocsin">Ահազանգ</span>
                                         </td> --}}
-                                        {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
+                                {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="not_providing">Տվյալների
                                                 չտրամադրում</span></td>
                                         <td style="text-align: center"><span class="announcement_modal_span"
@@ -248,6 +251,10 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
+
+                                @foreach ($data as $man)
+                                    <tr style="background-color: {{ $man->signalCount() > 0 ? '#f44336d1' : 'none' }}">
+
                                         @can($page . '-edit')
                                             <td style=" text-align:center; align-items: center;">
                                                 <a href="{{ route('man.edit', $man->id) }}">
@@ -301,13 +308,14 @@
                                                 {{ $lang->name }}
                                             @endforeach
                                         </td>
-                                        <td >{{ $man->attention ?? '' }}</td>
-                                        <td style="display: block; overflow-x: hidden; overflow-y: auto; height:70px; padding:10px">
+                                        <td>{{ $man->attention ?? '' }}</td>
+                                        <td
+                                            style="display: block; overflow-x: hidden; overflow-y: auto; height:70px; padding:10px">
                                             <div style="white-space: initial;">
                                                 @foreach ($man->more_data as $more_data)
-                                                {{ $more_data->text }}
+                                                    {{ $more_data->text }}
                                                 @endforeach
-                                            </div> 
+                                            </div>
                                         </td>
                                         <td>{{ $man->religion->name ?? '' }}</td>
                                         <td>{{ $man->occupation }}</td>
@@ -321,16 +329,32 @@
                                                 {{ $cat->name }}
                                             @endforeach
                                         </td>
-                                        <td>{{ $man->start_wanted ?? '' }}</td>
-                                        <td>{{ $man->entry_date ?? '' }}</td>
-                                        <td>{{ $man->exit_date ?? '' }}</td>
+                                        <td>
+                                            @if ($man->start_wanted != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($man->start_wanted));
+                                                @endphp
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($man->entry_date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($man->entry_date));
+                                                @endphp
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($man->exit_date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($man->exit_date));
+                                                @endphp
+                                            @endif
+                                        </td>
                                         <td>
                                             @foreach ($man->education as $edu)
                                                 {{ $edu->name }}
                                             @endforeach
                                         </td>
-
-
                                         <td>
                                             @foreach ($man->party as $party)
                                                 {{ $party->name }}
@@ -344,10 +368,16 @@
                                         </td>
 
                                         <td>{{ $man->opened_dou ?? '' }}</td>
-                                        <td>{{ $man->resource->name ?? '' }}</td>
+                                        <td>{{ $man->resource ? $man->resource->name : '' }}</td>
+                                        <td>
+                                            @if ($man->created_at != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($man->created_at));
+                                                @endphp
+                                            @endif
+                                        </td>
 
                                         @if (request()->model === 'bibliography')
-
                                             <td style="text-align: center">
                                                 <a
                                                     href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
@@ -356,17 +386,15 @@
                                             </td>
                                         @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)
                                             <td style="text-align: center">
-                                                {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
                                                 <a
                                                     href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @elseif(isset(request()->main_route) && !isset(request()->relation))
-
                                             <td style="text-align: center">
                                                 <a
-                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->route_id ?? request()->model_id, 'redirect' => request()->redirect]) }}">
+                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->route_id ?? request()->model_id, 'redirect' => request()->redirect,'model_relation' => request()->model_relation])}}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
@@ -379,9 +407,22 @@
                                                 </button>
                                             </td>
                                         @endcan
-                                    
+
                                     </tr>
                                 @endforeach
+
+                                {{-- @foreach ($data as $man)
+                                    <tr style="background-color: {{ $man['signal_count'] > 0 ? '#f44336d1' : 'none' }}">
+
+                                        @can($page . '-edit')
+                                            <td style=" text-align:center; align-items: center;">
+                                                <a href="{{ route('man.edit', $man['id']) }}">
+                                                    <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                                </a>
+                                            </td>
+                                        @endcan
+                                    </tr>
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -464,7 +505,7 @@
 
             let dinamic_field_name = "{{ __('content.field_name') }}"
             let dinamic_content = "{{ __('content.content') }}"
-            
+
             let parent_table_name = "{{ __('content.man') }}"
             let fieldName = 'man_id'
             let relation = "{{ request()->relation }}"
@@ -485,6 +526,11 @@
             let and_search = "{{ __('content.and') }}" // ev
             let or_search = "{{ __('content.or') }}" // kam
             // filter translate //
+            let bibliography_id = null
+
+            @if (isset($bibliography_id))
+                bibliography_id = "{{ $bibliography_id }}"
+            @endif
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

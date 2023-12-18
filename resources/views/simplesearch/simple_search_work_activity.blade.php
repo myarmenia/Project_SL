@@ -93,11 +93,11 @@
             <input type="hidden" id="workEnd_date"/>
         </div>
 
-        <div class="forForm">
+        {{-- <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
             <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
-        </div>
+        </div> --}}
 
         <div class="buttons">
 
@@ -198,7 +198,6 @@
             $('#searchWorkDataReferPeriod').val(`{{ html_entity_decode($search_params['period'][sizeof($search_params['period'])-1]) }}`);
             $('#searchWorkStartEmployment').val(`{{ $search_params['start_date'] }}`);
             $('#searchWorkEndEmployment').val(`{{ $search_params['end_date'] }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
         <?php } ?>
 
     });

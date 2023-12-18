@@ -34,6 +34,7 @@
         <li id="weaponAdv">{{ __('content.weapon') }}</li>
     </ul>
 </div>
+<x-fullscreen-modal/>
 
 @section('js-include')
 

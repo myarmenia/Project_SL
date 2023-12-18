@@ -48,6 +48,12 @@
                                         {{ __('content.additional_data') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='more_data'></i>
                                     </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
+                                    </th>
+
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
                                         <th></th>
@@ -79,13 +85,19 @@
                                         <td>{{ $phone->id }}</td>
                                         <td>{{ $phone->number ?? '' }}</td>
                                         <td>
-
-
                                             @foreach ($phone->character as $character)
                                                 {{ $character->name }}
                                             @endforeach
                                         </td>
                                         <td>{{ $phone->more_data ?? '' }}</td>
+                                        <td>
+                                            @if ($phone->created_at != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($phone->created_at));
+                                                @endphp
+                                            @endif
+                                        </td>
+
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))
@@ -170,6 +182,11 @@
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
         // filter translate //
+        let bibliography_id = null
+
+        @if (isset($bibliography_id))
+            bibliography_id = "{{ $bibliography_id }}"
+        @endif
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

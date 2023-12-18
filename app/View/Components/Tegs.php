@@ -27,7 +27,7 @@ class Tegs extends Component
     public function __construct(
         object|null $data,
         string $relation,
-        string $name,
+        string $name = 'id',
         string|null $label = '',
         bool|null $delete = false,
         string|null $relationtype = null,

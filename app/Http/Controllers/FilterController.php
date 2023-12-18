@@ -9,6 +9,7 @@ use App\Services\Filter\DictionaryFilterService;
 use App\Services\Filter\ResponseResultService;
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
 class FilterController extends Controller
 {
@@ -22,7 +23,15 @@ class FilterController extends Controller
 
         $ids = null;
 
-        if ($search != null) {
+        if (isset($search)) {
+            $sort_array = array_filter($search, function ($value) {
+                return $value !== null;
+            });
+        } else {
+            $sort_array = [];
+        }
+
+        if (count($sort_array) != 0) {
             if ($search['full_name'] != null) {
                 $words = explode(' ', $search['full_name']);
 
@@ -46,7 +55,7 @@ class FilterController extends Controller
         $result = '';
 
         // if ($request['bibliography_id'] != null) {
-        //     $ids =  Bibliography::find($request['bibliography_id'])->$table_name->pluck_id;
+        //     $ids =  Bibliography::find($request['bibliography_id'])->$table_name->pluck('id');
         // }
 
         if ($section_name == 'dictionary' || $section_name == 'translate') {
@@ -80,10 +89,10 @@ class FilterController extends Controller
                     ->filter($request->filter)
                     ->whereIn('id', $ids)
                     ->with($model->relation)
-                    ->orderBy('id', 'desc')
                     ->get()
                     ->count();
             } else {
+
                 $result = $model
                     ->filter($request->filter)
                     ->with($model->relation)
@@ -94,7 +103,6 @@ class FilterController extends Controller
                 $result_count = $model
                     ->filter($request->filter)
                     ->with($model->relation)
-                    ->orderBy('id', 'desc')
                     ->get()
                     ->count();
             }
@@ -108,4 +116,18 @@ class FilterController extends Controller
             return response()->json($finish_data);
         }
     }
+
+    public function filterMan(Request $request, $page)
+    {
+        $request['page'] = $page;
+
+        // var_dump(Man::byRelations($request->all(['filter', 'search']))->limit(1)->toSql());
+        // exit;
+        $limit = 20;
+        $count = Man::countMan($request->all(['filter', 'search']));
+        $result = Man::byRelations($request->all(['filter', 'search']))->offset(($page - 1) * $limit)->limit($limit)->get();
+        $paginator = new Paginator($result, $count, $limit, $page);
+        return response()->json($paginator);
+    }
 }
+

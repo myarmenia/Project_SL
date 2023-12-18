@@ -26,7 +26,7 @@
                     <div class="table_div" style="height: 350px">
                         <a style="color: blue ;" href="{{ route($relation . '.edit', $data->id) }}" class="relation-table-id"
                             data-table-id = "{{ $data->id }}">{{ __('content.' . $relation) }} id -
-                            {{ $data->id }}</a>
+                            {{ $data->id }} </a>
                         <table class="table table-bordered person_table" data-table-name="man"
                             data-table-id = "{{ $data->id }}" data-filter-table-name="{{ $relation }}"
                             data-section-name='bibliography' style="margin-top:20px ">
@@ -132,7 +132,8 @@
         <span>{{ __('content.' . $relation) }}</span>
         <hr>
         <div class="table_div" style="height: 350px">
-            <table class="table table-bordered person_table" data-table-name="{{ $relation }}"
+            <span class ='relation-table-id' data-table-id="{{$parentModel->id}}"></span>
+            <table class="table table-bordered person_table man-table"  data-table-name="{{ $relation }}"
                 data-section-name='bibliography'>
                 <thead>
                     <tr style="background-color:#c6d5ec; position: sticky;top: 0;">

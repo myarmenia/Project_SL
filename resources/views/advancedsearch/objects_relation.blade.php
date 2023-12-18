@@ -21,6 +21,7 @@
         <li id="organizationAdv">{{ __('content.organization') }}</li>
     </ul>
 </div>
+<x-fullscreen-modal/>
 
 @section('js-include')
 

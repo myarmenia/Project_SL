@@ -955,11 +955,11 @@
             @endif
         </div>
 
-        <div class="forForm">
+        {{-- <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="file_content" id="fileSearch"/>
             <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
-        </div>
+        </div> --}}
 
         <div class="buttons">
 
@@ -969,14 +969,12 @@
 </div>
 
  {{-- ================= modal =========================== --}}
- <x-fullscreen-modal/>
+ @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+    <x-fullscreen-modal/>
+@endif
 
  @section('js-include')
 
- <script>
-     let open_modal_url = `{{ route('open.modal') }}`
-     let get_filter_in_modal = `{{ route('get-model-filter') }}`
- </script>
  <script src="{{ asset('assets-include/js/script.js') }}"></script>
 
 <script>
@@ -1414,7 +1412,6 @@
             $('#signalPostId').val(`{{  $search_params['worker_post_id'][sizeof($search_params['worker_post_id'])-1] }}`);
             $('#signalPost').val(`{{  html_entity_decode($search_params['uj']) }}`);
             $('#signalKeep_count').val(`{{  html_entity_decode($search_params['keep_count'][sizeof($search_params['keep_count'])-1]) }}`);
-            $('#fileSearch').val(`{{  html_entity_decode($search_params['file_content']) }}`);
         <?php } ?>
     });
 
