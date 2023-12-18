@@ -18,7 +18,7 @@ class OrganizationHasMan extends Model
 
     protected $tableFields = ['id', 'title', 'period'];
 
-    protected $manyFilter = ['start_date', 'end_date',];
+    protected $manyFilter = ['start_date', 'end_date', 'created_at'];
 
     public $relation = [];
 
@@ -28,6 +28,7 @@ class OrganizationHasMan extends Model
         'period',
         'start_date',
         'end_date',
+        'created_at'
     ];
 
     protected $fillable = [

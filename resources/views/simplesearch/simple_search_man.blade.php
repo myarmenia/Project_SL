@@ -168,7 +168,7 @@
                 <input type="text" name="birthday" id="searchManDateOfBirth" style="width: 505px;"
                     onkeydown="validateNumber(event,'searchManDateOfBirth',12)"
                     class="oneInputSaveDateMan oneInputSaveEnter" />
-                    <x-date-filter-search />
+                    {{-- <x-date-filter-search /> --}}
             </div>
 
             <?php if (isset($search_params) && isset($search_params['approximate_year'])) { ?>
@@ -203,7 +203,7 @@
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
                         id="searchManApproximateYearOp">{{ __('content.not_equal') }}</span>
                 @endif
-                <x-date-filter-search />
+                {{-- <x-date-filter-search /> --}}
             </div>
 
             <?php if (isset($search_params) && isset($search_params['passport'])) { ?>
@@ -856,7 +856,7 @@
                 <input type="text" name="start_wanted" id="searchManDeclaredWantedListWith" style="width: 505px;"
                     onkeydown="validateNumber(event,'searchManDeclaredWantedListWith',12)"
                     class="oneInputSaveEnter oneInputSaveDateMan" />
-                    <x-date-filter-search />
+                    {{-- <x-date-filter-search /> --}}
             </div>
 
             <div class="forForm">
@@ -864,7 +864,7 @@
                 <input type="text" name="entry_date" id="searchManHomeMonitoringStart" style="width: 505px;"
                     onkeydown="validateNumber(event,'searchManHomeMonitoringStart',12)"
                     class="oneInputSaveEnter oneInputSaveDateMan" />
-                    <x-date-filter-search />
+                    {{-- <x-date-filter-search /> --}}
             </div>
 
             <div class="forForm">
@@ -872,7 +872,7 @@
                 <input type="text" name="exit_date" id="searchManEndMonitoringStart" style="width: 505px;"
                     onkeydown="validateNumber(event,'searchManEndMonitoringStart',12)"
                     class="oneInputSaveEnter oneInputSaveDateMan" />
-                    <x-date-filter-search />
+                    {{-- <x-date-filter-search /> --}}
             </div>
 
             <?php if (isset($search_params) && isset($search_params['education_id'])) { ?>

@@ -23,6 +23,7 @@ class Address extends Model
 
     public $modelRelations = ['man', 'man1', 'organization', 'org', 'event'];
 
+    protected $manyFilter = ['created_at'];
 
     public $relation = [
         'country_ate',
@@ -32,15 +33,16 @@ class Address extends Model
     ];
 
     public $relationColumn = [
-       'id',
-       'country_ate',
-       'region',
-       'locality',
-       'street',
-       'track',
-       'home_num',
-       'housing_num',
-       'apt_num',
+        'id',
+        'country_ate',
+        'region',
+        'locality',
+        'street',
+        'track',
+        'home_num',
+        'housing_num',
+        'apt_num',
+        'created_at'
     ];
 
     protected $fillable = [

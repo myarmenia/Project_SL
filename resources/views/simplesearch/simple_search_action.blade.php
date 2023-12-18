@@ -384,7 +384,7 @@
 
 
 @section('js-include')
-    
+
     <script src="{{ asset('assets-include/js/script.js') }}"></script>
 
     <script>
@@ -644,7 +644,6 @@
             $('#searchActionStartActionDate').val(`{{  $search_params['start_date'] }}`);
         <?php } ?>
 
-    });
 
     function closeFancyAction(name,id){
         //        alert('name = '+name+' id = '+id);

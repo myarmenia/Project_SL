@@ -4,6 +4,7 @@ use App\Models\File\FileText;
 use App\Models\Man\Man;
 use PhpOffice\PhpWord\IOFactory;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 function getDocContent($fullPath)
 {
@@ -60,7 +61,7 @@ function addFileAndFileContentWithoutModel($fileDetails, $fileContent){
             'updated_at' => Carbon::now(),
             'created_at' => Carbon::now(),
         ]);
-       
+
         if($fileId){
             FileText::create([
                 'file_id'=> $fileId,
@@ -72,8 +73,8 @@ function addFileAndFileContentWithoutModel($fileDetails, $fileContent){
     } catch (\Throwable $th) {
         return false;
     }
-    
-                         
+
+
 }
 
 function differentFirstLetterHelper($manCompare, $itemCompare, $generalProcent, $key = null)
