@@ -135,6 +135,7 @@
 
     <script>
         // sessionStorage.setItem('reload', 'yes');
+
     </script>
     @yield('js-scripts')
 
