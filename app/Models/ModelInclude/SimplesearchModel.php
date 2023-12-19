@@ -9,6 +9,8 @@ use App\Traits\FullTextSearch;
 
 use App\Services\ConvertUnicode;
 use App\Services\FindDataService;
+use App\Services\SimpleSearch\LengthDataFormat;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -206,7 +208,6 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $query .= $qq;
                 }elseif(!is_null($field[0])){
-
                     $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~',' '];
                     $new_filed = str_replace($reservedSymbols, '', $field[0]);
 
@@ -214,15 +215,19 @@ class SimplesearchModel extends Model
                     {
                         if ($type !='NOT') {
 
-                           $qq = " AND $table_col LIKE '{$new_filed}%'";
+                           $qq = " AND $table_col LIKE '{$new_filed}'";
                            $query .= $qq;
 
                         }else{
-                            $qq = " AND $table_col NOT LIKE '{$new_filed}%'";
+                            $qq = " AND $table_col NOT LIKE '{$new_filed}'";
                             $query .= $qq;
                         }
                     }
-                    if (is_numeric($new_filed) && $table_col == 'phone_rel') {
+                    if ((is_numeric($new_filed) &&
+
+                    (strlen($new_filed) == LengthDataFormat::HOME_PHONE->value ||
+                     strlen($new_filed) == LengthDataFormat::MOBILE_PHONE->value ||
+                     strlen($new_filed) == LengthDataFormat::INTER_PHONE->value )) && $table_col == 'phone_rel') {
 
                         if ($type !='NOT') {
 
@@ -240,13 +245,13 @@ class SimplesearchModel extends Model
                             $query .= $qq;
                         }
                     }elseif($table_col != 'car_rel' && $table_col != 'phone_rel'){
+
                         $q = $this->search([$table_col],$field[0],$distance);
                         $query .= $q;
                     }
 
                 }
             }
-
                 return $query;
     }
 
@@ -1381,8 +1386,22 @@ class SimplesearchModel extends Model
                 $month = (int)$aa[1];
                 $day = (int)$aa[0];
                 $data['birthday'] = $day.'-'.$month.'-'.$year;
-                $query .= " AND CONCAT_WS('-',birth_day,birth_month,birth_year) LIKE '%{$data['birthday']}%'";
+
+                if (isset($data['end_birthday'])) {
+                    $data['end_birthday'] =  Carbon::parse($data['end_birthday'])->format('d-m-Y');
+                }
+
+               $query .= $this->arifDate(
+                [
+                    'date_search' => $data['date_search_birthday'],
+                    'birthday' => $data['birthday'],
+                    'end_birthday' => $data['end_birthday']
+                 ]);
+
+
                 // AND DATE(birthday) = '{$data['birthday']}' ";
+
+
             }
 
             if(isset($data['approximate_year'])){
@@ -3226,7 +3245,7 @@ class SimplesearchModel extends Model
                     'phone_rel',
                     $data['number_distance']
                 );
-                $queryHaving .= $q;
+                $queryHaving .= $q=='' ? " AND phone_rel = ''" : $q;
 
             }
 
