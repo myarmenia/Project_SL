@@ -1051,7 +1051,6 @@ if ($('#' + inputName + 'Type').length <= 0) {
             $('#' + inputName + 'Id').val('');
             if (c != 'resetButton') {
                 alert(trs_enter_correct);
-
             }
         }
 //            }

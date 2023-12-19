@@ -17,7 +17,7 @@
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="signal_or" />
             <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <a href="{{ route('simple_search_signal',['n'=> 't']) }}" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /> <?php } ?>
         </div>
 
@@ -472,22 +472,26 @@
         <div class="forForm">
             <label for="searchSignalDateRegistrationDivision">{{ __('content.date_registration_division') }}</label>
             <input type="text" name="subunit_date" id="searchSignalDateRegistrationDivision" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalDateRegistrationDivision',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search name="search_subunit_date" inpName="end_subunit_date" />
         </div>
 
         <div class="forForm">
             <label for="searchSignalCheckDate">{{ __('content.check_date') }}</label>
             <input type="text" name="check_date" id="searchSignalCheckDate" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalCheckDate',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search name="search_check_date" inpName="end_check_date" />
         </div>
 
         <div class="forForm">
             <label for="searchSignalCheckPreviously">{{ __('content.check_previously') }}</label>
             <input type="text" name="check_date_id" id="searchSignalCheckPreviously" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalCheckPreviously',12)"  class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search name="search_check_date_id" inpName="end_check_date_id" />
         </div>
 
 
         <div class="forForm">
             <label for="searchSignalDateActual">{{ __('content.date_actual_word') }}</label>
             <input type="text" name="end_date" id="searchSignalDateActual" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalDateActual',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search name="search_check_end_date" inpName="end_end_date" />
         </div>
 
         <?php if (isset($search_params) && isset($search_params['count_days'])) { ?>
