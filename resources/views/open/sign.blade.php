@@ -50,7 +50,10 @@
                                         <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="fixed_date"></i>
                                     </th>
 
-                                    {{-- <th></th> --}}
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
+                                    </th>
 
                                     @can('external_signs-delete')
                                         <th></th>
@@ -89,6 +92,13 @@
                                             @endif
                                         </td>
 
+                                        <td>
+                                            @if ($external_sign->created_at != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($external_sign->created_at));
+                                                @endphp
+                                            @endif
+                                        </td>
 
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
@@ -145,7 +155,7 @@
 
             let dinamic_field_name = "{{ __('content.field_name') }}"
             let dinamic_content = "{{ __('content.content') }}"
-           
+
             let parent_table_name = "{{ __('content.signs') }}"
             let fieldName = 'sign_id'
             let relation = "{{ request()->relation }}"

@@ -8,6 +8,26 @@ use App\Services\SearchService;
 
 trait FullTextSearch
 {
+    function arifDate(array $data): string
+    {
+        $query = '';
+
+        $query = match ($data['date_search']) {
+            '=' => " AND CONCAT_WS('-',birth_day,birth_month,birth_year) LIKE '%{$data['birthday']}%'",
+            '!=' => " AND CONCAT_WS('-',birth_day,birth_month,birth_year) NOT LIKE '%{$data['birthday']}%'",
+            '>' => " AND STR_TO_DATE(CONCAT_WS('-',birth_day,birth_month,birth_year), '%d-%m-%Y') > STR_TO_DATE('{$data['birthday']}','%d-%m-%Y')",
+            '>=' => " AND STR_TO_DATE(CONCAT_WS('-',birth_day,birth_month,birth_year), '%d-%m-%Y') >= STR_TO_DATE('{$data['birthday']}','%d-%m-%Y')",
+            '<' => " AND STR_TO_DATE(CONCAT_WS('-',birth_day,birth_month,birth_year), '%d-%m-%Y') < STR_TO_DATE('{$data['birthday']}','%d-%m-%Y')",
+            '<=' => " AND STR_TO_DATE(CONCAT_WS('-',birth_day,birth_month,birth_year), '%d-%m-%Y') <= STR_TO_DATE('{$data['birthday']}','%d-%m-%Y')",
+            '<=>' => " AND STR_TO_DATE(CONCAT_WS('-',birth_day,birth_month,birth_year), '%d-%m-%Y') BETWEEN  STR_TO_DATE('{$data['birthday']}','%d-%m-%Y') AND STR_TO_DATE('{$data['end_birthday']}','%d-%m-%Y')",
+
+            default => " AND CONCAT_WS('-',birth_day,birth_month,birth_year) LIKE '%{$data['birthday']}%'"
+
+        };
+
+        return $query;
+    }
+
     protected function fullTextWildcards($term)
     {
         $reservedSymbols = ['?','-', '<', '>', '@', '(', ')', '~'];
@@ -18,7 +38,7 @@ trait FullTextSearch
 
         foreach ($words as $key => $word) {
             if (strlen($word) >= 3) {
-                    $words[$key] = "{$word}*";
+                    $words[$key] = "{$word}";
             }
         }
 

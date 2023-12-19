@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/alarm/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 
 @endsection
 {{-- @php
@@ -43,13 +45,7 @@
                                     data-type='update_field' data-fieldName='content' style="font-size: 13px"
                                     data-bs-toggle="modal"data-bs-target="#additional_information">{{ __('content.addTo') }}</button>
 
-
-                                <!-- <div class ="tegs-div">
-                                    <div class="more_data"></div>
-                                </div> -->
-                                @if ($signal->content !== null)
                                     <x-one-teg :item="$signal" :inputValue="$signal->content" />
-                                @endif
                         </div>
 
                         <div class="col">
@@ -70,9 +66,7 @@
                                     data-bs-target="#additional_information">{{ __('content.addTo') }}
                                 </button>
 
-                                @if ($signal->check_status !== null)
                                     <x-one-teg :item="$signal" :inputValue="$signal->check_status" />
-                                @endif
                         </div>
 
                         <div class="col">
@@ -200,11 +194,13 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
 
-                                <input type="date" data-check="date" value="{{ $signal->subunit_date ?? null }}" id="item10"
-                                    class="form-control  save_input_data outline-red" name="subunit_date"
+                                <input type="text" data-check="date" value="{{ $signal->subunit_date ?? null }}" id="item10"
+                                    autocomplete="off" onblur="handleBlur(this)"
+                                    class="form-control  save_input_data outline-red calendarInput" name="subunit_date"
                                     data-type="update_field" tabindex="10" />
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item10" class="form-label">12)
                                     {{ __('content.date_registration_division') }}</< /label>
                             </div>
@@ -541,6 +537,7 @@
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src='{{ asset('assets/js/append_doc_content.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
 @endsection
 @endsection

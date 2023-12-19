@@ -19,7 +19,7 @@
 
 
                 <li>
-                    <a href="{{ route('open.page', 'man') }}">
+                    <a href="{{ route('open.man') }}">
                         <i class="bi bi-person" title="{{ __('sidebar.man') }}"></i><span>{{ __('sidebar.man') }}</span>
                     </a>
                 </li>

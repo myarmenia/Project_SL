@@ -21,7 +21,7 @@ class ManExternalSignHasSign extends Model
 
     protected $tableFields = ['id'];
 
-    protected $manyFilter = ['fixed_date'];
+    protected $manyFilter = ['fixed_date', 'created_at'];
 
     protected $hasRelationFields = ['sign'];
 
@@ -35,6 +35,7 @@ class ManExternalSignHasSign extends Model
         'id',
         'sign',
         'fixed_date',
+        'created_at'
     ];
 
     public $timestamps = false;

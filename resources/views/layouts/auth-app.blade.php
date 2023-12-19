@@ -14,12 +14,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-<<<<<<< Updated upstream
-=======
     <link href="{{ asset('assets/plugins/date_plugin/pikaday.min.css') }}" rel="stylesheet">
   
      
->>>>>>> Stashed changes
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- <script src="{{ asset('js/jquery.js') }}"></script>

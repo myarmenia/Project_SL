@@ -32,6 +32,7 @@
                             value="{{ request()->input('last_name') }}">
                         <select name="type" class="form-select loging-search-select">
                             <option value="" hidden>{{ __('table.action') }}</option>
+
                             @foreach ($actions_array as $action)
                                 <option value="{{ $action }}"
                                     {{ $action == request()->input('type') ? 'selected' : '' }}>
@@ -39,8 +40,18 @@
                                 </option>
                             @endforeach
                         </select>
+
+                        <select name="tb_name" class="form-select loging-search-select">
+                            <option value="" hidden>{{ __('table.table_name') }}</option>
+                            @foreach ($permissions as $permission)
+                                <option value="{{ $permission }}"
+                                    {{ $permission == request()->input('tb_name') ? 'selected' : '' }}>
+                                    {{ __('name.' . $permission) }}
+                                </option>
+                            @endforeach
+                        </select>
                         <input type="date" data-check="date" class="form-control loging-search-input"  name="date_from" value="{{ request()->input('date_from') }}">
-                        <input type="date"  data-check="date" class="form-control loging-search-input"  name="date_to" value="{{ request()->input('date_to') }}">
+                        <input type="date" data-check="date" class="form-control loging-search-input"  name="date_to" value="{{ request()->input('date_to') }}">
                         <button class="btn btn-primary loging-search-btn">Որոնել</button>
                         </div>
 

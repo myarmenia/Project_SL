@@ -42,14 +42,7 @@
                             <button class="btn btn-primary  model-id" data-model-id='{{ $miaSummary->id }}'
                                 data-type='update_field' data-fieldName='content' style="font-size: 13px"
                                 data-bs-toggle="modal"data-bs-target="#additional_information">{{ __('content.addTo') }}</button>
-                            @if ($miaSummary->content !== null)
                                 <x-one-teg :item="$miaSummary" :inputValue="$miaSummary->content" />
-                            @endif
-
-
-                            <div class ="tegs-div">
-                                <div class="more_data"></div>
-                            </div>
                         </div>
 
                         <div class="btn-div">

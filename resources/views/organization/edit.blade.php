@@ -117,7 +117,7 @@
                             <a
                                 href="{{ route('phone.create', ['model' => 'organization', 'id' => $organization->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="phone" name="number" tableName="phone" related
-                            :label="__('content.short_phone')":label="__('content.short_address')" :edit="['page' =>'phone.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']" delete />
+                            :label="__('content.short_phone')" :edit="['page' =>'phone.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']" delete />
                         </div>
 
                         <div class="btn-div">

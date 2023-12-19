@@ -28,11 +28,14 @@ class Phone extends Model
 
     public $relation = ['character'];
 
+    protected $manyFilter = ['created_at'];
+
     public $relationColumn = [
         'id',
         'number',
         'character',
-        'more_data'
+        'more_data',
+        'created_at'
     ];
 
     public function character()

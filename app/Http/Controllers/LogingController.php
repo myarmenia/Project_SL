@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Log\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class LogingController extends Controller
 {
     public function index(Request $request)
     {
+// dd($request->all());
         $logs = Log::where('id', '>', 0);
 
         $data = $request->except('page');
 
         if (!empty($data)) {
+
             foreach ($data as $key => $item) {
                 if ($item != null) {
                     if ($key == 'username' || $key == 'first_name' || $key == 'last_name') {
@@ -25,16 +28,21 @@ class LogingController extends Controller
                         $logs = $logs->whereDate('created_at', '>=', $item);
                     } else if ($key == 'date_to') {
                         $logs = $logs->whereDate('created_at', '<=', $item);
-                    } else {
+                    } else if ($key == 'tb_name') {
+                        $logs = $logs->where($key, $item);
+
+                    }else {
                         $logs = $logs->where($key, $item);
                     }
                 }
             }
         }
+        $permissions = Permission::get()->except('log')->unique('title')->pluck('title');
+
 
         $logs = $logs->orderBy('id', 'DESC')->paginate(10)->withQueryString();
 
-        return view('loging.index', compact('logs'))
+        return view('loging.index', compact('logs','permissions'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
