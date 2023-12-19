@@ -173,6 +173,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp6"
+                      data-check="date"
                     />
                     <label for="item6" class="form-label"
                       >6) Ահազանգի ստուգման սկիզբ</label
@@ -192,6 +193,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp7"
+                      data-check="date"
                     />
                     <label for="item7" class="form-label"
                       >7) Ահազանգի ստուգման ավարտ</label
@@ -211,6 +213,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp8"
+                      data-check="date"
                     />
                     <label for="item8" class="form-label"
                       >8) Այլ ստորաբաժանում փոխանցման ամսաթիվ</label

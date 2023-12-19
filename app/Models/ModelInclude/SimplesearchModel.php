@@ -2,6 +2,7 @@
 
 namespace App\Models\ModelInclude;
 
+use App\Models\Action;
 use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\MiddleName;
@@ -9,6 +10,8 @@ use App\Traits\FullTextSearch;
 
 use App\Services\ConvertUnicode;
 use App\Services\FindDataService;
+use App\Services\SimpleSearch\LengthDataFormat;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -206,7 +209,6 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $query .= $qq;
                 }elseif(!is_null($field[0])){
-
                     $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~',' '];
                     $new_filed = str_replace($reservedSymbols, '', $field[0]);
 
@@ -214,15 +216,19 @@ class SimplesearchModel extends Model
                     {
                         if ($type !='NOT') {
 
-                           $qq = " AND $table_col LIKE '{$new_filed}%'";
+                           $qq = " AND $table_col LIKE '{$new_filed}'";
                            $query .= $qq;
 
                         }else{
-                            $qq = " AND $table_col NOT LIKE '{$new_filed}%'";
+                            $qq = " AND $table_col NOT LIKE '{$new_filed}'";
                             $query .= $qq;
                         }
                     }
-                    if (is_numeric($new_filed) && $table_col == 'phone_rel') {
+                    if ((is_numeric($new_filed) &&
+
+                    (strlen($new_filed) == LengthDataFormat::HOME_PHONE->value ||
+                     strlen($new_filed) == LengthDataFormat::MOBILE_PHONE->value ||
+                     strlen($new_filed) == LengthDataFormat::INTER_PHONE->value )) && $table_col == 'phone_rel') {
 
                         if ($type !='NOT') {
 
@@ -240,13 +246,13 @@ class SimplesearchModel extends Model
                             $query .= $qq;
                         }
                     }elseif($table_col != 'car_rel' && $table_col != 'phone_rel'){
+
                         $q = $this->search([$table_col],$field[0],$distance);
                         $query .= $q;
                     }
 
                 }
             }
-
                 return $query;
     }
 
@@ -1381,8 +1387,23 @@ class SimplesearchModel extends Model
                 $month = (int)$aa[1];
                 $day = (int)$aa[0];
                 $data['birthday'] = $day.'-'.$month.'-'.$year;
-                $query .= " AND CONCAT_WS('-',birth_day,birth_month,birth_year) LIKE '%{$data['birthday']}%'";
+
+                if (isset($data['end_birthday'])) {
+                    $data['end_birthday'] =  Carbon::parse($data['end_birthday'])->format('d-m-Y');
+                }
+
+               $query .= $this->arifDateString(
+                [
+                    'date_search_arif' => $data['date_search_birthday'],
+                    'search_date' => $data['birthday'],
+                    'end_date' => $data['end_birthday'],
+                    'search_col' => "CONCAT_WS('-',birth_day,birth_month,birth_year)"
+                 ]);
+
+
                 // AND DATE(birthday) = '{$data['birthday']}' ";
+
+
             }
 
             if(isset($data['approximate_year'])){
@@ -1425,27 +1446,6 @@ class SimplesearchModel extends Model
                     $query .= $qq;
                 }
 
-                // $data['approximate_year'] = array_filter($data['approximate_year']);
-                // if(!empty($data['approximate_year'])){
-                //     $first = $data['approximate_year'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( CONCAT(start_year,'-',end_year) LIKE '{$first}' ) ";
-                //     unset($data['approximate_year'][0]);
-                //     if(!empty($data['approximate_year'])){
-                //         $op = $data['approximate_year_type'];
-                //         foreach($data['approximate_year'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( CONCAT(start_year,'-',end_year) LIKE '{$val}' ) ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
-
             }
 
             if(isset($data['start_wanted']) && strlen(trim($data['start_wanted'])) != 0){
@@ -1455,7 +1455,15 @@ class SimplesearchModel extends Model
                 $month = $aa[1];
                 $day = $aa[0];
                 $data['start_wanted'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND DATE(start_wanted) = '{$data['start_wanted']}' ";
+             //   $query .=" AND DATE(start_wanted) = '{$data['start_wanted']}' ";
+
+               $query .= $this->arifDate(
+                [
+                    'search_field' => $data['start_wanted'],
+                    'date_search_arif' => $data['date_start_wanted'],
+                    'end_date' => $data['end_start_wanted'],
+                    'search_col' => 'start_wanted'
+                 ]);
             }
 
             if(isset($data['entry_date']) && strlen(trim($data['entry_date'])) != 0){
@@ -1465,7 +1473,15 @@ class SimplesearchModel extends Model
                 $month = $aa[1];
                 $day = $aa[0];
                 $data['entry_date'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND DATE(entry_date) = '{$data['entry_date']}' ";
+              //  $query .=" AND DATE(entry_date) = '{$data['entry_date']}' ";
+
+              $query .= $this->arifDate(
+                [
+                    'search_field' => $data['entry_date'],
+                    'date_search_arif' => $data['date_entry_date'],
+                    'end_date' => $data['end_entry_date'],
+                    'search_col' => 'entry_date'
+                 ]);
             }
 
             if(isset($data['exit_date']) && strlen(trim($data['exit_date'])) != 0){
@@ -1475,7 +1491,15 @@ class SimplesearchModel extends Model
                 $month = $aa[1];
                 $day = $aa[0];
                 $data['exit_date'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND DATE(exit_date) = '{$data['exit_date']}' ";
+                //$query .=" AND DATE(exit_date) = '{$data['exit_date']}' ";
+
+                $query .= $this->arifDate(
+                    [
+                        'search_field' => $data['exit_date'],
+                        'date_search_arif' => $data['date_exit_date'],
+                        'end_date' => $data['end_exit_date'],
+                        'search_col' => 'exit_date'
+                     ]);
 
             }
 
@@ -1489,26 +1513,6 @@ class SimplesearchModel extends Model
             );
                $query .= $q;
 
-                // $data['attention'] = array_filter($data['attention']);
-                // if(!empty($data['attention'])){
-                //     $first = $data['attention'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( attention LIKE '{$first}') ";
-                //     unset($data['attention'][0]);
-                //     if(!empty($data['attention'])){
-                //         $op = $data['attention_type'];
-                //         foreach($data['attention'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( attention LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['more_data'])){
@@ -1521,27 +1525,6 @@ class SimplesearchModel extends Model
 
             );
                $query .= $q;
-
-                // $data['more_data'] = array_filter($data['more_data']);
-                // if(!empty($data['more_data'])){
-                //     $first = $data['more_data'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( more_data_man.text LIKE '{$first}') ";
-                //     unset($data['more_data'][0]);
-                //     if(!empty($data['more_data'])){
-                //         $op = $data['more_data_type'];
-                //         foreach($data['more_data'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( more_data_man.text LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['occupation'])){
@@ -1554,26 +1537,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['occupation'] = array_filter($data['occupation']);
-                // if(!empty($data['occupation'])){
-                //     $first = $data['occupation'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( occupation LIKE '{$first}') ";
-                //     unset($data['occupation'][0]);
-                //     if(!empty($data['occupation'])){
-                //         $op = $data['occupation_type'];
-                //         foreach($data['occupation'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( occupation LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['opened_dou'])){
@@ -1585,27 +1548,6 @@ class SimplesearchModel extends Model
                     $data['opened_dou_distance']
                 );
                 $query .= $q;
-
-                // $data['opened_dou'] = array_filter($data['opened_dou']);
-                // if(!empty($data['opened_dou'])){
-                //     $first = $data['opened_dou'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( (opened_dou LIKE '{$first}') ";
-                //     unset($data['opened_dou'][0]);
-                //     if(!empty($data['opened_dou'])){
-                //         foreach($data['opened_dou'] as $val){
-                //             $op = $data['opened_dou_type'];
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( opened_dou LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['gender_id'])){
@@ -1853,7 +1795,6 @@ class SimplesearchModel extends Model
              $query .= $queryHaving;
             // $this->_setSql($query);
             // return $this->getAll();
-           // dd($query);
             return DB::select($query);
 
         }
@@ -3226,7 +3167,7 @@ class SimplesearchModel extends Model
                     'phone_rel',
                     $data['number_distance']
                 );
-                $queryHaving .= $q;
+                $queryHaving .= $q=='' ? " AND phone_rel = ''" : $q;
 
             }
 
@@ -3549,7 +3490,15 @@ class SimplesearchModel extends Model
                 $month = $aa[1];
                 $day = $aa[0];
                 $data['subunit_date'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND subunit_date = '{$data['subunit_date']}' ";
+              //  $query .=" AND subunit_date = '{$data['subunit_date']}' ";
+
+                $query .= $this->arifDate(
+                    [
+                        'search_field' => $data['subunit_date'],
+                        'date_search_arif' => $data['search_subunit_date'],
+                        'end_date' => $data['end_subunit_date'],
+                        'search_col' => 'subunit_date'
+                     ]);
             }
 
             if(isset($data['checking_worker_post'])){
@@ -3576,7 +3525,14 @@ class SimplesearchModel extends Model
                 $month = $aa[1];
                 $day = $aa[0];
                 $data['check_date'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND check_date = '{$data['check_date']}' ";
+               // $query .=" AND check_date = '{$data['check_date']}' ";
+                $query .= $this->arifDate(
+                    [
+                        'search_field' => $data['check_date'],
+                        'date_search_arif' => $data['search_check_date'],
+                        'end_date' => $data['end_check_date'],
+                        'search_col' => 'check_date'
+                     ]);
             }
 
             if(strlen(trim($data['check_date_id'])) != 0){
@@ -3586,7 +3542,15 @@ class SimplesearchModel extends Model
                 $month = $aa[1];
                 $day = $aa[0];
                 $data['check_date_id'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND `date`.`date` = '{$data['check_date_id']}' ";
+               // $query .=" AND `date`.`date` = '{$data['check_date_id']}' ";
+
+                $query .= $this->arifDate(
+                    [
+                        'search_field' => $data['check_date_id'],
+                        'date_search_arif' => $data['search_check_date_id'],
+                        'end_date' => $data['end_check_date_id'],
+                        'search_col' => '`date`.`date`'
+                     ]);
             }
 
             if(strlen(trim($data['end_date'])) != 0){
@@ -3596,7 +3560,15 @@ class SimplesearchModel extends Model
                 $month = $aa[1];
                 $day = $aa[0];
                 $data['end_date'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND end_date = '{$data['end_date']}' ";
+              //  $query .=" AND end_date = '{$data['end_date']}' ";
+
+                $query .= $this->arifDate(
+                    [
+                        'search_field' => $data['end_date'],
+                        'date_search_arif' => $data['search_check_end_date'],
+                        'end_date' => $data['end_end_date'],
+                        'search_col' => 'end_date'
+                     ]);
             }
 
             if(isset($data['opened_dou'])){

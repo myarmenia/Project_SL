@@ -38,6 +38,7 @@
                                         @if($edit)
                                             value="{{$manExternalSignHasSign->fixed_date}}"
                                         @endif
+                                        data-check="date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >1) {{__('content.time_fixation')}}</label
@@ -91,7 +92,7 @@
                         <div class="col btn-div">
                             <label for="inputDate2" class="form-label">3) {{__('content.ties')}}</label>
                             @if($edit)
-                                <x-teg :item="$manExternalSignHasSign" relation="man" name="id" :label="__('content.man')"/>
+                                <x-tegs-relations :model="$modelData->model"/>
                             @endif
                         </div>
                     </div>

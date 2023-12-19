@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PhoneCreateRequest;
-use App\Http\Requests\PhoneUpdateRequest;
 use App\Models\Phone;
 use App\Services\PhoneService;
 use App\Traits\HelpersTraits;
@@ -40,7 +39,7 @@ class PhoneController extends Controller
         return view('phone.index', compact('modelData','edit','showRelation'));
     }
 
-    public function update($langs, Phone $phone, PhoneUpdateRequest $request)
+    public function update($langs, Phone $phone, PhoneCreateRequest $request)
     {
         $modelData = HelpersTraits::getModelFromUrl($phone);
 

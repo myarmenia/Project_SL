@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 @section('content')
@@ -38,13 +40,14 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-
-                                <input type="date" placeholder=""
-                                    value="{{ $event->date ? date('Y-m-d', strtotime($event->date)) : null }}"
-                                    id="item2" tabindex="2" data-type="update_field"
-                                    class="form-control save_input_data" name="date" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" placeholder=""
+                                autocomplete="off" onblur="handleBlur(this)"
+                                    value="{{ $event->date }}"
+                                    id="item2" tabindex="2" data-type="update_field" data-check="date"
+                                    class="form-control save_input_data calendarInput" name="date" />
                                 <label for="item2" class="form-label">2) {{ __('content.date_security_date') }}</label>
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                             </div>
                         </div>
 
@@ -244,6 +247,7 @@
 
 @section('js-scripts')
     <script>
+
         let parent_id = "{{ $event->id }}"
 
         let updated_route = "{{ route('event.update', $event->id) }}"
@@ -257,5 +261,7 @@
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src='{{ asset('assets/js/event/script.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 @endsection

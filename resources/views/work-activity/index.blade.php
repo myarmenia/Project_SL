@@ -70,6 +70,7 @@
                                     class="form-control"
                                     name="start_date"
                                     value="{{$modelData->model->start_date}}"
+                                    data-check="date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >3) {{__('content.start_employment')}}</label
@@ -87,6 +88,7 @@
                                     class="form-control"
                                     name="end_date"
                                     value="{{$modelData->model->end_date}}"
+                                    data-check="date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >4) {{__('content.end_employment')}}</label>
@@ -98,8 +100,8 @@
                                 @if(Route::currentRouteName() === 'work.create' && !$teg )
                                     <a href="{{ route('open.page', ['page' => 'organization', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$modelData->redirect]) }}">{{ __('content.addTo') }}</a>
                                     <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
-                                @else
-                                <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
+                                @elseif(Route::currentRouteName() !== 'work.edit')
+                                     <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
                                 @endif
                             @else
                                 <label class="form-label">5) {{__('content.data_employment_persons')}}</label>

@@ -313,7 +313,7 @@ class Man extends Model
             DB::raw("country_ate.name as country_ate_name"),
             DB::raw("region.name as region_name"),
             DB::raw("locality.name as locality_name"),
-            DB::raw("CONCAT(man.start_year,' ',man.end_year) as start_year"),
+            DB::raw("man.start_year"),
             DB::raw("group_concat(passport.number separator ',') passport_number"),
             DB::raw("gender.name as gender_name"),
             DB::raw("nation.name as nation_name"),

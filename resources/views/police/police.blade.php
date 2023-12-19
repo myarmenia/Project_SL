@@ -31,6 +31,7 @@
                                         id="inputDate1"
                                         class="form-control"
                                         name="inp1"
+                                        data-check="date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >1)  ամԱմփոփագրի գրանցման ասաթիվ</label

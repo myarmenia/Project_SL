@@ -1,0 +1,12 @@
+.calendar-container {
+    position: relative;
+    /* display: inline-block; */
+  }
+
+  .calendar-icon {
+    position: absolute;
+    right: 19.5%;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }

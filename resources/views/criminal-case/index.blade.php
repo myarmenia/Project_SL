@@ -58,7 +58,7 @@
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" value="{{ $criminal_case->opened_date ?? null }}"
+                                <input type="date" data-check="date" placeholder="" value="{{ $criminal_case->opened_date ?? null }}"
                                     id="opened_date" tabindex="2" data-type="update_field"
                                     class="form-control save_input_data" name="opened_date" />
                                 <label for="opened_date" class="form-label">4)

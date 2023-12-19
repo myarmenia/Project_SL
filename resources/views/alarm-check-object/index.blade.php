@@ -254,6 +254,7 @@
                       class="form-control outline-red"
                       placaholder=""
                       name="inp10"
+                      data-check="date"
                     />
                     <label for="item10" class="form-label"
                       >12) {{__('content.date_registration_division')}}</label
@@ -273,6 +274,7 @@
                       class="form-control outline-red"
                       placaholder=""
                       name="inp11"
+                      data-check="date"
                     />
                     <label for="item11" class="form-label"
                       >13) {{__('content.check_date')}}</label
@@ -292,6 +294,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp12"
+                      data-check="date"
                     />
                     <label for="item12" class="form-label"
                       >14) {{__('content.check_previously')}}</label
@@ -311,6 +314,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp13"
+                      data-check="date"
                     />
                     <label for="item13" class="form-label"
                       >15) {{__('content.date_actual')}}</label

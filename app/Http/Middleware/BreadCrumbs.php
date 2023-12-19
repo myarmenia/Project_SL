@@ -63,8 +63,28 @@ class BreadCrumbs
             }
 
         }
+        if (request()->segment(2) == 'simplesearch') {
 
+        // if (request()->segment(2) == 'simplesearch' ) {
+            if( str_contains(request()->segment(3), 'result') ){
+                if (session()->has('crumbs_url')) {
+                    $crumbs = Session::get('crumbs_url');
+                }
+                array_pop($crumbs);
 
+            }
+            if(str_contains(request()->segment(3), '?n=f') ){
+                array_pop($crumbs);
+                array_pop($crumbs);
+
+            }
+
+            // if (session()->has('crumbs_url')) {
+            //     $crumbs = Session::get('crumbs_url');
+            // }
+
+            // array_pop($crumbs);
+        }
 
 
         if (str_contains($uri, '?')) {
@@ -164,17 +184,16 @@ class BreadCrumbs
 
                         }
                 }
-                if (request()->segment(2) == 'simplesearch' && str_contains(request()->segment(3), 'result')) {
+                // if (request()->segment(2) == 'simplesearch' && str_contains(request()->segment(3), 'result')) {
 
-                    if (session()->has('crumbs_url')) {
-                        $crumbs = Session::get('crumbs_url');
-                    }
-                    array_pop($crumbs);
-                }
+                //     if (session()->has('crumbs_url')) {
+                //         $crumbs = Session::get('crumbs_url');
+                //     }
+                //     array_pop($crumbs);
+                // }
+
                 if (request()->segment(2) == 'translate') {
-
                     $arr_asoc['name'] = 'translate';
-
                 }
 
 

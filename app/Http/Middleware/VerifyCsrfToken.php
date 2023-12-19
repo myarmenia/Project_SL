@@ -20,6 +20,6 @@ class VerifyCsrfToken extends Middleware
         'http://myarmenia.test/*',
         'http://83.139.22.66/*',
         'https://172-105-75-47.ip.linodeusercontent.com/*',
-
+        'http://192.168.6.50/*',
     ];
 }

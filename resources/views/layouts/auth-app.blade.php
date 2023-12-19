@@ -11,8 +11,7 @@
     {{-- <link rel="dns-prefetch" href="https://fonts.gstatic.com"> --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/date_plugin/pikaday.min.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -137,6 +136,8 @@
         // sessionStorage.setItem('reload', 'yes');
 
     </script>
+    <script src="{{ asset('assets/plugins/date_plugin/pikaday.min.js') }}"></script>
+
     @yield('js-scripts')
 
 </body>

@@ -18,6 +18,7 @@ class Tegs extends Component
     public array|null $edit;
     public bool|null $related;
     public string|null $tableName;
+    public bool|null $moreData;
 
     /**
      * Create a new component instance.
@@ -36,7 +37,8 @@ class Tegs extends Component
         bool|null $comment = false,
         array|null $edit = null,
         bool|null $related = false,
-        string|null $tableName = null
+        string|null $tableName = null,
+        string|bool $moreData = false
     ) {
         $this->dataItem = $data;
         $this->relation = $relation;
@@ -49,6 +51,7 @@ class Tegs extends Component
         $this->edit = $edit;
         $this->related = $related;
         $this->tableName = $tableName;
+        $this->moreData = $moreData;
 
         if (!$this->dataItem) return;
         if ($scope) {

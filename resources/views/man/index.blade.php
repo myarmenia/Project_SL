@@ -80,6 +80,7 @@
                                     data-type="birthday"
                                     class="form-control save_input_data"
                                     name="birthday"
+                                    data-check="date"
                                 />
 
                                 <label for="inputDate1" class="form-label">6)
@@ -303,8 +304,7 @@
                             <label class="form-label">22) {{ __('content.additional_information_person') }}</label>
                             <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal" data-bs-target="#additional_information">{{ __('content.addTo') }}
                             </button>
-                            <x-tegs :data="$man" relation="more_data" name="id" relationtype="has_many"
-                                delete />
+                            <x-tegs :data="$man" relation="more_data" name="id" relationtype="has_many" delete moreData />
                         </div>
 
                         <!-- Select -->
@@ -371,7 +371,7 @@
                         <!-- Date Inputs -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" id="start_date"
+                                <input type="date" data-check="date" placeholder="" id="start_date"
                                     value="{{ $man->start_wanted ?? null }}" class="form-control save_input_data"
                                     name="start_wanted" tabindex="21" data-type="update_field" />
                                 <label for="start_date" class="form-label">27)
@@ -380,7 +380,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" id="entry_date"
+                                <input type="date" data-check="date" placeholder="" id="entry_date"
                                     class="form-control save_input_data" name="entry_date" tabindex="22"
                                     value="{{ $man->entry_date ?? null }}" data-type="update_field" />
                                 <label for="entry_date" class="form-label">28) {{ __('content.home_monitoring_start') }}
@@ -389,7 +389,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" id="exit_date" class="form-control save_input_data"
+                                <input type="date" data-check="date" placeholder="" id="exit_date" class="form-control save_input_data"
                                     name="exit_date" value="{{ $man->exit_date ?? null }}" tabindex="23"
                                     data-type="update_field" />
                                 <label for="exit_date" class="form-label">29)
@@ -457,6 +457,7 @@
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
                             <a href="{{route('manExternalSignHasSignPhoto.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id" :label="__('content.short_external_sign')" relationtype="has_many" tableName="externalSignHasSignPhoto" related delete />
+
                         </div>
                         <!-- Input -->
                         <div class="col">
