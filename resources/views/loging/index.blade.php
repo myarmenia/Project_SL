@@ -54,10 +54,8 @@
                         </select>
                         <input type="date" data-check="date" class="form-control loging-search-input"  name="date_from" value="{{ request()->input('date_from') }}">
                         <input type="date" data-check="date" class="form-control loging-search-input"  name="date_to" value="{{ request()->input('date_to') }}">
-
                         <button class="btn btn-primary loging-search-btn">Որոնել</button>
                         </div>
-
                     </form>
 
                     <div class="table_div">

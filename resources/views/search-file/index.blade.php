@@ -148,7 +148,8 @@
 
                                                     {{-- <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
-                                                            type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}' ></td>
+                                                            type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}' ></td> --}}
+                                                        <tr>
                                                     <td scope="row">---</td>
                                                     <td>
                                                         <a style="text-decoration: underline; color:blue;"
@@ -182,10 +183,10 @@
                                                     </td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td> </td>
                                                     <td></td>
-                                                    <td class="reg-date"></td> --}}
-
+                                                    <td></td>
+                                                    <td class="reg-date"></td> 
+                                                </tr>
 
                                             @endif
                                         @endforeach
