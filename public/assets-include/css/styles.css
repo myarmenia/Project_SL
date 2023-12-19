@@ -708,11 +708,11 @@ Table Style - This is what you want
     font-size: 15px;
 
 }
-.date-search-input{
+/* .date-search-input{
     position:absolute;
     top: 3;
     right: -315 ;
     max-width: 100px;
     max-height: 24px;
     font-size: 15px;
-}
+} */

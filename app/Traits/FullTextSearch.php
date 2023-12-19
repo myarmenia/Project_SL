@@ -8,6 +8,46 @@ use App\Services\SearchService;
 
 trait FullTextSearch
 {
+    function arifDateString(array $data): string
+    {
+        $query = '';
+
+        $query = match ($data['date_search_arif']) {
+            '=' => " AND {$data['search_col']} LIKE '%{$data['search_date']}%'",
+            '!=' => " AND {$data['search_col']}  NOT LIKE '%{$data['search_date']}%'",
+            '>' => " AND STR_TO_DATE({$data['search_col']} , '%d-%m-%Y') > STR_TO_DATE('{$data['search_date']}','%d-%m-%Y')",
+            '>=' => " AND STR_TO_DATE({$data['search_col']} , '%d-%m-%Y') >= STR_TO_DATE('{$data['search_date']}','%d-%m-%Y')",
+            '<' => " AND STR_TO_DATE({$data['search_col']} , '%d-%m-%Y') < STR_TO_DATE('{$data['search_date']}','%d-%m-%Y')",
+            '<=' => " AND STR_TO_DATE({$data['search_col']} , '%d-%m-%Y') <= STR_TO_DATE('{$data['search_date']}','%d-%m-%Y')",
+            '<=>' => " AND STR_TO_DATE({$data['search_col']} , '%d-%m-%Y') BETWEEN  STR_TO_DATE('{$data['search_date']}','%d-%m-%Y') AND STR_TO_DATE('{$data['end_date']}','%d-%m-%Y')",
+
+            default => " AND {$data['search_col']}  LIKE '%{$data['search_date']}%'"
+
+        };
+
+        return $query;
+    }
+
+    function arifDate(array $data): string
+    {
+        $query = '';
+
+        $query = match ($data['date_search_arif']) {
+            '=' => " AND {$data['search_col']} LIKE '%{$data['search_field']}%'",
+            '!=' => " AND {$data['search_col']}  NOT LIKE '%{$data['search_field']}%'",
+            '>' => " AND {$data['search_col']} > STR_TO_DATE('{$data['search_field']}','%Y-%d-%m')",
+            '>=' => " AND {$data['search_col']} >= STR_TO_DATE('{$data['search_field']}','%Y-%d-%m')",
+            '<' => " AND {$data['search_col']}  < STR_TO_DATE('{$data['search_field']}','%Y-%d-%m')",
+            '<=' => " AND {$data['search_col']} <= STR_TO_DATE('{$data['search_field']}','%Y-%d-%m')",
+            '<=>' => " AND {$data['search_col']} BETWEEN  '{$data['search_field']}' AND '{$data['end_date']}'",
+
+            default => " AND {$data['search_col']}  LIKE '%{$data['search_date']}%'"
+
+        };
+
+        return $query;
+    }
+
     protected function fullTextWildcards($term)
     {
         $reservedSymbols = ['?','-', '<', '>', '@', '(', ')', '~'];
@@ -18,7 +58,7 @@ trait FullTextSearch
 
         foreach ($words as $key => $word) {
             if (strlen($word) >= 3) {
-                    $words[$key] = "{$word}*";
+                    $words[$key] = "{$word}";
             }
         }
 
@@ -33,12 +73,12 @@ trait FullTextSearch
             return $column;
         })->implode(',');
 
-        $sear = $this->fullTextWildcards($term);
+        $sear = '"'.$this->fullTextWildcards($term).'"';
+
                 if ($distance === 1) {
                     $query = " AND MATCH ({$columns}) AGAINST ('$sear' IN BOOLEAN MODE)";
                 }
                 else{
-
                     $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
                     $term = str_replace($reservedSymbols, '', $term);
 
