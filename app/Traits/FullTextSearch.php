@@ -8,20 +8,40 @@ use App\Services\SearchService;
 
 trait FullTextSearch
 {
+    function arifDateString(array $data): string
+    {
+        $query = '';
+
+        $query = match ($data['date_search_arif']) {
+            '=' => " AND {$data['search_col']} LIKE '%{$data['search_date']}%'",
+            '!=' => " AND {$data['search_col']}  NOT LIKE '%{$data['search_date']}%'",
+            '>' => " AND STR_TO_DATE({$data['search_col']} , '%d-%m-%Y') > STR_TO_DATE('{$data['search_date']}','%d-%m-%Y')",
+            '>=' => " AND STR_TO_DATE({$data['search_col']} , '%d-%m-%Y') >= STR_TO_DATE('{$data['search_date']}','%d-%m-%Y')",
+            '<' => " AND STR_TO_DATE({$data['search_col']} , '%d-%m-%Y') < STR_TO_DATE('{$data['search_date']}','%d-%m-%Y')",
+            '<=' => " AND STR_TO_DATE({$data['search_col']} , '%d-%m-%Y') <= STR_TO_DATE('{$data['search_date']}','%d-%m-%Y')",
+            '<=>' => " AND STR_TO_DATE({$data['search_col']} , '%d-%m-%Y') BETWEEN  STR_TO_DATE('{$data['search_date']}','%d-%m-%Y') AND STR_TO_DATE('{$data['end_date']}','%d-%m-%Y')",
+
+            default => " AND {$data['search_col']}  LIKE '%{$data['search_date']}%'"
+
+        };
+
+        return $query;
+    }
+
     function arifDate(array $data): string
     {
         $query = '';
 
-        $query = match ($data['date_search']) {
-            '=' => " AND CONCAT_WS('-',birth_day,birth_month,birth_year) LIKE '%{$data['birthday']}%'",
-            '!=' => " AND CONCAT_WS('-',birth_day,birth_month,birth_year) NOT LIKE '%{$data['birthday']}%'",
-            '>' => " AND STR_TO_DATE(CONCAT_WS('-',birth_day,birth_month,birth_year), '%d-%m-%Y') > STR_TO_DATE('{$data['birthday']}','%d-%m-%Y')",
-            '>=' => " AND STR_TO_DATE(CONCAT_WS('-',birth_day,birth_month,birth_year), '%d-%m-%Y') >= STR_TO_DATE('{$data['birthday']}','%d-%m-%Y')",
-            '<' => " AND STR_TO_DATE(CONCAT_WS('-',birth_day,birth_month,birth_year), '%d-%m-%Y') < STR_TO_DATE('{$data['birthday']}','%d-%m-%Y')",
-            '<=' => " AND STR_TO_DATE(CONCAT_WS('-',birth_day,birth_month,birth_year), '%d-%m-%Y') <= STR_TO_DATE('{$data['birthday']}','%d-%m-%Y')",
-            '<=>' => " AND STR_TO_DATE(CONCAT_WS('-',birth_day,birth_month,birth_year), '%d-%m-%Y') BETWEEN  STR_TO_DATE('{$data['birthday']}','%d-%m-%Y') AND STR_TO_DATE('{$data['end_birthday']}','%d-%m-%Y')",
+        $query = match ($data['date_search_arif']) {
+            '=' => " AND {$data['search_col']} LIKE '%{$data['search_field']}%'",
+            '!=' => " AND {$data['search_col']}  NOT LIKE '%{$data['search_field']}%'",
+            '>' => " AND {$data['search_col']} > STR_TO_DATE('{$data['search_field']}','%Y-%d-%m')",
+            '>=' => " AND {$data['search_col']} >= STR_TO_DATE('{$data['search_field']}','%Y-%d-%m')",
+            '<' => " AND {$data['search_col']}  < STR_TO_DATE('{$data['search_field']}','%Y-%d-%m')",
+            '<=' => " AND {$data['search_col']} <= STR_TO_DATE('{$data['search_field']}','%Y-%d-%m')",
+            '<=>' => " AND {$data['search_col']} BETWEEN  '{$data['search_field']}' AND '{$data['end_date']}'",
 
-            default => " AND CONCAT_WS('-',birth_day,birth_month,birth_year) LIKE '%{$data['birthday']}%'"
+            default => " AND {$data['search_col']}  LIKE '%{$data['search_date']}%'"
 
         };
 
@@ -53,12 +73,12 @@ trait FullTextSearch
             return $column;
         })->implode(',');
 
-        $sear = $this->fullTextWildcards($term);
+        $sear = '"'.$this->fullTextWildcards($term).'"';
+
                 if ($distance === 1) {
                     $query = " AND MATCH ({$columns}) AGAINST ('$sear' IN BOOLEAN MODE)";
                 }
                 else{
-
                     $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
                     $term = str_replace($reservedSymbols, '', $term);
 

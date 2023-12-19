@@ -856,7 +856,7 @@
                 <input type="text" name="start_wanted" id="searchManDeclaredWantedListWith" style="width: 505px;"
                     onkeydown="validateNumber(event,'searchManDeclaredWantedListWith',12)"
                     class="oneInputSaveEnter oneInputSaveDateMan" />
-                    {{-- <x-date-filter-search /> --}}
+                    <x-date-filter-search name="date_start_wanted" inpName="end_start_wanted" />
             </div>
 
             <div class="forForm">
@@ -864,7 +864,7 @@
                 <input type="text" name="entry_date" id="searchManHomeMonitoringStart" style="width: 505px;"
                     onkeydown="validateNumber(event,'searchManHomeMonitoringStart',12)"
                     class="oneInputSaveEnter oneInputSaveDateMan" />
-                    {{-- <x-date-filter-search /> --}}
+                    <x-date-filter-search name="date_entry_date" inpName="end_entry_date" />
             </div>
 
             <div class="forForm">
@@ -872,7 +872,7 @@
                 <input type="text" name="exit_date" id="searchManEndMonitoringStart" style="width: 505px;"
                     onkeydown="validateNumber(event,'searchManEndMonitoringStart',12)"
                     class="oneInputSaveEnter oneInputSaveDateMan" />
-                    {{-- <x-date-filter-search /> --}}
+                    <x-date-filter-search name="date_exit_date" inpName="end_exit_date" />
             </div>
 
             <?php if (isset($search_params) && isset($search_params['education_id'])) { ?>
