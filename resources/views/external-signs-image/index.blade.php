@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/external-signs-image/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 
@@ -79,5 +81,7 @@
             });
         </script>
         <script src="{{ asset('assets/js/external-signs-image/script.js') }}"></script>
+        <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     @endsection
 @endsection

@@ -207,10 +207,12 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" data-check="date" value="{{ $signal->check_date ?? null }}" id="item11"
-                                    class="form-control save_input_data outline-red" name="check_date"
-                                    data-type="update_field" tabindex="11" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" data-check="date" value="{{ $signal->check_date ?? null }}" id="item11"
+                                    class="form-control save_input_data outline-red calendarInput" name="check_date"
+                                    data-type="update_field" tabindex="11" 
+                                    autocomplete="off" onblur="handleBlur(this)"/>
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item11" class="form-label">13) {{ __('content.check_date') }}</< /label>
                             </div>
                         </div>
@@ -218,27 +220,30 @@
                         <div class="col">
                             <x-tegs :data="$signal" :relation="'signal_check_date'" :name="'date'" delete />
 
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
 
-                                <input type="date" data-check="date" id="item12"
-                                    class="form-control my-form-control-class my-teg-class save_input_data"
+                                <input type="text" data-check="date" id="item12"
+                                    class="form-control my-form-control-class my-teg-class save_input_data calendarInput"
                                     name="date"
                                     data-type="create_relation"
                                     data-model="signal_check_date"
                                     data-table="check_date"
                                     data-pivot-table="signal_check_date"
                                     data-fieldname="date"
-                                    tabindex="12" />
-                                <label for="item12" class="form-label">14) {{ __('content.check_previously') }}</<
-                                        /label>
+                                    tabindex="12"
+                                    autocomplete="off" onblur="handleBlur(this)" />
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+                                <label for="item12" class="form-label">14) {{ __('content.check_previously') }}</label>
                             </div>
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" data-check="date" id="item13" value="{{ $signal->end_date ?? null }}"
-                                    class="form-control save_input_data"
-                                    data-type="update_field" name="end_date" tabindex="13" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" data-check="date" id="item13" value="{{ $signal->end_date ?? null }}"
+                                    class="form-control save_input_data calendarInput"
+                                    data-type="update_field" name="end_date" tabindex="13"
+                                    autocomplete="off" onblur="handleBlur(this)"  />
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item13" class="form-label">15) {{ __('content.date_actual') }}</< /label>
                             </div>
                         </div>
