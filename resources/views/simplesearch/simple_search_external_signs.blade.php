@@ -34,7 +34,7 @@ if ($previousUrl) {
                 <input type="button" class="k-button" value="{{ __('content.or') }}" id="ext_or" />
                 <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
                 <?php if(!isset($type)) { ?>
-                <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+                <a href="{{ route('simple_search_external_signs',['n'=> 't']) }}" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
                 <input type="submit" class="k-button" name="submit"
                     value="{{ __('content.search') }}" /><?php } ?>
             </div>
@@ -235,7 +235,6 @@ if ($previousUrl) {
             $('#searchSignSign').val(`{{ html_entity_decode($search_params['signs']) }}`);
 
             $('#searchSignSignId').val(`{{ $search_params['sign_id'][sizeof($search_params['sign_id']) - 1] }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
 
             <?php } ?>
         });

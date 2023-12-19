@@ -20,7 +20,7 @@
                 <input type="button" class="k-button" value="{{ __('content.or') }}" id="man_or" />
                 <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
                 @if (!isset($type))
-                    <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+                    <a href="{{ route('simple_search_man',['n'=> 't']) }}" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
                     <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" />
                 @endif
             </div>
@@ -1073,15 +1073,15 @@
 
             </div>
 
-            <div class="forForm">
+            {{-- <div class="forForm">
                 <label for="fileSearch">{{ __('content.file_search') }}</label>
                 <input type="text" name="content" id="fileSearch" />
                 <x-select-distance name="content_distance" class="distance distance_fileSearch" />
 
-            </div>
-            <div class="forForm">
+            </div> --}}
+            {{-- <div class="forForm">
                 <x-search-count />
-            </div>
+            </div> --}}
 
             <div class="buttons">
 
