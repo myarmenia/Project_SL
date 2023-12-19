@@ -112,7 +112,7 @@
                             <!-- <div class="input-date-wrapper"> -->
                             <!-- <label for="inputDate1" role="value"></label>
                                     <input type="text" hidden role="store" /> -->
-                            <input type="date" data-type="date" placeholder="" id="inputDate1" class="form-control save_input_data"
+                            <input type="date" data-check="date" placeholder="" id="inputDate1" class="form-control save_input_data"
                                 placaholder="" name="reg_date" tabindex="5"
                                 value="{{ $bibliography->reg_date ?? null }}" {{-- data-update="{{ route('bibliography.update',$bibliography->id )}}" --}} />
                             <label for="inputDate1" class="form-label">6) {{ __('content.date_reg') }}</label>

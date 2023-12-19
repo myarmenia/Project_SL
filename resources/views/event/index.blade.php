@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 @section('content')
@@ -38,12 +40,14 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <input type="text" placeholder=""
+                                autocomplete="off" onblur="handleBlur(this)"
                                     value="{{ $event->date }}"
-                                    id="item2" tabindex="2" data-type="update_field"
-                                    class="form-control save_input_data" name="date" />
+                                    id="item2" tabindex="2" data-type="update_field" data-check="date"
+                                    class="form-control save_input_data calendarInput" name="date" />
                                 <label for="item2" class="form-label">2) {{ __('content.date_security_date') }}</label>
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                             </div>
                         </div>
 

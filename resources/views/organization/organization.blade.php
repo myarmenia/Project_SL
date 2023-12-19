@@ -60,7 +60,7 @@
                                         id="inputDate1"
                                         class="form-control"
                                         name="start_date"
-                                        data-type="date"
+                                        data-check="date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >3) Աշխատանքային գործունեության սկիզբ</label
@@ -79,7 +79,7 @@
                                         id="inputDate1"
                                         class="form-control"
                                         name="end_date"
-                                        data-type="date"
+                                        data-check="date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >4) Աշխատանքային գործունեության ավարտ</label

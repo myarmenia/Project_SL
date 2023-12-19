@@ -113,7 +113,7 @@
                                     name="entry_date"
                                     tabindex="3"
                                     value="{{ $modelData->model->entry_date  }}"
-                                    data-type="date"
+                                    data-check="date"
                                 />
                                 <label for="entry_date" class="form-label">
                                     3) {{__('content.entry_date')}}
@@ -131,7 +131,7 @@
                                     name="exit_date"
                                     tabindex="4"
                                     value="{{ $modelData->model->exit_date }}"
-                                    data-type="date"
+                                    data-check="date"
                                 />
                                 <label for="exit_date" class="form-label">
                                     4) {{__('content.exit_date')}}

@@ -47,7 +47,7 @@
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" data-type="date" placeholder="" value="{{ $organization->reg_date }}" id="reg_date"
+                                <input type="date" data-check="date" placeholder="" value="{{ $organization->reg_date }}" id="reg_date"
                                     tabindex="4" data-type="update_field" class="form-control save_input_data"
                                     name="reg_date" />
                                 <label for="reg_date" class="form-label">
