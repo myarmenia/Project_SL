@@ -17,6 +17,8 @@ let full_name_input = document.querySelector(".full-name-input");
 let id_filter_input = document.querySelector(".id-filter-input");
 let search_input_btn = document.querySelector(".search-input-btn");
 
+// ====================== texapoxel
+
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
     let data_type = el.parentElement.getAttribute("data-type");
@@ -464,6 +466,8 @@ allI.forEach((el, idx) => {
     });
 });
 
+// ======================= 
+
 const searchBlocks = document.querySelectorAll(".searchBlock");
 
 function remove_broomstick_filter_element() {
@@ -581,7 +585,6 @@ function printResponsData(responseData) {
     let data = responseData.data;
     let count = document.querySelector(".count_block b");
     count.innerText = responseData.result_count;
-
     let table_tbody = document.querySelector(".table").querySelector("tbody");
     if (page == 1) {
         table_tbody.innerHTML = "";
@@ -634,6 +637,7 @@ function printResponsData(responseData) {
                             let td = document.createElement("td");
                            
                                 if(i === 18 && tb_name === 'man'){
+                                    
                                     let div = document.createElement('div')
                                     div.style = `
                                     white-space: initial;
@@ -647,10 +651,12 @@ function printResponsData(responseData) {
                                     td.appendChild(div)
                                     tr.appendChild(td);
                                 }else{
+
                                     obj_values[i] === "null"
                                     ? (td.innerText = "")
                                     : (td.innerText = obj_values[i]);
                                     tr.appendChild(td);
+
                                 }
                         }
                     } else if (i === 31 && main_route) {
