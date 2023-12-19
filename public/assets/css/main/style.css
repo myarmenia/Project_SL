@@ -1601,7 +1601,9 @@ span.form-label{
 }
 
 .my-plus-disable{
+    pointer-events: none;
     cursor: not-allowed !important;
+
 }
 
 .form-floating{
