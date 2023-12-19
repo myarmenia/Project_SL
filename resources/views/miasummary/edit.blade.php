@@ -30,10 +30,13 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
 
-                                <input type="date" data-check="date" id="inputDate1" class="form-control save_input_data" name="date"
-                                    value="{{ $miaSummary->date ?? null }}" data-type="update_field" />
+                                <input type="text" data-check="date" id="inputDate1" class="form-control save_input_data calendarInput" name="date"
+                                    value="{{ $miaSummary->date ?? null }}" data-type="update_field" 
+                                    autocomplete="off" onblur="handleBlur(this)"/>
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="inputDate1" class="form-label">1) Ամփոփագրի գրանցման ասաթիվ</label>
                                 <!-- </div> -->
                             </div>

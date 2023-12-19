@@ -52,9 +52,16 @@
                                 </option>
                             @endforeach
                         </select>
-                        <input type="date" data-check="date" class="form-control loging-search-input"  name="date_from" value="{{ request()->input('date_from') }}">
-                        <input type="date" data-check="date" class="form-control loging-search-input"  name="date_to" value="{{ request()->input('date_to') }}">
-
+                        <div class="calendar-container">
+                            <input   type="text" data-check="date" class="form-control loging-search-input calendarInput"  name="date_from" value="{{ request()->input('date_from') }}"
+                            autocomplete="off" onblur="handleBlur(this)">
+                            <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+                        </div>
+                        <div class="calendar-container">
+                            <input type="text" data-check="date" class="form-control loging-search-input calendarInput"  name="date_to" value="{{ request()->input('date_to') }}"
+                            autocomplete="off" onblur="handleBlur(this)">
+                            <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+                        </div>
                         <button class="btn btn-primary loging-search-btn">Որոնել</button>
                         </div>
 
