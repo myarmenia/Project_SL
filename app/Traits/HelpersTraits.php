@@ -60,7 +60,47 @@ trait HelpersTraits
         if ((request()->model|| request()->model_name )|| $model) {
             return redirect()->route(($model ?? request()->model ?? request()->model_name).'.edit', request()->id ??  request()->model_id);
         }
-dd(request());
         return redirect()->route('open.page',$page);
     }
+
+    public static function getDateTimeFormat(?string $value): string
+    {
+        $year = substr($value, 0, 4);
+        $month = substr($value, 5, 2);
+        $day = substr($value, 8, 2);
+
+        return $year. '-' . $month . '-' .$day  ;
+    }
+
+    public static function getTimeFormat($value): string
+    {
+        return substr($value, -8);
+    }
+//
+//    public static function setDateFormat(string $value, ?string $time): string
+//    {
+//        $year = substr($value, -4);
+//        $month = substr($value, 3, 2);
+//        $day = substr($value, 0, 2);
+//
+//        $date = null;
+//        if ($time){
+//
+//dd($time);
+//            $carbonDate = Carbon::createFromFormat('Y-m-d H:i:s', $time);
+//
+//// Extract the time part
+//            $timePart = $carbonDate->format('H:i:s');
+//
+//dd($timePart);
+//            dd(date('H:i', strtotime($time)));
+//           $time = Carbon::createFromFormat('Y-m-d', $time);
+//            dd($time);
+//            $date = $year.'-'.$month.'-'.$day.' '.date('H:i', strtotime($time));
+//        }else{
+//            $date = $year.'-'.$month.'-'.$day;
+//        }
+//
+//        return $date;
+//    }
 }

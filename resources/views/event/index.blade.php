@@ -247,6 +247,7 @@
 
 @section('js-scripts')
     <script>
+
         let parent_id = "{{ $event->id }}"
 
         let updated_route = "{{ route('event.update', $event->id) }}"
