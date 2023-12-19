@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 
 @endsection
 
@@ -117,7 +119,7 @@
                             <a
                                 href="{{ route('phone.create', ['model' => 'organization', 'id' => $organization->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="phone" name="number" tableName="phone" related
-                            :label="__('content.short_phone')":label="__('content.short_address')" :edit="['page' =>'phone.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']" delete />
+                            :label="__('content.short_phone')" :edit="['page' =>'phone.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']" delete />
                         </div>
 
                         <div class="btn-div">
@@ -306,5 +308,7 @@
     <script src="{{ asset('assets/js/tag.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src='{{ asset('assets/js/company/script.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 @endsection

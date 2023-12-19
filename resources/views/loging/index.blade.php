@@ -2,6 +2,9 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/users/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
+
 @endsection
 
 @section('content')
@@ -39,8 +42,19 @@
                                 </option>
                             @endforeach
                         </select>
+
+                        <select name="tb_name" class="form-select loging-search-select">
+                            <option value="" hidden>{{ __('table.table_name') }}</option>
+                            @foreach ($permissions as $permission)
+                                <option value="{{ $permission }}"
+                                    {{ $permission == request()->input('tb_name') ? 'selected' : '' }}>
+                                    {{ __('name.' . $permission) }}
+                                </option>
+                            @endforeach
+                        </select>
                         <input type="date" data-check="date" class="form-control loging-search-input"  name="date_from" value="{{ request()->input('date_from') }}">
-                        <input type="date"  data-check="date" class="form-control loging-search-input"  name="date_to" value="{{ request()->input('date_to') }}">
+                        <input type="date" data-check="date" class="form-control loging-search-input"  name="date_to" value="{{ request()->input('date_to') }}">
+
                         <button class="btn btn-primary loging-search-btn">Որոնել</button>
                         </div>
 
@@ -135,6 +149,8 @@
     <script src='{{ asset('assets/js/users/index.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 
 @endsection

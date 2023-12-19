@@ -9,15 +9,19 @@
             </div>
             <div class="modal-body">
                 <div class="large-modalBlock">
-                    <div class="mb-3 announcement-input-block">
+                    <div class="mb-3 announcement-input-block calendar-container">
                         <label for="start_of_announcement" class="form-label">{{ __('content.start_time') }}</label>
-                        <input style="position: relative;" type="date"  data-check="date" class="form-control"
-                               id="start_of_announcement">
+                        <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+                        <input style="position: relative;" type="text"  data-check="date" class="form-control calendarInput"
+                               id="start_of_announcement"
+                               autocomplete="off" onblur="handleBlur(this)">
                     </div>
-                    <div class="mb-3 announcement-input-block">
+                    <div class="mb-3 announcement-input-block calendar-container">
                         <label for="end_of_announcement" class="form-label">{{ __('content.end_time') }}</label>
-                        <input style="position: relative;" type="date" data-check="date" class="form-control"
-                               id="end_of_announcement">
+                        <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+                        <input style="position: relative;" type="text" data-check="date" class="form-control calendarInput"
+                               id="end_of_announcement"
+                               autocomplete="off" onblur="handleBlur(this)">
                     </div>
                     <div class="mb-3 announcement-input-block">
                         <label for="exampleFormControlTextarea1" class="form-label">{{ __('content.large_modal_desc') }}</label>

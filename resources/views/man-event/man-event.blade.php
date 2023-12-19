@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/man-event/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 @section('content')
@@ -266,6 +268,8 @@
 
     @section('js-scripts')
         <script src='{{ asset('assets/js/man-event/script.js') }}'></script>
+        <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     @endsection
 @endsection
 
