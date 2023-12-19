@@ -48,10 +48,12 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" data-check="date" placeholder="" value="{{ $organization->reg_date }}" id="reg_date"
-                                    tabindex="4" data-type="update_field" class="form-control save_input_data"
-                                    name="reg_date" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" data-check="date" placeholder="" value="{{ $organization->reg_date }}" id="reg_date"
+                                    tabindex="4" data-type="update_field" class="form-control save_input_data calendarInput"
+                                    name="reg_date" 
+                                    autocomplete="off" onblur="handleBlur(this)"/>
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="reg_date" class="form-label">
                                     3) {{ __('content.date_formation') }}
                                 </label>
