@@ -20,7 +20,7 @@
                 <input type="button" class="k-button" value="{{ __('content.or') }}" id="man_or" />
                 <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
                 @if (!isset($type))
-                    <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+                    <a href="{{ route('simple_search_man',['n'=> 't']) }}" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
                     <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" />
                 @endif
             </div>
@@ -168,7 +168,7 @@
                 <input type="text" name="birthday" id="searchManDateOfBirth" style="width: 505px;"
                     onkeydown="validateNumber(event,'searchManDateOfBirth',12)"
                     class="oneInputSaveDateMan oneInputSaveEnter" />
-                    {{-- <x-date-filter-search /> --}}
+                     <x-date-filter-search name="date_search_birthday" inpName="end_birthday" />
             </div>
 
             <?php if (isset($search_params) && isset($search_params['approximate_year'])) { ?>

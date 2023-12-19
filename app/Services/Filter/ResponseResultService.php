@@ -12,12 +12,12 @@ class ResponseResultService
 {
 
 
-        public static function get_result($result, $model, $type)
+    public static function get_result($result, $model, $type)
     {
 
         $tableName = $model->getTable();
 
-        if ($type == 'optimization') {
+        if ($type == 'optimization' || $type == 'open') {
             $current_data = $result;
         } else {
             $current_data = $result['data'];
@@ -35,7 +35,7 @@ class ResponseResultService
                 $data['locality'] = $address_relations->locality->name ?? null;
             }
 
-            if(empty($data['born_address'])) {
+            if (empty($data['born_address'])) {
                 $data['countryAte'] = null;
                 $data['region'] = null;
                 $data['locality'] = null;
@@ -103,7 +103,7 @@ class ResponseResultService
                 $finsih_array[$key] = $returned_value;
             });
 
-            if($tableName == 'man') {
+            if ($tableName == 'man') {
                 $man = $model->find($data['id']);
                 $finsih_array['signal_count'] = $man->signalCount();
             }
@@ -114,7 +114,6 @@ class ResponseResultService
         }
 
         $finish_data['data'] = [...$final_look_arr];
-
         return $finish_data;
     }
 }

@@ -45,19 +45,19 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="count_block">
                         {{ __('content.existent_table') }}
-                        <b>{{ $total }}</b>
+                        <b>0</b>
                         {{ __('content.table_data') }}
                     </div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}'
-                            data-section-name="open" data-delete-url="/table-delete/{{ $page }}/">
+                        <table id="resizeMe" class="person_table table" data-table-name='man'
+                            data-section-name="open" data-delete-url="/table-delete/man/">
                             <thead>
 
                                 <tr>
                                     {{-- <th></th>
                                     <th></th>
                                     <th></th> --}}
-                                    @can($page . '-edit')
+                                    @can('man-edit')
                                         <th></th>
                                     @endcan
                                     <th></th>
@@ -217,15 +217,12 @@
                                         {{ __('content.source_inf') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="resource" data-section-name="open"></i>
                                     </th>
-<<<<<<< HEAD
-=======
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
                                     </th>
 
->>>>>>> a239c6432f3c18dcd9828be153b272704f4dcfa0
                                     {{-- <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.short_photo') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="photo_count" data-section-name="open"></i>
@@ -235,197 +232,13 @@
                                     @if (isset(request()->main_route) || !empty($add))
                                         <th></th>
                                     @endif
-                                    @can($page . '-delete')
+                                    @can('man-delete')
                                         <th></th>
                                     @endcan
                                 </tr>
 
                             </thead>
                             <tbody>
-
-                                {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                                data-bs-target="#announcement_modal" data-type="tocsin">Ահազանգ</span>
-                                        </td> --}}
-                                {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                                data-bs-target="#announcement_modal" data-type="not_providing">Տվյալների
-                                                չտրամադրում</span></td>
-                                        <td style="text-align: center"><span class="announcement_modal_span"
-                                                data-bs-toggle="modal" data-bs-target="#announcement_modal"
-                                                data-type="not_providing"><i
-                                                    class="bi bi-exclamation-circle open-exclamation"
-                                                    title="Տվյալների չտրամադրում"></i></span></td> --}}
-
-                                @foreach ($data as $man)
-                                    <tr style="background-color: {{ $man->signalCount() > 0 ? '#f44336d1' : 'none' }}">
-
-                                        @can($page . '-edit')
-                                            <td style=" text-align:center; align-items: center;">
-                                                <a href="{{ route('man.edit', $man->id) }}">
-                                                    <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
-                                                </a>
-                                            </td>
-                                        @endcan
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"
-                                                data-id="{{ $man->id }}"> </i>
-                                        </td>
-                                        <td>{{ $man->id }}</td>
-                                        <td>
-                                            @foreach ($man->lastName1 as $l_name)
-                                                {{ $l_name->last_name }}
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @foreach ($man->firstName1 as $f_name)
-                                                {{ $f_name->first_name }}
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @foreach ($man->middleName1 as $m_name)
-                                                {{ $m_name->middle_name }}
-                                            @endforeach
-                                        </td>
-                                        <td>{{ $man->birth_day ?? '' }}</td>
-                                        <td>{{ $man->birth_month ?? '' }}</td>
-                                        <td>{{ $man->birth_year ?? '' }}</td>
-                                        <td>
-                                            {{ $man->full_name }}
-                                        </td>
-                                        <td>{{ $man->bornAddress->countryAte->name ?? '' }}</td>
-                                        <td>{{ $man->bornAddress->region->name ?? '' }}</td>
-                                        <td>{{ $man->bornAddress->locality->name ?? '' }}</td>
-                                        <td>{{ $man->start_year ?? '' }} {{ $man->end_year ?? '' }}</td>
-                                        <td>
-                                            @foreach ($man->passport as $passport)
-                                                {{ $passport->number }}
-                                            @endforeach
-                                        </td>
-                                        <td>{{ $man->gender->name ?? '' }}</td>
-                                        <td>{{ $man->nation->name ?? '' }}</td>
-                                        <td>
-                                            @foreach ($man->country as $country)
-                                                {{ $country->name }}
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @foreach ($man->knows_languages as $lang)
-                                                {{ $lang->name }}
-                                            @endforeach
-                                        </td>
-                                        <td>{{ $man->attention ?? '' }}</td>
-                                        <td
-                                            style="display: block; overflow-x: hidden; overflow-y: auto; height:70px; padding:10px">
-                                            <div style="white-space: initial;">
-                                                @foreach ($man->more_data as $more_data)
-                                                    {{ $more_data->text }}
-                                                @endforeach
-                                            </div>
-                                        </td>
-                                        <td>{{ $man->religion->name ?? '' }}</td>
-                                        <td>{{ $man->occupation }}</td>
-                                        <td>
-                                            @foreach ($man->search_country as $country)
-                                                {{ $country->name }}
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @foreach ($man->operationCategory as $cat)
-                                                {{ $cat->name }}
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @if ($man->start_wanted != null)
-                                                @php
-                                                    echo date('d-m-Y', strtotime($man->start_wanted));
-                                                @endphp
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($man->entry_date != null)
-                                                @php
-                                                    echo date('d-m-Y', strtotime($man->entry_date));
-                                                @endphp
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($man->exit_date != null)
-                                                @php
-                                                    echo date('d-m-Y', strtotime($man->exit_date));
-                                                @endphp
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @foreach ($man->education as $edu)
-                                                {{ $edu->name }}
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @foreach ($man->party as $party)
-                                                {{ $party->name }}
-                                            @endforeach
-
-                                        </td>
-                                        <td>
-                                            @foreach ($man->nickname as $nickname)
-                                                {{ $nickname->name }}
-                                            @endforeach
-                                        </td>
-
-                                        <td>{{ $man->opened_dou ?? '' }}</td>
-                                        <td>{{ $man->resource ? $man->resource->name : '' }}</td>
-                                        <td>
-                                            @if ($man->created_at != null)
-                                                @php
-                                                    echo date('d-m-Y', strtotime($man->created_at));
-                                                @endphp
-                                            @endif
-                                        </td>
-
-                                        @if (request()->model === 'bibliography')
-                                            <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
-                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                                </a>
-                                            </td>
-                                        @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)
-                                            <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
-                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                                </a>
-                                            </td>
-                                        @elseif(isset(request()->main_route) && !isset(request()->relation))
-                                            <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->route_id ?? request()->model_id, 'redirect' => request()->redirect,'model_relation' => request()->model_relation])}}">
-                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                                </a>
-                                            </td>
-                                        @endif
-                                        @can($page . '-delete')
-                                            <td style="text-align: center">
-                                                <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteModal" data-id="{{ $man->id }}"><i
-                                                        class="bi bi-trash3"></i>
-                                                </button>
-                                            </td>
-                                        @endcan
-
-                                    </tr>
-                                @endforeach
-
-                                {{-- @foreach ($data as $man)
-                                    <tr style="background-color: {{ $man['signal_count'] > 0 ? '#f44336d1' : 'none' }}">
-
-                                        @can($page . '-edit')
-                                            <td style=" text-align:center; align-items: center;">
-                                                <a href="{{ route('man.edit', $man['id']) }}">
-                                                    <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
-                                                </a>
-                                            </td>
-                                        @endcan
-                                    </tr>
-                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -493,18 +306,17 @@
             let allow_change = ''
             let allow_delete = ''
 
-            @can($page . '-edit')
+            @can('man-edit')
                 allow_change = true
             @else
                 allow_change = false
             @endcan
 
-            @can($page . '-delete')
+            @can('man-delete')
                 allow_delete = true
             @else
                 allow_delete = false
             @endcan
-
 
             let dinamic_field_name = "{{ __('content.field_name') }}"
             let dinamic_content = "{{ __('content.content') }}"

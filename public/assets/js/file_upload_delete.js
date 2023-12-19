@@ -170,7 +170,7 @@ function deleted_items_fn(){
                 this.parentElement.remove();
                console.log(data.message);
                console.log(741)
-          
+
                console.log((result['video']));
                if(result['video']==0){
                     document.querySelector('.bi-check2').classList.add("change-video-display-none");
