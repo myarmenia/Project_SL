@@ -6,7 +6,6 @@ function openCalendar(el) {
     element = input
   })
   if (!picker) {
-    ;
     picker = new Pikaday({
       field: el,
       format: 'DD-MM-YYYY', // customize the format as needed
@@ -14,7 +13,6 @@ function openCalendar(el) {
       onSelect: updateInput
     });
   }
-
   picker.show();
 }
 
@@ -65,17 +63,23 @@ function handleBlur(inp) {
     inp.value = ''
   }
 
-  
-
   if (+arr_day[0] > 31) {
     inp.value = ''
   }
+
   if (+arr_day[1] > 12) {
     inp.value = ''
   }
 
-  
+ if (inp.closest('form')){
+     reverseInput(inp)
+ }
 console.log(inp.value);
+}
+
+function reverseInput(el){
+    let elVal = el.value.split(' ')
+    el.value = elVal[0].split('-').reverse().join('-')
 }
 
 function updateInput(date) {
@@ -87,7 +91,6 @@ function updateInput(date) {
   element.value = formattedDate
 
   element.focus()
-
 }
 
 

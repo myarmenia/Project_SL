@@ -35,7 +35,7 @@
                                         type="text"
                                         placeholder=""
                                         id="inputDate1"
-                                        class="form-control calendarInput"
+                                        class="form-control calendarInput form-input"
                                         name="fixed_date"
                                         @if($edit)
                                             value="{{$manExternalSignHasSign->fixed_date}}"
