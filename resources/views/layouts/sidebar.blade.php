@@ -505,7 +505,8 @@
                         </a>
                     </li>
                 @endcan
-                @canany(['control_result-list', 'control_result-create', 'control_result-edit', 'control_result-delete'])
+                @canany(['control_result-list', 'control_result-create', 'control_result-edit',
+                    'control_result-delete'])
                     <li>
                         <a href="{{ route('dictionary.pages', 'control_result') }}">
                             <i i class="bi bi-journal-text"
@@ -513,6 +514,7 @@
                         </a>
                     </li>
                 @endcan
+
                 @canany(['taken_measure-list', 'taken_measure-create', 'taken_measure-edit', 'taken_measure-delete'])
                     <li>
                         <a href="{{ route('dictionary.pages', 'taken_measure') }}">
