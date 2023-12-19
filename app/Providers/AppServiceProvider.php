@@ -26,19 +26,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // DB::macro('create', function ($table) {
-        //     return new CustomQueryBuilder($table);
-        // });
-
-        // Paginator::useBootstrapFive();
-
-        DB::listen(function ($query) {
-            $sql = $query->sql;
-            $bindings = $query->bindings;
-            $executionTime = $query->time;
-
-            // do something with the above. Log it, stream it via pusher, etc
+        DB::macro('create', function ($table) {
+            return new CustomQueryBuilder($table);
         });
+
+        Paginator::useBootstrapFive();
 
     }
 }
