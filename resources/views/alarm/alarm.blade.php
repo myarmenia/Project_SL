@@ -260,7 +260,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp10"
-                      data-type="date"
+                      data-check="date"
                     />
                     <label for="item10" class="form-label"
                       >12) Ահազանգի բացման ամսաթիվ</label
@@ -281,7 +281,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp11"
-                      data-type="date"
+                      data-check="date"
                     />
                     <label for="item11" class="form-label"
                       >13) Ստուգման ժամկետի ամսաթիվ</label
@@ -301,7 +301,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp12"
-                      data-type="date"
+                      data-check="date"
                     />
                     <label for="item12" class="form-label"
                       >14) Ստուգման ժամկետի երկարաձգման ամսաթիվ</label
@@ -321,7 +321,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp13"
-                      data-type="date"
+                      data-check="date"
                     />
                     <label for="item13" class="form-label"
                       >15) Ահազանգի դադարեցման ամսաթիվ</label

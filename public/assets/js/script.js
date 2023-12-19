@@ -500,8 +500,7 @@ function onBlur(e) {
 
         }
 
-        if(this.getAttribute("data-type") == "date"){
-
+        if(this.getAttribute("data-check") == "date"){
             
                 let elVal = this.value.split(' ')
                 let elValJoin = elVal[0].split('-').reverse().join('-')

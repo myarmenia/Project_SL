@@ -43,10 +43,10 @@
 
                         </div>
                         <div class="date_div">
-                            <input type="date" data-type="date" name="startDate" id="otherInput" class="form-control"
+                            <input type="date" data-check="date" name="startDate" id="otherInput" class="form-control"
                                    style="display: none; width:20%"/>
                             <pre id="line" style="display: none; margin-top:10px"> -- </pre>
-                            <input type="date"  data-type="date" name="endDate" id="otherInput2" class="form-control"
+                            <input type="date"  data-check="date" name="endDate" id="otherInput2" class="form-control"
                                    style="display: none; width:20%"/>
                         </div>
                         <div class="export-button">

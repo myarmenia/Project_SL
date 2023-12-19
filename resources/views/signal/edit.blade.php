@@ -202,7 +202,7 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
 
-                                <input type="date" data-type="date" value="{{ $signal->subunit_date ?? null }}" id="item10"
+                                <input type="date" data-check="date" value="{{ $signal->subunit_date ?? null }}" id="item10"
                                     class="form-control  save_input_data outline-red" name="subunit_date"
                                     data-type="update_field" tabindex="10" />
                                 <label for="item10" class="form-label">12)
@@ -212,7 +212,7 @@
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" data-type="date" value="{{ $signal->check_date ?? null }}" id="item11"
+                                <input type="date" data-check="date" value="{{ $signal->check_date ?? null }}" id="item11"
                                     class="form-control save_input_data outline-red" name="check_date"
                                     data-type="update_field" tabindex="11" />
                                 <label for="item11" class="form-label">13) {{ __('content.check_date') }}</< /label>
@@ -224,7 +224,7 @@
 
                             <div class="form-floating input-date-wrapper">
 
-                                <input type="date" data-type="date" id="item12"
+                                <input type="date" data-check="date" id="item12"
                                     class="form-control my-form-control-class my-teg-class save_input_data"
                                     name="date"
                                     data-type="create_relation"
@@ -240,7 +240,7 @@
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" data-type="date" id="item13" value="{{ $signal->end_date ?? null }}"
+                                <input type="date" data-check="date" id="item13" value="{{ $signal->end_date ?? null }}"
                                     class="form-control save_input_data"
                                     data-type="update_field" name="end_date" tabindex="13" />
                                 <label for="item13" class="form-label">15) {{ __('content.date_actual') }}</< /label>

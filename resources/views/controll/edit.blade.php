@@ -57,7 +57,7 @@
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date"  data-type="date" class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="date"  data-check="date" class="form-control fetch_input_title save_input_data get_datalist"
                                     id="item3" name="creation_date" value="{{ $controll->creation_date ?? null }}"
                                     data-type="update_field" />
                                 <label for="item3" class="form-label">3) Փաստաթղթի կազմման ամսաթիվ</label>
@@ -74,7 +74,7 @@
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" data-type="date" class="form-control  save_input_data" id="item5" name="reg_date"
+                                <input type="date" data-check="date" class="form-control  save_input_data" id="item5" name="reg_date"
                                     value="{{ $controll->reg_date ?? null }}" data-type="update_field" />
                                 <label for="item5" class="form-label">5) Գրանցման ամսաթիվ</label>
                             </div>
@@ -101,7 +101,7 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
 
-                                <input type="date" data-type="date" class="form-control  save_input_data" id="item8"
+                                <input type="date" data-check="date"class="form-control  save_input_data" id="item8"
                                     name="resolution_date" value="{{ $controll->resolution_date ?? null }}"
                                     data-type="update_field" />
                                 <label for="item8" class="form-label">8) Մակագրության ամսաթիվ</label>

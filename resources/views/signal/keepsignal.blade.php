@@ -171,7 +171,7 @@
                         value="{{ $keepSignal->start_date ?? null }}"
                         id="item6"
                         tabindex=6
-                        data-type="date"
+                        data-check="date"
                     />
                     <label for="item6" class="form-label"
                       >6) {{ __('content.start_checking_signal') }}</label
@@ -191,7 +191,7 @@
                         value="{{ $keepSignal->end_date ?? null }}"
                         tabindex=7
                         id="item7"
-                        data-type="date"
+                        data-check="date"
 
 
                     />
@@ -214,7 +214,7 @@
                         value="{{ $keepSignal->pass_date ?? null }}"
                         id="item8"
                         tabindex=8
-                        data-type="date"
+                        data-check="date"
                     />
                     <label for="item8" class="form-label"
                       >8) {{ __('content.date_transfer_unit') }}</label
