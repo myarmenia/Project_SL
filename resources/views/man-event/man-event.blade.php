@@ -56,6 +56,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp2"
+                      data-check="date"
                     />
                     <label for="item2" class="form-label"
                       >2) Իրադարձության ամսաթիվ</label

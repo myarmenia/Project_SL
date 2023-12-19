@@ -11,12 +11,12 @@
                 <div class="large-modalBlock">
                     <div class="mb-3 announcement-input-block">
                         <label for="start_of_announcement" class="form-label">{{ __('content.start_time') }}</label>
-                        <input style="position: relative;" type="date" class="form-control"
+                        <input style="position: relative;" type="date"  data-check="date" class="form-control"
                                id="start_of_announcement">
                     </div>
                     <div class="mb-3 announcement-input-block">
                         <label for="end_of_announcement" class="form-label">{{ __('content.end_time') }}</label>
-                        <input style="position: relative;" type="date" class="form-control"
+                        <input style="position: relative;" type="date" data-check="date" class="form-control"
                                id="end_of_announcement">
                     </div>
                     <div class="mb-3 announcement-input-block">

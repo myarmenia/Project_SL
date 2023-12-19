@@ -448,6 +448,7 @@ function onBlur(e) {
                 value: get_model_id ?? this.value,
                 fieldName: this.name
             }
+           
             if(this.value=='' ){
                 newInfo.delete_relation=true
 
@@ -466,7 +467,7 @@ function onBlur(e) {
 
             }
         }
-
+        console.log(newInfo);
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -498,6 +499,17 @@ function onBlur(e) {
             }
 
         }
+
+        if(this.getAttribute("data-check") == "date"){
+            
+                let elVal = this.value.split(' ')
+                let elValJoin = elVal[0].split('-').reverse().join('-')
+                this.value = elValJoin
+
+                console.log(this.value +'kkkkkkkkk');
+        }
+
+        
     const hasValue = current_tags.some(c_tag => c_tag === checkvalue)
 
     console.log(!hasValue  ,this.value !== '',current_tags)

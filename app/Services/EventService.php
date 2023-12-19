@@ -3,13 +3,13 @@
 namespace App\Services;
 
 use App\Models\Event as ModelsEvent;
+use App\Traits\HelpersTraits;
 
 class EventService
 {
     /**
-     * @param  object  $man
-     * @param  array  $request
-     * @return void
+     * @param $bibliography_id
+     * @return int
      */
     public function store($bibliography_id): int
     {
@@ -22,12 +22,12 @@ class EventService
         $value = $attributes['value'] ?? null;
         $field_name = $attributes['fieldName'] ?? null;
 
-        if($field_name == 'date'){
-            $value = $event->date != null ? $attributes['value'] .' '. date('H:i', strtotime($event->date)) : $attributes['value'] .' 00:00:00';
+        if($field_name === 'date'){
+            $value = $attributes['value'] !== null ?  HelpersTraits::getDateTimeFormat($attributes['value']) .' '. HelpersTraits::getTimeFormat($event[$attributes['fieldName']]) : $attributes['value'] .' 00:00:00';
         }
 
-        if($field_name == 'time'){
-            $value = $event->date != null ? date('Y-m-d', strtotime($event->date)). ' '. $attributes['value'] : null;
+        if($field_name === 'time'){
+            $value = $event->date !== null ? HelpersTraits::getDateTimeFormat($event->date). ' '. $attributes['value'] : null;
             $field_name = 'date';
         }
 

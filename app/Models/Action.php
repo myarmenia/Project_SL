@@ -4,14 +4,13 @@ namespace App\Models;
 
 use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
-use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Action extends Model
 {
-    use HasFactory, FilterTrait, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'action';
 
@@ -21,7 +20,7 @@ class Action extends Model
 
     protected $hasRelationFields = ['material_content', 'action_qualification'];
 
-    protected $manyFilter = ['start_date', 'end_date'];
+  //  protected $manyFilter = ['start_date', 'end_date'];
 
     // protected $count = ['man_count'];
 
@@ -65,11 +64,6 @@ class Action extends Model
         'end_date',
         'source',
         'opened_dou',
-    ];
-
-    protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime',
     ];
 
     public function material_content()
@@ -126,11 +120,6 @@ class Action extends Model
         return $this->belongsTo(Bibliography::class, 'bibliography_id');
     }
 
-    public function getStartDateAttribute($value) /* mutator*/
-    {
-        return $value ? date('Y-m-d', strtotime($value)) : null;
-    }
-
     public function man()
     {
         return $this->belongsToMany(Man::class, 'action_has_man');
@@ -178,7 +167,6 @@ class Action extends Model
     {
         return $this->belongsTo(Address::class, 'address_id');
     }
-
 
     public function relation_field()
     {

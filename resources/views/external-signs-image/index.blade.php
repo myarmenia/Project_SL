@@ -33,6 +33,7 @@
                                     class="form-control"
                                     name="fixed_date"
                                     value="{{$modelData->model->fixed_date}}"
+                                    data-check="date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >1) {{__('content.time_fixation')}}</label

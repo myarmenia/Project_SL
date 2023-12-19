@@ -67,6 +67,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp2"
+                      data-check="date"
                     />
                     <label for="item2" class="form-label"
                       >3) {{__('content.start_action_date')}}</label
@@ -101,6 +102,7 @@
                       class="form-control"
                       placaholder=""
                       name="inp2"
+                      data-check="date"
                     />
                     <label for="item4" class="form-label"
                       >5) {{__('content.end_action_date')}}</label

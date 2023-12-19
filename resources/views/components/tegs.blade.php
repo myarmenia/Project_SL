@@ -8,11 +8,15 @@
                     @else
                         <span class="teg-text date_text" >{{ $item['label'] }}</span>
                     @endif
-                    @if ($edit)
+                    @if ($edit || $moreData)
                          <span class="edit-pen">
+                            @if($moreData)
+                                <button class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#additional_information"> <i class="bi bi-pen"></i></button>
+                             @else
                               <a href="{{route($edit['page'],array_merge($edit,[$item['id']]))}}">
                                   <i class="bi bi-pen"></i>
                               </a>
+                             @endif
                          </span>
                     @endif
                     @if ($comment)

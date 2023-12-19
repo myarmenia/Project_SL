@@ -29,6 +29,7 @@
                                         id="inputDate1"
                                         class="form-control"
                                         name="fixed_date"
+                                        data-check="date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >1) Արձանագրման օր, ամիս, տարի</label

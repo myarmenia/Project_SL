@@ -48,7 +48,7 @@
                                     data-fieldname="name"
                                     list="relation-type-list"/>
                                 <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class @if(!isset($teg) && Route::currentRouteName() !== 'objectsRelation.edit')) my-plus-disable @endif"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class @if(!isset($teg) && Route::currentRouteName() !== 'objectsRelation.edit')) my-plus-disable disabled  @endif"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/4"

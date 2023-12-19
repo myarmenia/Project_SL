@@ -24,6 +24,7 @@
 
                     <form action="{{ route('loging.index') }}" method="get">
                         <div class="loging-search-block">
+
                             <input type="text" class="form-control loging-search-input"
                                 placeholder="{{ __('table.user_name') }}" name="username"
                                 value="{{ request()->input('username') }}">
@@ -58,6 +59,7 @@
                             <input type="date" class="form-control loging-search-input" name="date_to"
                                 value="{{ request()->input('date_to') }}">
                             <button class="btn btn-primary loging-search-btn">Որոնել</button>
+
                         </div>
 
                     </form>

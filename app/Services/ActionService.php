@@ -3,9 +3,8 @@
 namespace App\Services;
 
 use App\Models\Action;
-use App\Models\Man\Man;
 use App\Services\Log\LogService;
-use Carbon\Carbon;
+use App\Traits\HelpersTraits;
 
 class ActionService
 {
@@ -25,39 +24,20 @@ class ActionService
      */
     public function update(object $action, array $attributes): mixed
     {
-        $updated_fields = '';
         if ($attributes['type'] === 'update_time'){
             if ($attributes['fieldName'] === 'start_time'){
-                $updated_fields = ['start_date' =>date('Y-m-d', strtotime($action->start_date)). ' '. $attributes['value'] ];
-                // $action->update(['start_date' =>date('Y-m-d', strtotime($action->start_date)). ' '. $attributes['value'] ]) ;
-                $action->update($updated_fields) ;
-
+                $updated_fields = $action->start_date !== null ? HelpersTraits::getDateTimeFormat($action->start_date). ' '. $attributes['value'] : null;
+                $action->update(['start_date' => $updated_fields]) ;
             }else{
-                $updated_fields = ['end_date' =>date('Y-m-d', strtotime($action->end_date)). ' '. $attributes['value'] ];
-                // $action->update(['end_date' =>date('Y-m-d', strtotime($action->end_date)). ' '. $attributes['value'] ]) ;
-                $action->update($updated_fields) ;
-
+                $updated_fields = $action->end_date !== null ? HelpersTraits::getDateTimeFormat($action->end_date). ' '. $attributes['value'] : null;
+                $action->update(['end_date' => $updated_fields]) ;
             }
-            $log = LogService::store($updated_fields, $action->id, $action->getTable(), 'update');
-
+            LogService::store([$updated_fields], $action->id, $action->getTable(), 'update');
         }
 
         if ($attributes['type'] === 'date') {
-            $carbonDateTime = Carbon::parse($attributes['value']);
-            $newCarbonDate = Carbon::parse($carbonDateTime);
-            $dateTime = $carbonDateTime->setDate($newCarbonDate->year, $newCarbonDate->month, $newCarbonDate->day);
-            $carbonDateTime->format('Y-m-d');
-
-            if ($action[$attributes['fieldName']]){
-                $action[$attributes['fieldName']] = $dateTime->setTimeFrom(Carbon::parse($action[$attributes['fieldName']])->format('H:i:s'));
-                $updated_fields =[$attributes['fieldName']=>$dateTime->setTimeFrom(Carbon::parse($action[$attributes['fieldName']])->format('H:i:s'))];
-            }else{
-                $action[$attributes['fieldName']] = $dateTime->setTimeFrom(Carbon::parse('00:00:00')->format('H:i:s'));
-                $updated_fields =[$attributes['fieldName']=>$dateTime->setTimeFrom(Carbon::parse('00:00:00')->format('H:i:s'))];
-
-            }
+            $action[$attributes['fieldName']] = $attributes['value'] != null ? $attributes['value'] .' '. HelpersTraits::getTimeFormat($action[$attributes['fieldName']]) : $attributes['value'] .' 00:00:00';
             $action->save();
-            $log = LogService::store($updated_fields, $action->id, $action->getTable(), 'update');
         }
 
         return ComponentService::update($action, $attributes);

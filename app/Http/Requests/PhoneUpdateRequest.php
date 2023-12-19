@@ -24,7 +24,7 @@ class PhoneUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => ['nullable','string','min:9','max:16'],
+            'number' => ['nullable','string','min:9'],
             'character_id' => ['nullable','exists:character,id'],
             'more_data' => ['nullable']
         ];
