@@ -472,11 +472,13 @@
         <div class="forForm">
             <label for="searchSignalDateRegistrationDivision">{{ __('content.date_registration_division') }}</label>
             <input type="text" name="subunit_date" id="searchSignalDateRegistrationDivision" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalDateRegistrationDivision',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search name="search_subunit_date" inpName="end_subunit_date" />
         </div>
 
         <div class="forForm">
             <label for="searchSignalCheckDate">{{ __('content.check_date') }}</label>
             <input type="text" name="check_date" id="searchSignalCheckDate" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalCheckDate',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search name="search_check_date" inpName="end_check_date" />
         </div>
 
         <div class="forForm">

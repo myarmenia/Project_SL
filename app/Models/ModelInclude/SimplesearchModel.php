@@ -3490,7 +3490,15 @@ class SimplesearchModel extends Model
                 $month = $aa[1];
                 $day = $aa[0];
                 $data['subunit_date'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND subunit_date = '{$data['subunit_date']}' ";
+              //  $query .=" AND subunit_date = '{$data['subunit_date']}' ";
+
+                $query .= $this->arifDate(
+                    [
+                        'search_field' => $data['subunit_date'],
+                        'date_search_arif' => $data['search_subunit_date'],
+                        'end_date' => $data['end_subunit_date'],
+                        'search_col' => 'subunit_date'
+                     ]);
             }
 
             if(isset($data['checking_worker_post'])){
@@ -3517,7 +3525,14 @@ class SimplesearchModel extends Model
                 $month = $aa[1];
                 $day = $aa[0];
                 $data['check_date'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND check_date = '{$data['check_date']}' ";
+               // $query .=" AND check_date = '{$data['check_date']}' ";
+                $query .= $this->arifDate(
+                    [
+                        'search_field' => $data['check_date'],
+                        'date_search_arif' => $data['search_check_date'],
+                        'end_date' => $data['end_check_date'],
+                        'search_col' => 'check_date'
+                     ]);
             }
 
             if(strlen(trim($data['check_date_id'])) != 0){
