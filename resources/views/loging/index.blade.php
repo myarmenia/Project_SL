@@ -2,6 +2,9 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/users/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
+
 @endsection
 
 @section('content')
@@ -32,7 +35,6 @@
                             value="{{ request()->input('last_name') }}">
                         <select name="type" class="form-select loging-search-select">
                             <option value="" hidden>{{ __('table.action') }}</option>
-
                             @foreach ($actions_array as $action)
                                 <option value="{{ $action }}"
                                     {{ $action == request()->input('type') ? 'selected' : '' }}>
@@ -52,6 +54,7 @@
                         </select>
                         <input type="date" data-check="date" class="form-control loging-search-input"  name="date_from" value="{{ request()->input('date_from') }}">
                         <input type="date" data-check="date" class="form-control loging-search-input"  name="date_to" value="{{ request()->input('date_to') }}">
+
                         <button class="btn btn-primary loging-search-btn">Որոնել</button>
                         </div>
 
@@ -146,6 +149,8 @@
     <script src='{{ asset('assets/js/users/index.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 
 @endsection

@@ -51,14 +51,13 @@
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper calendar-container">
-                                <input 
+                                <input
                                     autocomplete="off" onblur="handleBlur(this)"
-                                    type="text" 
+                                    type="text"
                                     placeholder=""
-                                    value="{{ $action->start_date ? date('Y-m-d', strtotime($action->start_date)) : null }}"
-                                    id="start_date" tabindex="2" data-check="date" class="form-control save_input_data calendarInput"
+                                    value="{{ $action->start_date}}"
+                                    id="start_date" tabindex="2" data-type="date" data-check="date" class="form-control save_input_data calendarInput"
                                     name="start_date"
-                                    
                                      />
                                      <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                     <label for="start_date" class="form-label"> 3)
@@ -76,12 +75,13 @@
                                     {{ __('content.start_action_time') }}</label>
                             </div>
                         </div>
+
                         <div class="col">
                             <div class="form-floating input-date-wrapper calendar-container">
                                 <input  type="text" placeholder=""
                                         autocomplete="off" onblur="handleBlur(this)"
                                         value="{{ $action->end_date}}"
-                                        id="end_date" tabindex="4" data-check="date" class="form-control save_input_data calendarInput"
+                                        id="end_date" tabindex="4" data-type="date" data-check="date" class="form-control save_input_data calendarInput"
                                         name="end_date" />
                                         <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
 
