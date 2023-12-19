@@ -121,7 +121,7 @@ class FilterController extends Controller
     {
         $request['page'] = $page;
 
-        // var_dump(Man::byRelations($request->all(['filter', 'search']))->limit(1)->toSql());
+        // dd(Man::byRelations($request->all(['filter', 'search']))->limit(1)->toSql());
         // exit;
         $limit = 20;
         $count = Man::countMan($request->all(['filter', 'search']));
