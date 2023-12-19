@@ -171,10 +171,9 @@ class BreadCrumbs
                     }
                     array_pop($crumbs);
                 }
+
                 if (request()->segment(2) == 'translate') {
-
                     $arr_asoc['name'] = 'translate';
-
                 }
 
 
