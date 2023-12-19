@@ -484,12 +484,14 @@
         <div class="forForm">
             <label for="searchSignalCheckPreviously">{{ __('content.check_previously') }}</label>
             <input type="text" name="check_date_id" id="searchSignalCheckPreviously" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalCheckPreviously',12)"  class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search name="search_check_date_id" inpName="end_check_date_id" />
         </div>
 
 
         <div class="forForm">
             <label for="searchSignalDateActual">{{ __('content.date_actual_word') }}</label>
             <input type="text" name="end_date" id="searchSignalDateActual" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalDateActual',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search name="search_check_end_date" inpName="end_end_date" />
         </div>
 
         <?php if (isset($search_params) && isset($search_params['count_days'])) { ?>

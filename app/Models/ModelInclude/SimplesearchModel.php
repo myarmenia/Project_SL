@@ -3542,7 +3542,15 @@ class SimplesearchModel extends Model
                 $month = $aa[1];
                 $day = $aa[0];
                 $data['check_date_id'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND `date`.`date` = '{$data['check_date_id']}' ";
+               // $query .=" AND `date`.`date` = '{$data['check_date_id']}' ";
+
+                $query .= $this->arifDate(
+                    [
+                        'search_field' => $data['check_date_id'],
+                        'date_search_arif' => $data['search_check_date_id'],
+                        'end_date' => $data['end_check_date_id'],
+                        'search_col' => '`date`.`date`'
+                     ]);
             }
 
             if(strlen(trim($data['end_date'])) != 0){
@@ -3552,7 +3560,15 @@ class SimplesearchModel extends Model
                 $month = $aa[1];
                 $day = $aa[0];
                 $data['end_date'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND end_date = '{$data['end_date']}' ";
+              //  $query .=" AND end_date = '{$data['end_date']}' ";
+
+                $query .= $this->arifDate(
+                    [
+                        'search_field' => $data['end_date'],
+                        'date_search_arif' => $data['search_check_end_date'],
+                        'end_date' => $data['end_end_date'],
+                        'search_col' => 'end_date'
+                     ]);
             }
 
             if(isset($data['opened_dou'])){
