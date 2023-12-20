@@ -63,17 +63,20 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <input
                                     @if(!$teg) disabled @endif
-                                    type="date"
+                                    type="text"
                                     placeholder=""
                                     id="inputDate1"
-                                    class="form-control"
+                                    class="form-control calendarInput"
                                     name="start_date"
                                     value="{{$modelData->model->start_date}}"
                                     data-check="date"
+                                    autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="inputDate1" class="form-label"
                                 >3) {{__('content.start_employment')}}</label
                                 >
@@ -81,17 +84,20 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <input
                                     @if(!$teg) disabled @endif
-                                    type="date"
+                                    type="text"
                                     placeholder=""
                                     id="inputDate1"
-                                    class="form-control"
+                                    class="form-control calendarInput"
                                     name="end_date"
                                     value="{{$modelData->model->end_date}}"
                                     data-check="date"
+                                    autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="inputDate1" class="form-label"
                                 >4) {{__('content.end_employment')}}</label>
                             </div>

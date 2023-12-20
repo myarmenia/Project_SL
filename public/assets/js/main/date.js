@@ -1,19 +1,20 @@
-let picker;
+let picker = {};
 let element = null
-console.log(document.querySelector('.calendarInput').value);
 function openCalendar(el) {
-  el.closest('.calendar-container').querySelectorAll('.calendarInput').forEach(input => {
-    element = input
-  })
-  if (!picker) {
-    picker = new Pikaday({
+  let input = el.closest('.calendar-container').querySelector('.calendarInput')
+  element = input
+  let elementId = element.name
+
+  if (!picker[elementId]) {
+    picker[elementId] = new Pikaday({
       field: el,
       format: 'DD-MM-YYYY', // customize the format as needed
       yearRange: [1900, new Date().getFullYear()], // customize the year range as needed
       onSelect: updateInput
     });
   }
-  picker.show();
+  picker[elementId].show();
+
 }
 
 function handleBlur(inp) {
