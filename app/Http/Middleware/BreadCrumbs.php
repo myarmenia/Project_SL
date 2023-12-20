@@ -29,30 +29,31 @@ class BreadCrumbs
 
 
 
-
-
         if (str_contains($uri, '?') || str_contains($currentURL, 'edit') || str_contains($currentURL, 'create')) {
             if (session()->has('crumbs_url')) {
                 $crumbs = Session::get('crumbs_url');
             }
         }
 
-        if (request()->segment(3) == 'fusion' && request()->segment(4)) {
+        if (request()->segment(3) == 'fusion' && (request()->segment(4) || request()->segment(5))) {
             if (session()->has('crumbs_url')) {
                 $crumbs = Session::get('crumbs_url');
             }
         }
+
+
         if (request()->segment(3) == 'loging' && request()->segment(4)) {
             if (session()->has('crumbs_url')) {
                 $crumbs = Session::get('crumbs_url');
             }
         }
 
-        if (request()->segment(2) == 'checked-user-list') {
+        if (request()->segment(2) == 'checked-user-list' || request()->segment(2) == 'checked-file-data') {
             if (session()->has('crumbs_url')) {
                 $crumbs = Session::get('crumbs_url');
             }
         }
+
         if (request()->segment(2) == 'advancedsearch') {
 
             if(request()->segment(3)){
@@ -63,6 +64,7 @@ class BreadCrumbs
             }
 
         }
+
         if (request()->segment(2) == 'simplesearch') {
 
         // if (request()->segment(2) == 'simplesearch' ) {
@@ -143,6 +145,13 @@ class BreadCrumbs
 
                     $arr_asoc['name'] = request()->segment(4);
                 }
+
+                if (request()->segment(3) == 'fusion' &&  str_contains(url()->previous(), 'fusion-check-ids')) {
+
+                    // $arr_asoc['name'] = request()->segment(4);
+                    array_pop($crumbs);
+
+                }
                 if (str_contains(request()->segment(2), 'sign')) {
 
                     $arr_asoc['name'] = 'sign';
@@ -168,6 +177,9 @@ class BreadCrumbs
                 }
                 if (request()->segment(2) == 'checked-user-list') {
                     $arr_asoc['name'] = 'checked-user-list';
+                }
+                 if (request()->segment(2) == 'checked-file-data') {
+                    $arr_asoc['name'] = 'checked-file-data';
                 }
                 if (request()->segment(2) == 'search-file' || request()->segment(2) == 'search-file-result') {
                     $arr_asoc['name'] = 'search_file';
@@ -206,6 +218,12 @@ class BreadCrumbs
                     $arr_asoc['name'] = 'translate';
                 }
 
+                if (request()->segment(3) == 'fusion' &&  str_contains(url()->previous(), 'fusion-check-ids')) {
+
+                    $arr_asoc['name'] = request()->segment(3);
+                   array_push($crumbs, $arr_asoc);
+
+                }
 
                 array_push($crumbs, $arr_asoc);
 
@@ -292,4 +310,5 @@ class BreadCrumbs
 
         return $next($request);
     }
+
 }

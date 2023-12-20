@@ -1,5 +1,7 @@
 @extends('roles.index')
-
+@section('style')
+    <link href="{{ asset('assets/css/roles/style.css') }}" rel="stylesheet" />
+@endsection
 @section('permissions-content')
 
     <div class="group-content">

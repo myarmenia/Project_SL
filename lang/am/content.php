@@ -298,7 +298,8 @@ return [
     'summary_man' => 'Ամփոփագրով անցնող անձինք',
     'summary_organizations' => 'Ամփոփագրով անցնող կազմակերպություններ',
     'summary_auto' => 'Ավելացնել ինքնաշխատ կերպով',
-    //criminal_case
+    'document_content' => 'Փաստաթղթի բովանդակութըունը',
+//criminal_case
     'number_case' => 'Գործի համարը',
     'case_person' => 'Գործը վերաբերում է անձին',
     'case_organization' => 'Գործը վերաբերում է կազմակերպությանը',

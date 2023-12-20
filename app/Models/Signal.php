@@ -248,11 +248,13 @@ class Signal extends Model
 
     public function count_number()
     {
-        
-        if($this->end_date!==null){
+
+        if($this->end_date!==null && $this->check_date!==null){
             $endDate = $this->end_date;
             $startDate = $this->check_date;
+
             $startCarbon = Carbon::parse($startDate);
+         
             $endCarbon = Carbon::parse($endDate);
             $dayDifference = $startCarbon->diffInDays($endCarbon);
             $this->expired_days=$dayDifference;

@@ -48,6 +48,26 @@ trait FullTextSearch
         return $query;
     }
 
+    function arifInt(array $data): string
+    {
+        $query = '';
+
+        $query = match ($data['date_search_arif']) {
+
+            '>' => " AND {$data['search_col']} > {$data['search_field']}",
+            '>=' => " AND {$data['search_col']} >= {$data['search_field']}",
+            '<' => " AND {$data['search_col']}  < {$data['search_field']}",
+            '<=' => " AND {$data['search_col']} <= {$data['search_field']}",
+            '<=>' => " AND {$data['search_col']} BETWEEN  {$data['search_field']} AND {$data['end_date']}",
+
+            default => " AND {$data['search_col']} = {$data['search_date']}"
+
+        };
+
+        return $query;
+
+    }
+
     protected function fullTextWildcards($term)
     {
         $reservedSymbols = ['?','-', '<', '>', '@', '(', ')', '~'];
