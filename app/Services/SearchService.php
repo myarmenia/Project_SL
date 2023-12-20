@@ -168,7 +168,12 @@ $fileId = File::create($fileDetails)->id;
             $matchLong = [];
             info('regexpstart', [(now()->minute * 60) + now()->second]);
 
-            $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
+            //last working patter
+            // $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
+
+            $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?(?:|\/|\()\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))/u';
+
+            // $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
             //newwwwww version !!!
             // $pattern = '/(?<name>[Ա-Ֆ][ա-ֆև]+)\s+(?<patronymic>[Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
 
@@ -189,7 +194,7 @@ $fileId = File::create($fileDetails)->id;
                         $birthMonth = (int) $value[9] === 0 ? null : (int) $value[9];
                         $birthYear = (int) $value[10] === 0 ? null : (int) $value[10];
                         // $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
-                        $address = mb_strlen($value[11], 'UTF-8') < 10 ? $address = '' : $value[11];
+                        // $address = mb_strlen($value[11], 'UTF-8') < 10 ? $address = '' : $value[11];
 
                         // $valueAddress = str_replace("թ.ծ.,", "", $address);
                         // $valueAddress = str_replace("թ.ծ", "", $valueAddress);
@@ -225,7 +230,7 @@ $fileId = File::create($fileDetails)->id;
                             "birth_day" => $birthDay,
                             "birth_month" => $birthMonth,
                             "birth_year" => $birthYear,
-                            'address' => $address,
+                            'address' => '',
                             'find_text' => $value[0],
                             'paragraph' => $text,
                         ];
