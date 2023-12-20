@@ -584,12 +584,7 @@
 
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('report.index') }}">
-                            <i class="bi bi-search"
-                                title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
-                        </a>
-                    </li>
+
 
                 </ul>
             </li>
@@ -599,6 +594,12 @@
                 <a class="nav-link collapsed" href="{{ route('translate.index') }}">
                     <i class="bi bi-translate" title="{{ __('content.translation ') }}"></i>
                     <span>{{ __('sidebar.learning_systems') }}</span>
+                </a>
+            </li>
+            <li>
+                <a  class="nav-link collapsed" href="{{ route('report.index') }}">
+                    <i class="bi bi-search"
+                        title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
                 </a>
             </li>
         @endrole

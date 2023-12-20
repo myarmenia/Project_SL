@@ -71,41 +71,41 @@ let arr_asoc = []
 else {
 }
 
-printBreadCrumbs(crumbs)
+// printBreadCrumbs(crumbs)
 
 
 
-function printBreadCrumbs(crumbs) {
-    console.log(crumbs)
-    crumbs.forEach((element, index) => {
-        const li = document.createElement('li')
-        li.classList.add('breadcrumb-item')
+// function printBreadCrumbs(crumbs) {
+//     console.log(crumbs)
+//     crumbs.forEach((element, index) => {
+//         const li = document.createElement('li')
+//         li.classList.add('breadcrumb-item')
 
-        if (element['name'] === crumbs[crumbs.length - 1]['name'] && index == crumbs[crumbs.length - 1]) {
-            li.classList.add('active')
-            let k = 'open'
-            console.log('<?php echo __("sidebar.'+k+'"); ?>')
+//         if (element['name'] === crumbs[crumbs.length - 1]['name'] && index == crumbs[crumbs.length - 1]) {
+//             li.classList.add('active')
+//             let k = 'open'
+//             console.log('<?php echo __("sidebar.'+k+'"); ?>')
 
-            li.innerHTML = `{{ __('sidebar.' . k) }}`;
-            if (element['id']) {
-                li.innerHTML += ` ID:  ${element['id'] }`
-            }
-        } else {
-            let a = document.createElement('a')
-            a.setAttribute('href', `{{ app()->getLocale() }} ${element['url'] }`)
-            let p = element["name"]
+//             li.innerHTML = `{{ __('sidebar.' . k) }}`;
+//             if (element['id']) {
+//                 li.innerHTML += ` ID:  ${element['id'] }`
+//             }
+//         } else {
+//             let a = document.createElement('a')
+//             a.setAttribute('href', `{{ app()->getLocale() }} ${element['url'] }`)
+//             let p = element["name"]
 
-            a.innerHTML = "{{ __('sidebar.element[name]') }}"
-            if (element['id']) {
-                a.innerHTML += ` ID:  ${element['id'] }`
-            }
-            li.append(a)
-        }
+//             a.innerHTML = "{{ __('sidebar.element[name]') }}"
+//             if (element['id']) {
+//                 a.innerHTML += ` ID:  ${element['id'] }`
+//             }
+//             li.append(a)
+//         }
 
-        document.querySelector('.breadcrumb').append(li)
+//         document.querySelector('.breadcrumb').append(li)
 
-    });
+//     });
 
 
-}
+// }
 

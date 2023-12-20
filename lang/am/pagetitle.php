@@ -54,6 +54,7 @@ return [
     'action' => 'Գործողություն',
     'checked-file-data' => 'Տվյալների մուտքագրում ֆայլերի միջոցով',
     'organization' => 'Կազմակերպություն',
+    'manExternalSignHasSignPhoto' => 'Արտաքին նշաններ (լուսանկար)'
 
 
 

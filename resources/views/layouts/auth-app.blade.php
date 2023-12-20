@@ -59,8 +59,10 @@
         <div class="container">
             {{-- =============== --}}
             {{-- {{dd(request()->segment(2))}} --}}
-            @if (!request()->routeIs('home'))
-                {{-- @if (!request()->routeIs('home') && (!request()->segment(2) == 'advancedsearch' || !request()->segment(2) == 'simplesearch')) --}}
+
+            {{-- @if (!request()->routeIs('home') ) --}}
+
+                @if (!request()->routeIs('home') && request()->segment(2) !== 'advancedsearch' && request()->segment(2) !== 'simplesearch')
 
                 <div class="pagetitle-wrapper">
                     <div class="pagetitle">
@@ -134,6 +136,7 @@
 
     <script>
         // sessionStorage.setItem('reload', 'yes');
+
     </script>
     <script src="{{ asset('assets/plugins/date_plugin/pikaday.min.js') }}"></script>
 

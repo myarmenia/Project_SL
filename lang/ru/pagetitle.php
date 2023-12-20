@@ -54,6 +54,7 @@ return [
     'action' => 'Действие',
     'checked-file-data' => 'Ввод данных через файлы',
     'organization' => 'Организация',
+    'manExternalSignHasSignPhoto' => 'Внешние приметы (фото)'
 
 
 
