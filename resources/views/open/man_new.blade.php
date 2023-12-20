@@ -23,7 +23,7 @@
                             <label for="">{{ __('content.first_name') }}</label>
                             <input type="text" class="form-control man-search-input">
                         </div>
-                        
+
                         <div>
                             <label for="">{{ __('content.middle_name') }}</label>
                             <input type="text" class="form-control man-search-input">
