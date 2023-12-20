@@ -514,6 +514,7 @@
         <div class="forForm">
             <label for="signalAmountOverdue">{{ __('content.amount_overdue') }}</label>
             <input type="text" name="count_days[]" id="signalAmountOverdue" onkeydown="validateNumber(event,'signalAmountOverdue',12)" class="oneInputSaveEnter" />
+            <x-date-filter-search name="search_count_days" inpName="end_count_days" />
             @if (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalAmountOverdueOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'AND')
