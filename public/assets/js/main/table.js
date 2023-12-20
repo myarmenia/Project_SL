@@ -870,7 +870,7 @@ table_div?.addEventListener("scroll", () => {
     lastScrollPosition = scrollPosition;
 });
 
-// -------------------------------- fetch get end ----------------------------- //
+// -------------------------------- fetch scroll end ----------------------------- //
 
 // -------------------------------- filter data post -------------------------- //
 
@@ -1200,23 +1200,6 @@ clearBtn?.addEventListener("click", () => {
     searchFetch();
 });
 
-// =========================================================
-//                 optimization js
-// =========================================================
-
-// let button_table = document.querySelectorAll('.button-table')
-// button_table?.forEach(el => {
-//     el.addEventListener('click', () => {
-//         button_table.forEach(el => {
-//             if(el.className !== 'button-table btn btn-light'){
-//                 el.classList.remove('btn-primary')
-//                 el.classList.add('btn-light')
-//             }
-//         })
-//         el.classList.remove('btn-light')
-//         el.classList.add('btn-primary')
-//     } )
-// })
 
 // =========================================================
 //                search inputs js

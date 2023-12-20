@@ -336,7 +336,7 @@
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentCheckingOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="check_agency_id[]" id="searchSignalDepartmentCheckingId" />
-{{--            <datalist id="agency" class="input_datalists" style="width: 500px;"></datalist>--}}
+           {{--<datalist id="agency" class="input_datalists" style="width: 500px;"></datalist>--}}
         </div>
 
         <?php if (isset($search_params) && isset($search_params['check_subunit_id'])) { ?>

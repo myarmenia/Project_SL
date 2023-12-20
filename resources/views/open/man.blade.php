@@ -535,9 +535,9 @@
                 bibliography_id = "{{ $bibliography_id }}"
             @endif
         </script>
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
+        {{-- <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-        <script src='{{ asset('assets/js/main/date.js') }}'></script>
+        <script src='{{ asset('assets/js/main/date.js') }}'></script> --}}
 
     @endsection
 
