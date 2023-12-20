@@ -86,7 +86,6 @@
                                     autocomplete="off" onblur="handleBlur(this)"
                                 />
                                 <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
-
                                 <label for="inputDate1" class="form-label">6)
                                     {{ __('content.date_of_birth') }}
                                 </label>
@@ -306,9 +305,10 @@
                         <div class="btn-div col more_data" id="attach_file" data-type="create_relation"
                             data-model="more_data" data-fieldname="text">
                             <label class="form-label">22) {{ __('content.additional_information_person') }}</label>
-                            <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal" data-bs-target="#additional_information">{{ __('content.addTo') }}
+                            <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
+                                data-bs-target="#additional_information">{{ __('content.addTo') }}
                             </button>
-                            <x-tegs :data="$man" relation="more_data" name="id" relationtype="has_many" delete moreData />
+                            <x-tegs :data="$man" relation="more_data" name="text" relationtype="has_many" delete moreData/>
                         </div>
 
                         <!-- Select -->
@@ -377,7 +377,7 @@
                             <div class="form-floating input-date-wrapper calendar-container">
                                 <input type="text" data-check="date" placeholder="" id="start_date"
                                     value="{{ $man->start_wanted ?? null }}" class="form-control save_input_data calendarInput"
-                                    name="start_wanted" tabindex="21" data-type="update_field" 
+                                    name="start_wanted" tabindex="21" data-type="update_field"
                                     autocomplete="off" onblur="handleBlur(this)"/>
                                     <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="start_date" class="form-label">27)
@@ -388,7 +388,7 @@
                             <div class="form-floating input-date-wrapper calendar-container">
                                 <input type="text" data-check="date" placeholder="" id="entry_date"
                                     class="form-control save_input_data calendarInput" name="entry_date" tabindex="22"
-                                    value="{{ $man->entry_date ?? null }}" data-type="update_field" 
+                                    value="{{ $man->entry_date ?? null }}" data-type="update_field"
                                     autocomplete="off" onblur="handleBlur(this)"/>
                                     <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
 
@@ -460,16 +460,15 @@
                         <div class="btn-div">
                             <label class="form-label">34) {{__('content.external_signs')}}</label>
                             <a href="{{route('man.sign.create',['model' => 'man','id'=>$man->id ])}}">{{__('content.addTo')}}</a>
-                             <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"
-                             :label="__('content.short_external_sign')" relationtype="has_many" tableName="man_external_sign_has_sign" related
-                                delete :edit="['page' =>'sign.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']" />
+                             <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id" :label="__('content.short_external_sign')"
+                                     relationtype="has_many" tableName="man_external_sign_has_sign" related :edit="['page' =>'sign.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
                             <a href="{{route('manExternalSignHasSignPhoto.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id" :label="__('content.short_external_sign')" relationtype="has_many" tableName="externalSignHasSignPhoto" related delete />
-
+                            <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id" :label="__('content.short_external_sign')"
+                                    relationtype="has_many" tableName="man_external_sign_has_sign_photo" related delete />
                         </div>
                         <!-- Input -->
                         <div class="col">
@@ -542,8 +541,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">43) {{ __('content.test_signal') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'signal_has_man']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'signal_has_man']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="signal_has_man" name="id" tableName="signal"
                                 :label="__('content.short_signal')"
                                 related delete :edit="['page' =>'signal.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
@@ -552,8 +550,7 @@
                         <div class="btn-div">
 
                             <label class="form-label">44){{ __('content.passes_signal') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'man_passed_by_signal']) }}">{{ __('content.addTo') }}</a>
+                            <a  href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'man_passed_by_signal']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="man_passed_by_signal" name="id" tableName="signal" :label="__('content.short_signal')"
                                 related delete :edit="['page' =>'signal.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
