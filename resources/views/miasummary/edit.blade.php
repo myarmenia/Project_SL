@@ -32,13 +32,13 @@
 
                                 <input type="date" id="inputDate1" class="form-control save_input_data" name="date"
                                     value="{{ $miaSummary->date ?? null }}" data-type="update_field" />
-                                <label for="inputDate1" class="form-label">1) Ամփոփագրի գրանցման ասաթիվ</label>
+                                <label for="inputDate1" class="form-label">1) {{ __('content.date_registration_reports') }}</label>
                                 <!-- </div> -->
                             </div>
                         </div>
 
                         <div class="btn-div col">
-                            <label class="form-label">2) Տեղեկատվության բովանդակաություն</label>
+                            <label class="form-label">2) {{ __('content.content_inf') }}</label>
                             <button class="btn btn-primary  model-id" data-model-id='{{ $miaSummary->id }}'
                                 data-type='update_field' data-fieldName='content' style="font-size: 13px"
                                 data-bs-toggle="modal"data-bs-target="#additional_information">{{ __('content.addTo') }}</button>
@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">3) Ամփոփագրով անցնող անձինք</label>
+                            <label class="form-label">3) {{ __('content.summary_man') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'mia_summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :name="'id'" :data="$miaSummary" :relation="'man'" :label="__('content.short_man')" tableName="man"
@@ -66,7 +66,7 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">4) Ամփոփագրով անցնող կազմակերպություններ</label>
+                            <label class="form-label">4) {{ __('content.summary_organizations') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'mia_summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
 
@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">5) Փաստաթղթի բովանդակութըունը</label>
+                            <label class="form-label">5) {{ __('content.document_content') }}</label>
                             <div class="file-upload-content tegs-div">
                                 <x-tegs :name="'id'" :data="$miaSummary->bibliography" :relation="'files'" :label="__('content.file') . ': '" />
                             </div>
@@ -94,7 +94,7 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">7) Կապեր</label>
+                            <label class="form-label">7) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                                 <x-teg :name="'id'" :item="$miaSummary" relation="bibliography"
                                     inputValue="$miaSummary->bibliography_id" :label="__('content.short_bibl')" tableName="bibliography"

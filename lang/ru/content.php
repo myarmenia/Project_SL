@@ -298,6 +298,7 @@ return [
     'summary_man' => 'По сводке проходят лица',
     'summary_organizations' => 'По сводке проходят орг-ии',
     'summary_auto' => 'Добавить автоматически',
+    'document_content' => 'Содержание документа',
 //criminal_case
     'number_case' => 'Номер дела',
     'case_person' => 'Дело относится к лицу',
