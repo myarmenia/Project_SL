@@ -22,6 +22,8 @@
          const breadcrumb_items = document.querySelectorAll('.breadcrumb-item')
          const prev_url = breadcrumb_items[breadcrumb_items.length - 2].querySelector('a').getAttribute('href')
 
+         // deleteDublicates(breadcrumb_items)
+
          if(mainRouteValue){
              const regex = /\/am\/([^\/]+)\/(\d+)\/edit/;
              const matches = currentUrl.match(regex);
@@ -35,12 +37,32 @@
                  if(prev_url.includes('?')){
                      params = params.replace('?', '&')
                  }
+                 // console.log(params)
                  document.getElementById('backUrl')?.setAttribute('href', prev_url+params)
+
              }
          }
          else {
              console.log(prev_url)
              document.getElementById('backUrl')?.setAttribute('href', prev_url)
          }
+
+
+         // function deleteDublicates(breadcrumb_items){
+         //     const elementsArray = Array.from(document.querySelectorAll('.breadcrumb-item'));
+         //     const seenValues = {};
+         //
+         //     for (let i = 0; i < elementsArray.length; i++) {
+         //         const element = elementsArray[i];
+         //         const innerTextValue = element.innerText;
+         //         if (seenValues[innerTextValue]) {
+         //             elementsArray.splice(i, 1);
+         //             i--;
+         //         } else {
+         //             seenValues[innerTextValue] = true;
+         //         }
+         //     }
+         //     breadcrumb_items = elementsArray;
+         // }
      }
 </script>
