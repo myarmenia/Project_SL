@@ -63,20 +63,17 @@ trait HelpersTraits
         return redirect()->route('open.page',$page);
     }
 
-    public static function getDateTimeFormat(?string $value, $reverse = false): string
+    public static function getDateTimeFormat(?string $value, $reverse = false): ?string
     {
+        if (!$value) return null;
         $year = substr($value, 0, 4);
         $month = substr($value, 5, 2);
         $day = substr($value, 8, 2);
 
         if ($reverse){
             list($day, $month, $year) = explode('-', $value);
-            $date = $year. '-' . $month . '-' .$day;
-        }else{
-            $date = $year. '-' . $month . '-' .$day;
         }
-
-        return $date;
+        return $year. '-' . $month . '-' .$day;
     }
 
     public static function getTimeFormat($value): string

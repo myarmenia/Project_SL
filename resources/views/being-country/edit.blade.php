@@ -9,10 +9,7 @@
 @endsection
 
 @section('content')
-    
-
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
@@ -276,11 +273,6 @@
     <x-errorModal/>
 
     @section('js-scripts')
-        <script>
-            let open_modal_url = "{{route('open.modal')}}"
-            let lang = "{{app()->getLocale()}}"
-        </script>
-
         <script src="{{ asset('assets/js/script.js') }}"></script>
         {{--        <script src="{{ asset('assets/js/being-country/script.js') }}"></script>--}}
         <script src='{{ asset('assets/js/main/date.js') }}'></script>
