@@ -46,7 +46,7 @@
                 <input type="text" name="last_name[]" id="searchManLastName" class="getName oneInputSaveEnter" />
 
                 <x-select-distance
-                    :search-data="$search_params['last_name_distance']"
+                    :search-data="$search_params['last_name_distance'] ?? ''"
                     name="last_name_distance"
                     class="distance distance_searchManLastName" />
 
@@ -83,7 +83,7 @@
                 <label for="searchManFirstName">{{ __('content.first_name') }}</label>
                 <input type="text" name="first_name[]" id="searchManFirstName" class="getName oneInputSaveEnter" />
 
-                <x-select-distance :search-data="$search_params['first_name_distance']" name="first_name_distance" class="distance distance_searchManFirstName" />
+                <x-select-distance :search-data="$search_params['first_name_distance'] ?? '' " name="first_name_distance" class="distance distance_searchManFirstName" />
 
                 @if (isset($search_params['first_name_type']) && $search_params['first_name_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -118,7 +118,7 @@
                 <label for="searchManMiddleName">{{ __('content.middle_name') }}</label>
                 <input type="text" name="middle_name[]" id="searchManMiddleName" class="getName oneInputSaveEnter" />
 
-                <x-select-distance :search-data="$search_params['middle_name_distance']" name="middle_name_distance" class="distance distance_searchManMiddleName" />
+                <x-select-distance :search-data="$search_params['middle_name_distance'] ?? '' " name="middle_name_distance" class="distance distance_searchManMiddleName" />
 
                 @if (isset($search_params['middle_name_type']) && $search_params['middle_name_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -171,7 +171,7 @@
                     onkeydown="validateNumber(event,'searchManDateOfBirth',12)"
                     class="oneInputSaveDateMan oneInputSaveEnter" />
                     <x-date-filter-search
-                        :search-data="$search_params['date_search_birthday']"
+                        :search-data="$search_params['date_search_birthday'] ?? '' "
                         name="date_search_birthday"
                         inpName="end_birthday" />
             </div>
@@ -232,7 +232,7 @@
                 <label for="searchManPassportNumber">{{ __('content.passport_number') }}</label>
                 <input type="text" name="passport[]" id="searchManPassportNumber" class="oneInputSaveEnter" />
 
-                <x-select-distance :search-data="$search_params['password_distance']" name="password_distance" class="distance distance_searchManPassportNumber" />
+                <x-select-distance :search-data="$search_params['password_distance'] ?? '' " name="password_distance" class="distance distance_searchManPassportNumber" />
 
                 @if (isset($search_params['passport_type']) && $search_params['passport_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -521,7 +521,7 @@
                 <input type="text" name="region[]" id="searchManPlaceOfBirthArea" class="oneInputSaveEnter" />
 
                 <x-select-distance
-                 :search-data="$search_params['region_name_distance']"
+                 :search-data="$search_params['region_name_distance'] ?? '' "
                  name="region_name_distance"
                  class="distance distance_searchManPlaceOfBirthArea" />
 
@@ -561,7 +561,7 @@
                     class="oneInputSaveEnter" />
 
                 <x-select-distance
-                    :search-data="$search_params['locality_name_distance']"
+                    :search-data="$search_params['locality_name_distance'] ?? '' "
                     name="locality_name_distance"
                     class="distance distance_searchManPlaceOfBirthSettlement" />
 
@@ -643,7 +643,7 @@
                     class="oneInputSaveMan oneInputSaveEnter" />
 
                 <x-select-distance
-                    :search-data="$search_params['attention_distance']"
+                    :search-data="$search_params['attention_distance'] ?? '' "
                     name="attention_distance"
                     class="distance distance_searchManAttention" />
 
@@ -684,7 +684,7 @@
                     class="oneInputSaveEnter" />
 
                 <x-select-distance
-                    :search-data="$search_params['more_data_distance']"
+                    :search-data="$search_params['more_data_distance'] ?? '' "
                     name="more_data_distance"
                     class="distance distance_searchManAdditionalInformationPerson" />
 
@@ -764,7 +764,7 @@
                     class="oneInputSaveMan oneInputSaveEnter" />
 
                 <x-select-distance
-                    :search-data="$search_params['occupation_distance']"
+                    :search-data="$search_params['occupation_distance'] ?? '' "
                     name="occupation_distance"
                     class="distance distance_searchManOccupation" />
 
@@ -874,7 +874,7 @@
                     onkeydown="validateNumber(event,'searchManDeclaredWantedListWith',12)"
                     class="oneInputSaveEnter oneInputSaveDateMan" />
                     <x-date-filter-search
-                        :search-data="$search_params['date_start_wanted']"
+                        :search-data="$search_params['date_start_wanted'] ?? '' "
                         name="date_start_wanted"
                         inpName="end_start_wanted" />
             </div>
@@ -885,7 +885,7 @@
                     onkeydown="validateNumber(event,'searchManHomeMonitoringStart',12)"
                     class="oneInputSaveEnter oneInputSaveDateMan" />
                     <x-date-filter-search
-                        :search-data="$search_params['date_entry_date']"
+                        :search-data="$search_params['date_entry_date'] ?? '' "
                         name="date_entry_date"
                         inpName="end_entry_date" />
             </div>
@@ -896,7 +896,7 @@
                     onkeydown="validateNumber(event,'searchManEndMonitoringStart',12)"
                     class="oneInputSaveEnter oneInputSaveDateMan" />
                     <x-date-filter-search
-                        :search-data="$search_params['date_exit_date']"
+                        :search-data="$search_params['date_exit_date'] ?? '' "
                         name="date_exit_date"
                         inpName="end_exit_date" />
             </div>
@@ -1006,7 +1006,7 @@
                 <input type="text" name="nickname[]" id="searchManAlias" class="oneInputSaveEnter" />
 
                 <x-select-distance
-                    :search-data="$search_params['nickname_distance']"
+                    :search-data="$search_params['nickname_distance'] ?? '' "
                     name="nickname_distance"
                     class="distance distance_searchManAlias" />
 
@@ -1046,7 +1046,7 @@
                     class="oneInputSaveMan oneInputSaveEnter" />
 
                 <x-select-distance
-                    :search-data="$search_params['opened_dou_distance']"
+                    :search-data="$search_params['opened_dou_distance'] ?? '' "
                     name="opened_dou_distance"
                     class="distance distance_searchManFaceOpened" />
 
@@ -1109,7 +1109,7 @@
                 <label for="fileSearch">{{ __('content.file_search') }}</label>
                 <input type="text" name="content" id="fileSearch" />
                 <x-select-distance
-                    :search-data="$search_params['opened_dou_distance']"
+                    :search-data="$search_params['opened_dou_distance'] ?? '' "
                     name="content_distance"
                     class="distance distance_fileSearch" />
 

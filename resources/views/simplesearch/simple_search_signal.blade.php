@@ -72,7 +72,7 @@
             <input type="text" name="content[]" id="searchSignalContentsInformationSignal" class="oneInputSaveEnter" />
 
             <x-select-distance
-                :search-data="$search_params['content_distance']"
+                :search-data="$search_params['content_distance'] ?? '' "
                 name="content_distance"
                 class="distance distance_searchSignalContentsInformationSignal"/>
 
@@ -136,7 +136,7 @@
             <input type="text" name="check_status[]" id="searchSignalCheckStatusCharter" class="oneInputSaveEnter" />
 
             <x-select-distance
-                :search-data="$search_params['check_status_distance']"
+                :search-data="$search_params['check_status_distance'] ?? '' "
                 name="check_status_distance"
                 class="distance distance_searchSignalCheckStatusCharter"/>
 
@@ -416,7 +416,7 @@
             <input type="text" name="checking_worker[]" id="searchSignalNameCheckingSignal" class="oneInputSaveEnter" />
 
             <x-select-distance
-                :search-data="$search_params['checking_worker_distance']"
+                :search-data="$search_params['checking_worker_distance'] ?? '' "
                 name="checking_worker_distance"
                 class="distance distance_searchSignalNameCheckingSignal"/>
 
@@ -482,7 +482,7 @@
             <label for="searchSignalDateRegistrationDivision">{{ __('content.date_registration_division') }}</label>
             <input type="text" name="subunit_date" id="searchSignalDateRegistrationDivision" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalDateRegistrationDivision',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
             <x-date-filter-search
-                :search-data="$search_params['search_subunit_date']"
+                :search-data="$search_params['search_subunit_date'] ?? '' "
                 name="search_subunit_date"
                 inpName="end_subunit_date" />
         </div>
@@ -491,7 +491,7 @@
             <label for="searchSignalCheckDate">{{ __('content.check_date') }}</label>
             <input type="text" name="check_date" id="searchSignalCheckDate" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalCheckDate',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
             <x-date-filter-search
-                :search-data="$search_params['search_check_date']"
+                :search-data="$search_params['search_check_date'] ?? '' "
                 name="search_check_date"
                 inpName="end_check_date" />
         </div>
@@ -500,7 +500,7 @@
             <label for="searchSignalCheckPreviously">{{ __('content.check_previously') }}</label>
             <input type="text" name="check_date_id" id="searchSignalCheckPreviously" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalCheckPreviously',12)"  class="oneInputSaveEnter oneInputSaveDateSignal"/>
             <x-date-filter-search
-                :search-data="$search_params['search_check_date_id']"
+                :search-data="$search_params['search_check_date_id'] ?? '' "
                 name="search_check_date_id"
                 inpName="end_check_date_id" />
         </div>
@@ -510,7 +510,7 @@
             <label for="searchSignalDateActual">{{ __('content.date_actual_word') }}</label>
             <input type="text" name="end_date" id="searchSignalDateActual" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalDateActual',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
             <x-date-filter-search
-                :search-data="$search_params['search_check_end_date']"
+                :search-data="$search_params['search_check_end_date'] ?? '' "
                 name="search_check_end_date"
                 inpName="end_end_date" />
         </div>
@@ -536,7 +536,7 @@
             <label for="signalAmountOverdue">{{ __('content.amount_overdue') }}</label>
             <input type="text" name="count_days[]" id="signalAmountOverdue" onkeydown="validateNumber(event,'signalAmountOverdue',12)" class="oneInputSaveEnter" />
             <x-date-filter-search
-                :search-data="$search_params['search_count_days']"  
+                :search-data="$search_params['search_count_days'] ?? '' "
                 name="search_count_days"
                 inpName="end_count_days" />
             @if (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'OR')
@@ -717,7 +717,7 @@
             <input type="text" name="opened_dou[]" id="searchSignalAccordingResultDow" class="oneInputSaveEnter " />
 
             <x-select-distance
-                :search-data="$search_params['opened_dou_distance']"
+                :search-data="$search_params['opened_dou_distance'] ?? '' "
                 name="opened_dou_distance"
                 class="distance distance_searchSignalAccordingResultDow"/>
 
@@ -899,7 +899,7 @@
             <input type="text" name="worker[]" id="searchSignalNameOperatives" class="oneInputSaveEnter" />
 
             <x-select-distance
-                :search-data="$search_params['worker_distance']"
+                :search-data="$search_params['worker_distance'] ?? '' "
                 name="worker_distance"
                 class="distance distance_searchSignalNameOperatives"/>
 
@@ -993,7 +993,7 @@
         {{-- <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="file_content" id="fileSearch"/>
-            <x-select-distance :search-data="$search_params['content_distance']" name="content_distance" class="distance distance_fileSearch"/>
+            <x-select-distance :search-data="$search_params['content_distance'] ?? '' " name="content_distance" class="distance distance_fileSearch"/>
         </div> --}}
 
         <div class="buttons">
