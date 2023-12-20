@@ -77,7 +77,7 @@ return [
     'middle_name' => 'Очество',
 
     'learning_systems' => 'Система обучения',
-
+    'user' => 'Пользователь',
     'bibliography' => 'Библиография',
     'man' => 'Лица',
     'man_face' => 'Лицо',
@@ -99,7 +99,7 @@ return [
     'criminal_case' => 'Уголовное дело',
     'control' => 'Контроль',
     'mia_summary' => 'Сводка МВД',
-
+    'dictionary' => 'Словар',
     'dictionaries' => 'Словари',
     'open' => 'Открыть',
     'operator' => 'Оператор',
