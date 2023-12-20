@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 
 @endsection
 {{-- @php
@@ -28,10 +30,13 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
 
-                                <input type="date" data-check="date" id="inputDate1" class="form-control save_input_data" name="date"
-                                    value="{{ $miaSummary->date ?? null }}" data-type="update_field" />
+                                <input type="text" data-check="date" id="inputDate1" class="form-control save_input_data calendarInput" name="date"
+                                    value="{{ $miaSummary->date ?? null }}" data-type="update_field" 
+                                    autocomplete="off" onblur="handleBlur(this)"/>
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="inputDate1" class="form-label">1) Ամփոփագրի գրանցման ասաթիվ</label>
                                 <!-- </div> -->
                             </div>
@@ -42,14 +47,7 @@
                             <button class="btn btn-primary  model-id" data-model-id='{{ $miaSummary->id }}'
                                 data-type='update_field' data-fieldName='content' style="font-size: 13px"
                                 data-bs-toggle="modal"data-bs-target="#additional_information">{{ __('content.addTo') }}</button>
-                            @if ($miaSummary->content !== null)
                                 <x-one-teg :item="$miaSummary" :inputValue="$miaSummary->content" />
-                            @endif
-
-
-                            <div class ="tegs-div">
-                                <div class="more_data"></div>
-                            </div>
                         </div>
 
                         <div class="btn-div">
@@ -124,6 +122,7 @@
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
 
     <script src='{{ asset('assets/js/append_doc_content.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
 @endsection
 @endsection

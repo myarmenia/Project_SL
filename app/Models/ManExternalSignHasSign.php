@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Man\Man;
 use App\Traits\FilterTrait;
+use App\Traits\HelpersTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -48,5 +49,10 @@ class ManExternalSignHasSign extends Model
     public function man()
     {
         return $this->belongsTo(Man::class, 'man_id');
+    }
+
+    public function setFidexDateAttribute($value): void
+    {
+        $this->attributes['fixed_date'] = HelpersTraits::getDateTimeFormat($value,true);
     }
 }

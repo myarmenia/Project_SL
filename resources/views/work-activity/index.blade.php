@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
     <!-- <link rel="stylesheet" href="{{ asset('assets/css/organization/organization.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 
@@ -138,6 +140,8 @@
         </script>
         <script src="{{ asset('assets/js/saveFields.js') }}"></script>
         <script src="{{ asset('assets/js/script.js') }}"></script>
+        <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     @endsection
 @endsection
 

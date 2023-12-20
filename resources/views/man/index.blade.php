@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 
 @endsection
 
@@ -70,18 +72,20 @@
 
                         <!-- Date Input -->
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <input
-                                    type="date"
+                                    type="text"
                                     placeholder=""
                                     value="{{$man->birthday ?? null }}"
                                     id="inputDate1"
                                     tabindex="4"
                                     data-type="birthday"
-                                    class="form-control save_input_data"
+                                    class="form-control save_input_data calendarInput"
                                     name="birthday"
                                     data-check="date"
+                                    autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
 
                                 <label for="inputDate1" class="form-label">6)
                                     {{ __('content.date_of_birth') }}
@@ -370,28 +374,36 @@
                         </div>
                         <!-- Date Inputs -->
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" data-check="date" placeholder="" id="start_date"
-                                    value="{{ $man->start_wanted ?? null }}" class="form-control save_input_data"
-                                    name="start_wanted" tabindex="21" data-type="update_field" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" data-check="date" placeholder="" id="start_date"
+                                    value="{{ $man->start_wanted ?? null }}" class="form-control save_input_data calendarInput"
+                                    name="start_wanted" tabindex="21" data-type="update_field" 
+                                    autocomplete="off" onblur="handleBlur(this)"/>
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="start_date" class="form-label">27)
                                     {{ __('content.declared_wanted_list_with') }}</label>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" data-check="date" placeholder="" id="entry_date"
-                                    class="form-control save_input_data" name="entry_date" tabindex="22"
-                                    value="{{ $man->entry_date ?? null }}" data-type="update_field" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" data-check="date" placeholder="" id="entry_date"
+                                    class="form-control save_input_data calendarInput" name="entry_date" tabindex="22"
+                                    value="{{ $man->entry_date ?? null }}" data-type="update_field" 
+                                    autocomplete="off" onblur="handleBlur(this)"/>
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="entry_date" class="form-label">28) {{ __('content.home_monitoring_start') }}
                                 </label>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" data-check="date" placeholder="" id="exit_date" class="form-control save_input_data"
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" data-check="date" placeholder="" id="exit_date" class="form-control save_input_data calendarInput"
                                     name="exit_date" value="{{ $man->exit_date ?? null }}" tabindex="23"
-                                    data-type="update_field" />
+                                    data-type="update_field"
+                                    autocomplete="off" onblur="handleBlur(this)" />
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="exit_date" class="form-label">29)
                                     {{ __('content.end_monitoring_start') }}</label>
                             </div>
@@ -649,6 +661,8 @@
     <script src='{{ asset('assets/js/script.js') }}'></script>
     <script src="{{ asset('assets/js/tag.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
 @endsection
 @endsection
