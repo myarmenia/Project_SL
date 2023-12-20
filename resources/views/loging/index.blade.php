@@ -48,7 +48,7 @@
                             @foreach ($permissions as $permission)
                                 <option value="{{ $permission }}"
                                     {{ $permission == request()->input('tb_name') ? 'selected' : '' }}>
-                                    {{ __('name.' . $permission) }}
+                                    {{ __('table.' . $permission) }}
                                 </option>
                             @endforeach
                         </select>
