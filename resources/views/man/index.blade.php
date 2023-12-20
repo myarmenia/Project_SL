@@ -507,15 +507,13 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">40) {{ __('content.member_actions') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'action', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' => 'action', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="action" name="id" tableName="action" :label="__('content.short_action')"  related delete :edit="['page' =>'action.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'organization', 'relation' => 'action']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">41) {{ __('content.to_event') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'event', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' => 'event', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="event" name="id" tableName="event" :label="__('content.short_event')" related delete  :edit="['page' =>'event.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'organization', 'relation' => 'action']"/>
                         </div>
 

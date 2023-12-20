@@ -52,7 +52,6 @@
             document.querySelectorAll('.get-data').forEach(el => {
                 el.addEventListener('click', function () {
                     const element = el.closest('.Myteg').querySelector('.xMark');
-                    console.log(element)
                     const table = element.getAttribute('data-table')
                     const id = element.getAttribute('data-delete-id')
 
