@@ -35,7 +35,7 @@
                                         type="text"
                                         placeholder=""
                                         id="inputDate1"
-                                        class="form-control calendarInput"
+                                        class="form-control calendarInput form-input"
                                         name="fixed_date"
                                         @if($edit)
                                             value="{{$manExternalSignHasSign->fixed_date}}"
@@ -96,7 +96,7 @@
                         <div class="col btn-div">
                             <label for="inputDate2" class="form-label">3) {{__('content.ties')}}</label>
                             @if($edit)
-                                <x-teg :item="$manExternalSignHasSign" relation="man" name="id" :label="__('content.man')"/>
+                                <x-tegs-relations :model="$modelData->model"/>
                             @endif
                         </div>
                     </div>

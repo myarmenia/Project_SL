@@ -63,17 +63,20 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <input
                                     @if(!$teg) disabled @endif
-                                    type="date"
+                                    type="text"
                                     placeholder=""
                                     id="inputDate1"
-                                    class="form-control"
+                                    class="form-control calendarInput"
                                     name="start_date"
                                     value="{{$modelData->model->start_date}}"
                                     data-check="date"
+                                    autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="inputDate1" class="form-label"
                                 >3) {{__('content.start_employment')}}</label
                                 >
@@ -81,17 +84,20 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <input
                                     @if(!$teg) disabled @endif
-                                    type="date"
+                                    type="text"
                                     placeholder=""
                                     id="inputDate1"
-                                    class="form-control"
+                                    class="form-control calendarInput"
                                     name="end_date"
                                     value="{{$modelData->model->end_date}}"
                                     data-check="date"
+                                    autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="inputDate1" class="form-label"
                                 >4) {{__('content.end_employment')}}</label>
                             </div>
@@ -102,8 +108,8 @@
                                 @if(Route::currentRouteName() === 'work.create' && !$teg )
                                     <a href="{{ route('open.page', ['page' => 'organization', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$modelData->redirect]) }}">{{ __('content.addTo') }}</a>
                                     <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
-                                @else
-                                <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
+                                @elseif(Route::currentRouteName() !== 'work.edit')
+                                     <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
                                 @endif
                             @else
                                 <label class="form-label">5) {{__('content.data_employment_persons')}}</label>

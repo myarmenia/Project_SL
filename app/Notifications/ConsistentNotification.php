@@ -28,6 +28,7 @@ class ConsistentNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
+    
     public function via($notifiable)
     {
         return ['database'];

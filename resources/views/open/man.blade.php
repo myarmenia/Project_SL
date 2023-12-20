@@ -225,6 +225,7 @@
                                             aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
                                     </th>
 
+
                                     {{-- <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.short_photo') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="photo_count" data-section-name="open"></i>

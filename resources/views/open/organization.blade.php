@@ -137,22 +137,19 @@
                                         @endif --}}
                                         @if(request()->model === 'bibliography')
                                             <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'organization', 'id' => $organization->id]) }}">
+                                                <a href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'organization', 'id' => $organization->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @elseif (isset(request()->main_route) && isset(request()->relation))
                                             <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
+                                                <a href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @elseif(isset(request()->main_route) && !isset(request()->relation))
                                             <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'organization', 'route_name' => request()->route_name, 'model_id' => $organization->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect,'model_relation' => request()->model_relation]) }}">
+                                                <a href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'organization', 'route_name' => request()->route_name, 'model_id' => $organization->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect, 'model_relation' => request()->model_relation]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
@@ -166,14 +163,9 @@
                                         @endcan
                                     </tr>
                                 @endforeach
-
-
                             </tbody>
                         </table>
-
                     </div>
-
-
                 </div>
                 <div id="countries-list"></div>
             </div>

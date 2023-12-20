@@ -64,7 +64,6 @@
                         </div>
                         <button class="btn btn-primary loging-search-btn">Որոնել</button>
                         </div>
-
                     </form>
 
                     <div class="table_div">

@@ -17,6 +17,8 @@ let full_name_input = document.querySelector(".full-name-input");
 let id_filter_input = document.querySelector(".id-filter-input");
 let search_input_btn = document.querySelector(".search-input-btn");
 
+// ====================== texapoxel
+
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
     let data_type = el.parentElement.getAttribute("data-type");
@@ -463,6 +465,8 @@ allI.forEach((el, idx) => {
         });
     });
 });
+
+// ======================= 
 
 const searchBlocks = document.querySelectorAll(".searchBlock");
 
