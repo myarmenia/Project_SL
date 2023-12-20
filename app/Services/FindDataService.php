@@ -150,6 +150,7 @@ class FindDataService
 
     public function addFindDataToInsertAct($dataToInsert, $fileDetails)
     {
+        $relationsToCreate = [];
         foreach ($dataToInsert as $idx => $item) {
 
             // dd($item);
