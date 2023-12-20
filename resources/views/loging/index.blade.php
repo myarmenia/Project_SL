@@ -34,7 +34,7 @@
                         <input type="text" class="form-control loging-search-input"  placeholder="{{ __('table.last_name') }}" name="last_name"
                             value="{{ request()->input('last_name') }}">
                         <select name="type" class="form-select loging-search-select">
-                            <option value="" hidden>{{ __('table.action') }}</option>
+                            <option value=" " >{{ __('table.action') }}</option>
                             @foreach ($actions_array as $action)
                                 <option value="{{ $action }}"
                                     {{ $action == request()->input('type') ? 'selected' : '' }}>
@@ -44,7 +44,8 @@
                         </select>
 
                         <select name="tb_name" class="form-select loging-search-select">
-                            <option value="" hidden>{{ __('table.table_name') }}</option>
+                            <option value="" >{{ __('table.table_name') }}</option>
+
                             @foreach ($permissions as $permission)
                                 <option value="{{ $permission }}"
                                     {{ $permission == request()->input('tb_name') ? 'selected' : '' }}>
