@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/organization/organization.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 
@@ -55,11 +57,14 @@
                                 <!-- <label for="inputDate1" role="value"></label>
                                 <input type="text" hidden role="store" /> -->
                                 <input
-                                        type="date"
+                                        type="text"
                                         placeholder=""
                                         id="inputDate1"
                                         class="form-control"
                                         name="start_date"
+                                        data-check="date"
+
+
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >3) Աշխատանքային գործունեության սկիզբ</label
@@ -68,17 +73,21 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <!-- <div class="input-date-wrapper"> -->
                                 <!-- <label for="inputDate1" role="value"></label>
                                 <input type="text" hidden role="store" /> -->
                                 <input
-                                        type="date"
+                                        type="text"
                                         placeholder=""
                                         id="inputDate1"
-                                        class="form-control"
+                                        class="form-control calendarInput"
                                         name="end_date"
+                                        data-check="date"
+                                        autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="inputDate1" class="form-label"
                                 >4) Աշխատանքային գործունեության ավարտ</label
                                 >
@@ -109,6 +118,8 @@
     </section>
     @section('js-scripts')
         <script src="{{ asset('assets/js/organization/script.js') }}"></script>
+        <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     @endsection
 @endsection
 

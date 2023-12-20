@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bibliography/edit.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 @inject('carbon', 'Carbon\Carbon')
 
@@ -108,13 +110,15 @@
                     </div>
 
                     <div class="col">
-                        <div class="form-floating input-date-wrapper">
+                        <div class="form-floating input-date-wrapper calendar-container">
                             <!-- <div class="input-date-wrapper"> -->
                             <!-- <label for="inputDate1" role="value"></label>
                                     <input type="text" hidden role="store" /> -->
-                            <input type="date" placeholder="" id="inputDate1" class="form-control save_input_data"
+                            <input type="text" data-check="date" placeholder="" id="inputDate1" class="form-control save_input_data calendarInput"
                                 placaholder="" name="reg_date" tabindex="5"
+                                autocomplete="off" onblur="handleBlur(this)"
                                 value="{{ $bibliography->reg_date ?? null }}" {{-- data-update="{{ route('bibliography.update',$bibliography->id )}}" --}} />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                             <label for="inputDate1" class="form-label">6) {{ __('content.date_reg') }}</label>
                             <!-- </div> -->
                         </div>
@@ -397,5 +401,7 @@
     <script src="{{ asset('assets/js/bibliography/edit.js') }}"></script>
     <script src="{{ asset('assets/js/bibliography-table-relation/index.js') }}"></script>
     {{-- <script src='{{ asset('assets/js/main/table.js') }}'></script> --}}
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 @endsection

@@ -132,7 +132,7 @@ class Event extends Model
             __('content.ensuing_effects') =>  $this->aftermath->name ?? null,
             __('content.investigation_requested') => $this->agency->name ?? null,
             __('content.results_event') => $this->result ?? null,
-            __('content.source_event') => $this->resource->name ?? null
+            __('content.source_event') => $this->resource->name ?? null,
 
         ];
     }

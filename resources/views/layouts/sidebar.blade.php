@@ -505,7 +505,8 @@
                         </a>
                     </li>
                 @endcan
-                @canany(['control_result-list', 'control_result-create', 'control_result-edit', 'control_result-delete'])
+                @canany(['control_result-list', 'control_result-create', 'control_result-edit',
+                    'control_result-delete'])
                     <li>
                         <a href="{{ route('dictionary.pages', 'control_result') }}">
                             <i i class="bi bi-journal-text"
@@ -513,6 +514,7 @@
                         </a>
                     </li>
                 @endcan
+
                 @canany(['taken_measure-list', 'taken_measure-create', 'taken_measure-edit', 'taken_measure-delete'])
                     <li>
                         <a href="{{ route('dictionary.pages', 'taken_measure') }}">
@@ -582,12 +584,7 @@
 
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('report.index') }}">
-                            <i class="bi bi-search"
-                                title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
-                        </a>
-                    </li>
+
 
                 </ul>
             </li>
@@ -597,6 +594,12 @@
                 <a class="nav-link collapsed" href="{{ route('translate.index') }}">
                     <i class="bi bi-translate" title="{{ __('content.translation ') }}"></i>
                     <span>{{ __('sidebar.learning_systems') }}</span>
+                </a>
+            </li>
+            <li>
+                <a  class="nav-link collapsed" href="{{ route('report.index') }}">
+                    <i class="bi bi-search"
+                        title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
                 </a>
             </li>
         @endrole

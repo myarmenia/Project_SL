@@ -22,17 +22,17 @@ return [
     'end_time' => 'Конец объявления',
     'large_modal_desc' => 'Описание',
 
-//    menu items
+    //    menu items
     'download_file' => 'Скачать файл',
     'file' => 'Файл',
     'open' => 'Открыть',
     'addTo' => 'Добавить',
     'search' => 'Поиск',
     'dictionaries' => 'Словари',
-    'search_file'=> 'Поиск по файлами',
+    'search_file' => 'Поиск по файлами',
     'exit' => 'Выйти',
     'reset' => 'Сброс',
-//    bibliography
+    //    bibliography
     'date_and_time' => "Дата и время индексирования",
     'date_and_time_date' => "Дата индексирования",
     'date_and_time_time' => "Время индексирования",
@@ -45,7 +45,7 @@ return [
     'related_year' => 'Сведения относятся к году',
     'source_inf' => 'Источник информации',
     'inf_cont' => 'Содержит информацию о',
-//    man adding
+    //    man adding
     'last_name' => 'Фамилия',
     'first_name' => 'Имя',
     'middle_name' => 'Отчество',
@@ -105,21 +105,22 @@ return [
     'presence_weapons' => 'Наличие оружия',
     'uses_machine' => 'Использует автомашину',
     'bibliography' => 'Библиография',
-    'answer' =>'Ответ',
-// phone adding
-    'phone_number' =>'Номер телефона',
-    'nature_character' =>'Характер владения',
+    'answer' => 'Ответ',
+    // phone adding
+    'phone_number' => 'Номер телефона',
+    'nature_character' => 'Характер владения',
     'nature_character_man' => 'Характер владения (Лицо)',
     'nature_character_organization' => 'Характер владения (Организация)',
-    'additional_data' =>'Дополнительные данные',
-    'phone_owner' =>'Владелец телефона',
-    'phone_owner_man' =>'Владелец телефона (Лицо)',
-    'phone_owner_organization' =>'Владелец телефона (Организация)',
-    'real_action' =>'Является объектом действия',
-    'real_event' =>'Является объектом  события',
-    'mail_address' =>'Электронный адрес (e-mail)',
+    'additional_data' => 'Дополнительные данные',
+    'phone_owner' => 'Владелец телефона',
+    'phone_owner_man' => 'Владелец телефона (Лицо)',
+    'phone_owner_organization' => 'Владелец телефона (Организация)',
+    'real_action' => 'Является объектом действия',
+    'real_event' => 'Является объектом  события',
+    'mail_address' => 'Электронный адрес (e-mail)',
+    'error_phone' => ' Номер телефона должен содержать не менее 9 цифр.',
 
-// car adding
+    // car adding
     'category' => 'Категория',
     'car_cat' => 'Категория',
     'weapon_cat' => 'Категория',
@@ -136,11 +137,11 @@ return [
     'actions_events' => 'Принимала участие в действиях, событиях',
     'actions_events_action' => 'Принимала участие в действиях',
     'actions_events_event' => 'Принимала участие в событиях',
-// weapon adding
+    // weapon adding
     'view' => 'Вид',
     'type' => 'Тип',
     'account_number' => 'Учетный номер',
-// address adding
+    // address adding
     'country' => 'Страна, АТЕ, регион',
     'region_local' => 'Район (местный)',
     'locality_local' => 'Населенный пункт (местный)',
@@ -162,7 +163,7 @@ return [
     'address_organization' => 'Адрес организации',
     'seat_car' => 'Является местом нахождения автомашины',
     'dummy_address_organization' => 'Подставной адрес организации',
-// work_activity adding
+    // work_activity adding
     'position' => 'Должность',
     'data_refer_period' => 'Сведения относятся к периоду',
     'start_employment' => 'Дата начала трудовой деятельности',
@@ -170,9 +171,9 @@ return [
     'data_employment_persons' => 'Данные о труд. деят. лица',
     'jobs_organization' => 'Работа в Организации',
     'period' => 'Сведения относятся к периоду',
-// control adding
+    // control adding
     'unit' => 'Подразделение',
-    'document_category' =>'Категория документа',
+    'document_category' => 'Категория документа',
     'document_date' => 'Дата составления документа',
     'reg_document' => 'Рег. N документа',
     'date_reg' => 'Дата регистрации',
@@ -185,24 +186,24 @@ return [
     'sub_actor_name' => 'Фамилия соисполнителя',
     'department_coauthors' => 'Подразделения - соисполнители',
     'result_execution' => 'Результат исполнения',
-// objects_relation adding
+    // objects_relation adding
     'character_link' => 'Характер связи',
     'relation_type' => 'Тип отношения',
     'specific_link' => 'Конкретная связь',
-    'first_object_type' =>'Тип первого объекта',
-    'second_object_type' =>'Тип второго объекта',
+    'first_object_type' => 'Тип первого объекта',
+    'second_object_type' => 'Тип второго объекта',
     'first' => 'Id: Первый',
     'second' => 'Id: Второй',
     'relationship_objects_organization' => 'Связь между объектами (Организация)',
     'relationship_objects_man' => 'Связь между объектами (Лицо)',
-// external_signs adding
+    // external_signs adding
     'photo' => 'Фотография',
     'signs' => 'Приметы',
     'time_fixation' => 'Момент фиксации',
     'man_sign' => 'Внешние приметы относятся к лицу',
     'thumbnail' => 'Миниатюри',
 
-// action adding
+    // action adding
     'content_materials_actions' => 'Содержание материалов действия',
     'qualification_fact' => 'Квалификация  факта, признаки ПДП',
     'start_action_date' => 'Начальный момент действия (дата)',
@@ -227,7 +228,7 @@ return [
     'checking_signal' => 'Проверяется как сигнал',
     'opened_dou' => 'Заведено ДОУ',
     'place_action' => 'Является местом проведения действия',
-// event adding
+    // event adding
     'content_event' => 'Содержание события',
     'qualification_event' => 'Квалификация события',
     'date_security_date' => 'Дата совершения СБ (дата)',
@@ -246,12 +247,12 @@ return [
     'event_auto' => 'Автоматический набор текста',
     'event_table' => 'Таблица',
     'event_sumery' => 'Справка',
-// organization adding
+    // organization adding
     'org' => 'Организация',
     'pol' => 'Проходит через полицейскую сводку',
     'name_organization' => 'Название организации',
     'nation' => 'Государственная принадлежность',
-    'date_formation' =>'Дата образования (регистрации)',
+    'date_formation' => 'Дата образования (регистрации)',
     'dislocation_organization' => 'Дислокация орг., штаба, штаб-квартиры',
     'region_activity' => 'Регион деятельности',
     'category_organization' => 'Категория организации',
@@ -270,7 +271,7 @@ return [
     'availability_car' => 'Наличие автомашины',
     'availability_weapons' => 'Наличие оружия',
     'place_event_is' => 'Является местом совершения события',
-//keep_signal
+    //keep_signal
     'management_signal' => 'Управление, проверяющее сигнал',
     'department_checking_signal' => 'Отдел, проверяющий сигнал',
     'unit_signal' => 'Подразделение, проверявшее сигнал',
@@ -281,7 +282,7 @@ return [
     'date_transfer_unit' => 'Дата передачи в др. подразделение',
     'unit_signal_transmitted' => 'Подразделение, куда передан сигнал',
     'refers_signal' => 'Относится к сигналу',
-//essay
+    //essay
     'document_name' => 'Название документа',
     'document_number' => 'Номер документа',
     'address_material' => 'Адрес хранения материалов',
@@ -291,7 +292,7 @@ return [
     'period_time' => 'Свед. относ. к периоду времени',
     'title_document' => 'Заголовок документа',
     'contents_document' => 'Содержание документа',
-//mia_summary
+    //mia_summary
     'date_registration_reports' => 'Дата регистрации сводки',
     'content_inf' => 'Содержание инф-ии',
     'summary_man_organizations' => 'По сводке проходят лица, орг-ии',
@@ -317,7 +318,7 @@ return [
     'initiated_dow' => 'Возбуждено по ДОУ',
     'connected_criminal_cases' => 'Соединено из уголовных дел',
     'separated_criminal_cases' => 'Выделено из уголовных дел',
-//signal
+    //signal
     'reg_number_signal' => 'Рег. номер сигнальной карты',
     'contents_information_signal' => 'Содержание сигнальной информации',
     'line_which_verified' => 'Линия, по которой проверяется',
@@ -346,39 +347,39 @@ return [
     'brought_signal' => 'Управление, которое завело сигнал',
     'department_brought' => 'Отдел, который завел сигнал',
     'unit_brought' => 'Подразделение, которое завело сигнал',
-//man_bean_country
+    //man_bean_country
     'purpose_visit' => 'Цель въезда',
     'country_ate' => 'Страна, АТЕ',
     'entry_date' => 'Дата въезда',
     'exit_date' => 'Дата выезда',
     'information_presence' => 'Сведения о пребывании относ. к лицу',
 
-// dinamic table
-'field_name' => 'Имя поля',
+    // dinamic table
+    'field_name' => 'Имя поля',
 
-// table content
-'table_conten_title' => 'Список лиц из виде таблицы',
-'lang_am' => 'Армянский',
-'lang_eng' => 'Английский',
-'lang_ru' => 'Русский',
-'title_table' => 'У таблицы есть заголовок',
-'notTitle_table' => 'Таблица не имеет заголовка',
-'numbering' => 'Нумерация',
-'enter_col_num' => 'Пожалуйста, введите номер столбца:',
-'date_of_birth_' => 'Дата рождения',
-'family_member' => 'Член семьи',
-'passport_details' => 'Паспортные данные',
-'birth_address_data' => 'Данные о рождении, адресные данные',
-'forward' => 'Вперед',
-'table_file' => 'Файл таблицы',
-'mia_summary_avto' => 'Сводка МВД автоматически',
-'table_avto' => 'Таблица автоматически',
-'reference' => 'Справка',
-'date' => 'Дата',
-'embassy' => 'Посольство',
-'fonetic' => 'Фонетический',
+    // table content
+    'table_conten_title' => 'Список лиц из виде таблицы',
+    'lang_am' => 'Армянский',
+    'lang_eng' => 'Английский',
+    'lang_ru' => 'Русский',
+    'title_table' => 'У таблицы есть заголовок',
+    'notTitle_table' => 'Таблица не имеет заголовка',
+    'numbering' => 'Нумерация',
+    'enter_col_num' => 'Пожалуйста, введите номер столбца:',
+    'date_of_birth_' => 'Дата рождения',
+    'family_member' => 'Член семьи',
+    'passport_details' => 'Паспортные данные',
+    'birth_address_data' => 'Данные о рождении, адресные данные',
+    'forward' => 'Вперед',
+    'table_file' => 'Файл таблицы',
+    'mia_summary_avto' => 'Сводка МВД автоматически',
+    'table_avto' => 'Таблица автоматически',
+    'reference' => 'Справка',
+    'date' => 'Дата',
+    'embassy' => 'Посольство',
+    'fonetic' => 'Фонетический',
 
-// addTo
+    // addTo
     'face' => 'Лицо',
     'man' => 'Лицо',
 
@@ -393,7 +394,7 @@ return [
     'man_bean_country' => 'Пребывание в стране',
     'relationship_objects' => 'Связь между объектами',
     'objects_relation' => 'Связь между объектами',
-    'action' =>'Действие',
+    'action' => 'Действие',
     'event' => 'Событие',
     'organization' => 'Организация',
     'keep_signal' => 'Ведение сигналов',
@@ -409,7 +410,7 @@ return [
     'signal' => 'Сигнал',
     'email' => 'Электронный адрес',
 
-// dictionaries
+    // dictionaries
     'bodies_management' => 'Органы управления',
     'access_level' => 'Уровень доступа',
     'state_affiliation' => 'Страна',
@@ -429,8 +430,8 @@ return [
     'modal_title' => 'Вы уверены, что хотите удалить эту запись?',
     'modal_text' => 'Вы уверены, что хотите удалить эту запись?',
 
-/////////////////////////////////
-    
+    /////////////////////////////////
+
     'create_response_file' => 'Создать',
     'interval' => 'Интервал',
     'search_word' => 'Поисковое слово',
@@ -459,8 +460,8 @@ return [
     'created_at' => 'Дата соз.',
     'change_search' => 'Изменить поиск',
     'new_search' => 'Новый поиск',
-/////////////////////////////////////
-    'ties' =>'Связи',
+    /////////////////////////////////////
+    'ties' => 'Связи',
     'ties_action' => 'Связи для действия с id=',
     'ties_address' => 'Связи для адреса с id=',
     'ties_bibliography' => 'Связи для библиографии с id=',
@@ -481,10 +482,10 @@ return [
     'ties_work_activity' => 'Связи для Трудовая деятельность с id=',
     'ties_external_signs' => 'Связи для Внешние приметы с id=',
 
-///////////////////////////// search //////////////////////////////////
-    'simple_search' =>'Простой поиск',
-    'complex_search' =>'Сложный поиск',
-    'template_search' =>'Последовательный поиск',
+    ///////////////////////////// search //////////////////////////////////
+    'simple_search' => 'Простой поиск',
+    'complex_search' => 'Сложный поиск',
+    'template_search' => 'Последовательный поиск',
     'file_search' => 'Поиск по файлам',
     'file_in_search' => 'Поиск в найденном',
     'interval' => "Интервал",
@@ -498,7 +499,7 @@ return [
     'synonyms' => 'С синонимами',
 
 
-///////////////////////////////  short names ////////////////////////////
+    ///////////////////////////////  short names ////////////////////////////
 
     'short_man' => 'ЛЦ',
     'short_bibl' => 'ББ',
@@ -520,7 +521,7 @@ return [
     'short_car' => 'МАШ',
     'short_weapon' => 'ОРУ',
     'short_mia' => 'МВД',
-    'short_signal'=>'ТРЕВОГА',
+    'short_signal' => 'ТРЕВОГА',
 
     /////////////////////////////////////////
     'face_has' => 'Принадлежит лицу',
@@ -547,7 +548,7 @@ return [
 
 
     //////   admin  ///////
-    'mysql_backup' => 'Копирование базы' ,
+    'mysql_backup' => 'Копирование базы',
     'mysql_import' => 'Восстановление базы',
     'optimization' => 'Оптимизация',
     'fusion' => 'Слить данные',
@@ -583,7 +584,7 @@ return [
     'logging_smp_search' => 'Простой поиск',
     'logging_view' => 'Просмотр',
 
-   //signal_report
+    //signal_report
     'signal_0' => 'П/Н',
     'signal_1' => 'Подразделение, проверяющее СГ',
     'signal_2' => 'Оперработник, проверяющ. СГ',
@@ -633,10 +634,10 @@ return [
     'enter_resource' => 'Введите правильный ресурс',
     'enter_nation' => ' Введите правильную национальность',
     'enter_religion' => 'Введите правильную религию',
-    'country_quit' =>'Вы не ввели страну, хотите выйти ?',
+    'country_quit' => 'Вы не ввели страну, хотите выйти ?',
     'must_fill_field' => 'Вы должны заполнить все поля',
     'enter_organ' => 'Введите правильный орган',
-    'phone_quit' =>'Вы не ввели телефон, хотите выйти ?',
+    'phone_quit' => 'Вы не ввели телефон, хотите выйти ?',
     'enter_worker' => 'Введите правильного работника',
     'face_quit' => 'Вы не выбрали Лицо, хотите выйти?',
     'organization_quit' => 'Вы не выбрали Организацию, хотите выйти?',
@@ -726,7 +727,7 @@ return [
     'quarter' => 'квартал',
     'year' => 'год',
     'half_year' => 'полугодие',
-     'other'=> 'другой',
+    'other' => 'другой',
     'sgq' => 'по окраскам',
 
     'help' => "Помощь",
@@ -748,14 +749,14 @@ return [
     'yes' => 'Да',
     'no'  => 'Нет',
 
-    //matching 
+    //matching
     'match_word' => 'Ошибка и Фонетика',
     'match' => 'Совпадение',
     'choose_the_size' => 'Выберите размер',
 
 
     // translate
-    'confirm'=> 'Подтвержденный',
+    'confirm' => 'Подтвержденный',
     'translation' => 'Перевод',
     'select_type' => 'Выберите тип',
     'content_translate' => 'содержание',
@@ -768,10 +769,10 @@ return [
 
     //search-file
     'create_response' => 'Создать ответ',
-    'association'=> 'Ассоциация',
-    'keyword'=> 'Ключевое слово',
-    'fileName'=> 'имя файла',
-    'contactPerson'=> 'Контактное лицо',
+    'association' => 'Ассоциация',
+    'keyword' => 'Ключевое слово',
+    'fileName' => 'имя файла',
+    'contactPerson' => 'Контактное лицо',
 
 
     'document' => 'Документ',
@@ -785,53 +786,56 @@ return [
     'distance_word' => 'Расстояние слов',
     //user_list
     'status' => 'Положение дел',
-    'new' =>'Отсутствующие',
+    'new' => 'Отсутствующие',
     'some' => 'Некие',
-    'radio_new' =>'Отсутствующий',
+    'radio_new' => 'Отсутствующий',
     'radio_some' => 'Некий',
     'radio_like' => 'Похожий',
-     'like' => 'Присутствуют',
-     'singular_new' =>'Новый',
-     'singular_some' =>'Некий',
-     'singular_like' =>'Похожий',
+    'like' => 'Присутствуют',
+    'singular_new' => 'Новый',
+    'singular_some' => 'Некий',
+    'singular_like' => 'Похожий',
 
 
     //     fusion result
 
-        'birth_day' => 'День рождения',
-        'birth_month' => 'Месяц рождения',
-        'birth_year' => 'Дата рождения:',
-        'birthday' => 'День рождения',
-        'born_address_id' => 'Место рождения',
-        'passport' => 'Паспорт',
-        'gender_id' => 'Пол',
-        'nation_id' => 'Национальность',
-        'country' => 'Страна',
-        'attention' => 'Внимание!',
-        'more_data' => 'Дополнительная информация',
-        'religion_id' => 'Религия',
-        'occupation' =>  'Занятие',
-        'search_country' => ' Страна, осуществляющая розыск',
-        'operationCategory' => 'Оперативная категория лица',
-        'start_wanted' => ' Розыск объявлен ',
-        'nickName' => 'Псевдоним (кличка)',
-        'resource_id' => ' Источник информации о лице',
-        'man_passed_by_signal' => 'Проходит по сигналу',
-        'use_car' => 'Использует автомашину',
-        'first_object_relation_man' => 'Связь между объектами',
+    'birth_day' => 'День рождения',
+    'birth_month' => 'Месяц рождения',
+    'birth_year' => 'Дата рождения:',
+    'birthday' => 'День рождения',
+    'born_address_id' => 'Место рождения',
+    'passport' => 'Паспорт',
+    'gender_id' => 'Пол',
+    'nation_id' => 'Национальность',
+    'country' => 'Страна',
+    'attention' => 'Внимание!',
+    'more_data' => 'Дополнительная информация',
+    'religion_id' => 'Религия',
+    'occupation' =>  'Занятие',
+    'search_country' => ' Страна, осуществляющая розыск',
+    'operationCategory' => 'Оперативная категория лица',
+    'start_wanted' => ' Розыск объявлен ',
+    'nickName' => 'Псевдоним (кличка)',
+    'resource_id' => ' Источник информации о лице',
+    'man_passed_by_signal' => 'Проходит по сигналу',
+    'use_car' => 'Использует автомашину',
+    'first_object_relation_man' => 'Связь между объектами',
 
 
 
     //     users svich modal
-                'users_svich_modal_title' => ' Подтверждение',
-                'users_svich_modal_content' => 'Подтвердите Ваше действие.',
-                'users_svich_modal_ok_btn' => 'Подтверждать',
-                'users_svich_modal_close_btn' => 'Отменить',
+    'users_svich_modal_title' => ' Подтверждение',
+    'users_svich_modal_content' => 'Подтвердите Ваше действие.',
+    'users_svich_modal_ok_btn' => 'Подтверждать',
+    'users_svich_modal_close_btn' => 'Отменить',
 
     // dinamic Table
     'field_name' => 'Имя поля',
     'content' => 'Содержание',
 
     //referance page
-'download_reference' =>'Ներբեռնեք տեղեկանքը'
+    'download_reference' => 'Ներբեռնեք տեղեկանքը',
+    'file1' => 'Файл'
+
+
 ];

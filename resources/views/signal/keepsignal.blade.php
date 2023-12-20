@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 @inject('carbon', 'Carbon\Carbon')
 @php
@@ -21,7 +23,7 @@
           <div class="card-body">
             <!-- Vertical Form -->
               <x-back-previous-url />
-            <form class="form">
+            <div class="form">
               <div class="inputs row g-3">
 
               <div class="col">
@@ -160,18 +162,22 @@
                 </div>
 
                 <div class="col">
-                  <div class="form-floating input-date-wrapper">
+                  <div class="form-floating input-date-wrapper calendar-container">
                     <!-- <div class="input-date-wrapper"> -->
                     <!-- <label for="inputDate1" role="value"></label>
                     <input type="text" hidden role="store" /> -->
-                    <input  type="date"
-                      class="form-control fetch_input_title save_input_data get_datalist"
+                    <input  type="text"
+                      class="form-control  save_input_data  calendarInput"
                         name="start_date"
                         data-type="update_field"
                         value="{{ $keepSignal->start_date ?? null }}"
                         id="item6"
                         tabindex=6
+                        data-check="date"
+                        autocomplete="off" onblur="handleBlur(this)"
                     />
+                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                     <label for="item6" class="form-label"
                       >6) {{ __('content.start_checking_signal') }}</label
                     >
@@ -179,20 +185,22 @@
                 </div>
 
                 <div class="col">
-                  <div class="form-floating input-date-wrapper">
+                  <div class="form-floating input-date-wrapper calendar-container">
                     <!-- <div class="input-date-wrapper"> -->
                     <!-- <label for="inputDate1" role="value"></label>
                     <input type="text" hidden role="store" /> -->
-                    <input type="date"
-                        class="form-control fetch_input_title save_input_data get_datalist"
+                    <input type="text"
+                        class="form-control  save_input_data  calendarInput"
                         name="end_date"
                         data-type="update_field"
                         value="{{ $keepSignal->end_date ?? null }}"
                         tabindex=7
                         id="item7"
-
-
+                        data-check="date"
+                        autocomplete="off" onblur="handleBlur(this)"
                     />
+                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                     <label for="item7" class="form-label"
                       >7) {{ __('content.end_checking_signal') }}</label
                     >
@@ -200,19 +208,23 @@
                 </div>
 
                 <div class="col">
-                  <div class="form-floating input-date-wrapper">
+                  <div class="form-floating input-date-wrapper calendar-container">
                     <!-- <div class="input-date-wrapper"> -->
                     <!-- <label for="inputDate1" role="value"></label>
                     <input type="text" hidden role="store" /> -->
                     <input
-                      type="date"
-                        class="form-control fetch_input_title save_input_data get_datalist"
+                      type="text"
+                        class="form-control  save_input_data  calendarInput"
                         name="pass_date"
                         data-type="update_field"
                         value="{{ $keepSignal->pass_date ?? null }}"
                         id="item8"
                         tabindex=8
+                        data-check="date"
+                        autocomplete="off" onblur="handleBlur(this)"
                     />
+                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                     <label for="item8" class="form-label"
                       >8) {{ __('content.date_transfer_unit') }}</label
                     >
@@ -254,7 +266,7 @@
                 </div>
 
               </div>
-            </form>
+            </div>
 
             <!-- Vertical Form -->
           </div>
@@ -278,6 +290,8 @@
             <script src="{{ asset('assets/js/script.js') }}"></script>
             <script src="{{ asset('assets/js/tag.js') }}"></script>
             <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+            <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     @endsection
 @endsection
 

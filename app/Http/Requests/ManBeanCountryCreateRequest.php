@@ -28,12 +28,12 @@ class ManBeanCountryCreateRequest extends FormRequest
             'country_ate_id' => ['required','exists:country_ate,id'],
             'region_id' => ['nullable','string'],
             'locality_id' => ['nullable','string'],
-            'entry_date' => ['nullable','date'],
-            'exit_date' => ['nullable','date'],
+            'entry_date' => ['nullable'],
+            'exit_date' => ['nullable'],
         ];
     }
 
-    public function messages (): array 
+    public function messages (): array
     {
         return [
             'country_ate_id' => __('validation.required', ['attribute' => __('content.country_ate')])

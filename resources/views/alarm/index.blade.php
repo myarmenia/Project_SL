@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/alarm/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 @section('content')
@@ -253,19 +255,22 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <!-- <div class="input-date-wrapper"> -->
                                 <!-- <label for="inputDate1" role="value"></label>
                                 <input type="text" hidden role="store" /> -->
                                 <input
                                     style='outline:3px solid red;'
-                                    type="date"
+                                    type="text"
                                     placeholder=""
                                     id="item10"
-                                    class="form-control"
+                                    class="form-control calendarInput"
                                     placaholder=""
                                     name="inp10"
+                                    data-check="date"
+                                    autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item10" class="form-label"
                                 >12) Ահազանգի բացման ամսաթիվ</label
                                 >
@@ -273,19 +278,22 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <!-- <div class="input-date-wrapper"> -->
                                 <!-- <label for="inputDate1" role="value"></label>
                                 <input type="text" hidden role="store" /> -->
                                 <input
                                     style='outline:3px solid red;'
-                                    type="date"
+                                    type="text"
                                     placeholder=""
                                     id="item11"
-                                    class="form-control"
+                                    class="form-control calendarInput"
                                     placaholder=""
                                     name="inp11"
+                                    data-check="date"
+                                    autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item11" class="form-label"
                                 >13) Ստուգման ժամկետի ամսաթիվ</label
                                 >
@@ -293,18 +301,21 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <!-- <div class="input-date-wrapper"> -->
                                 <!-- <label for="inputDate1" role="value"></label>
                                 <input type="text" hidden role="store" /> -->
                                 <input
-                                    type="date"
+                                    type="text"
                                     placeholder=""
                                     id="item12"
-                                    class="form-control"
+                                    class="form-control calendarInput"
                                     placaholder=""
                                     name="inp12"
+                                    data-check="date"
+                                    autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item12" class="form-label"
                                 >14) Ստուգման ժամկետի երկարաձգման ամսաթիվ</label
                                 >
@@ -312,18 +323,21 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <!-- <div class="input-date-wrapper"> -->
                                 <!-- <label for="inputDate1" role="value"></label>
                                 <input type="text" hidden role="store" /> -->
                                 <input
-                                    type="date"
+                                    type="text"
                                     placeholder=""
                                     id="item13"
-                                    class="form-control"
+                                    class="form-control calendarInput"
                                     placaholder=""
                                     name="inp13"
+                                    data-check="date"
+                                    autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item13" class="form-label"
                                 >15) Ահազանգի դադարեցման ամսաթիվ</label
                                 >
@@ -651,6 +665,8 @@
 
     @section('js-scripts')
         <script src='{{ asset('assets/js/alarm/script.js') }}'></script>
+        <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     @endsection
 @endsection
 

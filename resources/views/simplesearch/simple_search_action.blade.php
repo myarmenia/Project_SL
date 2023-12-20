@@ -22,7 +22,8 @@
                 <input type="button" class="k-button" value="{{ __('content.or') }}" id="action_or" />
                 <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
                 <?php if(!isset($type)) { ?>
-                <a href="{{ route('simple_search_action',['n'=> 't']) }}" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+                <a href="{{ route('simple_search_action', ['n' => 't']) }}" id="resetButton"
+                    class="k-button">{{ __('content.reset') }}</a>
                 <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" />
                 <?php } ?>
             </div>
@@ -361,7 +362,7 @@
                 @endif
             </div>
 
-        {{-- <div class="forForm">
+            {{-- <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
             <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
@@ -384,7 +385,6 @@
 
 
 @section('js-include')
-
     <script src="{{ asset('assets-include/js/script.js') }}"></script>
 
     <script>
@@ -595,10 +595,10 @@
             <?php if (isset($search_params)) { ?>
             $('#searchActionContentMaterialsActions').val(
                 `{{ html_entity_decode($search_params['material_content'][sizeof($search_params['material_content']) - 1]) }}`
-                );
+            );
             $('#searchActionQualificationFactId').val(
                 `{{ $search_params['action_qualification_id'][sizeof($search_params['action_qualification_id']) - 1] }}`
-                );
+            );
             $('#searchActionQualificationFact').val(
                 `{{ html_entity_decode($search_params['action_qualification']) }}`);
             $('#searchActionDurationDActionId').val(
@@ -617,7 +617,7 @@
                 `{{ $search_params['source'][sizeof($search_params['source']) - 1] }}`);
             $('#searchActionOpenedDow').val(
                 `{{ html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou']) - 1]) }}`
-                );
+            );
             $('#searchActionEndActionDate').val(`{{ $search_params['end_date'] }}`);
             $('#searchActionStartActionDate').val(`{{ $search_params['start_date'] }}`);
             <?php } ?>
@@ -626,29 +626,37 @@
 
 
         <?php if (isset($search_params)) { ?>
-            $('#searchActionContentMaterialsActions').val(`{{  html_entity_decode($search_params['material_content'][sizeof($search_params['material_content'])-1]) }}`);
-            $('#searchActionQualificationFactId').val(`{{  $search_params['action_qualification_id'][sizeof($search_params['action_qualification_id'])-1] }}`);
-            $('#searchActionQualificationFact').val(`{{  html_entity_decode($search_params['action_qualification']) }}`);
-            $('#searchActionDurationDActionId').val(`{{  $search_params['duration_id'][sizeof($search_params['duration_id'])-1] }}`);
-            $('#searchActionDurationDAction').val(`{{  html_entity_decode($search_params['duration_name']) }}`);
-            $('#searchActionPurposeMotiveReasonId').val(`{{  $search_params['goal_id'][sizeof($search_params['goal_id'])-1] }}`);
-            $('#searchActionPurposeMotiveReason').val(`{{  html_entity_decode($search_params['goal_name']) }}`);
-            $('#searchActionTermsActionsId').val(`{{  $search_params['terms_id'][sizeof($search_params['terms_id'])-1] }}`);
-            $('#searchActionTermsActions').val(`{{  html_entity_decode($search_params['terms_name']) }}`);
-            $('#searchActionEnsuingEffectsId').val(`{{  $search_params['aftermath_id'][sizeof($search_params['aftermath_id'])-1] }}`);
-            $('#searchActionEnsuingEffects').val(`{{  html_entity_decode($search_params['aftermath_name']) }}`);
-            $('#searchActionSourceInformationActions').val(`{{  $search_params['source'][sizeof($search_params['source'])-1] }}`);
-            $('#searchActionOpenedDow').val(`{{  html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) }}`);
-            $('#searchActionEndActionDate').val(`{{  $search_params['end_date'] }}`);
-            $('#searchActionStartActionDate').val(`{{  $search_params['start_date'] }}`);
+        $('#searchActionContentMaterialsActions').val(
+            `{{ html_entity_decode($search_params['material_content'][sizeof($search_params['material_content']) - 1]) }}`
+        );
+        $('#searchActionQualificationFactId').val(
+            `{{ $search_params['action_qualification_id'][sizeof($search_params['action_qualification_id']) - 1] }}`);
+        $('#searchActionQualificationFact').val(`{{ html_entity_decode($search_params['action_qualification']) }}`);
+        $('#searchActionDurationDActionId').val(
+            `{{ $search_params['duration_id'][sizeof($search_params['duration_id']) - 1] }}`);
+        $('#searchActionDurationDAction').val(`{{ html_entity_decode($search_params['duration_name']) }}`);
+        $('#searchActionPurposeMotiveReasonId').val(
+            `{{ $search_params['goal_id'][sizeof($search_params['goal_id']) - 1] }}`);
+        $('#searchActionPurposeMotiveReason').val(`{{ html_entity_decode($search_params['goal_name']) }}`);
+        $('#searchActionTermsActionsId').val(`{{ $search_params['terms_id'][sizeof($search_params['terms_id']) - 1] }}`);
+        $('#searchActionTermsActions').val(`{{ html_entity_decode($search_params['terms_name']) }}`);
+        $('#searchActionEnsuingEffectsId').val(
+            `{{ $search_params['aftermath_id'][sizeof($search_params['aftermath_id']) - 1] }}`);
+        $('#searchActionEnsuingEffects').val(`{{ html_entity_decode($search_params['aftermath_name']) }}`);
+        $('#searchActionSourceInformationActions').val(
+            `{{ $search_params['source'][sizeof($search_params['source']) - 1] }}`);
+        $('#searchActionOpenedDow').val(
+            `{{ html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou']) - 1]) }}`);
+        $('#searchActionEndActionDate').val(`{{ $search_params['end_date'] }}`);
+        $('#searchActionStartActionDate').val(`{{ $search_params['start_date'] }}`);
         <?php } ?>
 
 
-    function closeFancyAction(name,id){
-        //        alert('name = '+name+' id = '+id);
-        $('#'+currentInputNameAction).val(name);
-        $('#'+currentInputIdAction).val(id);
-        var field = $('#'+currentInputIdAction).attr('name');
+        function closeFancyAction(name, id) {
+            //        alert('name = '+name+' id = '+id);
+            $('#' + currentInputNameAction).val(name);
+            $('#' + currentInputIdAction).val(id);
+            var field = $('#' + currentInputIdAction).attr('name');
 
 
 

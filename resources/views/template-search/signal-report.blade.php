@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/template-search/signal-report.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 @section('content')
@@ -43,10 +45,10 @@
 
                         </div>
                         <div class="date_div">
-                            <input type="date" name="startDate" id="otherInput" class="form-control"
+                            <input type="date" data-check="date" name="startDate" id="otherInput" class="form-control"
                                    style="display: none; width:20%"/>
                             <pre id="line" style="display: none; margin-top:10px"> -- </pre>
-                            <input type="date" name="endDate" id="otherInput2" class="form-control"
+                            <input type="date"  data-check="date" name="endDate" id="otherInput2" class="form-control"
                                    style="display: none; width:20%"/>
                         </div>
                         <div class="export-button">
@@ -158,5 +160,7 @@
                     }
                 });
             </script>
+            <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 

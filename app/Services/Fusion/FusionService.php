@@ -46,7 +46,8 @@ class FusionService
     {
 
         $model = ModelRelationService::get_model_class($table_name);
-        $item =  $model->find($first_id);
+        $item =  $model->where('id', $first_id)->first();
+
         $second_item =  $model->find($second_id);
 
         $data = $request->all();

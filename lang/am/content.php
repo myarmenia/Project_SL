@@ -28,7 +28,7 @@ return [
     'addTo' => 'Ավելացնել',
     'search' => 'Որոնել',
     'dictionaries' => 'Բառարաններ',
-    'search_file'=> 'ֆայլերի որոնում',
+    'search_file' => 'ֆայլերի որոնում',
     'exit' => 'Դուրս գալ',
     'reset' => 'Զրոյացնել',
     //    bibliography
@@ -105,7 +105,7 @@ return [
     'bibliography' => 'Նյութեր',
     'answer' => 'Պատասխան',
 
-// phone adding
+    // phone adding
     'phone_number' => 'Հեռախոսահամար',
     'nature_character' => 'Սեփականության բնույթը',
     'nature_character_man' => 'Սեփականության բնույթը (Անձ)',
@@ -117,7 +117,8 @@ return [
     'real_action' => 'Հանդիսանում է գործողության օբյեկտ',
     'real_event' => 'Հանդիսանում է իրադարձության օբյեկտ',
     'mail_address' => 'Էլեկտրոնային հասցե (e-mail)',
-// car adding
+    'error_phone' => 'Դաշտը պետք է պարունակի նվազագույնը 9 թիվ',
+    // car adding
     'category' => 'Կատեգորիա',
     'car_cat' => 'Տրանսպորտային միջոցի տեսակ',
     'weapon_cat' => 'Զենքի հանձնման տեսակ',
@@ -134,11 +135,11 @@ return [
     'actions_events' => 'Մասնակցել է գործողությունների, իրադարձությունների',
     'actions_events_action' => 'Մասնակցել է գործողությունների',
     'actions_events_event' => 'Մասնակցել է իրադարձությունների',
-// weapon adding
+    // weapon adding
     'view' => 'Տեսակ',
     'type' => 'Տարատեսակ',
     'account_number' => 'Հաշվառման համարը',
-// address adding
+    // address adding
     'country' => 'Երկիր, ՎՏՄ, տարածաշրջան',
     'region_local' => 'Մարզ (տեղական)',
     'locality_local' => 'Բնակավայր (տեղական)',
@@ -160,7 +161,7 @@ return [
     'address_organization' => 'Կազմակերպության հասցեն',
     'seat_car' => 'Ավտոմեքենայի գտնվելու վայրը',
     'dummy_address_organization' => 'Կազմակերպության կեղծ հասցեն',
-// work_activity adding
+    // work_activity adding
     'position' => 'Պաշտոն',
     'data_refer_period' => 'Տեղեկությունները վերաբերում են ժամանակաշրջանին',
     'start_employment' => 'Աշխատանքային գործունեության սկիզբ',
@@ -168,9 +169,9 @@ return [
     'data_employment_persons' => 'Տվյալներ անձի աշխատանքային գործունեության վերաբերյալ',
     'jobs_organization' => 'Աշխատանքը կազմակերպությունում',
     'period' => 'Ժամանակահատվածին վերաբերող տվյալները',
-// control adding
+    // control adding
     'unit' => 'Ստորաբաժանում',
-    'document_category' =>'Փաստաթղթի կատեգորիա',
+    'document_category' => 'Փաստաթղթի կատեգորիա',
     'document_date' => 'Փաստաթղթի կազմման ամսաթիվ',
     'reg_document' => 'Փաստաթղթի գրանցման համարը',
     'date_reg' => 'Գրանցման ամսաթիվ',
@@ -183,24 +184,24 @@ return [
     'sub_actor_name' => 'Ենթակատարողի ազգանունը',
     'department_coauthors' => 'Համատեղ կատարող ստորաբաժանում',
     'result_execution' => 'Կատարման արդյունքը',
-// objects_relation adding
+    // objects_relation adding
     'character_link' => 'Կապի բնույթը',
     'relation_type' => 'Հարաբերության տեսակ',
     'specific_link' => 'Կոնկրետ կապ',
-    'first_object_type' =>'Արաջին օբյեկտի տեսակը',
-    'second_object_type' =>'Երկրորդ օբյեկտի տեսակը',
+    'first_object_type' => 'Արաջին օբյեկտի տեսակը',
+    'second_object_type' => 'Երկրորդ օբյեկտի տեսակը',
     'first' => 'Id: Առաջին',
     'second' => 'Id: Երկրորդ',
     'relationship_objects_organization' => 'Կապն օբյեկտների միջև (Կազմակերպություն)',
     'relationship_objects_man' => 'Կապն օբյեկտների միջև (Անձ)',
-// external_signs adding
+    // external_signs adding
     'photo' => 'Լուսանկար',
     'signs' => 'Արտաքին նշաններ',
     'time_fixation' => 'Արձանագրման օր, ամիս, տարի',
     'man_sign' => 'Անձին համապատասխանող արտաքին նշանները',
     'thumbnail' => 'Մինիատուրա',
 
-// action adding
+    // action adding
     'content_materials_actions' => 'Գործողության բովանդակություն',
     'qualification_fact' => 'Գործողության որակավորում',
     'start_action_date' => 'Գործողության սկիզբ (ամսաթիվ)',
@@ -219,7 +220,7 @@ return [
     'checking_signal' => 'Ստուգվում է որպես ահազանգ',
     'opened_dou' => 'Բացվել է ՕՀԳ',
     'place_action' => 'Գործողության անցկացման վայրը',
-// event adding
+    // event adding
     'content_event' => 'Միջոցառման բովանդակությունը',
     'qualification_event' => 'Իրադարձության որակավորում',
     'date_security_date' => 'Իրադարձության ամսաթիվ',
@@ -239,7 +240,7 @@ return [
     'event_auto' => 'Ինքնաշխատ մուտքագրում',
     'event_table' => 'Աղյուսակ',
     'event_sumery' => 'Տեղեկանք',
-// organization adding
+    // organization adding
     'org' => 'Կազմակերպություն',
     'pol' => 'Անցնում է Ոստիկանության ամփոփագրով',
     'name_organization' => 'Կազմակերպության անվանում',
@@ -269,7 +270,7 @@ return [
     'availability_car' => 'Ավտոմեքենայի առկայություն',
     'availability_weapons' => 'Զենքի առկայություն',
     'place_event_is' => 'Իրադարձության վայրը (հասցե)',
-//keep_signal
+    //keep_signal
     'management_signal' => 'Ահազանգն ստուգող վարչություն',
     'department_checking_signal' => 'Ահազանգն ստուգող բաժին',
     'unit_signal' => 'Ահազանգն ստուգող ստորաբաժանում',
@@ -280,7 +281,7 @@ return [
     'date_transfer_unit' => 'Այլ ստորաբաժանում փոխանցման ամսաթիվ',
     'unit_signal_transmitted' => 'Ստորաբաժանում, ուր փոխանցվել է ահազանգը',
     'refers_signal' => 'Վերաբերում է Ահազանգին',
-//essay
+    //essay
     'document_name' => 'Փաստաթղթի անվանում',
     'document_number' => 'Փաստաթղթի համարը',
     'address_material' => 'Նյութերի պահեստավորման հասցե',
@@ -290,7 +291,7 @@ return [
     'period_time' => 'Ժամանակահատվածին վերաբերող տվյալներ',
     'title_document' => 'Փաստաթղթի վերնագիրը',
     'contents_document' => 'Փաստաթղթի բովանդակությունը',
-//mia_summary
+    //mia_summary
     'date_registration_reports' => 'Ամփոփագրի գրանցման ամսաթիվ',
     'content_inf' => 'Տեղեկության բովանդակություն',
     'summary_man_organizations' => 'Ամփոփագրով անցնող անձինք, կազմակերպություններ',
@@ -316,7 +317,7 @@ return [
     'initiated_dow' => 'Հարուցվել է ՕՀԳ հիման վրա',
     'connected_criminal_cases' => 'Կազմվել է քրեական գործերից',
     'separated_criminal_cases' => 'Անջատվել է քրեական գործերից',
-//signal
+    //signal
     'reg_number_signal' => 'Ահազանգի քարտի համարը',
     'contents_information_signal' => 'Տեղեկության բովանդակություն',
     'line_which_verified' => 'Հ/հ աշխատանքի ուղղություն, որով ստուգվում է',
@@ -338,7 +339,7 @@ return [
     'measures_taken' => 'Ձեռնարկված միջոցներ',
     'according_result_dow' => 'Ստուգման արդյունքներով բացվել է ՕՀԳ',
     'according_test_result' => 'Ստուգման արդյունքներով հարուցվել է քրեական գործ',
-//    'objects_check_signal' => 'Ահազանգի ստուգման օբյեկտները',
+    //    'objects_check_signal' => 'Ահազանգի ստուգման օբյեկտները',
     'objects_check_signal_man' => 'Ահազանգի ստուգման օբյեկտները (անձ)',
     'objects_check_signal_organization' =>  "Ահազանգի ստուգման օբյեկտները (կազմակերպություն)",
     'objects_check_signal_action' => 'Ահազանգի ստուգման օբյեկտները (գործողություն)',
@@ -346,7 +347,7 @@ return [
     'brought_signal' => 'Ահազանգը բացող վարչություն',
     'department_brought' => 'Ահազանգը բացող բաժին',
     'unit_brought' => 'Ահազանգը բացող ստորաբաժանում',
-//man_bean_country
+    //man_bean_country
     'purpose_visit' => 'Մուտքի նպատակ',
     'country_ate' => 'Երկիր, ՎՏՄ',
     'entry_date' => 'Մուտքի ամսաթիվ',
@@ -354,32 +355,32 @@ return [
     'information_presence' => 'Վերաբերվում է անձին',
 
 
-// dinamic table
+    // dinamic table
     'field_name' => 'Դաշտի անվանում',
-// table content
-'table_conten_title' => 'Անձանց ցուցակ աղյուսակի տեսքով',
-'lang_am' => 'Հայերեն',
-'lang_eng' => 'Անգլերեն',
-'lang_ru' => 'Ռուսերեն',
-'title_table' => 'Աղյուսակը ունի վերնագիր',
-'notTitle_table' => 'Աղյուսակը չունի վերնագիր',
-'numbering' => 'Համարակալում',
-'enter_col_num' => 'Խնդրում ենք մուտքագրեք սյունակի համարը:',
-'date_of_birth_' => 'Ծննդյան տարեթիվ',
-'family_member' => 'Ընտանիքի անդամ',
-'passport_details' => 'Անձնագրային տվյալներ',
-'birth_address_data' => 'Ծննդյան տվյալներ, հասցեի տվյալներ',
-'forward' => 'Առաջ',
-'table_file' => 'Աղյուսակային Ֆայլ',
-'mia_summary_avto' => 'Ոստիկանություն ավտոմատ եղանակով',
-'table_avto' => 'Աղյուսակ ավտոմատ եղանակով',
-'reference' => 'Տեղեկանք',
-'reference_uppercase' => 'ՏԵՂԵԿԱՆՔ',
-'date' => 'Ամսաթիվ',
-'embassy' => 'Դեսպանատուն',
-'fonetic' => 'ֆոնետիկ',
+    // table content
+    'table_conten_title' => 'Անձանց ցուցակ աղյուսակի տեսքով',
+    'lang_am' => 'Հայերեն',
+    'lang_eng' => 'Անգլերեն',
+    'lang_ru' => 'Ռուսերեն',
+    'title_table' => 'Աղյուսակը ունի վերնագիր',
+    'notTitle_table' => 'Աղյուսակը չունի վերնագիր',
+    'numbering' => 'Համարակալում',
+    'enter_col_num' => 'Խնդրում ենք մուտքագրեք սյունակի համարը:',
+    'date_of_birth_' => 'Ծննդյան տարեթիվ',
+    'family_member' => 'Ընտանիքի անդամ',
+    'passport_details' => 'Անձնագրային տվյալներ',
+    'birth_address_data' => 'Ծննդյան տվյալներ, հասցեի տվյալներ',
+    'forward' => 'Առաջ',
+    'table_file' => 'Աղյուսակային Ֆայլ',
+    'mia_summary_avto' => 'Ոստիկանություն ավտոմատ եղանակով',
+    'table_avto' => 'Աղյուսակ ավտոմատ եղանակով',
+    'reference' => 'Տեղեկանք',
+    'reference_uppercase' => 'ՏԵՂԵԿԱՆՔ',
+    'date' => 'Ամսաթիվ',
+    'embassy' => 'Դեսպանատուն',
+    'fonetic' => 'ֆոնետիկ',
 
-// addTo
+    // addTo
     'face' => 'Անձ',
     'man' => 'Անձ',
 
@@ -412,7 +413,7 @@ return [
     'email' => 'Էլեկտրոնային հասցե',
     'email_post' => 'Էլեկտրոնային հասցե',
 
-// dictionaries
+    // dictionaries
     'bodies_management' => 'Կառավարման մարմիններ',
     'access_level' => 'Մուտքի մակարդակը',
     'state_affiliation' => 'Երկիր',
@@ -431,7 +432,7 @@ return [
 
     'modal_text' => 'Իսկապե՞ս ուզում եք ջնջել այս գրառումը:',
 
-/////////////////////////////////
+    /////////////////////////////////
     'interval' => 'Ինտերվալ',
     'create_response_file' => 'Ստեղծել',
     'search_word' => 'Որոնվող բառ',
@@ -460,8 +461,8 @@ return [
     'created_at' => 'Ամսաթիվը ստեղծվել է',
     'change_search' => 'Փոխել որոնումը',
     'new_search' => 'Նոր որոնումը',
-/////////////////////////////////////
-    'ties' =>'Կապեր',
+    /////////////////////////////////////
+    'ties' => 'Կապեր',
     'ties_action' => 'Գործողություն, կապեր id=',
     'ties_address' => 'Հասցե, կապեր id=',
     'ties_bibliography' => 'Նյութեր, կապեր id=',
@@ -482,10 +483,10 @@ return [
     'ties_work_activity' => 'Աշխատանքային գործունեություն, կապեր id=',
     'ties_external_signs' => 'Արտաքին նշաններ, կապեր id=',
 
-///////////////////////////// search //////////////////////////////////
+    ///////////////////////////// search //////////////////////////////////
     'simple_search' => 'Պարզ որոնում',
-    'complex_search' =>'Բարդ որոնում',
-    'template_search' =>'Հետևողական որոնում',
+    'complex_search' => 'Բարդ որոնում',
+    'template_search' => 'Հետևողական որոնում',
     'file_search' => 'Որոնում ֆայլերով',
     'file_in_search' => 'Որոնում արդյունքում',
     'interval' => "Միջակայք",
@@ -499,7 +500,7 @@ return [
     'synonyms' => 'Հոմանիշներով',
 
 
-///////////////////////////////  short names ////////////////////////////
+    ///////////////////////////////  short names ////////////////////////////
 
     'short_man' => 'ԱՆՁ',
     'short_bibl' => 'ՆՅՈՒԹ',
@@ -523,11 +524,11 @@ return [
     'short_mia' => 'ՈՍՏ',
 
 
-//////////////////////////////////////////////
+    //////////////////////////////////////////////
     'face_has' => 'Պատկանում է անձին',
     'face_use' => 'Գտնվում է անձի մոտ',
 
-//user add
+    //user add
     'add_user' => 'Գործածողի ավելացում',
     'user_name' => 'Գործածողի անուն',
     'password' => 'Գաղտնաբառ',
@@ -548,7 +549,7 @@ return [
 
 
     //////   admin  ///////
-    'mysql_backup' => 'Տվյալների կրկնօրինակում' ,
+    'mysql_backup' => 'Տվյալների կրկնօրինակում',
     'mysql_import' => 'Տվյալների վերականգնում',
     'optimization' => 'Օպտիմալացում',
     'fusion' => 'Միավորում',
@@ -636,10 +637,10 @@ return [
     'enter_resource' => 'Մուտքագրեք ճիշտ ռեսուրսը',
     'enter_nation' => 'Մուտքագրեք ճիշտ ազգությունը',
     'enter_religion' => 'Մուտքագրեք ճիշտ կրոնը',
-    'country_quit' =>'Դուք չեք մուտքագրել Երկիրը ցանկանում եք դուրս գալ ?',
+    'country_quit' => 'Դուք չեք մուտքագրել Երկիրը ցանկանում եք դուրս գալ ?',
     'must_fill_field' => 'Դուք պետք է լրացնեք բոլոր դաշտերը',
     'enter_organ' => 'Մուտքագրեք ճիշտ մարմինը',
-    'phone_quit' =>'Դուք չեք մուտքագրել Հեռախոսահամարը, ցանկանում եք դուրս գալ ?',
+    'phone_quit' => 'Դուք չեք մուտքագրել Հեռախոսահամարը, ցանկանում եք դուրս գալ ?',
     'enter_worker' => 'Մուտքագրեք ճիշտ աշխատակցին',
     'face_quit' => 'Դուք չեք մուտքագրել Անձը, ցանկանում եք դուրս գալ ?',
     'organization_quit' => 'Դուք չեք մուտքագրել Կազմակերպությունը, ցանկանում եք դուրս գալ ?',
@@ -729,7 +730,7 @@ return [
     'quarter' => 'եռամսյակ',
     'year' => 'տարի',
     'half_year' => 'կիսամյակ',
-    'other'=> 'այլ',
+    'other' => 'այլ',
     'sgq' => 'ըստ երանգավորման',
 
     'help' => "Օգնություն",
@@ -769,31 +770,31 @@ return [
     'type' => ' Տիպ',
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
-    'association'=> 'Միավորում',
-    'keyword'=> 'Բանալի բառ',
-    'fileName'=> 'ֆայլի անուն',
-    'contactPerson'=> 'Կապ անձի հետ',
+    'association' => 'Միավորում',
+    'keyword' => 'Բանալի բառ',
+    'fileName' => 'ֆայլի անուն',
+    'contactPerson' => 'Կապ անձի հետ',
     'add_version' => 'Ավելացնել Տարբերակ',
     'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
 
     //user_list
     'status' => 'Կարգավիճակ',
-    'new' =>'Բացակայողներ',
+    'new' => 'Բացակայողներ',
     'some' => 'Ոմանք',
     'like' => 'Անցնողներ',
-    'radio_new' =>'Բացակայող',
+    'radio_new' => 'Բացակայող',
     'radio_some' => 'Ոմն',
     'radio_like' => 'Անցնող',
-    'singular_new' =>'Նոր',
-    'singular_some' =>'Ոմն',
-    'singular_like' =>'Նման',
+    'singular_new' => 'Նոր',
+    'singular_some' => 'Ոմն',
+    'singular_like' => 'Նման',
 
     'word_count' => 'Բառերի հաջորդա.',
     'distance_word' => 'Բառերի հեռավորությունը',
 
 
 
-//     fusion result
+    //     fusion result
 
     'birth_day' => 'Ծննդյան օր',
     'birth_month' => 'Ծննդյան ամիս',
@@ -818,19 +819,17 @@ return [
     'first_object_relation_man' => 'Կապն օբյեկտների միջև',
 
 
-//     users svich modal
-        'users_svich_modal_title' => ' Հաստատել',
-        'users_svich_modal_content' => 'Հաստատեք Ձեր գործողությունը:',
-        'users_svich_modal_ok_btn' => 'Հաստատել',
-        'users_svich_modal_close_btn' => 'Չեղարկել',
+    //     users svich modal
+    'users_svich_modal_title' => ' Հաստատել',
+    'users_svich_modal_content' => 'Հաստատեք Ձեր գործողությունը:',
+    'users_svich_modal_ok_btn' => 'Հաստատել',
+    'users_svich_modal_close_btn' => 'Չեղարկել',
 
-// dinamic Table
-'field_name' => 'Դաշտի անվանում',
-'content' => 'Բովանդակություն',
-//referance page
-'download_reference' =>'Ներբեռնեք տեղեկանքը'
+    // dinamic Table
+    'field_name' => 'Դաշտի անվանում',
+    'content' => 'Բովանդակություն',
+    //referance page
+    'download_reference' => 'Ներբեռնեք տեղեկանքը',
+    'file1' => 'Ֆայլ'
 
 ];
-
-
-

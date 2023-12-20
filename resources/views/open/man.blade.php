@@ -1,5 +1,7 @@
 @extends('layouts.auth-app')
-
+@section('style')
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+@endsection
 @section('content')
 
     <section class="section">
@@ -217,15 +219,13 @@
                                         {{ __('content.source_inf') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="resource" data-section-name="open"></i>
                                     </th>
-<<<<<<< HEAD
-=======
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
                                     </th>
 
->>>>>>> a239c6432f3c18dcd9828be153b272704f4dcfa0
+
                                     {{-- <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.short_photo') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="photo_count" data-section-name="open"></i>
@@ -451,12 +451,12 @@
                         <div class="large-modalBlock">
                             <div class="mb-3 announcement-input-block">
                                 <label for="start_of_announcement" class="form-label">Հայտարարման սկիզբ</label>
-                                <input style="position: relative;" type="date" class="form-control"
+                                <input style="position: relative;" type="date" data-check="date" class="form-control"
                                     id="start_of_announcement">
                             </div>
                             <div class="mb-3 announcement-input-block">
                                 <label for="end_of_announcement" class="form-label">Հայտարարման ավարտ</label>
-                                <input style="position: relative;" type="date" class="form-control"
+                                <input style="position: relative;" type="date"  data-check="date" class="form-control"
                                     id="end_of_announcement">
                             </div>
                             <div class="mb-3 announcement-input-block">
@@ -537,6 +537,8 @@
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     @endsection
 
 @endsection

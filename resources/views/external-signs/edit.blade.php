@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/external-signs/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 
@@ -28,17 +30,20 @@
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <input
-                                        type="date"
+                                        type="text"
                                         placeholder=""
                                         id="inputDate1"
-                                        class="form-control"
+                                        class="form-control calendarInput form-input"
                                         name="fixed_date"
                                         @if($edit)
                                             value="{{$manExternalSignHasSign->fixed_date}}"
                                         @endif
+                                        data-check="date"
+                                        autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="inputDate1" class="form-label"
                                 >1) {{__('content.time_fixation')}}</label
                                 >
@@ -91,7 +96,7 @@
                         <div class="col btn-div">
                             <label for="inputDate2" class="form-label">3) {{__('content.ties')}}</label>
                             @if($edit)
-                                <x-teg :item="$manExternalSignHasSign" relation="man" name="id" :label="__('content.man')"/>
+                                <x-tegs-relations :model="$modelData->model"/>
                             @endif
                         </div>
                     </div>
@@ -114,6 +119,8 @@
 
         {{--        <script src="{{ asset('assets/js/external-signs/script.js') }}"></script>--}}
         <script src="{{ asset('assets/js/script.js') }}"></script>
+        <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     @endsection
 @endsection
 

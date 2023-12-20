@@ -11,8 +11,7 @@
     {{-- <link rel="dns-prefetch" href="https://fonts.gstatic.com"> --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/date_plugin/pikaday.min.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -60,8 +59,10 @@
         <div class="container">
             {{-- =============== --}}
             {{-- {{dd(request()->segment(2))}} --}}
-            @if (!request()->routeIs('home'))
-                {{-- @if (!request()->routeIs('home') && (!request()->segment(2) == 'advancedsearch' || !request()->segment(2) == 'simplesearch')) --}}
+
+            {{-- @if (!request()->routeIs('home') ) --}}
+
+                @if (!request()->routeIs('home') && request()->segment(2) !== 'advancedsearch' && request()->segment(2) !== 'simplesearch')
 
                 <div class="pagetitle-wrapper">
                     <div class="pagetitle">
@@ -135,7 +136,10 @@
 
     <script>
         // sessionStorage.setItem('reload', 'yes');
+
     </script>
+    <script src="{{ asset('assets/plugins/date_plugin/pikaday.min.js') }}"></script>
+
     @yield('js-scripts')
 
 </body>
