@@ -30,8 +30,8 @@ class OrganizationHasCreateRequest extends FormRequest
             $model.'_id' => ['required:organization_id',"exists:$model,id"],
             'title' => ['nullable'],
             'period' => ['nullable'],
-            'start_date' => ['nullable','date'],
-            'end_date' => ['nullable','date'],
+            'start_date' => ['nullable'],
+            'end_date' => ['nullable'],
         ];
     }
 

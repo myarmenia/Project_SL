@@ -1,21 +1,20 @@
-let picker;
+let picker = {};
 let element = null
-console.log(document.querySelector('.calendarInput').value);
 function openCalendar(el) {
-  el.closest('.calendar-container').querySelectorAll('.calendarInput').forEach(input => {
-    element = input
-  })
-  if (!picker) {
-    ;
-    picker = new Pikaday({
+  let input = el.closest('.calendar-container').querySelector('.calendarInput')
+  element = input
+  let elementId = element.name
+
+  if (!picker[elementId]) {
+    picker[elementId] = new Pikaday({
       field: el,
       format: 'DD-MM-YYYY', // customize the format as needed
       yearRange: [1900, new Date().getFullYear()], // customize the year range as needed
       onSelect: updateInput
     });
   }
+  picker[elementId].show();
 
-  picker.show();
 }
 
 function handleBlur(inp) {
@@ -65,17 +64,23 @@ function handleBlur(inp) {
     inp.value = ''
   }
 
-  
-
   if (+arr_day[0] > 31) {
     inp.value = ''
   }
+
   if (+arr_day[1] > 12) {
     inp.value = ''
   }
 
-  
+ if (inp.closest('form')){
+     reverseInput(inp)
+ }
 console.log(inp.value);
+}
+
+function reverseInput(el){
+    let elVal = el.value.split(' ')
+    el.value = elVal[0].split('-').reverse().join('-')
 }
 
 function updateInput(date) {
@@ -87,7 +92,6 @@ function updateInput(date) {
   element.value = formattedDate
 
   element.focus()
-
 }
 
 

@@ -4,13 +4,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/being-country/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 @section('content')
-    
-
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
@@ -101,20 +100,23 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <!-- <div class="input-date-wrapper"> -->
                                 <!-- <label for="inputDate1" role="value"></label>
                                 <input type="text" hidden role="store" /> -->
                                 <input
-                                    type="date"
+                                    type="text"
                                     placeholder=""
                                     id="entry_date"
-                                    class="form-control"
+                                    class="form-control calendarInput"
                                     name="entry_date"
                                     tabindex="3"
                                     value="{{ $modelData->model->entry_date  }}"
                                     data-check="date"
+                                    autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="entry_date" class="form-label">
                                     3) {{__('content.entry_date')}}
                                 </label>
@@ -122,17 +124,20 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
                                 <input
-                                    type="date"
+                                    type="text"
                                     placeholder=""
                                     id="exit_date"
-                                    class="form-control"
+                                    class="form-control calendarInput"
                                     name="exit_date"
                                     tabindex="4"
                                     value="{{ $modelData->model->exit_date }}"
                                     data-check="date"
+                                    autocomplete="off" onblur="handleBlur(this)"
                                 />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+
                                 <label for="exit_date" class="form-label">
                                     4) {{__('content.exit_date')}}
                                 </label>
@@ -268,13 +273,10 @@
     <x-errorModal/>
 
     @section('js-scripts')
-        <script>
-            let open_modal_url = "{{route('open.modal')}}"
-            let lang = "{{app()->getLocale()}}"
-        </script>
-
         <script src="{{ asset('assets/js/script.js') }}"></script>
         {{--        <script src="{{ asset('assets/js/being-country/script.js') }}"></script>--}}
+        <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     @endsection
 @endsection
 

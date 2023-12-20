@@ -1,5 +1,7 @@
 @extends('layouts.auth-app')
-
+@section('style')
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+@endsection
 @section('content')
 
     <section class="section">
@@ -222,6 +224,7 @@
                                         {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
                                     </th>
+
 
                                     {{-- <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.short_photo') }}<i class="bi bi-funnel-fill" aria-hidden="true"
@@ -534,6 +537,8 @@
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     @endsection
 
 @endsection
