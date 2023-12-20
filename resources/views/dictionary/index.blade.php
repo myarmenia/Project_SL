@@ -142,6 +142,7 @@
             @enderror
         });
 
+        let bibliography_id = null
         // filter translate //
         let equal = "{{ __('content.equal') }}" // havasar e
         let not_equal = "{{ __('content.not_equal') }}" // havasar che
