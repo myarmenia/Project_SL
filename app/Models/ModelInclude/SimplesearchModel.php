@@ -3235,6 +3235,7 @@ class SimplesearchModel extends Model
         }
 
         public function searchSignal($data, $files_flag = false, $files = null){
+
             $query = " SELECT `signal`.*, signal_qualification.name AS signal_qualification, check_agency.name AS check_agency, check_unit.name AS check_unit,
                                     ( (SELECT COUNT(*) FROM man_passed_by_signal WHERE man_passed_by_signal.signal_id = `signal`.id) +
                                       (SELECT COUNT(*) FROM signal_has_man WHERE signal_has_man.signal_id = `signal`.id)
@@ -3702,16 +3703,27 @@ class SimplesearchModel extends Model
                     $data['count_days'][] = 0;
                 }
                 if(!empty($data['count_days'])){
+                    if (!empty($data['search_count_days']))
+                    {
+                        $query .= $this->arifInt([
+                            'search_field' => $data['count_days'][0],
+                            'date_search_arif' => $data['search_count_days'],
+                            'end_date' => $data['end_count_days'],
+                            'search_col' => 'expired_days'
+                        ]);
+                    }else{
 
-                    (isset($data['count_days_type']) && $data['count_days_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+                        (isset($data['count_days_type']) && $data['count_days_type'] == 'NOT') ? $q = 'NOT' : $q = '';
 
-                    $qq = " AND count_days $q IN (".implode(',',$data['count_days']).") ";
-                    $queryHaving .= $qq;
-                    if(isset($data['count_days_type']) && $data['count_days_type'] != 'NOT'){
-                        if($data['count_days_type'] == 'AND' && count($data['count_days'])>1){
-                            $query .= " AND `signal`.id = 0";
+                        $qq = " AND count_days $q IN (".implode(',',$data['count_days']).") ";
+                        $queryHaving .= $qq;
+                        if(isset($data['count_days_type']) && $data['count_days_type'] != 'NOT'){
+                            if($data['count_days_type'] == 'AND' && count($data['count_days'])>1){
+                                $query .= " AND `signal`.id = 0";
+                            }
                         }
                     }
+
                 }
             }
 
@@ -3752,6 +3764,7 @@ class SimplesearchModel extends Model
 
             $query .= '  GROUP BY(signal.id)';
             $query .= $queryHaving;
+
             // $this->_setSql($query);
             // return $this->getAll();
             return DB::select($query);

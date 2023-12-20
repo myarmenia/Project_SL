@@ -599,7 +599,7 @@ function printResponsData(responseData) {
             tr.style.backgroundColor = "#f44336d1";
         }
         if (tb_name === "man") {
-            for (let i = -2; i <= 32; i++) {
+            for (let i = -2; i <= 34; i++) {
                 if (i === -2 && allow_change === true) {
                     let td = document.createElement("td");
 
@@ -658,7 +658,7 @@ function printResponsData(responseData) {
                                 tr.appendChild(td);
                             }
                         }
-                    } else if (i === 32 && main_route) {
+                    } else if (i === 33 && main_route) {
                         let td = document.createElement("td");
                         td.innerHTML = `
                                 <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
@@ -667,7 +667,7 @@ function printResponsData(responseData) {
                         text-align:center;
                         `;
                         tr.appendChild(td);
-                    } else if (i === 33 && allow_delete === true) {
+                    } else if (i === 34 && allow_delete === true) {
                         let td = document.createElement("td");
                         td.style = `
                         text-align:center;

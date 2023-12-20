@@ -50,6 +50,14 @@ class ComponentService
         } elseif ($attributes['type'] === 'update_field') {
             $mainModel->update($newData);
 
+            if($mainModel->getTable()=='signal'){
+                if($attributes['fieldName']=='check_date'|| $attributes['fieldName']=='end_date'){
+                    $mainModel->count_number();
+                }
+
+            }
+
+
             $log = LogService::store($newData, $mainModel->id, $mainModel->getTable(), 'update');
             $newModel= $mainModel;
             event(new ConsistentSearchRelationsEvent($newModel->getTable(), $newModel->id, $attributes['value'], $mainModel['id']));
