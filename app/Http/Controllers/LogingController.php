@@ -19,7 +19,7 @@ class LogingController extends Controller
         if (!empty($data)) {
 
             foreach ($data as $key => $item) {
-                if ($item != null) {
+                if ($item != null  ) {
                     if ($key == 'username' || $key == 'first_name' || $key == 'last_name') {
                         $user = User::where($key, 'like', "%$item%")->get();
                         $user_ids = $user->pluck('id');
@@ -29,12 +29,14 @@ class LogingController extends Controller
                     } else if ($key == 'date_to') {
                         $logs = $logs->whereDate('created_at', '<=', $item);
                     } else if ($key == 'tb_name') {
+                        // dd($item);
                         $logs = $logs->where($key, $item);
 
                     }else {
                         $logs = $logs->where($key, $item);
                     }
                 }
+               
             }
         }
         $permissions = Permission::get()->unique('title')->pluck('title')->toArray();
