@@ -45,8 +45,7 @@ return [
     'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
     'report_painting' => "Հաշվետվություն ըստ երանգավորման",
 
-
-
+    'dictionary' => 'Բառարան',
     'dictionaries' => 'Բառարաններ',
     'open' => 'Բացել',
 
@@ -89,7 +88,7 @@ return [
     'last_name' => 'Ազգանուն',
     'middle_name' => 'Հայրանուն',
     'learning_systems' => 'Ուսուցման համակարգ',
-
+    'user' => 'Օգտատեր',
     'bibliography' => 'Նյութեր',
     'man' => 'Անձեր',
     'man_face' => 'Անձ',
