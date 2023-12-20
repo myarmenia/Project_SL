@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HelpersTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,4 +18,9 @@ class ManExternalSignHasSignPhoto extends Model
     ];
 
     public $timestamps = false;
+
+    public function setFidexDateAttribute($value): void
+    {
+        $this->attributes['fixed_date'] = HelpersTraits::getDateTimeFormat($value,true);
+    }
 }

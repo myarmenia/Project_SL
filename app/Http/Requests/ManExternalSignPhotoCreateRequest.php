@@ -24,12 +24,12 @@ class ManExternalSignPhotoCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'fixed_date' => ['nullable','date'],
+            'fixed_date' => ['nullable'],
             'image' => ['required','image','mimes:jpeg,jpg,png,gif','max:64'],
         ];
     }
 
-    public function messages (): array 
+    public function messages (): array
     {
         return [
             'image' => __('validation.required', ['attribute' => __('content.upload')])

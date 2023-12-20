@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/template-search/signal-report.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 @section('content')
@@ -158,5 +160,7 @@
                     }
                 });
             </script>
+            <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 

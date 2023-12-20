@@ -37,7 +37,14 @@ class LogingController extends Controller
                 }
             }
         }
-        $permissions = Permission::get()->except('log')->unique('title')->pluck('title');
+        $permissions = Permission::get()->unique('title')->pluck('title')->toArray();
+        // dd($permissions);
+
+        $permissions = array_filter( $permissions, function ($value) {
+
+            return $value !== "log";
+        });
+
 
 
         $logs = $logs->orderBy('id', 'DESC')->paginate(10)->withQueryString();

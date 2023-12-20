@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 
 @endsection
 @inject('carbon', 'Carbon\Carbon')
@@ -56,10 +58,12 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date"  data-check="date" class="form-control fetch_input_title save_input_data get_datalist"
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text"  data-check="date" class="form-control fetch_input_title save_input_data get_datalist calendarInput"
                                     id="item3" name="creation_date" value="{{ $controll->creation_date ?? null }}"
-                                    data-type="update_field" />
+                                    data-type="update_field" 
+                                    autocomplete="off" onblur="handleBlur(this)"/>
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item3" class="form-label">3) Փաստաթղթի կազմման ամսաթիվ</label>
                             </div>
                         </div>
@@ -73,9 +77,11 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" data-check="date" class="form-control  save_input_data" id="item5" name="reg_date"
-                                    value="{{ $controll->reg_date ?? null }}" data-type="update_field" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" data-check="date" class="form-control  save_input_data calendarInput" id="item5" name="reg_date"
+                                    value="{{ $controll->reg_date ?? null }}" data-type="update_field"
+                                    autocomplete="off" onblur="handleBlur(this)" />
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item5" class="form-label">5) Գրանցման ամսաթիվ</label>
                             </div>
                         </div>
@@ -99,11 +105,13 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
 
-                                <input type="date" data-check="date"class="form-control  save_input_data" id="item8"
+                                <input type="text" data-check="date"class="form-control  save_input_data calendarInput" id="item8"
                                     name="resolution_date" value="{{ $controll->resolution_date ?? null }}"
-                                    data-type="update_field" />
+                                    data-type="update_field" 
+                                    autocomplete="off" onblur="handleBlur(this)"/>
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item8" class="form-label">8) Մակագրության ամսաթիվ</label>
                             </div>
                         </div>
@@ -268,5 +276,7 @@
     <script src="{{ asset('assets/js/tag.js') }}"></script>
 
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 @endsection
