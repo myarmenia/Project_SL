@@ -60,7 +60,8 @@ trait HelpersTraits
         if ((request()->model|| request()->model_name )|| $model) {
             return redirect()->route(($model ?? request()->model ?? request()->model_name).'.edit', request()->id ??  request()->model_id);
         }
-        return redirect()->route('open.page',$page);
+        $routeData = array_merge(['page'=>$page], request()->query()) ;
+        return redirect()->route('open.page',$routeData);
     }
 
     public static function getDateTimeFormat(?string $value, $reverse = false): ?string
