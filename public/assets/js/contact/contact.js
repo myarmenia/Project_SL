@@ -22,7 +22,36 @@ async function postDataRelation(propsData, typeAction, rowTitle) {
     }
 }
 
+
 // --------------------- fetch post end ------------------ //
+
+// ==============================================
+   // fetch relation table
+// ==============================================
+async function postRelationTable(propsData,li) {
+    const postUrl = "/" + lang + "/get-relations";
+    try {
+        const response = await fetch(postUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(propsData),
+        });
+
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        } else {
+            const responseData = await response.json();
+            console.log(responseData);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+// ==============================================
+   // fetch relation table end
+// ==============================================
 
 // --------------------- contact js ---------------------- //
 
@@ -127,7 +156,6 @@ function showContactDiv(data, props, typeAction, rowTitle) {
                 setTimeout(() => {
                     window.scrollTo(0, 0);
                 }, 0);
-
                 el.closest(".contact_block").classList.add("maximized");
                 el.closest(".contact_block")
                     .querySelector(".content")
@@ -161,10 +189,11 @@ function showContactDiv(data, props, typeAction, rowTitle) {
         })
     );
 
+
     let li = document.querySelectorAll(".content ul li");
     function showInfo(e) {
         let openTable = e.target.closest("ul").querySelector(".table");
-
+        console.log(e.target);
         if (e.target.getAttribute("check")) {
             openTable?.remove();
             e.target.removeAttribute("check");
@@ -188,6 +217,7 @@ function showContactDiv(data, props, typeAction, rowTitle) {
             let tbody = document.createElement("tbody");
             table.appendChild(tbody);
             let fields = data[elmIndex].fields;
+            // console.log(data[elmIndex]);
 
             for (let el in fields) {
                 let fieldKey = el;
@@ -202,6 +232,7 @@ function showContactDiv(data, props, typeAction, rowTitle) {
                 tr.append(tdKey, tdValue);
                 tbody.appendChild(tr);
             }
+
             function contactPost() {
                 showLoader()
                 let table_name =
@@ -244,8 +275,19 @@ function showContactDiv(data, props, typeAction, rowTitle) {
             el.addEventListener("click",contactPost)
         );
     }
+    function fetchContactTable(el) {
+        let relation_name = el.getAttribute('relation_name')
+        let relation_id = el.getAttribute('relation_id')
+        let obj = {
+            table_name: relation_name,
+            table_id: relation_id
+        }
+        console.log(obj);
+        postRelationTable(obj,el)
+    }
 
-    li.forEach((el) => el.addEventListener("click", (e) => showInfo(e)));
+    // li.forEach((el) => el.addEventListener("click", (e) => showInfo(e)));
+    li.forEach((el) => el.addEventListener("click", (e) => fetchContactTable(el)));
 
     const draggableDivs = document.querySelectorAll(".minMaxClose-block");
     let isDragging = false;
