@@ -3,6 +3,10 @@ const textarea = document.querySelector(".form-control-text");
 const addBtn = document.querySelector(".add-file-btn");
 const fileInput = document.querySelector(".attach-file-input");
 
+const content = document.querySelector('.file-modal')
+const textArea = content.querySelector('.text_area_modal')
+const button = content.querySelector('.add-file-btn')
+
 function processFile(file) {
     if (file.name.endsWith(".docx") || file.name.endsWith(".doc")) {
         return new Promise((resolve, reject) => {
@@ -56,13 +60,18 @@ fileInput.addEventListener("change", async function () {
     }
 });
 
+document.querySelectorAll('.btn-close').forEach(el => {
+    el.addEventListener('click',function (){
+            console.log('close')
+            content.querySelector('.text_area_modal').value = ''
+        });
+})
 
 function craeteFileData()
 {
     const id = this.getAttribute('data-delete-id')
-
     const el = document.getElementById('attach_file')
-    console.log(el)
+
     const requestData = {
         type: el.getAttribute('data-type'),
         model: el.getAttribute('data-model'),
@@ -70,12 +79,15 @@ function craeteFileData()
         value: textarea.value,
     };
 
+    let url;
     if (id){
-        updated_route = 'more_data/'+id
+        url = 'more_data/'+id
+    }else {
+        url = updated_route;
     }
 
     if (requestData.value) {
-        fetch(updated_route, {
+        fetch(url, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -85,12 +97,37 @@ function craeteFileData()
         .then(async (response) => {
             const message = await response.json()
             const tegsDiv = document.querySelector('.more_data .tegs-div-content')
-            console.log(tegsDiv)
-            tegsDiv.innerHTML += drowTeg(parent_id, 'more_data', message.result, 'id','has_many',false)
+
+            tegsDiv.innerHTML += drowTeg(parent_id, 'more_data', message.result, 'text','has_many',true, true)
+            getQuery()
             closeFuncton()
             DelItem()
         })
     }
+}
+
+
+function getQuery(){
+
+    document.querySelectorAll('.get-data').forEach(el => {
+        el.addEventListener('click', function () {
+            const element = el.closest('.Myteg').querySelector('.xMark');
+
+            console.log(element)
+            // const table = element.getAttribute('data-table')
+            const id = element.getAttribute('data-delete-id')
+
+            fetch(`${updated_route}/more_data/${id}`,{
+                method: 'GET',
+                headers: {'Content-Type':'application/json'},
+            })
+                .then(async res => {
+                    const data = await res.json()
+                    textArea.value = data.result
+                    button.setAttribute('data-delete-id', id)
+                })
+        })
+    })
 }
 
 
@@ -107,3 +144,6 @@ function closeFuncton() {
 }
 
 closeBtn.addEventListener("click", closeFuncton);
+
+
+getQuery()
