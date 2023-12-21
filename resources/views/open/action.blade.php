@@ -92,10 +92,10 @@
                                         {{ __('content.opened_dou') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='opened_dou'></i>
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                    {{-- <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name=" NB VGHF" data-section-name="open"></i>
-                                    </th>
+                                    </th> --}}
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route) || !empty($add))
@@ -161,6 +161,7 @@
                                         <td>{{ $action->opened_dou ?? '' }}</td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
+
                                         @if (isset(request()->main_route))
                                             <td style="text-align: center">
                                                 <a
@@ -169,7 +170,7 @@
                                                 </a>
                                             </td>
                                         @endif
-                                        <td></td>
+                                        {{-- <td></td> --}}
                                         @can($page . '-delete')
                                             <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                     data-bs-toggle="modal" data-bs-target="#deleteModal"
