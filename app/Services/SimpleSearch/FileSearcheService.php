@@ -146,6 +146,8 @@ class FileSearcheService
     {
         $arr = Arr::where(explode(' ', $string), function ($word) use ($new_trans, $distance) {
 
+           $word = preg_replace('/[^ a-zа-яёա-ֆև\d]/ui', '', $word);
+
             if (mb_strlen($word,'UTF-8') > 2 &&  $word != "" &&  $word != " ") {
 
                 if (mb_strlen($word,'UTF-8') < 6) {
@@ -156,8 +158,7 @@ class FileSearcheService
                 }
                 return Arr::where($new_trans,function($tr_value) use($distance, $word){
 
-                        if (levenshtein($tr_value , $word) <= $distance) {
-
+                        if (levenshtein(Str::lower($tr_value) , Str::lower($word)) <= $distance) {
                             return $word;
                         }
                 });
@@ -278,11 +279,8 @@ class FileSearcheService
                 }
                 foreach ($new_trans as  $key => $value) {
 
-                   $lev = levenshtein($value, $word);
-
+                   $lev = levenshtein(Str::lower($value), $word);
                    if ($lev <= $distance) {
-
-                     //   $word = preg_replace('/[^ a-zа-яёա-ֆև\d]/ui', '',  $word);
 
                         if (!in_array("/($word)/iu", $patterns)) {
 
