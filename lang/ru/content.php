@@ -347,6 +347,7 @@ return [
     'brought_signal' => 'Управление, которое завело сигнал',
     'department_brought' => 'Отдел, который завел сигнал',
     'unit_brought' => 'Подразделение, которое завело сигнал',
+    'error_val_img' => 'Изображение не должно быть больше 64 килобайт.',
     //man_bean_country
     'purpose_visit' => 'Цель въезда',
     'country_ate' => 'Страна, АТЕ',

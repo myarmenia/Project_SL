@@ -8,15 +8,17 @@ class DateFilterSearch extends Component
 {
     public $name;
     public $inpName;
+    public $searchData;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name,$inpName)
+    public function __construct($name,$inpName,$searchData)
     {
         $this->name = $name;
         $this->inpName = $inpName;
+        $this->searchData = $searchData;
     }
 
     /**

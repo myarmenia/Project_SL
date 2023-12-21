@@ -34,7 +34,7 @@ class ManExternalSignPhotoCreateRequest extends FormRequest
         return [
             'image' => [
                 'required' => __('validation.required', ['attribute' => __('content.upload')]),
-                'max' => 'The image must not be larger than :max kilobytes.'
+                'max' => __('content.error_val_img')
             ]
         ];
     }
