@@ -12,11 +12,8 @@ trait HelpersTraits
         $main_route = $route->getName();
         $model = explode('.', $main_route )[0];
         $id = $route->$model;
-
         $getModel = new class{};
-
         $getModel->model = self::getModel($model,$id);
-
         $getModel->id = $id;
         $getModel->main_route = $main_route;
 
@@ -36,7 +33,6 @@ trait HelpersTraits
         $getModel->relation = request()->relation;
         return $getModel;
     }
-
 
     public static function getModel($model,$id){
         if ($model === 'man' || $model === 'bibliography') {
