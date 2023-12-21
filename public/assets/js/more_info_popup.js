@@ -3,7 +3,6 @@ const textarea = document.querySelector(".form-control-text");
 const addBtn = document.querySelector(".add-file-btn");
 const fileInput = document.querySelector(".attach-file-input");
 
-
 function processFile(file) {
     if (file.name.endsWith(".docx") || file.name.endsWith(".doc")) {
         return new Promise((resolve, reject) => {
@@ -43,7 +42,6 @@ function processFile(file) {
     }
 }
 
-
 fileInput.addEventListener("change", async function () {
     try {
         const selectedFile = fileInput.files[0];
@@ -59,15 +57,22 @@ fileInput.addEventListener("change", async function () {
 });
 
 
-function craeteFileData() {
-    const el = document.getElementById('attach_file')
+function craeteFileData()
+{
+    const id = this.getAttribute('data-delete-id')
 
+    const el = document.getElementById('attach_file')
+    console.log(el)
     const requestData = {
         type: el.getAttribute('data-type'),
         model: el.getAttribute('data-model'),
         fieldName: el.getAttribute('data-fieldname'),
         value: textarea.value,
     };
+
+    if (id){
+        updated_route = 'more_data/'+id
+    }
 
     if (requestData.value) {
         fetch(updated_route, {
@@ -77,15 +82,14 @@ function craeteFileData() {
             },
             body: JSON.stringify(requestData),
         })
-            .then(async (response) => {
-                const message = await response.json()
-                console.log(message.result);
-                const tegsDiv = document.querySelector('.more_data .tegs-div-content')
-                console.log(tegsDiv)
-                tegsDiv.innerHTML += drowTeg(parent_id, 'more_data', message.result, 'id','has_many',false)
-                closeFuncton()
-                DelItem()
-            })
+        .then(async (response) => {
+            const message = await response.json()
+            const tegsDiv = document.querySelector('.more_data .tegs-div-content')
+            console.log(tegsDiv)
+            tegsDiv.innerHTML += drowTeg(parent_id, 'more_data', message.result, 'id','has_many',false)
+            closeFuncton()
+            DelItem()
+        })
     }
 }
 
