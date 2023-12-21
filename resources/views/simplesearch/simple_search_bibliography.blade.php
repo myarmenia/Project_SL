@@ -10,7 +10,7 @@
     <div class="inContent">
         <form id="bibliographyForm" action="/{{ app()->getLocale() }}/simplesearch/result_bibliography" method="post">
             @if (!empty($checkUrl) && $checkUrl !== 'advancedsearch')
-                <x-back-previous-url />
+                {{-- <x-back-previous-url /> --}}
             @endif
             <div class="buttons">
                 <input type="button" class="k-button" value="{{ __('content.and') }}" id="bibl_and" />
@@ -27,7 +27,7 @@
                 <input type="text" id="searchBibleCreated" name="created_at" style="width: 505px;"
                     onkeydown="validateNumber(event ,'searchBibleCreated',12)"
                     class="oneInputSaveEnter oneInputSaveDateBibliography" />
-                    <x-date-filter-search />
+                    {{-- <x-date-filter-search /> --}}
             </div>
 
             <?php if (isset($search_params)) { ?>
@@ -194,7 +194,7 @@
                 <input type="text" id="searchBiblSourceDate" name="reg_date" style="width: 505px;"
                     onkeydown="validateNumber(event ,'searchBiblSource',12)"
                     class="oneInputSaveEnter oneInputSaveDateBibliography" />
-                    <x-date-filter-search />
+                    {{-- <x-date-filter-search /> --}}
             </div>
 
             <?php if (isset($search_params)) { ?>
