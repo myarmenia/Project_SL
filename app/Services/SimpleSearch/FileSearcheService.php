@@ -455,13 +455,14 @@ class FileSearcheService
         $files = [];
             if (intval($data_regex) > 0)
             {
-
                 $result = $this->fileTextRepository->getFileTextRegexp($content);
 
-                if ($result->isNotEmpty())
-                {
-                    $files = $this->getDatafindIs($result,['data_regex' => $data_regex]);
+                if (!empty($result)) {
+                    if ($result->isNotEmpty())
+                    {
+                        $files = $this->getDatafindIs($result,['data_regex' => $data_regex]);
 
+                    }
                 }
 
                 if (isset($files)) {
