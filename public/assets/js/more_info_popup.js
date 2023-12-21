@@ -14,7 +14,6 @@ function processFile(file) {
                     .then((result) => resolve(result.value))
                     .catch(reject);
             };
-
             reader.onerror = function () {
                 reject(new Error("Ошибка при чтении файла"));
             };
@@ -31,7 +30,15 @@ function processFile(file) {
             reader.readAsText(selectedFile);
         }
     } else {
-        alert('Ընտրեք միայն "doc", "docx", "txt" ֆորմատի ֆայլեր')
+        const regex = /\/\/[^\/]+\/([^\/]+)/;
+        const match = window.location.href.match(regex);
+
+        const alertMsgs = {
+            am : 'Ընտրեք միայն "doc", "docx", "txt" ֆորմատի ֆայլեր',
+            ru : 'rus text',
+        }
+
+        alert(alertMsgs[match[1]])
         closeFuncton()
     }
 }
@@ -45,7 +52,6 @@ fileInput.addEventListener("change", async function () {
             textarea.value = textContent;
         }
     } catch (error) {
-        console.error("Произошла ошибка:", error.message);
         alert(
             "Произошла ошибка при обработке файла. Пожалуйста, выберите другой файл."
         );
@@ -59,7 +65,6 @@ function craeteFileData() {
     const requestData = {
         type: el.getAttribute('data-type'),
         model: el.getAttribute('data-model'),
-        // table: el.getAttribute('data-model'),
         fieldName: el.getAttribute('data-fieldname'),
         value: textarea.value,
     };
