@@ -8,8 +8,8 @@ function openCalendar(el) {
   if (!picker[elementId]) {
     picker[elementId] = new Pikaday({
       field: el,
-      format: 'DD-MM-YYYY', // customize the format as needed
-      yearRange: [1900, new Date().getFullYear()], // customize the year range as needed
+      format: 'DD-MM-YYYY',
+      yearRange: [1900, new Date().getFullYear()],
       onSelect: updateInput
     });
   }
@@ -31,16 +31,16 @@ function handleBlur(inp) {
 
   let resultString = addHyphenEveryTwo(val);
   const day = resultString;
-
   let year = end_val
+
   let arr_day = day.split('-')
-  if (parseInt(year, 10) < 41 && year.length == 2) {
+  if (parseInt(year, 10) < 41 && year.length === 2) {
     year = '20' + year;
     const formattedDate = `${day}-${year}`;
     inp.value = formattedDate.split('-').reverse().join('-');
   }
 
-  else if (parseInt(year, 10) > 41 && year.length == 2) {
+  else if (parseInt(year, 10) > 41 && year.length === 2) {
     year = '19' + year;
     const formattedDate = `${day}-${year}`;
     inp.value = formattedDate.split('-').reverse().join('-');
@@ -53,7 +53,7 @@ function handleBlur(inp) {
     inp.value = formattedDate.split('-').reverse().join('-');
   }
 
-  if (year.length != 4) {
+  if (year.length !== 4) {
     inp.value = ''
   }
 
@@ -85,21 +85,21 @@ function updateInput(date) {
   const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
   const year = date.getFullYear().toString();
 
-  const formattedDate = `${day}-${month}-${year}`;
-  element.value = formattedDate
+  element.value = `${day}-${month}-${year}`
 
   element.focus()
 }
 
-
+console.log(date_inp_text.length)
 function handleInput() {
-  date_inp_text.forEach(el => {
+  date_inp_text.forEach((el) => {
 
     let elVal = el.value.split(' ')
     el.value = elVal[0].split('-').reverse().join('-')
 
     const parentEl = el.closest('.col')
-    if (parentEl.querySelector('input').disabled){
+
+    if (parentEl && parentEl.querySelector('input').disabled){
         parentEl.querySelector('.calendar-icon').classList.add('disabled')
     }
 
