@@ -1,9 +1,9 @@
 <?php
 return [
-    'by_qualification' => 'Отчет по раскраске',
-    'by_signal' => 'Отчет по оповещениям',
-    'opened' => 'Открытые',
-    'suspended' => 'Приостановленные',
+    'by_qualification' => 'Отчет по окраскам',
+    'by_signal' => 'Отчет по сигналам',
+    'opened' => 'Заведенные',
+    'suspended' => 'Прекращенные',
     'active' => 'Действующие',
     'half_year_1' => 'I полугодие',
     'half_year_2' => 'II полугодие',
