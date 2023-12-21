@@ -1,8 +1,8 @@
 
 // function drowTr(newTr) {
-    
+
 //     const tr = document.createElement('tr')
-  
+
 //     const td1 = document.createElement('td')
 //     td1.textContent = newTr.id
 //     tr.append(td1)
@@ -20,29 +20,29 @@
 //     btn.getAttribute('aria-label', 'Close')
 //     td3.append(btn)
 //     tr.append(td3)
-  
+
 //     return tr
 //   }
-  
+
 //   function fetchInfo(url) {
 //     const addNewInfoBtn = document.getElementById('addNewInfoBtn')
-  
+
 //     const addNewInfoInp = document.getElementById('addNewInfoInp')
-  
-  
+
+
 //     addNewInfoBtn.addEventListener('submit', (e) =>{
 //       e.preventDefault()
 //       const newBody = {
 //       name: addNewInfoInp.value
 //       }
-  
+
 //       const requestOption = {
 //       method: 'POST',
 //       headers: {'Content-Type': 'application/json'},
 //       body: JSON.stringify(newBody)
 //       }
-      
-     
+
+
 //                   fetch(url, requestOption)
 //                   .then( async res => {
 //                     if(!res){
@@ -50,36 +50,36 @@
 //                     }
 //                     else{
 //                       const {data} = await res.json()
-  
+
 //                       data.forEach(el => drowTr(el))
-                      
+
 //                     }
 //                   })
-  
+
 //   })
 //   }
-  
+
 //   =========================================================================================================
-  
+
 //   function fetchInfoInputEvent(url) {
 //     const addNewInfoBtn = document.getElementById('addNewInfoBtn')
-  
+
 //     const addNewInfoInp = document.getElementById('addNewInfoInp')
-  
-  
+
+
 //     addNewInfoBtn.addEventListener('input', (e) =>{
 //       e.preventDefault()
 //       const newBody = {
 //       name: addNewInfoInp.value
 //       }
-  
+
 //       const requestOption = {
 //       method: 'POST',
 //       headers: {'Content-Type': 'application/json'},
 //       body: JSON.stringify(newBody)
 //       }
-      
-     
+
+
 //                   fetch(url, requestOption)
 //                   .then( async res => {
 //                     if(!res){
@@ -87,38 +87,38 @@
 //                     }
 //                     else{
 //                       const {data} = await res.json()
-  
+
 //                       data.forEach(el => drowTr(el))
-                      
+
 //                     }
 //                   })
-  
+
 //   })
 //   }
-  
-  
-  
-  
+
+
+
+
 //   const plusIcon = document.querySelectorAll('.my-plus-class')
 //   const addInputTxt = document.querySelectorAll('.addInputTxt')
 //   const modal = document.querySelector('.modal')
 //   const uniqInput = document.getElementById('item1')
-  
+
 //   plusIcon.forEach(plus => {
 //     plus.addEventListener('click', openModal)
 //   })
-    
+
 //     function openModal(){
-  
-//       let parent = this.closest('.form-floating')    
-//       let input_id = parent.querySelector('.form-control').getAttribute('data-id')    
+
+//       let parent = this.closest('.form-floating')
+//       let input_id = parent.querySelector('.form-control').getAttribute('data-id')
 //       let url = this.getAttribute('data-url')
-         
-      
+
+
 //       fetchInfo(url)
-  
+
 //       fetchInfoInputEvent(url)
-  
+
 //       addInputTxt.forEach(btn => {
 //         btn.dataset.id = input_id
 //         btn.addEventListener('click', (e)=>{
@@ -131,9 +131,9 @@
 //         })
 //       })
 //     }
-  
+
 //     const tegsDiv = document.querySelector('tegs-div')
-  
+
 //     function drowTeg(tegTxt) {
 //       const oneTeg = document.createElement('div')
 //       const txt = document.createElement('span')
@@ -145,16 +145,16 @@
 //       oneTeg.classList.add('Myteg')
 //       return oneTeg
 //     }
-  
+
 //     document.body.addEventListener('click',(e)=>{
 //       if(e.target.id !== 'item4' && document.getElementById('item4').value){
 //         tegsDiv.append(drowTeg(document.getElementById('item4').value))
 //       }
-      
+
 //   })
-  
-  
-  
+
+
+
 //     const search_datalist = document.querySelectorAll('.input_datalists');
 //     const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 
@@ -165,19 +165,19 @@
 //       })
 //     })
 
-    
-  
-  
+
+
+
 //   fetch input end
-  
+
 //   fetch_input_title.forEach((el) => {
 //     let datalist = el.list
 //     el.addEventListener('click', () => {
 //       fetchInputTitle(el.value, datalist)
 //     })
 //   })
-  
-  
+
+
 //   function fetchInputTitle(input, datalist) {
 
 //     const newTitle = {
@@ -190,8 +190,8 @@
 //       headers: {'Content-Type': 'application/json'},
 //       body: JSON.stringify(newTitle)
 //       }
-      
-     
+
+
 //                   fetch(URL, requestOption)
 //                   .then( async res => {
 //                     if(!res){
@@ -200,9 +200,9 @@
 //                     else{
 //                       const {data} = await res.json()
 //                       let dataLength = data.length
-  
+
 //                       errorModal(dataLength)
-  
+
 //                       data.forEach(el => {
 //                     datalist.innerHTML = ''
 
@@ -215,33 +215,33 @@
 
 //                   })
 
-                 
+
 //   }
-  
+
 //   ========================================================================================
-  
-  
+
+
 //   const formControl = document.querySelectorAll('.form-control')
-  
+
 //   const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
-  
+
 //   formControl.forEach(input => {
-  
+
 //     input.addEventListener('blur', onBlur)
 //   })
-  
+
 //   function onBlur(){
 //     const tegsArr = []
 //     let newInfo = {}
-    
-      
+
+
 //     tegs.forEach(teg =>{
 //       tegsArr.push(teg.innerText)
 //     })
-  
+
 //     formControl.forEach(input => {
-  
-       
+
+
 //          if(input.value){
 //            newInfo = {
 //             ...newInfo,
@@ -254,17 +254,17 @@
 //                ...newInfo,
 //                tegs: [...tegsArr]
 //              }
-           
+
 //     }
-       
-  
+
+
 //        const requestOption = {
 //          method: 'POST',
 //          headers: {'Content-Type': 'application/json'},
 //          body: JSON.stringify(newInfo)
 //          }
-         
-        
+
+
 //                      fetch(URL, requestOption)
 //                      .then( async res => {
 //                        if(!res){
@@ -274,16 +274,16 @@
 //                          const {data} = await res.json()
 //                        }
 //                      })
-  
-   
-      
+
+
+
 //   }
-  
+
 //   =========================================================================================
-  
+
 //   const errModal = document.getElementById('errModal')
-  
-  
+
+
 //   function errorModal(dataLength) {
 //     document.querySelectorAll('.form-control').forEach(inp =>{
 //       inp.addEventListener('blur', (e)=>{
@@ -293,25 +293,25 @@
 //         }
 //       })
 //     })
-  
+
 //     document.querySelector('.my-close-error').addEventListener('click',(e)=>{
 //       errModal.classList.remove('activeErrorModal')
-  
+
 //     })
 //   }
-  
-  
+
+
 //   ==========================================================================================
-  
+
 //   const tegX = document.querySelectorAll('.Myteg span:nth-of-type(2)')
-  
+
 //   tegX.forEach(x =>{
 //     x.addEventListener('click', (e)=>{
 //      x.parentElement.remove()
-  
+
 //     })
 //   })
-  
+
 
 
 
@@ -320,15 +320,16 @@
   let inputPhone = document.getElementById('inputPhone')
 
   inputPhone.addEventListener('input', (e) =>{
-  
+
   let arr = inputPhone.value.split('')
 
  for (let i = 0; i < arr.length; i++) {
-  if (arr[i] != +arr[i] && arr[i] !== '(' && arr[i] !== ')' && arr[i] != '+' && arr[i] != '-')  {
+  if (arr[i] != +arr[i] && arr[i] !== '(' && arr[i] !== ')'){
     arr[i] = ''
-    
   }
+
   
-  inputPhone.value = arr.join('')
+  inputPhone.value = arr.join('').replaceAll(' ', '')
  } 
  })
+

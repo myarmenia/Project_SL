@@ -16,6 +16,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\Fusion\FusionController;
 use App\Http\Controllers\GetTableContentController;
+use App\Http\Controllers\MoreDataController;
 use App\Http\Controllers\WeaponController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
@@ -92,6 +93,10 @@ Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAd
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
 
+// anpayman poxel
+
+Route::post('/filter/man/man/{page}', [FilterController::class, 'filterMan'])->name('filter.man');
+
 Route::post('/filter-biblyography', [FilterBiblyographyController::class, 'filter1'])->name('filter.biblyography');
 
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
@@ -104,7 +109,6 @@ Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file')
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
-
 
         Route::group(['middleware' => ['auth', 'checkRoleSearch']], function () {
             Route::post('/police-search', [PoliceSearchController::class, 'searchPolice'])->name('police-search');
@@ -130,7 +134,7 @@ Route::group(
             Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
 
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
-            
+
             Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
             Route::post('delete-teg', [BibliographyController::class, 'deleteteTeg'])->name('delete-item');
@@ -376,12 +380,13 @@ Route::group(
                 Route::resource('operational-interest-organization-man', ManOperationalInterestOrganization::class)->only('create', 'store');
 
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
-
             });
+
             Route::get('man-attached-file/{id}',[ManFileController::class,'index'])->name('man-attached-file.index');
             Route::post('man-attached-paragraph',[ManFileController::class,'store'])->name('man-attached-file.store');
             Route::get('download',[ManFileController::class,'download'])->name('download_path');
 
+            Route::get('more_data/{moreData}',MoreDataController::class);
             Route::resource('manBeanCountry', ManBeanCountryController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('address', AddressController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('weapon', WeaponController::class)->only('create', 'store', 'edit', 'update');
@@ -418,6 +423,7 @@ Route::group(
             Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
+            Route::get('open/man/man', [OpenController::class, 'manPage'])->name('open.man');
             Route::get('open/{page}/{id}', [OpenController::class, 'openWithBibliography'])->name('open.page.bibliography');
 
 

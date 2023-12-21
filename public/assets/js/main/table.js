@@ -17,6 +17,8 @@ let full_name_input = document.querySelector(".full-name-input");
 let id_filter_input = document.querySelector(".id-filter-input");
 let search_input_btn = document.querySelector(".search-input-btn");
 
+// ====================== texapoxel
+
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
     let data_type = el.parentElement.getAttribute("data-type");
@@ -464,6 +466,8 @@ allI.forEach((el, idx) => {
     });
 });
 
+// ======================= 
+
 const searchBlocks = document.querySelectorAll(".searchBlock");
 
 function remove_broomstick_filter_element() {
@@ -580,7 +584,7 @@ function printResponsDictionary(data) {
 function printResponsData(responseData) {
     let data = responseData.data;
     let count = document.querySelector(".count_block b");
-    count.innerText = responseData.result_count;
+    count.innerText = responseData.total;
 
     let table_tbody = document.querySelector(".table").querySelector("tbody");
     if (page == 1) {
@@ -591,83 +595,185 @@ function printResponsData(responseData) {
         let obj_keys = Object.keys(el);
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
-
         if (el.signal_count > 0) {
             tr.style.backgroundColor = "#f44336d1";
         }
+        if (tb_name === "man") {
+            for (let i = -2; i <= 34; i++) {
+                if (i === -2 && allow_change === true) {
+                    let td = document.createElement("td");
 
-        for (let i = -2; i <= obj_keys.length + 1; i++) {
-            if (i === -2 && allow_change === true) {
-                let td = document.createElement("td");
+                    td.innerHTML = `
+                                <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
+                                    <i class="bi bi-pencil-square open-edit" ></i> </a> `;
+                    td.style = `
+                        text-align:center;
+                        `;
+                    let editBtn = document.createElement("i");
+                    td.appendChild(editBtn);
+                    tr.appendChild(td);
+                } else if (i === -1) {
+                    let td = document.createElement("td");
+                    td.style = `
+                        text-align:center;
+                        `;
+                    let contactBtn = document.createElement("i");
+                    contactBtn.setAttribute("class", "bi bi-eye open-eye");
+                    contactBtn.setAttribute("data-id", obj_values[0]);
 
-                td.innerHTML = `
-                            <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
-                                <i class="bi bi-pencil-square open-edit" ></i> </a> `;
-                td.style = `
-                    text-align:center;
-                    `;
-                let editBtn = document.createElement("i");
-                td.appendChild(editBtn);
-                tr.appendChild(td);
-            } else if (i === -1) {
-                let td = document.createElement("td");
-                td.style = `
-                    text-align:center;
-                    `;
-                let contactBtn = document.createElement("i");
-                contactBtn.setAttribute("class", "bi bi-eye open-eye");
-                contactBtn.setAttribute("data-id", obj_values[0]);
+                    // ========= contact js function ============== //
 
-                // ========= contact js function ============== //
+                    contactBtn.onclick = (e) => showCnntact(e);
 
-                contactBtn.onclick = (e) => showCnntact(e);
+                    // ========= contact js function end ========= //
 
-                // ========= contact js function end ========= //
+                    td.appendChild(contactBtn);
+                    tr.appendChild(td);
+                } else {
+                    if (i < 32) {
+                        if (
+                            obj_keys[i] !== "signal_count"
+                            // &&
+                            // obj_keys[i] !== "man_passed_by_signal"
+                        ) {
+                            let td = document.createElement("td");
 
-                td.appendChild(contactBtn);
-                tr.appendChild(td);
-            } else {
-                if (i < obj_keys.length) {
-                    if (
-                        obj_keys[i] !== "signal_has_man" &&
-                        obj_keys[i] !== "man_passed_by_signal"
-                    ) {
+                            if (i === 18 && tb_name === "man") {
+                                let div = document.createElement("div");
+                                div.style = `
+                                    white-space: initial;
+                                    `;
+                                td.style = `
+                                    display: block;overflow-x: hidden; overflow-y: auto; height:70px; padding:10px
+                                    `;
+                                obj_values[i] === "null"
+                                    ? (div.innerText = "")
+                                    : (div.innerText = obj_values[i]);
+                                td.appendChild(div);
+                                tr.appendChild(td);
+                            } else {
+                                obj_values[i] === "null"
+                                    ? (td.innerText = "")
+                                    : (td.innerText = obj_values[i]);
+                                tr.appendChild(td);
+                            }
+                        }
+                    } else if (i === 33 && main_route) {
                         let td = document.createElement("td");
-                        obj_values[i] === "null"
-                            ? (td.innerText = "")
-                            : (td.innerText = obj_values[i]);
+                        td.innerHTML = `
+                                <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
+                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `;
+                        td.style = `
+                        text-align:center;
+                        `;
+                        tr.appendChild(td);
+                    } else if (i === 34 && allow_delete === true) {
+                        let td = document.createElement("td");
+                        td.style = `
+                        text-align:center;
+                        `;
+                        let del_but = document.createElement("button");
+                        del_but.setAttribute("data-id", el.id);
+
+                        del_but.setAttribute(
+                            "class",
+                            "btn_close_modal my-delete-item"
+                        );
+                        del_but.setAttribute("data-bs-toggle", "modal");
+                        del_but.setAttribute("data-bs-target", "#deleteModal");
+                        del_but.setAttribute("data-id", el.id);
+                        let deleteBtn = document.createElement("i");
+                        deleteBtn.setAttribute(
+                            "class",
+                            "bi bi-trash3 open-delete"
+                        );
+                        deleteBtn.addEventListener("click", deleteFuncton);
+                        del_but.appendChild(deleteBtn);
+                        td.appendChild(del_but);
                         tr.appendChild(td);
                     }
-                } else if (i === obj_keys.length && main_route) {
+                }
+            }
+        } else {
+            for (let i = -2; i <= obj_keys.length + 1; i++) {
+                if (i === -2 && allow_change === true) {
                     let td = document.createElement("td");
-                    td.innerHTML = `
-                            <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
-                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `;
-                    td.style = `
-                    text-align:center;
-                    `;
-                    tr.appendChild(td);
-                } else if (i === obj_keys.length + 1 && allow_delete === true) {
-                    let td = document.createElement("td");
-                    td.style = `
-                    text-align:center;
-                    `;
-                    let del_but = document.createElement("button");
-                    del_but.setAttribute("data-id", el.id);
 
-                    del_but.setAttribute(
-                        "class",
-                        "btn_close_modal my-delete-item"
-                    );
-                    del_but.setAttribute("data-bs-toggle", "modal");
-                    del_but.setAttribute("data-bs-target", "#deleteModal");
-                    del_but.setAttribute("data-id", el.id);
-                    let deleteBtn = document.createElement("i");
-                    deleteBtn.setAttribute("class", "bi bi-trash3 open-delete");
-                    deleteBtn.addEventListener("click", deleteFuncton);
-                    del_but.appendChild(deleteBtn);
-                    td.appendChild(del_but);
+                    td.innerHTML = `
+                                <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
+                                    <i class="bi bi-pencil-square open-edit" ></i> </a> `;
+                    td.style = `
+                        text-align:center;
+                        `;
+                    let editBtn = document.createElement("i");
+                    td.appendChild(editBtn);
                     tr.appendChild(td);
+                } else if (i === -1) {
+                    let td = document.createElement("td");
+                    td.style = `
+                        text-align:center;
+                        `;
+                    let contactBtn = document.createElement("i");
+                    contactBtn.setAttribute("class", "bi bi-eye open-eye");
+                    contactBtn.setAttribute("data-id", obj_values[0]);
+
+                    // ========= contact js function ============== //
+
+                    contactBtn.onclick = (e) => showCnntact(e);
+
+                    // ========= contact js function end ========= //
+
+                    td.appendChild(contactBtn);
+                    tr.appendChild(td);
+                } else {
+                    if (i < obj_keys.length) {
+                        if (
+                            obj_keys[i] !== "signal_has_man" &&
+                            obj_keys[i] !== "man_passed_by_signal"
+                        ) {
+                            let td = document.createElement("td");
+                            obj_values[i] === "null"
+                                ? (td.innerText = "")
+                                : (td.innerText = obj_values[i]);
+                            tr.appendChild(td);
+                        }
+                    } else if (i === obj_keys.length && main_route) {
+                        let td = document.createElement("td");
+                        td.innerHTML = `
+                                <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
+                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `;
+                        td.style = `
+                        text-align:center;
+                        `;
+                        tr.appendChild(td);
+                    } else if (
+                        i === obj_keys.length + 1 &&
+                        allow_delete === true
+                    ) {
+                        let td = document.createElement("td");
+                        td.style = `
+                        text-align:center;
+                        `;
+                        let del_but = document.createElement("button");
+                        del_but.setAttribute("data-id", el.id);
+
+                        del_but.setAttribute(
+                            "class",
+                            "btn_close_modal my-delete-item"
+                        );
+                        del_but.setAttribute("data-bs-toggle", "modal");
+                        del_but.setAttribute("data-bs-target", "#deleteModal");
+                        del_but.setAttribute("data-id", el.id);
+                        let deleteBtn = document.createElement("i");
+                        deleteBtn.setAttribute(
+                            "class",
+                            "bi bi-trash3 open-delete"
+                        );
+                        deleteBtn.addEventListener("click", deleteFuncton);
+                        del_but.appendChild(deleteBtn);
+                        td.appendChild(del_but);
+                        tr.appendChild(td);
+                    }
                 }
             }
         }
@@ -679,7 +785,12 @@ function printResponsData(responseData) {
 
     const allTr = document.querySelectorAll(".table tr");
     allTr.forEach((el) => {
-        el.addEventListener("click", (e) => dinamicTableFunction(e, el));
+        el.addEventListener("click", (e) => {
+            allTr.forEach((el) => {
+                el.classList.remove("backgroundClass");
+            });
+            dinamicTableFunction(e, el);
+        });
     });
 
     // ================= dinamic Table  js function end =============== //
@@ -741,39 +852,15 @@ async function postData(propsData, method, url, parent) {
 }
 // -------------------------------- fetch post end ---------------------------- //
 
-// -------------------------------- fetch get --------------------------------- //
-
-function fetchData() {
-    const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
-    fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-            handleData(data);
-            page++;
-        })
-        .catch((error) => {
-            console.error("Ошибка при загрузке данных:", error);
-        });
-}
-
-// ------------------------ print data function ------------------------------- //
-
-function handleData(data) {
-    // console.log(data);
-}
-
-// ------------------------ end print data function ------------------------------- //
-
 // ------------------------ scroll fetch ------------------------------------------ //
 
 const table_div = document.querySelector(".table_div");
-
 table_div?.addEventListener("scroll", () => {
     const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {
         const totalHeight = table_div.scrollHeight;
         const visibleHeight = table_div.clientHeight;
-        if (totalHeight - (scrollPosition + visibleHeight) < 1) {
+        if (totalHeight - (scrollPosition + visibleHeight) <= 1) {
             page++;
             if (last_page > current_page) {
                 searchFetch();
@@ -783,7 +870,7 @@ table_div?.addEventListener("scroll", () => {
     lastScrollPosition = scrollPosition;
 });
 
-// -------------------------------- fetch get end ----------------------------- //
+// -------------------------------- fetch scroll end ----------------------------- //
 
 // -------------------------------- filter data post -------------------------- //
 
@@ -823,31 +910,30 @@ function sort(el) {
     page = 1;
     searchFetch();
 }
-if (sc_name && sc_name !== "open" ) {
-    th.forEach((el) => {
-        el.addEventListener("click", () => sort(el));
-    });
-}
+// if (sc_name && sc_name !== "open") {
+th.forEach((el) => {
+    el.addEventListener("click", () => sort(el));
+});
+// }
 
 function searchFetch(parent, inputValue, obj) {
     let data = [];
     let parentObj = {};
     let actions = [];
     let search_result;
-
     if (tb_name === "man") {
-
         if (obj) {
             search_result = obj;
         } else {
             search_result = {
+                id: id_filter_input.value,
+                bibliography_id: bibliography_id,
                 first_name: man_search_inputs[0].value,
                 last_name: man_search_inputs[1].value,
                 middle_name: man_search_inputs[2].value,
                 full_name: full_name_input.value,
             };
         }
-
     }
 
     allI.forEach((el, idx) => {
@@ -855,25 +941,25 @@ function searchFetch(parent, inputValue, obj) {
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
 
-        // if (inputValue) {
-        //     el.getAttribute("data-field-name") === "name"
-        //         ? (el
-        //               .closest("th")
-        //               .querySelector(".searchBlock").children[1].value = "%-%")
-        //         : "";
-        //     el.getAttribute("data-field-name") === "name"
-        //         ? (el
-        //               .closest("th")
-        //               .querySelector(".searchBlock").children[2].value =
-        //               inputValue)
-        //         : "";
-        // } else if (inputValue == "") {
-        //     el.getAttribute("data-field-name") === "name"
-        //         ? (el
-        //               .closest("th")
-        //               .querySelector(".searchBlock").children[2].value = "")
-        //         : "";
-        // }
+        if (inputValue) {
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[1].value = "%-%")
+                : "";
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[2].value =
+                      inputValue)
+                : "";
+        } else if (inputValue == "") {
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[2].value = "")
+                : "";
+        }
 
         if (
             el.hasAttribute("aria-complex") &&
@@ -883,6 +969,7 @@ function searchFetch(parent, inputValue, obj) {
             parentObj = {
                 name: field_name,
                 sort: el.parentElement.getAttribute("data-sort"),
+                bibliography_id: bibliography_id,
                 actions: [
                     {
                         action: selectblockChildren[1].value,
@@ -906,6 +993,7 @@ function searchFetch(parent, inputValue, obj) {
                 parentObj = {
                     name: field_name,
                     sort: el.parentElement.getAttribute("data-sort"),
+                    bibliography_id: bibliography_id,
                     actions: [
                         {
                             action: selectblockChildren[1].value,
@@ -927,6 +1015,7 @@ function searchFetch(parent, inputValue, obj) {
                 selectblockChildren[5].value === "")
         ) {
             parentObj = {
+                bibliography_id: bibliography_id,
                 name: field_name,
                 sort: el.parentElement.getAttribute("data-sort"),
                 table_name: tb_name,
@@ -936,16 +1025,23 @@ function searchFetch(parent, inputValue, obj) {
             parentObj = {};
         }
     });
+    console.log(data);
     let ressult = {
         filter: data,
         search: search_result,
     };
     // fetch post Function //
-    postData(ressult, "POST", `/filter/${page}`, parent);
+
+    if (tb_name == "man") {
+        postData(ressult, "POST", `/filter/man/man/${page}`, parent);
+    } else {
+        postData(ressult, "POST", `/filter/${page}`, parent);
+    }
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
-        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#012970";
+        el.closest("th").querySelector(".bi-funnel-fill").style.color =
+            "#012970";
         page = 1;
         searchFetch(el);
     });
@@ -957,7 +1053,8 @@ const delButton = document.querySelectorAll(".delButton");
 
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
-        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#b9b9b9";
+        el.closest("th").querySelector(".bi-funnel-fill").style.color =
+            "#b9b9b9";
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
@@ -1103,23 +1200,6 @@ clearBtn?.addEventListener("click", () => {
     searchFetch();
 });
 
-// =========================================================
-//                 optimization js
-// =========================================================
-
-// let button_table = document.querySelectorAll('.button-table')
-// button_table?.forEach(el => {
-//     el.addEventListener('click', () => {
-//         button_table.forEach(el => {
-//             if(el.className !== 'button-table btn btn-light'){
-//                 el.classList.remove('btn-primary')
-//                 el.classList.add('btn-light')
-//             }
-//         })
-//         el.classList.remove('btn-light')
-//         el.classList.add('btn-primary')
-//     } )
-// })
 
 // =========================================================
 //                search inputs js
@@ -1132,12 +1212,14 @@ function changeInputFunc() {
         man_search_inputs[2].value !== ""
     ) {
         full_name_input.setAttribute("disabled", "disabled");
+        id_filter_input.setAttribute("disabled", "disabled");
     } else if (
         man_search_inputs[0].value === "" &&
         man_search_inputs[1].value === "" &&
         man_search_inputs[2].value === ""
     ) {
         full_name_input.removeAttribute("disabled");
+        id_filter_input.removeAttribute("disabled");
     }
 }
 man_search_inputs?.forEach((el) =>
@@ -1148,14 +1230,29 @@ full_name_input?.addEventListener("input", () => {
         man_search_inputs.forEach((el) => {
             el.setAttribute("disabled", "disabled");
         });
+        id_filter_input.setAttribute("disabled", "disabled");
     } else {
         man_search_inputs.forEach((el) => el.removeAttribute("disabled"));
+        id_filter_input.removeAttribute("disabled");
+    }
+});
+id_filter_input?.addEventListener("input", (e) => {
+    if (isNaN(+e.target.value) || e.target.value === "") {
+        e.target.value = "";
+        man_search_inputs.forEach((el) => el.removeAttribute("disabled"));
+        full_name_input.removeAttribute("disabled");
+    } else if (e.target.value !== "") {
+        man_search_inputs.forEach((el) => {
+            el.setAttribute("disabled", "disabled");
+        });
+        full_name_input.setAttribute("disabled", "disabled");
     }
 });
 function searchInputsFunc() {
-    page = 1
+    page = 1;
     let obj = {
         id: id_filter_input.value,
+        bibliography_id: bibliography_id,
         first_name: man_search_inputs[0].value,
         last_name: man_search_inputs[1].value,
         middle_name: man_search_inputs[2].value,
@@ -1167,3 +1264,21 @@ search_input_btn?.addEventListener("click", searchInputsFunc);
 // =========================================================
 //                 search inputs js end
 // =========================================================
+
+if (tb_name == "man") {
+    window.onload = () => {
+        searchFetch();
+    };
+}
+
+// let simplesearch_date_select = document.querySelectorAll('.date-search-select')
+// simplesearch_date_select.forEach(el => el.addEventListener('change' , () => {
+//     if(el.value === 'interval'){
+//         let simpelsearch_date_input = el.closest('.date-search-block').querySelector('.date-search-input');
+//         simpelsearch_date_input.style.display = 'block'
+//     }else{
+//         let simpelsearch_date_input = el.closest('.date-search-block').querySelector('.date-search-input');
+//         simpelsearch_date_input.style.display = 'none'
+//     }
+
+// }))

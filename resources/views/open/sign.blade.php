@@ -1,18 +1,7 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
-@endsection
 
 @section('content')
-
-
-
-
-    <!-- End Page Title -->
-
-    <!-- add Perrson Table -->
 
     <section class="section">
         <div class="col">
@@ -61,7 +50,10 @@
                                         <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="fixed_date"></i>
                                     </th>
 
-                                    {{-- <th></th> --}}
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.date_and_time_date') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name="created_at" data-section-name="open"></i>
+                                    </th>
 
                                     @can('external_signs-delete')
                                         <th></th>
@@ -100,6 +92,13 @@
                                             @endif
                                         </td>
 
+                                        <td>
+                                            @if ($external_sign->created_at != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($external_sign->created_at));
+                                                @endphp
+                                            @endif
+                                        </td>
 
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
@@ -116,10 +115,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-
                     </div>
-
-
                 </div>
                 <div id="countries-list"></div>
             </div>
@@ -159,13 +155,13 @@
 
             let dinamic_field_name = "{{ __('content.field_name') }}"
             let dinamic_content = "{{ __('content.content') }}"
-            let ties = "{{ __('content.ties') }}"
+
             let parent_table_name = "{{ __('content.signs') }}"
             let fieldName = 'sign_id'
             let relation = "{{ request()->relation }}"
             let main_route = "{{ request()->main_route }}"
             let model_id = "{{ request()->model_id }}"
-            // filter translate // 
+            // filter translate //
             let equal = "{{ __('content.equal') }}" // havasar e
             let not_equal = "{{ __('content.not_equal') }}" // havasar che
             let more = "{{ __('content.more') }}" // mec e
@@ -173,17 +169,21 @@
             let less = "{{ __('content.less') }}" // poqre
             let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
             let contains = "{{ __('content.contains') }}" // parunakum e
-            let start = "{{ __('content.start') }}" // sksvum e 
+            let start = "{{ __('content.start') }}" // sksvum e
             let search_as = "{{ __('content.search_as') }} " // pntrel nayev
-            let seek = "{{ __('content.seek') }}" // pntrel 
+            let seek = "{{ __('content.seek') }}" // pntrel
             let clean = "{{ __('content.clean') }}" // maqrel
             let and_search = "{{ __('content.and') }}" // ev
             let or_search = "{{ __('content.or') }}" // kam
             // filter translate //
+            let bibliography_id = null
+
+            @if (isset($bibliography_id))
+                bibliography_id = "{{ $bibliography_id }}"
+            @endif
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 
 @endsection

@@ -17,7 +17,7 @@
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="object_or" />
             <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <a href="{{ route('simple_search_objects_relation',['n'=> 't']) }}" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
@@ -79,14 +79,12 @@
 </div>
 
   {{-- ================= modal =========================== --}}
-  <x-fullscreen-modal/>
+  @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+    <x-fullscreen-modal/>
+@endif
 
 @section('js-include')
 
-<script>
-    let open_modal_url = `{{ route('open.modal') }}`
-    let get_filter_in_modal = `{{ route('get-model-filter') }}`
-</script>
 <script src="{{ asset('assets-include/js/script.js') }}"></script>
 
 <script>

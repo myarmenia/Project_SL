@@ -4,9 +4,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/alarm/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+
 @endsection
 {{-- @php
     $previous_url_name = app('router')
@@ -40,18 +40,12 @@
                         </div>
 
                         <div class="btn-div col">
-                            <label class="form-label">2) {{ __('content.contents_information_signal') }}</< /label>
+                            <label class="form-label">2) {{ __('content.contents_information_signal') }}</label>
                                 <button class="btn btn-primary  model-id" data-model-id='{{ $signal->id }}'
                                     data-type='update_field' data-fieldName='content' style="font-size: 13px"
                                     data-bs-toggle="modal"data-bs-target="#additional_information">{{ __('content.addTo') }}</button>
-                                @if ($signal->content !== null)
+
                                     <x-one-teg :item="$signal" :inputValue="$signal->content" />
-                                @endif
-
-
-                                <div class ="tegs-div">
-                                    <div class="more_data"></div>
-                                </div>
                         </div>
 
                         <div class="col">
@@ -65,19 +59,14 @@
                         </div>
 
                         <div class="btn-div col">
-                            <label class="form-label">4) {{ __('content.check_status_charter') }}</< /label>
+                            <label class="form-label">4) {{ __('content.check_status_charter') }}</label>
                                 <button class="btn btn-primary  model-id" data-model-id='{{ $signal->id }}'
                                     data-type='update_field' data-fieldName='check_status' style="font-size: 13px"
                                     data-bs-toggle="modal"
                                     data-bs-target="#additional_information">{{ __('content.addTo') }}
                                 </button>
 
-                                @if ($signal->check_status !== null)
                                     <x-one-teg :item="$signal" :inputValue="$signal->check_status" />
-                                @endif
-
-                                <div class ="tegs-div">
-                                </div>
                         </div>
 
                         <div class="col">
@@ -186,8 +175,13 @@
 
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
-                                    name="worker_post" data-type="attach_relation" data-model="Signal"
-                                    data-table="checking_worker_post" data-fieldname ='name' list="brow6"
+                                    name="worker_post"
+                                    data-type="attach_relation"
+                                    data-model="WorkerPost"
+                                    data-table="checking_worker_post"
+                                    data-pivot-table="signal_checking_worker_post"
+                                    data-fieldname ='name'
+                                    list="brow6"
                                     tabindex="9" />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-table-name='worker_post'
@@ -200,21 +194,25 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
 
-                                <input type="date" value="{{ $signal->subunit_date ?? null }}" id="item10"
-                                    class="form-control  save_input_data outline-red" name="subunit_date"
+                                <input type="text" data-check="date" value="{{ $signal->subunit_date ?? null }}" id="item10"
+                                    autocomplete="off" onblur="handleBlur(this)"
+                                    class="form-control  save_input_data outline-red calendarInput" name="subunit_date"
                                     data-type="update_field" tabindex="10" />
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item10" class="form-label">12)
                                     {{ __('content.date_registration_division') }}</< /label>
                             </div>
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" value="{{ $signal->check_date ?? null }}" id="item11"
-                                    class="form-control save_input_data outline-red" name="check_date"
-                                    data-type="update_field" tabindex="11" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" data-check="date" value="{{ $signal->check_date ?? null }}" id="item11"
+                                    class="form-control save_input_data outline-red calendarInput" name="check_date"
+                                    data-type="update_field" tabindex="11" 
+                                    autocomplete="off" onblur="handleBlur(this)"/>
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item11" class="form-label">13) {{ __('content.check_date') }}</< /label>
                             </div>
                         </div>
@@ -222,27 +220,30 @@
                         <div class="col">
                             <x-tegs :data="$signal" :relation="'signal_check_date'" :name="'date'" delete />
 
-                            <div class="form-floating input-date-wrapper">
+                            <div class="form-floating input-date-wrapper calendar-container">
 
-                                <input type="date" id="item12"
-                                    class="form-control my-form-control-class my-teg-class save_input_data"
+                                <input type="text" data-check="date" id="item12"
+                                    class="form-control my-form-control-class my-teg-class save_input_data calendarInput"
                                     name="date"
                                     data-type="create_relation"
                                     data-model="signal_check_date"
                                     data-table="check_date"
                                     data-pivot-table="signal_check_date"
                                     data-fieldname="date"
-                                    tabindex="12" />
-                                <label for="item12" class="form-label">14) {{ __('content.check_previously') }}</<
-                                        /label>
+                                    tabindex="12"
+                                    autocomplete="off" onblur="handleBlur(this)" />
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+                                <label for="item12" class="form-label">14) {{ __('content.check_previously') }}</label>
                             </div>
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" id="item13" value="{{ $signal->end_date ?? null }}"
-                                    class="form-control save_input_data"
-                                    data-type="update_field" name="end_date" tabindex="13" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" data-check="date" id="item13" value="{{ $signal->end_date ?? null }}"
+                                    class="form-control save_input_data calendarInput"
+                                    data-type="update_field" name="end_date" tabindex="13"
+                                    autocomplete="off" onblur="handleBlur(this)"  />
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="item13" class="form-label">15) {{ __('content.date_actual') }}</< /label>
                             </div>
                         </div>
@@ -476,22 +477,17 @@
                             </datalist>
                         </div>
 
-                        <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal')" :edit="['page' =>'keepSignal.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"  delete />
-
-
                         <div class="btn-div">
                             <label class="form-label">33) {{ __('content.keep_signal') }}</label>
                             <a
                                 href="{{ route('keepSignal.create', ['lang' => app()->getLocale(), 'signal_id' => $signal->id]) }}">{{ __('content.addTo') }}</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
+                                <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal')" :edit="['page' =>'keepSignal.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"  delete />
                         </div>
-
-                        <x-tegs :name="'id'" :data="$signal->bibliography" :relation="'files'" :label="__('content.file') . ': '" />
 
                         <div class="btn-div">
                             <label class="form-label">34) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
-
+                                <x-tegs :name="'id'" :data="$signal->bibliography" :relation="'files'" :label="__('content.file') . ': '" />
                             </div>
                         </div>
 
@@ -512,8 +508,8 @@
 
                         <div class="btn-div">
                             <label class="form-label">36) {{ __('content.ties') }}</label>
-                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                                <x-teg :name="'id'" :item="$signal->bibliography" inputName="bibliography"
+                            <div class="file-upload-content tegs-div" id="company-police">
+                                <x-teg :name="'id'" :item="$signal" relation="bibliography"
                                     inputValue="$signal->bibliography_id" :label="__('content.short_bibl')" tableName="bibliography"
                                     related />
                             </div>
@@ -538,7 +534,7 @@
         let updated_route = `{{ route('signal.update', $signal->id) }}`
         let delete_item = "{{ route('delete_tag') }}"
         let parent_id = "{{ $signal->id }}"
-        let ties = "{{ __('content.ties') }}"
+
         let parent_table_name = "{{ __('content.signal') }}"
     </script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
@@ -546,7 +542,7 @@
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src='{{ asset('assets/js/append_doc_content.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
 @endsection
 @endsection

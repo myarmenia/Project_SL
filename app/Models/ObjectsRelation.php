@@ -32,7 +32,12 @@ class ObjectsRelation extends Model
 
     public $modelRelations = ['first_relation', 'second_relation'];
 
-    public $tegsRelations = ['first_obj_relation','second_obj_relation'];
+    public $tegsRelations = [
+        ['id' => 'first_object_id', 'type' => 'first_object_type', 'relation' => 'first_obj_relation'],
+        ['id' => 'second_object_id', 'type' => 'second_obejct_type', 'relation' => 'second_obj_relation']
+    ];
+
+    protected $manyFilter = ['created_at'];
 
     public $relation = [
         'relation_type'
@@ -45,6 +50,7 @@ class ObjectsRelation extends Model
         'second_object_id',
         'first_object_type',
         'second_obejct_type',
+        'created_at'
     ];
 
 
@@ -89,18 +95,18 @@ class ObjectsRelation extends Model
 
     public function first_obj_relation(): BelongsTo
     {
-        if ($this->first_object_type === 'organization'){
+        if ($this->first_object_type === 'organization') {
             return $this->belongsTo(Organization::class, 'first_object_id');
-        }else{
+        } else {
             return $this->belongsTo(Man::class, 'first_object_id');
         }
     }
 
     public function second_obj_relation(): BelongsTo
     {
-        if ($this->second_obejct_type === 'organization'){
+        if ($this->second_obejct_type === 'organization') {
             return $this->belongsTo(Organization::class, 'second_object_id');
-        }else{
+        } else {
             return $this->belongsTo(Man::class, 'second_object_id');
         }
     }

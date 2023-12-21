@@ -13,7 +13,7 @@
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="mia_or" />
             <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <a href="{{ route('simple_search_mia_summary',['n'=> 't']) }}" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
@@ -54,11 +54,11 @@
             @endif
         </div>
 
-        <div class="forForm">
+        {{-- <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="file_content" id="fileSearch"/>
             <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
-        </div>
+        </div> --}}
 
         <div class="buttons">
 
@@ -152,7 +152,6 @@
         <?php if (isset($search_params)) { ?>
             $('#miaContentInf').val(`{{ html_entity_decode($search_params['content'][sizeof($search_params['content'])-1]) }}`);
             $('#seachMiaDateRegistrationReports').val(`{{ $search_params['date'] }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['file_content']) }}`);
         <?php } ?>
     });
 

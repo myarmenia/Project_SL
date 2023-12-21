@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Man\Man;
 use App\Traits\FilterTrait;
+use App\Traits\HelpersTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,7 +20,7 @@ class ManBeanCountry extends Model
 
     protected $tableFields = ['id'];
 
-    protected $manyFilter = ['entry_date', 'exit_date'];
+    protected $manyFilter = ['entry_date', 'exit_date', 'created_at'];
 
     public $relation = [
         'goal',
@@ -36,6 +37,7 @@ class ManBeanCountry extends Model
         'exit_date',
         'region',
         'locality',
+        'created_at',
     ];
 
     // protected $fillable = [
@@ -72,6 +74,16 @@ class ManBeanCountry extends Model
     public function man()
     {
         return $this->belongsTo(Man::class, 'man_id');
+    }
+
+    public function setEntryDateAttribute($value): void
+    {
+        $this->attributes['entry_date'] = HelpersTraits::getDateTimeFormat($value,true);
+    }
+
+    public function setExitDateAttribute($value): void
+    {
+        $this->attributes['exit_date'] = HelpersTraits::getDateTimeFormat($value,true);
     }
 
     public function relation_field()

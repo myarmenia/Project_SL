@@ -8,15 +8,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', '') }}</title>
     <!-- Fonts -->
-    {{-- <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css"> --}}
+    {{-- <link rel="dns-prefetch" href="https://fonts.gstatic.com"> --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css') }}">
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css') }}"
-        rel="stylesheet"> --}}
+
+    <link href="{{ asset('assets/plugins/date_plugin/pikaday.min.css') }}" rel="stylesheet">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- <script src="{{ asset('js/jquery.js') }}"></script>
@@ -36,6 +32,8 @@
     <link href="{{ asset('assets/css/main/style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/main/index.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/font-awesome/all.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
     @yield('style')
     @yield('head-scripts')
 
@@ -61,48 +59,49 @@
         <div class="container">
             {{-- =============== --}}
             {{-- {{dd(request()->segment(2))}} --}}
-            @if (!request()->routeIs('home') )
-            {{-- @if (!request()->routeIs('home') && (!request()->segment(2) == 'advancedsearch' || !request()->segment(2) == 'simplesearch'
-            )) --}}
 
+            {{-- @if (!request()->routeIs('home') ) --}}
 
-            <div class="pagetitle-wrapper">
-                <div class="pagetitle">
-                    @php
-                        $arr = Session::get('crumbs_url');
+                @if (!request()->routeIs('home') && request()->segment(2) !== 'advancedsearch' && request()->segment(2) !== 'simplesearch')
 
-                    @endphp
+                <div class="pagetitle-wrapper">
+                    <div class="pagetitle">
+                        @php
+                            $arr = Session::get('crumbs_url');
+                        @endphp
 
-                    <h1>{{ __('pagetitle.' . end($arr)['title']) }}</h1>
+                        <h1 id="title">{{ __('pagetitle.' . end($arr)['title']) }}</h1>
+                        {{-- <h1 id="title"></h1> --}}
 
-                    <nav>
-
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('pagetitle.main') }}</a>
-                            </li>
-                            @foreach ($arr as $key => $crumb)
-                                <li
-                                    class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] && $key == array_key_last($arr) ? 'active' : '' }}">
-                                    @if ($crumb['name'] === end($arr)['name'] && $key == array_key_last($arr))
-                                        {{ __('sidebar.' . $crumb['name']) }}
-                                        @if (isset($crumb['id']))
-                                            ID: {{ $crumb['id'] }}
-                                        @endif
-                                    @else
-                                        <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('sidebar.' . $crumb['name']) }}
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a
+                                        href="{{ route('home') }}">{{ __('pagetitle.main') }}</a>
+                                </li>
+                                @foreach ($arr as $key => $crumb)
+                                @if ($crumb['name'])
+                                    <li
+                                        class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] && $key == array_key_last($arr) ? 'active' : '' }}">
+                                        @if ($crumb['name'] === end($arr)['name'] && $key == array_key_last($arr))
+                                            {{ __('sidebar.' . $crumb['name']) }}
                                             @if (isset($crumb['id']))
                                                 ID: {{ $crumb['id'] }}
                                             @endif
-                                        </a>
-                                    @endif
-                                </li>
+                                        @else
+                                            <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('sidebar.' . $crumb['name']) }}
+                                                @if (isset($crumb['id']))
+                                                    ID: {{ $crumb['id'] }}
+                                                @endif
+                                            </a>
+                                        @endif
+                                    </li>
+                                @endif
                             @endforeach
-                        </ol>
-                    </nav>
+                            </ol>
+                        </nav>
+                    </div>
                 </div>
-            </div>
             @endif
-
             {{-- ==================== --}}
             @yield('content')
         </div>
@@ -128,12 +127,19 @@
         let lang = "{{ app()->getLocale() }}"
         let open_modal_url = "{{ route('open.modal') }}"
         let get_filter_in_modal = "{{ route('get-model-filter') }}"
-        let lang_modal_full_screen = "{{__('content.addTo')}}"
+        let lang_modal_full_screen = "{{ __('content.addTo') }}"
+        let ties = "{{ __('content.ties') }}"
     </script>
     <script src="{{ asset('assets/js/main/main.js') }}"></script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+    {{-- <script src='{{ asset('assets/js/breadcrumbs/script.js') }}'></script> --}}
+
     <script>
         // sessionStorage.setItem('reload', 'yes');
+
     </script>
+    <script src="{{ asset('assets/plugins/date_plugin/pikaday.min.js') }}"></script>
+
     @yield('js-scripts')
 
 </body>

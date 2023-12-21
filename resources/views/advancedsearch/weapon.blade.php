@@ -25,6 +25,7 @@
         <li id="eventAdv">{{ __('content.event') }}</li>
     </ul>
 </div>
+<x-fullscreen-modal/>
 
 @section('js-include')
 

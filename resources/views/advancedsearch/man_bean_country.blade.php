@@ -18,13 +18,14 @@
         <li id="manAdv">{{ __('content.face') }}</li>
     </ul>
 </div>
+<x-fullscreen-modal/>
 
 @section('js-include')
 
 
 
 <script>
-    
+
 
     var countAjax = 0;
     var realCount = 2;

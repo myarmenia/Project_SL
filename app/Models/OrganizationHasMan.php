@@ -5,6 +5,7 @@ namespace App\Models;
 
 use App\Models\Man\Man;
 use App\Traits\FilterTrait;
+use App\Traits\HelpersTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,7 +19,7 @@ class OrganizationHasMan extends Model
 
     protected $tableFields = ['id', 'title', 'period'];
 
-    protected $manyFilter = ['start_date', 'end_date',];
+    protected $manyFilter = ['start_date', 'end_date', 'created_at'];
 
     public $relation = [];
 
@@ -28,6 +29,7 @@ class OrganizationHasMan extends Model
         'period',
         'start_date',
         'end_date',
+        'created_at',
     ];
 
     protected $fillable = [
@@ -51,6 +53,15 @@ class OrganizationHasMan extends Model
         return $this->belongsTo(Man::class, 'man_id');
     }
 
+    public function setStartDateAttribute ($value): void
+    {
+        $this->attributes['start_date'] = HelpersTraits::getDateTimeFormat($value,true);
+    }
+
+    public function setEndDateAttribute($value): void
+    {
+        $this->attributes['end_date'] = HelpersTraits::getDateTimeFormat($value,true);
+    }
 
     public function relation_field()
     {
@@ -60,7 +71,7 @@ class OrganizationHasMan extends Model
             __('content.start_employment') => $this->start_date ?? null,
             __('content.end_employment') => $this->end_date ?? null,
             __('content.organization') => $this->organization->name ?? null,
-            __('content.man') => $this->man->first_name ? implode(' ', $this->man->first_name->pluck('first_name')->toArray())  : null
+            __('content.man') => $this->man->first_name ? implode(' ', $this->man->first_name->pluck('first_name')->toArray())  : null,
         ];
     }
 }

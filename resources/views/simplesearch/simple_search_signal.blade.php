@@ -17,7 +17,7 @@
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="signal_or" />
             <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <a href="{{ route('simple_search_signal',['n'=> 't']) }}" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /> <?php } ?>
         </div>
 
@@ -71,7 +71,10 @@
             <label for="searchSignalContentsInformationSignal">{{ __('content.contents_information_signal') }}</label>
             <input type="text" name="content[]" id="searchSignalContentsInformationSignal" class="oneInputSaveEnter" />
 
-            <x-select-distance name="content_distance" class="distance distance_searchSignalContentsInformationSignal"/>
+            <x-select-distance
+                :search-data="$search_params['content_distance'] ?? '' "
+                name="content_distance"
+                class="distance distance_searchSignalContentsInformationSignal"/>
 
             @if (isset($search_params['content_type']) && $search_params['content_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalContentsInformationSignalOp">{{ __('content.or') }}</span>
@@ -132,7 +135,10 @@
             <label for="searchSignalCheckStatusCharter">{{ __('content.check_status_charter') }}</label>
             <input type="text" name="check_status[]" id="searchSignalCheckStatusCharter" class="oneInputSaveEnter" />
 
-            <x-select-distance name="check_status_distance" class="distance distance_searchSignalCheckStatusCharter"/>
+            <x-select-distance
+                :search-data="$search_params['check_status_distance'] ?? '' "
+                name="check_status_distance"
+                class="distance distance_searchSignalCheckStatusCharter"/>
 
             @if (isset($search_params['check_status_type']) && $search_params['check_status_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalCheckStatusCharterOp">{{ __('content.or') }}</span>
@@ -336,7 +342,7 @@
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentCheckingOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="check_agency_id[]" id="searchSignalDepartmentCheckingId" />
-{{--            <datalist id="agency" class="input_datalists" style="width: 500px;"></datalist>--}}
+           {{--<datalist id="agency" class="input_datalists" style="width: 500px;"></datalist>--}}
         </div>
 
         <?php if (isset($search_params) && isset($search_params['check_subunit_id'])) { ?>
@@ -409,7 +415,10 @@
             <label for="searchSignalNameCheckingSignal">{{ __('content.name_checking_signal') }}</label>
             <input type="text" name="checking_worker[]" id="searchSignalNameCheckingSignal" class="oneInputSaveEnter" />
 
-            <x-select-distance name="checking_worker_distance" class="distance distance_searchSignalNameCheckingSignal"/>
+            <x-select-distance
+                :search-data="$search_params['checking_worker_distance'] ?? '' "
+                name="checking_worker_distance"
+                class="distance distance_searchSignalNameCheckingSignal"/>
 
             @if (isset($search_params['checking_worker_type']) && $search_params['checking_worker_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameCheckingSignalOp">{{ __('content.or') }}</span>
@@ -472,22 +481,38 @@
         <div class="forForm">
             <label for="searchSignalDateRegistrationDivision">{{ __('content.date_registration_division') }}</label>
             <input type="text" name="subunit_date" id="searchSignalDateRegistrationDivision" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalDateRegistrationDivision',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search
+                :search-data="$search_params['search_subunit_date'] ?? '' "
+                name="search_subunit_date"
+                inpName="end_subunit_date" />
         </div>
 
         <div class="forForm">
             <label for="searchSignalCheckDate">{{ __('content.check_date') }}</label>
             <input type="text" name="check_date" id="searchSignalCheckDate" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalCheckDate',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search
+                :search-data="$search_params['search_check_date'] ?? '' "
+                name="search_check_date"
+                inpName="end_check_date" />
         </div>
 
         <div class="forForm">
             <label for="searchSignalCheckPreviously">{{ __('content.check_previously') }}</label>
             <input type="text" name="check_date_id" id="searchSignalCheckPreviously" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalCheckPreviously',12)"  class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search
+                :search-data="$search_params['search_check_date_id'] ?? '' "
+                name="search_check_date_id"
+                inpName="end_check_date_id" />
         </div>
 
 
         <div class="forForm">
             <label for="searchSignalDateActual">{{ __('content.date_actual_word') }}</label>
             <input type="text" name="end_date" id="searchSignalDateActual" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalDateActual',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
+            <x-date-filter-search
+                :search-data="$search_params['search_check_end_date'] ?? '' "
+                name="search_check_end_date"
+                inpName="end_end_date" />
         </div>
 
         <?php if (isset($search_params) && isset($search_params['count_days'])) { ?>
@@ -510,6 +535,10 @@
         <div class="forForm">
             <label for="signalAmountOverdue">{{ __('content.amount_overdue') }}</label>
             <input type="text" name="count_days[]" id="signalAmountOverdue" onkeydown="validateNumber(event,'signalAmountOverdue',12)" class="oneInputSaveEnter" />
+            <x-date-filter-search
+                :search-data="$search_params['search_count_days'] ?? '' "
+                name="search_count_days"
+                inpName="end_count_days" />
             @if (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalAmountOverdueOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'AND')
@@ -687,7 +716,10 @@
             <label for="searchSignalAccordingResultDow">{{ __('content.according_result_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchSignalAccordingResultDow" class="oneInputSaveEnter " />
 
-            <x-select-distance name="opened_dou_distance" class="distance distance_searchSignalAccordingResultDow"/>
+            <x-select-distance
+                :search-data="$search_params['opened_dou_distance'] ?? '' "
+                name="opened_dou_distance"
+                class="distance distance_searchSignalAccordingResultDow"/>
 
             @if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalAccordingResultDowOp">{{ __('content.or') }}</span>
@@ -866,7 +898,10 @@
             <label for="searchSignalNameOperatives">{{ __('content.name_operatives') }}</label>
             <input type="text" name="worker[]" id="searchSignalNameOperatives" class="oneInputSaveEnter" />
 
-            <x-select-distance name="worker_distance" class="distance distance_searchSignalNameOperatives"/>
+            <x-select-distance
+                :search-data="$search_params['worker_distance'] ?? '' "
+                name="worker_distance"
+                class="distance distance_searchSignalNameOperatives"/>
 
             @if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameOperativesOp">{{ __('content.or') }}</span>
@@ -955,11 +990,11 @@
             @endif
         </div>
 
-        <div class="forForm">
+        {{-- <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="file_content" id="fileSearch"/>
-            <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
-        </div>
+            <x-select-distance :search-data="$search_params['content_distance'] ?? '' " name="content_distance" class="distance distance_fileSearch"/>
+        </div> --}}
 
         <div class="buttons">
 
@@ -969,14 +1004,12 @@
 </div>
 
  {{-- ================= modal =========================== --}}
- <x-fullscreen-modal/>
+ @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+    <x-fullscreen-modal/>
+@endif
 
  @section('js-include')
 
- <script>
-     let open_modal_url = `{{ route('open.modal') }}`
-     let get_filter_in_modal = `{{ route('get-model-filter') }}`
- </script>
  <script src="{{ asset('assets-include/js/script.js') }}"></script>
 
 <script>
@@ -1414,7 +1447,6 @@
             $('#signalPostId').val(`{{  $search_params['worker_post_id'][sizeof($search_params['worker_post_id'])-1] }}`);
             $('#signalPost').val(`{{  html_entity_decode($search_params['uj']) }}`);
             $('#signalKeep_count').val(`{{  html_entity_decode($search_params['keep_count'][sizeof($search_params['keep_count'])-1]) }}`);
-            $('#fileSearch').val(`{{  html_entity_decode($search_params['file_content']) }}`);
         <?php } ?>
     });
 

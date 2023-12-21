@@ -29,30 +29,31 @@ class BreadCrumbs
 
 
 
-
-
         if (str_contains($uri, '?') || str_contains($currentURL, 'edit') || str_contains($currentURL, 'create')) {
             if (session()->has('crumbs_url')) {
                 $crumbs = Session::get('crumbs_url');
             }
         }
 
-        if (request()->segment(3) == 'fusion' && request()->segment(4)) {
+        if (request()->segment(3) == 'fusion' && (request()->segment(4) || request()->segment(5))) {
             if (session()->has('crumbs_url')) {
                 $crumbs = Session::get('crumbs_url');
             }
         }
+
+
         if (request()->segment(3) == 'loging' && request()->segment(4)) {
             if (session()->has('crumbs_url')) {
                 $crumbs = Session::get('crumbs_url');
             }
         }
 
-        if (request()->segment(2) == 'checked-user-list') {
+        if (request()->segment(2) == 'checked-user-list' || request()->segment(2) == 'checked-file-data') {
             if (session()->has('crumbs_url')) {
                 $crumbs = Session::get('crumbs_url');
             }
         }
+
         if (request()->segment(2) == 'advancedsearch') {
 
             if(request()->segment(3)){
@@ -64,7 +65,25 @@ class BreadCrumbs
 
         }
 
+        if (request()->segment(2) == 'simplesearch') {
 
+        // if (request()->segment(2) == 'simplesearch' ) {
+            if( str_contains(request()->segment(3), 'result') ){
+                if (session()->has('crumbs_url')) {
+                    $crumbs = Session::get('crumbs_url');
+                }
+                array_pop($crumbs);
+
+            }
+            if(str_contains(url()->previous(), 'result') && (str_contains($uri, 'n=f') || str_contains($uri, 'n=t'))){
+                array_pop($crumbs);
+
+            }
+            if(str_contains(url()->previous(), 'simple_search_') && str_contains($uri, 'n=t')){
+                array_pop($crumbs);
+            }
+
+        }
 
 
         if (str_contains($uri, '?')) {
@@ -106,10 +125,17 @@ class BreadCrumbs
             $crumbs[0] = $arr_asoc;
 
         }
+        // else if(str_contains(request()->segment(2), 'sign')){
+        //     $arr_asoc['title'] = 'dictionary';
+        //     $arr_asoc['url'] = $url;
+        //     $arr_asoc['name'] = 'sign';
+
+        //     array_push($crumbs, $arr_asoc);
+        // }
 
         else {
 
-            if (!str_contains($currentURL, 'edit') && !str_contains($currentURL, 'create')) {
+            if (!str_contains($currentURL, 'edit') && !str_contains($currentURL, 'create') ) {
                 $arr_asoc['title'] = request()->segment(2);
                 $arr_asoc['url'] = $url;
                 $arr_asoc['name'] = request()->segment(3);
@@ -118,6 +144,19 @@ class BreadCrumbs
                 if (request()->segment(3) == 'fusion' && request()->segment(4)) {
 
                     $arr_asoc['name'] = request()->segment(4);
+                }
+
+                if (request()->segment(3) == 'fusion' &&  str_contains(url()->previous(), 'fusion-check-ids')) {
+
+                    // $arr_asoc['name'] = request()->segment(4);
+                    array_pop($crumbs);
+
+                }
+                if (str_contains(request()->segment(2), 'sign')) {
+
+                    $arr_asoc['name'] = 'sign';
+                    $arr_asoc['id'] = request()->segment(3);
+
                 }
 
                 if (request()->segment(3) == 'loging' && request()->segment(4)) {
@@ -134,16 +173,24 @@ class BreadCrumbs
                         $arr_asoc['name'] = 'data-entry-through-files';
                         $arr_asoc['title'] = 'data-entry-through-files';
                     }
-                   
+
                 }
                 if (request()->segment(2) == 'checked-user-list') {
                     $arr_asoc['name'] = 'checked-user-list';
+                }
+                 if (request()->segment(2) == 'checked-file-data') {
+                    $arr_asoc['name'] = 'checked-file-data';
                 }
                 if (request()->segment(2) == 'search-file' || request()->segment(2) == 'search-file-result') {
                     $arr_asoc['name'] = 'search_file';
                     $arr_asoc['title'] = 'search_file';
                 }
+                if (request()->segment(2) == 'action') {
+                    $arr_asoc['name'] = 'bibliography';
+                    $arr_asoc['url'] = "/bibliography/".request()->segment(3)."/edit";
+                    $arr_asoc['id'] = request()->segment(3);
 
+                }
                 // if(request()->segment(3) == 'summary-automatic'){
 
                 // }
@@ -159,27 +206,34 @@ class BreadCrumbs
 
                         }
                 }
-                if (request()->segment(2) == 'simplesearch' && str_contains(request()->segment(3), 'result')) {
+                // if (request()->segment(2) == 'simplesearch' && str_contains(request()->segment(3), 'result')) {
 
-                    if (session()->has('crumbs_url')) {
-                        $crumbs = Session::get('crumbs_url');
-                    }
-                    array_pop($crumbs);
-                }
+                //     if (session()->has('crumbs_url')) {
+                //         $crumbs = Session::get('crumbs_url');
+                //     }
+                //     array_pop($crumbs);
+                // }
+
                 if (request()->segment(2) == 'translate') {
-
                     $arr_asoc['name'] = 'translate';
-
                 }
 
+                if (request()->segment(3) == 'fusion' &&  str_contains(url()->previous(), 'fusion-check-ids')) {
 
+                    $arr_asoc['name'] = request()->segment(3);
+                   array_push($crumbs, $arr_asoc);
+
+                }
 
                 array_push($crumbs, $arr_asoc);
 
             }
         }
-        if (str_contains($currentURL, 'create') && request()->segment(2) !== 'man' && request()->segment(2) !== 'organization') {
+        if (str_contains($currentURL, 'create') && request()->segment(2) !== 'man' && request()->segment(2) !== 'organization'
+        && request()->segment(2) !== 'signal' && request()->segment(2) !== 'event' && request()->segment(2) !== 'criminal_case'
+        && request()->segment(2) !== 'controll' && request()->segment(2) !== 'mia_summary' && request()->segment(2) !== 'action') {
             if(str_contains(url()->previous(), 'redirect')){
+
                 array_pop($crumbs);
 
             }
@@ -189,6 +243,9 @@ class BreadCrumbs
                 array_pop($crumbs);
                 array_pop($crumbs);
             }
+
+            // dd($crumbs);
+
 
             $arr_asoc['title'] = request()->segment(2) ?? '';
             $arr_asoc['url'] = $url;
@@ -201,13 +258,18 @@ class BreadCrumbs
 
 
         if (str_contains($currentURL, 'edit')) {
+            // dd($crumbs);
 
             if (str_contains(url()->previous(), '?') && !str_contains(url()->previous(), 'organization')) {
 
 
                 array_pop($crumbs);
             }
+            // if(request()->segment(2) == 'action' ){
 
+            //     array_pop($crumbs);
+            //     array_pop($crumbs);
+            // }
 
             $arr_asoc['title'] = request()->segment(2) ?? '';
             $arr_asoc['url'] = $url;
@@ -218,6 +280,7 @@ class BreadCrumbs
 
 
             if (request()->segment(4) == 'edit') {
+
                 $arr_asoc['name'] = request()->segment(2);
                 $arr_asoc['id'] = request()->segment(3);
 
@@ -247,4 +310,5 @@ class BreadCrumbs
 
         return $next($request);
     }
+
 }

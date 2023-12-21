@@ -118,8 +118,12 @@ plusIcon.forEach(plus => {
 
 function openModal() {
     const inp_label = this.closest('.col').querySelector('label')
+
     modal_inp_label.textContent = inp_label.textContent
-    
+    let inp_label_val_arr = inp_label.textContent.split(')')
+    let inp_label_val = inp_label_val_arr[1]
+    modal_inp_label.textContent = inp_label_val.replaceAll('(', '')
+
     plusBtn = this
     // ============== im grac mas start ===============
     document.getElementById('addNewInfoInp').value = ''
@@ -444,6 +448,7 @@ function onBlur(e) {
                 value: get_model_id ?? this.value,
                 fieldName: this.name
             }
+
             if(this.value=='' ){
                 newInfo.delete_relation=true
 
@@ -462,7 +467,7 @@ function onBlur(e) {
 
             }
         }
-
+        console.log(newInfo);
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -471,36 +476,40 @@ function onBlur(e) {
 
         const pivot_table_name = this.getAttribute('data-pivot-table')
         const field_name = this.getAttribute('data-fieldname')
-        console.log(field_name+'523');
-        let current_tags = []
 
+        let current_tags = []
         let checkvalue;
+
         if(this.closest('.col')){
+
             const check = this.closest('.col')?.querySelectorAll('.check_tag')
 
+            if(['last_name','first_name','middle_name',"signal_check_date"].includes(pivot_table_name)){
+
+                check.forEach(tag_el => {
+                    current_tags.push(tag_el.getAttribute('data-value'))
+                })
+            }else{
+                checkvalue = this.getAttribute('data-modelid') ?? null
+
+                check.forEach(tag_el => {
+
+                    current_tags.push(tag_el.getAttribute('data-delete-id'))
+                })
+            }
+
         }
 
-        if(['last_name','first_name','middle_name',"signal_check_date"].includes(pivot_table_name)){
-            console.log(pivot_table_name)
-            checkvalue = newInfo.value
-            check.forEach(tag_el => {
-                current_tags.push(tag_el.getAttribute('data-value'))
-            })
-        }else{
-
-            // checkvalue = this.getAttribute('data-modelid') ?? null
-            // checkvalue = this.getAttribute('data-modelid')
-
-            check.forEach(tag_el => {
-                current_tags.push(tag_el.getAttribute('data-delete-id'))
-            })
-        }
+    if(this.getAttribute("data-check") === "date"){
+            let elVal = this.value.split(' ')
+              this.value = elVal[0].split('-').reverse().join('-')
+    }
 
     const hasValue = current_tags.some(c_tag => c_tag === checkvalue)
-    console.log(hasValue,current_tags)
 
-    if (!hasValue  && inputCurrentValue != '' || (inputCurrentValue == '' && this.value != '')) {
-
+    console.log(!hasValue  ,this.value !== '',current_tags)
+    // console.log(!hasValue  && inputCurrentValue !== '' || (inputCurrentValue === '' && this.value !== ''))
+    if (!hasValue  && this.value !== '') {
         // console.log('--------fetch----')
         fetch(updated_route, requestOption)
                 .then(async data =>{
@@ -519,8 +528,6 @@ function onBlur(e) {
                                 this.value=''
                                 this.focus()
                             }
-
-
 
                             if (this.name === 'country_id' || newInfo.type) {
                                 const parent_model_id = parent_id

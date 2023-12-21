@@ -52,6 +52,10 @@ return [
     'controll' => 'Վերահսկում',
     'mia_summary' => 'Ոստիկանություն',
     'action' => 'Գործողություն',
+    'checked-file-data' => 'Տվյալների մուտքագրում ֆայլերի միջոցով',
+    'organization' => 'Կազմակերպություն',
+    'manExternalSignHasSignPhoto' => 'Արտաքին նշաններ (լուսանկար)',
+    'keepSignal' => 'Ահազանգի վարում',
 
 
 

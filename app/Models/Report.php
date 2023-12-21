@@ -112,6 +112,27 @@ class Report extends Model
             ->get();
     }
 
+    public static function getAgenciesWithRoot(): array
+    {
+        $query = <<<SQL
+                WITH RECURSIVE cte (id, parent_id, path) as (
+                  SELECT id,parent_id, id path
+                  from agency t1
+                  WHERE parent_id IS NULL
+                  UNION ALL
+                  SELECT t2.id,t2.parent_id, cte.path
+                  FROM agency t2
+                  INNER JOIN cte on t2.parent_id = cte.id)
+                SELECT id,(select name from agency where id = MIN(PATH)) as name, MIN(PATH) as parent_id FROM cte GROUP BY id;
+                SQL;
+
+        $data = DB::select($query);
+        if ($data) {
+            return collect($data)->keyBy( 'id')->toArray();
+        }
+        return [];
+    }
+
     public static function getQualified($startDate, $endDate): Collection
     {
         return DB::table('signal')
@@ -165,7 +186,6 @@ class Report extends Model
                 SUM(if(DATEDIFF(signal.end_date, signal.check_date) >= 1, 1, 0)) as AC_col,
                 SUM(if(signal.subunit_date IS NOT NULL AND signal.check_date <= '$endDate', 1, 0)) as AD_col
             ")
-
             ->leftJoin('signal', 'agency.id', '=', 'signal.opened_subunit_id')
             ->leftJoin('signal_has_taken_measure', 'signal.id', '=', 'signal_has_taken_measure.signal_id')
             ->leftJoin('taken_measure', 'signal_has_taken_measure.taken_measure_id', '=', 'taken_measure.id')

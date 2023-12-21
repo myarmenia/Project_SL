@@ -44,7 +44,7 @@ return [
     'search_table_content' => 'Поиск по данным таблицы',
     'checked-user-list' => 'Список лиц из виде таблицы',
     'search_file'=> 'Поиск по файлами',
-    'create_table_content' => 'Տվյալների մուտքագրում ֆայլերի միջոցով',
+    'create_table_content' => 'Ввод данных через файлы',
     'signal' => 'Сигнал',
     'event' => 'Событие',
     'addTo' => 'Добавить',
@@ -52,7 +52,10 @@ return [
     'controll' => 'Контроль',
     'mia_summary' => 'Сводка МВД',
     'action' => 'Действие',
-
+    'checked-file-data' => 'Ввод данных через файлы',
+    'organization' => 'Организация',
+    'manExternalSignHasSignPhoto' => 'Внешние приметы (фото)',
+    'keepSignal' => 'Ведение сигналов',
 
 
 ];

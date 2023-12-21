@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\AddNewSearchedManJob;
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\FileHasUrlData;
 use App\Models\FirstName;
@@ -16,6 +17,7 @@ use App\Models\Man\ManHasMIddleName;
 use App\Models\MiddleName;
 use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
+use Illuminate\Support\Facades\Artisan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
@@ -146,13 +148,9 @@ class FindDataService
         }
     }
 
-    public function addFindDataToInsert($dataToInsert, $fileDetails, $addDb=false)
+    public function addFindDataToInsertAct($dataToInsert, $fileDetails)
     {
-    info('addFindDataToInsertStart', [(now()->minute * 60) + now()->second]);
-
         $relationsToCreate = [];
-        $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
-
         foreach ($dataToInsert as $idx => $item) {
 
             // dd($item);
@@ -246,6 +244,21 @@ class FindDataService
         }
         // dd($relationsToCreate);
         TmpManFindTextsHasMan::insert($relationsToCreate);
+
+        return true;
+    }
+
+    public function addFindDataToInsert($dataToInsert, $fileDetails, $addDb=false)
+    {
+    info('addFindDataToInsertStart', [(now()->minute * 60) + now()->second]);
+
+        $relationsToCreate = [];
+        $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
+        $dataToInsertFirstpart = array_slice($dataToInsert, 0, 36);
+        $dataToInsertLastPart = array_slice($dataToInsert, 36);
+        AddNewSearchedManJob::dispatch($dataToInsertLastPart, $fileDetails);
+
+        $this->addFindDataToInsertAct($dataToInsertFirstpart, $fileDetails);
 
         return true;
     }
@@ -973,10 +986,16 @@ class FindDataService
 
             ManHasFile::bindManFile($manId, $fileId);
 
-            $fileMan->update([
+           $updateFindManId =  $fileMan->update([
                 "find_man_id" => $manId,
                 "selected_status" => $status,
             ]);
+
+            if($updateFindManId){
+                TmpManFindTextsHasMan::where(
+                    "tmp_man_find_texts_id", $fileMan->id
+                )->delete();
+            }
         }
 
         // DB::commit();
@@ -1096,8 +1115,6 @@ class FindDataService
             FROM 
                 man 
             WHERE 
-                man.deleted_at IS NULL
-                AND
                 man.id IN (
                 SELECT 
                     DISTINCT man_has_last_name.man_id 
@@ -1119,7 +1136,8 @@ class FindDataService
                         first_name.first_name, '$searchTermName'
                         ) <= '$searchDegree'
                     )
-                ); ";
+                )
+                AND man.deleted_at IS NULL;";
 
        
         $getLikeManIds = collect(DB::select($query))->pluck('id');

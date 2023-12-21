@@ -12,16 +12,6 @@ use Illuminate\Http\Response;
 
 class SignController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
     public function create($langs, Man $man)
     {
         $edit = false;
@@ -71,7 +61,7 @@ class SignController extends Controller
      */
     public function update($lang, ManExternalSignHasSign $manExternalSignHasSign, ManExternalSignCreateRequest $request )
     {
-        $manExternalSignHasSign->update($request->validated());
+        SignService::update($manExternalSignHasSign, $request->validated());
 
         return  HelpersTraits::backToRoute('sign');
     }

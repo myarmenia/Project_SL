@@ -46,8 +46,17 @@ class ComponentService
         } elseif ($attributes['type'] === 'attach_relation') {
             $mainModel->$table()->attach($attributes['value']);
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
+
         } elseif ($attributes['type'] === 'update_field') {
             $mainModel->update($newData);
+
+            if($mainModel->getTable()=='signal'){
+                if($attributes['fieldName']=='check_date'|| $attributes['fieldName']=='end_date'){
+                    $mainModel->count_number();
+                }
+
+            }
+
 
             $log = LogService::store($newData, $mainModel->id, $mainModel->getTable(), 'update');
             $newModel= $mainModel;
@@ -76,7 +85,10 @@ class ComponentService
         }
         if (isset($request['relation']) && $request['relation'] === 'has_many'){
             $find_model->$pivot_table_name->find($id)->delete();
-        }else{
+        }elseif (isset($request['relation']) && $request['relation'] === 'update_field'){
+            $find_model->$pivot_table_name()->delete();
+        }
+        else{
             $find_model->$pivot_table_name()->detach($id);
         }
 

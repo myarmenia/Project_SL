@@ -17,7 +17,7 @@
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="organization_or" />
             <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <a href="{{ route('simple_search_organization',['n'=> 't']) }}" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /> <?php } ?>
         </div>
 
@@ -348,11 +348,11 @@
             @endif
         </div>
 
-        <div class="forForm">
+        {{-- <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
             <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
-        </div>
+        </div> --}}
 
         <div class="buttons">
 
@@ -361,16 +361,13 @@
     </form>
 </div>
   {{-- ================= modal =========================== --}}
-  <x-fullscreen-modal/>
+  @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+
+    <x-fullscreen-modal/>
+@endif
 
 @section('js-include')
-
-<script>
-    let open_modal_url = `{{ route('open.modal') }}`
-    let get_filter_in_modal = `{{ route('get-model-filter') }}`
-</script>
-<script src="{{ asset('assets-include/js/script.js') }}"></script>
-
+<script src="{{ asset('assets-include/js/script.js') }}" ></script>
 <script>
     var currentInputNameOrgan;
     var currentInputIdOrgan;
@@ -569,7 +566,7 @@
             $('#searchOrganNumberWorker').val(`{{ html_entity_decode($search_params['employers_count'][sizeof($search_params['employers_count'])-1]) }}`);
             $('#searchOrganAttention').val(`{{ html_entity_decode($search_params['attension'][sizeof($search_params['attension'])-1]) }}`);
             $('#searchOrganOrganizationDow').val(`{{ html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
+           
         <?php } ?>
     });
 

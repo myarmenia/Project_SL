@@ -25,60 +25,44 @@
 
     @if (!isset($type))
 
+    <div class="pagetitle-wrapper">
+        <div class="pagetitle">
+            @php
+                $arr = Session::get('crumbs_url');
+            @endphp
 
-        {{-- <div class="pagetitle-wrapper">
-            <div class="pagetitle">
-                <h1>{{ request()->routeIs(['simple_search', 'simple_search_*']) ? __('content.simple_search') : '' }}</h1>
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{route('home')}}">{{ __('pagetitle.main') }}</a></li>
+            <h1 id="title">{{ __('pagetitle.' . end($arr)['title']) }}</h1>
+            {{-- <h1 id="title"></h1> --}}
 
-                        @if (request()->routeIs('simple_search*'))
-
-                            @if( Request::segment(3) == 'simple_search')
-                                <li class="breadcrumb-item"><a>{{ __('content.simple_search') }}</a></li>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="{{ route('home') }}">{{ __('pagetitle.main') }}</a>
+                    </li>
+                    @foreach ($arr as $key => $crumb)
+                    @if ($crumb['name'])
+                        <li
+                            class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] && $key == array_key_last($arr) ? 'active' : '' }}">
+                            @if ($crumb['name'] === end($arr)['name'] && $key == array_key_last($arr))
+                                {{ __('sidebar.' . $crumb['name']) }}
+                                @if (isset($crumb['id']))
+                                    ID: {{ $crumb['id'] }}
+                                @endif
                             @else
-                                <li class="breadcrumb-item"><a href="{{route('simple_search')}}">{{ __('content.simple_search') }}</a></li>
+                                <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('sidebar.' . $crumb['name']) }}
+                                    @if (isset($crumb['id']))
+                                        ID: {{ $crumb['id'] }}
+                                    @endif
+                                </a>
                             @endif
+                        </li>
+                    @endif
+                @endforeach
+                </ol>
+            </nav>
+        </div>
+    </div>
 
-                            @php
-                                $last_name = explode(
-                                    'simple_search_',
-                                    request()
-                                        ->route()
-                                        ->getName(),
-                                );
-                            @endphp
-                        @elseif (request()->routeIs('result_*'))
-
-                            @php
-                                $last_name = explode(
-                                    'result_',
-                                    request()
-                                        ->route()
-                                        ->getName(),
-                                );
-                            @endphp
-
-                        @endif
-                        @if (request()->routeIs(['simple_search_*', 'result_*']))
-                            <li class="breadcrumb-item active" href="#"> {{ __('content.' . end($last_name)) }}</li>
-                        @endif
-
-                        @if (request()->routeIs('advancedsearch'))
-                            @if( Request::segment(2) == 'advancedsearch')
-                                <li class="breadcrumb-item"><a
-                                       >{{ __('content.complex_search') }}</a></li>
-                            @else
-                                <li class="breadcrumb-item"><a
-                                        href="{{ route('advancedsearch') }}">{{ __('content.complex_search') }}</a></li>
-                            @endif
-
-                        @endif
-                    </ol>
-                </nav>
-            </div>
-        </div> --}}
     @else
         {{-- <div class="pagetitle-wrapper">
             <div class="pagetitle">
@@ -129,9 +113,12 @@
         let trs_enter_number = `{{ __('content.enter_number') }}`
         let trs_enter_correct = `{{ __('content.enter_correct') }}`
     </script>
+
+
+
 @section('js-scripts')
     <script src="{{ asset('assets-include/js/default.js') }}"></script>
-
-    @yield('js-include')
 @endsection
+@yield('js-include')
+
 @endsection

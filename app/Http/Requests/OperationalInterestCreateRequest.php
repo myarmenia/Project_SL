@@ -29,7 +29,7 @@ class OperationalInterestCreateRequest extends FormRequest
         ];
     }
 
-    public function messages (): array 
+    public function messages (): array
     {
         return [
             'second_object_id' => __('validation.required', ['attribute' => __('content.specific_link')])

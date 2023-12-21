@@ -11,7 +11,6 @@ use App\Traits\FullTextSearch;
 use App\Services\SearchService;
 use App\Services\LearningSystemService;
 use App\Models\ModelInclude\SimplesearchModel;
-use App\Utils\Paginate;
 use Generator;
 
 class FileSearcheService
@@ -58,8 +57,51 @@ class FileSearcheService
         return explode(" ", $output);
     }
 
+    function betweenGenerationData($datas, array $params): Generator
+    {
+        foreach ($datas as $data) {
+
+            $text =  preg_replace($params['patterns'], $params['replacements'], $data->content);
+            $slice = Str::between($data->content, $params['word'][0], $params['word'][1]);
+
+            foreach ($this->getText($slice , [$params['word'][0], $params['word'][1]]) as $value) {
+                    if (count($this->explodString(trim($value))) == $params['wordCount'])
+                    {
+
+                         yield array(
+                             'bibliography' => $data->file->bibliography ?? '',
+                             'file_id' => $data->file->id,
+                             'status' => $data->status,
+                             'file_info' => $data->file->real_name,
+                             'file_path' => $data->file->path,
+                             'find_word' => Arr::whereNotNull(collect($params['word'])->map(function ($pat) use($text) {
+
+                                 $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                                 if (Str::of($new_text)->contains($pat)) {
+
+                                     return Str::of($new_text)->explode('-----');
+                                 }
+
+
+                             })->toArray()),
+                             'file_text' => $text,
+                             'serarch_text' => $params['revers_word'],
+                             'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
+
+                         );
+
+                    }
+                    break;
+            }
+
+
+
+        }
+    }
+
     public function searchBetweenWords(string $data, int $wordCount, bool $revers_word)
     {
+        $files = [];
         $word = $this->explodString($data);
 
         if (count($word) == 2) {
@@ -80,46 +122,19 @@ class FileSearcheService
             $rep_data = preg_replace('!\s+!', ' ', $data);
             $datas = $this->fileTextRepository->getFileTextContent($rep_data);
 
-            $files = [];
-            foreach ($datas as $data) {
+            $files = $this->betweenGenerationData($datas,[
 
-                $text =  preg_replace($patterns, $replacements, $data->content);
-                $slice = Str::between($data->content, $word[0], $word[1]);
+                'word' => $word ,
+                'wordCount' => $wordCount,
+                'patterns' => $patterns,
+                'replacements' => $replacements,
+                'revers_word' => $revers_word]);
 
-                foreach ($this->getText($slice , [$word[0], $word[1]]) as $value) {
-                        if (count($this->explodString(trim($value))) == $wordCount)
-                        {
-
-                             $files[] = array(
-                                 'bibliography' => $data->file->bibliography ?? '',
-                                 'file_id' => $data->file->id,
-                                 'status' => $data->status,
-                                 'file_info' => $data->file->real_name,
-                                 'file_path' => $data->file->path,
-                                 'find_word' => Arr::whereNotNull(collect($word)->map(function ($pat) use($text) {
-
-                                     $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
-                                     if (Str::of($new_text)->contains($pat)) {
-
-                                         return Str::of($new_text)->explode('-----');
-                                     }
-
-
-                                 })->toArray()),
-                                 'file_text' => $text,
-                                 'serarch_text' => $revers_word,
-                                 'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
-
-                             );
-
-                        }
-                }
-
-            }
         }
+
         if (isset($files))
         {
-            return collect($files)->unique('file_id')->toArray() ?? '';
+            return $files ? iterator_to_array($files) : [];
         }else{
             return [];
         }
@@ -439,6 +454,7 @@ class FileSearcheService
 
     function findFileIds($content, ?string $data_regex = null): array
     {
+        $files = [];
             if (intval($data_regex) > 0)
             {
 
@@ -503,7 +519,7 @@ class FileSearcheService
 
            }
 
-        return iterator_to_array($files) ?? [];
+       return $files ? iterator_to_array($files) : [];
 
     }
 
@@ -548,7 +564,6 @@ class FileSearcheService
             }
 
             if (Str::contains($content, ['+', '-','*','(',')','"'])) {
-
                 $searchTrans = $content;
             }else{
 
@@ -561,7 +576,7 @@ class FileSearcheService
 
                 return $this->getFileTextIds($ids);
 
-            }else{
+            }elseif($trans){
 
                 $files = $this->searchSimilary($distance,$trans);
 
@@ -801,9 +816,6 @@ class FileSearcheService
         if (isset($files) && !empty($files)) {
 
             session()->forget('not_find_message');
-
-          /*  $files = Paginate::paginate($files);
-            $files->withPath('search-file');*/
 
             return $files;
         }else{

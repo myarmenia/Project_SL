@@ -1,6 +1,5 @@
 @extends('layouts.auth-app')
 @section('style')
-    <link href="{{ asset('assets/css/main/table.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/search-file/index.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
@@ -13,8 +12,8 @@
         <div class="col">
             <div class="card">
                 <div class="card-body search_fil_card_body">
+                <div class="help_icon"><i class="bi bi-question-square" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></div>
                     <!-- Bordered Table -->
-
                     <form action="{{ route('search_file') }}" method="post">
 
                         <div class="search-count-block">
@@ -48,7 +47,7 @@
                             </select> --}}
 
                             <input name="search_input" type="text" class="form-control" id="search_input"
-                                value="{{ old('search_input', '') }}" oninput="checkInput()" style="width: 35%" />
+                                value="{{ old('search_input', '') }}"  style="width: 35%" />
                             <button class="btn btn-primary search-file-btn"
                                 id="serach_button">{{ __('content.search') }}</button>
                         </div>
@@ -62,13 +61,13 @@
                     @endif
 
                     <!-- End Bordered Table -->
-                    @isset($datas)
+                    {{-- @isset($datas)
                         <div class="save-files">
                             <button class="btn btn-primary save-file-btn">
                                 {{ __('content.create_response_file') }}
                             </button>
                         </div>
-                    @endisset
+                    @endisset --}}
 
                     <section>
                         @isset($datas)
@@ -77,9 +76,9 @@
                                 <table id="resizeMe" class="table  person_table">
                                     <thead>
                                         <tr>
-                                            <th style="text-align:center; vertical-align: middle;"><input type="checkbox"
-                                                    class="all-checked-input"></th>
-                                            <th>{{ __('content.answer_file') }}</th>
+                                            {{-- <th style="text-align:center; vertical-align: middle;"><input type="checkbox"
+                                                    class="all-checked-input">
+                                            </th> --}}
                                             <th>Id</th>
                                             <th>{{ __('content.document_name') }}</th>
                                             <th style="width: 350px">{{ __('content.short_desc') }}</th>
@@ -97,14 +96,10 @@
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
-                                                        <td class="checked-input-td"
+
+                                                        {{-- <td class="checked-input-td"
                                                             style="text-align:center; vertical-align: middle;"><input
-                                                                type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}'></td>
-                                                        @if ($data['status'] == 1)
-                                                            <td>{{ __('content.available') }}</td>
-                                                        @else
-                                                            <td>---</td>
-                                                        @endif
+                                                                type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}'></td> --}}
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>
                                                             <a style="text-decoration: underline; color:blue;"
@@ -149,16 +144,12 @@
                                                     </tr>
                                                     @endforeach
                                             @else
-                                                <tr>
 
-                                                    <td class="checked-input-td"
+
+                                                    {{-- <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
-                                                            type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}' ></td>
-                                                    @if ($data['status'] == 1)
-                                                        <td>{{ __('content.available') }}</td>
-                                                    @else
-                                                        <td>---</td>
-                                                    @endif
+                                                            type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}' ></td> --}}
+                                                        <tr>
                                                     <td scope="row">---</td>
                                                     <td>
                                                         <a style="text-decoration: underline; color:blue;"
@@ -192,41 +183,57 @@
                                                     </td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td> </td>
                                                     <td></td>
-                                                    <td class="reg-date"></td>
-
+                                                    <td></td>
+                                                    <td class="reg-date"></td> 
                                                 </tr>
+
                                             @endif
                                         @endforeach
 
 
                                     </tbody>
                                 </table>
-
                             </div>
-                           {{ count($datas) }}
+                            {{ $datas->links() }}
                         @endisset
 
 
                     </section>
 
+                    <x-search-file-modal />
+                            
+
+<!-- Modal -->
+                    <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ __('search.searche_file_title') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
                             <div class="helper">
-                                    <h2>{{ __('search.searche_file_title') }}</h2>
-                                    <div class="help-info">
-                                        <p>{{ __('search.searche_file_info_1') }}</p>
-                                        <p>{{ __('search.searche_file_info_2') }}</p>
-                                        <p>{{ __('search.searche_file_info_3') }}</p>
-                                        <p>{{ __('search.searche_file_info_4') }}</p>
-                                        <p>{{ __('search.searche_file_info_5') }}</p>
-                                        <p>{{ __('search.searche_file_info_6') }}</p>
+                                        <div class="help-info">
+                                            <p>{{ __('search.searche_file_info_1') }}</p>
+                                            <p>{{ __('search.searche_file_info_2') }}</p>
+                                            <p>{{ __('search.searche_file_info_3') }}</p>
+                                            <p>{{ __('search.searche_file_info_4') }}</p>
+                                            <p>{{ __('search.searche_file_info_5') }}</p>
+                                            <p>{{ __('search.searche_file_info_6') }}</p>
+                                            <p>{{ __('search.searche_file_info_7') }}</p>
+                                            <p>{{ __('search.searche_file_info_8') }}</p>
+                                            <p>{{ __('search.searche_file_info_9') }}</p>
+                                            <p>{{ __('search.searche_file_info_10') }}</p>
+                                        </div>
                                     </div>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
 
                 </div>
             </div>
-
-            <x-search-file-modal />
 
             <!-- Bordered Table -->
             @yield('permissions-content')
@@ -236,6 +243,9 @@
                     {{ session()->get('not_find_message') }}
                 </div>
             @endif
+            <div id="downloaded_file" >
+
+            </div>
     </section>
     <x-errorModal />
 
@@ -257,7 +267,7 @@
 
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
-    <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/error_modal.js') }}"></script> --}}
     {{-- <script>
       function validateInput() {
           var input = document.getElementById("search_input");

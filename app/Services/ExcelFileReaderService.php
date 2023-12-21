@@ -69,7 +69,7 @@ class ExcelFileReaderService
 
                 foreach($row as $key=>$item){
 
-                    // if($data ==1){
+                    // if($data ==0){
                         $translate_text = [];
                         if($key == $column_name['first_name-middle_name-last_name']){
 
@@ -193,7 +193,7 @@ class ExcelFileReaderService
                 }
 
         }
-        // dd($dataToInsert);
+    
         if ($bibliographyId == null) {
 
             $checked_user_list = CheckUserList::all();
@@ -208,7 +208,7 @@ class ExcelFileReaderService
             }
 
             $dataToInsert = $this->searchItemsInFileService->checkDataToInsert($dataToInsert);
-         
+
             return  $dataToInsert;
         }
         else {
@@ -300,6 +300,28 @@ class ExcelFileReaderService
                 // dd($dataToInsert);
             return $dataToInsert;
         }
+
+    }
+    public static function check_multiple_string($item){
+        $collect_items='';
+        // dd($item);
+        $check_empty = $item->getElements()[0]->getElements();
+
+        $array = array_filter( $check_empty, function ($value) {
+
+            return $value->getText() !== ' ';
+        });
+
+        foreach($array as $key=>$itm){
+
+            if($key!==0){
+                $collect_items .=' ';
+            }
+            $collect_items .= $itm->getText();
+
+        }
+
+        return  $collect_items;
 
     }
 

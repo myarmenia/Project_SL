@@ -21,7 +21,6 @@ class QualificationExport implements FromArray, WithEvents
     private string $to;
     private array $titles = [];
     private array $values = [];
-    private array $exists = [];
     public int $total_row_count = 0;
 
     public function __construct($from, $to)
@@ -33,21 +32,30 @@ class QualificationExport implements FromArray, WithEvents
 
     public function array(): array
     {
+        $agencies_with_root_parent = Report::getAgenciesWithRoot();
         $data = Report::getQualified($this->from, $this->to);
-
-
+        $exists = [];
         foreach ($data as $datum) {
+            $agency_id = isset($agencies_with_root_parent[$datum->agency_id]) ? $agencies_with_root_parent[$datum->agency_id]->parent_id : $datum->agency_id;
             $this->titles[$datum->qualification_id] = $datum->qualification_name;
-            $this->exists[$datum->agency_id][$datum->qualification_id] = $datum->total;
+            if (isset($exists[$agency_id][$datum->qualification_id])) {
+                $exists[$agency_id][$datum->qualification_id] += $datum->total;
+            } else {
+                $exists[$agency_id][$datum->qualification_id] = $datum->total;
+            }
         }
 
         $empty = array_fill_keys(array_keys($this->titles), '');
 
         foreach ($data as $datum) {
-            $this->values[$datum->agency_id]['opened_subunit'] = $datum->opened_subunit;
-            $this->values[$datum->agency_id] = array_replace($empty, $this->exists[$datum->agency_id]);
-            array_unshift($this->values[$datum->agency_id], $datum->opened_subunit);
+            $agency_id = isset($agencies_with_root_parent[$datum->agency_id]) ? $agencies_with_root_parent[$datum->agency_id]->parent_id : $datum->agency_id;
+            $agency_name = isset($agencies_with_root_parent[$datum->agency_id]) ? $agencies_with_root_parent[$datum->agency_id]->name : $datum->opened_subunit;
+            $this->values[$agency_id]['opened_subunit'] = $datum->opened_subunit;
+            $this->values[$agency_id] = array_replace($empty, $exists[$agency_id]);
+            array_unshift($this->values[$agency_id], $agency_name);
         }
+
+        $this->values = $this->sortByConfig($this->values);
 
         $this->total_row_count = count($this->values) + 2;
         $this->columns_count = count($this->titles);
@@ -71,6 +79,43 @@ class QualificationExport implements FromArray, WithEvents
             $this->values,
             $totals
         ];
+    }
+
+    /**
+     * @param array $values
+     * @return array
+     *
+     * Sorts the array by given identifiers,
+     * elements not found in the config
+     * are added to the end of the array in descending order
+     */
+    private function sortByConfig(array $values): array
+    {
+        $result = $exists_in_order = [];
+        $order = config('report.agency_id_order', []);
+        $others = [];
+        foreach ($values as $id => $value) {
+            if (in_array($id, $order)) {
+                $exists_in_order[$id] = $value;
+            } else {
+                $others[$id] = $value;
+            }
+        }
+        unset($values);
+
+        if ($exists_in_order) {
+            uksort($exists_in_order, function ($key1, $key2) use ($order) {
+                return (array_search($key1, $order) > array_search($key2, $order));
+            });
+            $result += $exists_in_order;
+        }
+
+        if ($others) {
+            krsort($others);
+            $result = $result + $others;
+        }
+
+        return $result;
     }
 
 

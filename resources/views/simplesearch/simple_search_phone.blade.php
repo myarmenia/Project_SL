@@ -10,14 +10,16 @@
 <div class="inContent">
     <form id="phoneForm" action="/{{ app()->getLocale() }}/simplesearch/result_phone" method="post">
         @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+
             <x-back-previous-url />
         @endif
+
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="phone_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="phone_or" />
             <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <a href="{{ route('simple_search_phone',['n'=> 't']) }}" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
@@ -183,11 +185,11 @@
             @endif
         </div>
 
-        <div class="forForm">
+        {{-- <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
             <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
-        </div>
+        </div> --}}
 
         <div class="buttons">
 
@@ -196,21 +198,33 @@
     </form>
 </div>
   {{-- ================= modal =========================== --}}
-  <x-fullscreen-modal/>
+@if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+    <x-fullscreen-modal/>
+@endif
 
 @section('js-include')
 
-<script>
-    let open_modal_url = `{{ route('open.modal') }}`
-    let get_filter_in_modal = `{{ route('get-model-filter') }}`
-</script>
-<script src="{{ asset('assets-include/js/script.js') }}"></script>
-
+<script src="{{ asset('assets-include/js/script.js') }}" ></script>
 <script>
     var currentInputNamePhone;
     var currentInputIdPhone;
     var searchInput;
     $(document).ready(function(){
+
+        let inputPhone = document.getElementById('searchPhonePhoneNumber')
+
+        inputPhone.addEventListener('input', (e) =>{
+
+        let arr = inputPhone.value.split('')
+
+        for (let i = 0; i < arr.length; i++) {
+        if (arr[i] != +arr[i] && arr[i] !== '(' && arr[i] !== ')'){
+        arr[i] = ''
+        }
+
+        inputPhone.value = arr.join('').replaceAll(' ', '')
+        }
+        })
 
         $('input').map(function(){
             if($(this).hasClass('oneInputSaveEnter')){
@@ -304,7 +318,6 @@
             $('#searchPhoneOrgNatureCharacterId').val(`{{ $search_params['character_organization_id'][sizeof($search_params['character_organization_id'])-1] }}`);
             $('#searchPhoneOrgNatureCharacter').val(`{{ html_entity_decode($search_params['character_organization']) }}`);
             $('#searchPhoneAdditionalData').val(`{{ html_entity_decode($search_params['more_data'][sizeof($search_params['more_data'])-1]) }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
         <?php } ?>
 
     });

@@ -4,6 +4,7 @@ use App\Models\File\FileText;
 use App\Models\Man\Man;
 use PhpOffice\PhpWord\IOFactory;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 function getDocContent($fullPath)
 {
@@ -25,10 +26,14 @@ function getDocContent($fullPath)
     return $content;
 }
 
-function convertDocToDocx($inputPath, $outputPath)
+function convertDocToDocx($inputPath, $outputPath, $pathForLibreOffice=null)
 {
-    $command = "libreoffice --headless --convert-to docx --outdir $outputPath $inputPath";
 
+    if($pathForLibreOffice){
+        $command = $pathForLibreOffice . " --headless --convert-to docx --outdir $outputPath $inputPath";
+    }else {
+        $command = "libreoffice --headless --convert-to docx --outdir $outputPath $inputPath";
+    }
     try {
         $result = shell_exec($command);
     } catch (\Throwable $th) {
@@ -56,7 +61,7 @@ function addFileAndFileContentWithoutModel($fileDetails, $fileContent){
             'updated_at' => Carbon::now(),
             'created_at' => Carbon::now(),
         ]);
-       
+
         if($fileId){
             FileText::create([
                 'file_id'=> $fileId,
@@ -68,8 +73,8 @@ function addFileAndFileContentWithoutModel($fileDetails, $fileContent){
     } catch (\Throwable $th) {
         return false;
     }
-    
-                         
+
+
 }
 
 function differentFirstLetterHelper($manCompare, $itemCompare, $generalProcent, $key = null)
@@ -106,6 +111,12 @@ function checkAndCorrectDateFormat($date)
             if (is_string($parts)) {
                 return $parts;
             } else {
+                try {
+                    $dateFull = Carbon::parse($date)->format('d.m.Y');
+                    return $dateFull;
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
                 $addedYear = addYearMissingPart($parts[3]);
 
                 if ($parts[1] == "00" || $parts[2] == "00") {
@@ -132,7 +143,7 @@ function addYearMissingPart($year)
     return $year;
 }
 
-function getSearchMan($fullNameArr)
+function getSearchMan($fullNameArr, $searchDegree = 2)
 {
 
     $searchTermName = $fullNameArr['first_name'];
@@ -146,7 +157,7 @@ function getSearchMan($fullNameArr)
         $allColumnSearch = false;
     }
 
-    $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
+    // $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
 
     $getLikeManIds = DB::table('man')
         ->whereNull('deleted_at')

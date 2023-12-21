@@ -18,13 +18,12 @@ class Car extends Model
 
     protected $relationFields = ['car_category', 'car_mark', 'car_color'];
 
+    protected $manyFilter = ['created_at'];
+
     public $relation = [
         'car_category',
         'car_mark',
         'color',
-        'category_id',
-        'note',
-        'count',
     ];
 
     public $relationColumn = [
@@ -35,6 +34,7 @@ class Car extends Model
         'number',
         'count',
         'note',
+        'created_at'
     ];
 
     protected $guarded = [];

@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bibliography/edit.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 @inject('carbon', 'Carbon\Carbon')
 
@@ -110,13 +110,15 @@
                     </div>
 
                     <div class="col">
-                        <div class="form-floating input-date-wrapper">
+                        <div class="form-floating input-date-wrapper calendar-container">
                             <!-- <div class="input-date-wrapper"> -->
                             <!-- <label for="inputDate1" role="value"></label>
                                     <input type="text" hidden role="store" /> -->
-                            <input type="date" placeholder="" id="inputDate1" class="form-control save_input_data"
+                            <input type="text" data-check="date" placeholder="" id="inputDate1" class="form-control save_input_data calendarInput"
                                 placaholder="" name="reg_date" tabindex="5"
+                                autocomplete="off" onblur="handleBlur(this)"
                                 value="{{ $bibliography->reg_date ?? null }}" {{-- data-update="{{ route('bibliography.update',$bibliography->id )}}" --}} />
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                             <label for="inputDate1" class="form-label">6) {{ __('content.date_reg') }}</label>
                             <!-- </div> -->
                         </div>
@@ -226,13 +228,7 @@
 
                         <div class="files">
                             <div class="newfile">
-
                             </div>
-                            {{-- <div id='fileeHom' class="file-upload-content tegs-div">
-                                    <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0" comment delete/>
-                                </div> --}}
-
-
                                 <div id='fileeHom' class="file-upload-content tegs-div">
 
 
@@ -262,14 +258,14 @@
                             </div>
                         </div>
 
-
+{{-- {{dd($bibliography->video)}} --}}
 
                         <div class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class">
                             <span class="form-label">17) {{ __('content.video') }}</span>
 
                             <div class="form-check my-formCheck-class">
-                                {{-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/> --}}
-                                <i class="bi bi-check2 {{ $bibliography->video == 1 ? 'change-video-style' : null }}"></i>
+
+                                <i class="bi bi-check2 {{ $bibliography->video == 1 ? 'change-video-style' : 'change-video-display-none' }}"></i>
                                 <input id="hiddenInp" type="hidden">
                             </div>
                         </div>
@@ -285,7 +281,7 @@
                                         value="1">
                                         {{ __('content.face') }}</option>
                                     <option class = "bibliography_option"
-                                        data-url="{{ route('open.page', ['page' => 'organization', 'model' => 'bibliography', 'id' => $bibliography->id, 'main_route' => 'organization.edit', 'relation' => 'bibliography']) }}"
+                                        data-url="{{ route('open.page', ['page' => 'organization', 'model' => 'bibliography', 'id' => $bibliography->id, 'main_route' => 'bibliography.edit', 'relation' => 'bibliography']) }}"
                                         value="1">
                                         {{ __('content.organization') }}</option>
                                     <option class = "bibliography_option"
@@ -377,7 +373,6 @@
         let delete_item = "{{ route('delete-item') }}"
         // console.log(delete_item);
         let parent_id = "{{ $bibliography->id }}"
-        let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
         // filter translate //
         let equal = "{{ __('content.equal') }}" // havasar e
@@ -404,8 +399,9 @@
     <script src="{{ asset('assets/js/file_upload_delete.js') }}"></script>
     {{-- showing man info --}}
     <script src="{{ asset('assets/js/bibliography/edit.js') }}"></script>
-    <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
     <script src="{{ asset('assets/js/bibliography-table-relation/index.js') }}"></script>
     {{-- <script src='{{ asset('assets/js/main/table.js') }}'></script> --}}
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 @endsection

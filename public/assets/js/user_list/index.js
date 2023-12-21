@@ -10,24 +10,18 @@ btns.forEach((el) => {
             body: JSON.stringify({ status }),
         })
 
-
             .then(  async data => {
-                let responce =  await data.json()
-                if(responce.message=='file_has_been_generated'){
-                    // get answer_message variable from user-list.index
-                    errorModal(answer_message)
-                }else if(responce.message=='response_file_not_generated'){
-                    errorModal(response_file_not_generated)
-                }
-                else{
-                    console.log(responce.message);
-                    // show validation error
-                    const objMap = new Map(Object.entries(responce.message));
-                    objMap.forEach((item) => {
-                        item.forEach(el => errorModal(el))
-                    })
 
+                let result =  await data.json()
+                console.log(result)
+                if(result.message == 'No_persons_with_such_status_were_found_in_the_base'){
+                    errorModal(no_persons_with_such_status_were_found_in_the_base)
+                }else{
+                    let downloadTeg="<a href=/"+lang+"/download?path="+result.message+" id='parag_file' >download</a>"
+                    document.getElementById('downloaded_file').innerHTML=downloadTeg
+                    document.getElementById('parag_file').click()
                 }
+
 
 
 

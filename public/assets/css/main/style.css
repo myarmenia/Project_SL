@@ -1601,7 +1601,9 @@ span.form-label{
 }
 
 .my-plus-disable{
+    pointer-events: none;
     cursor: not-allowed !important;
+
 }
 
 .form-floating{
@@ -1616,11 +1618,6 @@ span.form-label{
   width: 40%;
 }
 
-
-label.modal_form_label{
-  width: 15% ;
-}
-
-.modal_inp_label{
-  min-width: 150px;
+.open-relation-field{
+  cursor: pointer;
 }

@@ -9,7 +9,9 @@
             @foreach ($parentModel->$relation as $key => $data)
                 @if ($key == 0 && count($data->$innerRelation) > 0)
                     <hr style="border:5px solid">
-                    <span>{{ __('content.' . $relation) }}</span>
+                    <a href="{{ route('open.page.bibliography', [$relation, $parentModel->id]) }}">
+                        <span class="btn btn-primary" style="max-width: 100%">{{ __('content.' . $relation) }}</span>
+                    </a>
                     <hr>
                     @php
                         break;
@@ -20,16 +22,20 @@
 
             @foreach ($parentModel->$relation as $key => $data)
                 @if (count($data->$innerRelation) > 0)
-
                     {{-- <span>{{ __('content.' . $relation) }} id - {{ $data->id }}</span> --}}
                     <div class="table_div" style="height: 350px">
-                        <a href="{{ route($relation . '.edit', $data->id) }}" class="relation-table-id" data-table-id = "{{$data->id}}">{{ __('content.' . $relation) }} id -
-                            {{ $data->id }}</a>
-                        <table class="table table-bordered person_table" data-table-name="man" data-section-name='bibliography'>
+                        <a style="color: blue ;" href="{{ route($relation . '.edit', $data->id) }}" class="relation-table-id"
+                            data-table-id = "{{ $data->id }}">{{ __('content.' . $relation) }} id -
+                            {{ $data->id }} </a>
+                        <table class="table table-bordered person_table" data-table-name="man"
+                            data-table-id = "{{ $data->id }}" data-filter-table-name="{{ $relation }}"
+                            data-section-name='bibliography' style="margin-top:20px ">
                             <thead>
                                 <tr style="background-color:#c6d5ec; position: sticky; top:0;">
-                                    <th class="filter-th" scope="col" data-type="filter-id"><i class="bi bi-funnel-fill"
-                                            aria-hidden="true" data-field-name="id"></i> Id</th>
+                                    <th class="filter-th" scope="col" data-type="filter-id"><i
+                                            class="bi bi-funnel-fill" aria-hidden="true" data-field-name="id"></i> Id
+                                    </th>
+                                    
                                     <th class="filter-th" scope="col" data-type="standart-complex">
                                         {{ __('table.name') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="first_name"></i></th>
@@ -52,7 +58,7 @@
                                 @foreach ($data->$innerRelation as $item)
                                     <tr class="start">
                                         <td scope="row">{{ $item->id }}</td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td>
 
                                             @if (count($item->first_name) > 0)
                                                 @php
@@ -68,7 +74,7 @@
                                             @endif
 
                                         </td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td>
                                             @if (count($item->last_name))
                                                 @php
                                                     $content_last_name = '';
@@ -82,7 +88,7 @@
                                                 {{ $content_last_name }}
                                             @endif
                                         </td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td>
                                             @if (count($item->middle_name))
                                                 @php
                                                     $content_middle_name = '';
@@ -96,7 +102,7 @@
                                                 {{ $content_middle_name }}
                                             @endif
                                         </td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td>
                                             {{ $item->birthday_str != null ? $item->birthday_str : null }}
                                         </td>
 
@@ -126,7 +132,9 @@
         <span>{{ __('content.' . $relation) }}</span>
         <hr>
         <div class="table_div" style="height: 350px">
-            <table class="table table-bordered person_table" data-table-name="{{$relation}}" data-section-name='bibliography'>
+            <span class ='relation-table-id' data-table-id="{{$parentModel->id}}"></span>
+            <table class="table table-bordered person_table man-table"  data-table-name="{{ $relation }}"
+                data-section-name='bibliography'>
                 <thead>
                     <tr style="background-color:#c6d5ec; position: sticky;top: 0;">
                         <th class="filter-th" scope="col" data-type="filter-id"><i class="bi bi-funnel-fill"
@@ -134,12 +142,13 @@
                         <th class="filter-th" scope="col" data-type="standart-complex"> {{ __('table.name') }} <i
                                 class="bi bi-funnel-fill" aria-hidden="true" data-field-name="first_name"></i></th>
                         <th class="filter-th" scope="col" data-type="standart-complex">{{ __('table.last_name') }}
-                            <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="last_name"></i></th>
+                            <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="last_name"></i>
+                        </th>
                         <th class="filter-th" scope="col" data-type="standart-complex">
                             {{ __('table.patronymic') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                 data-field-name="middle_name"></th>
-                        <th class="filter-th" scope="col" data-type="filter-complex">{{ __('table.birthday') }} <i
-                                class="bi bi-funnel-fill" aria-hidden="true" data-field-name="birthday_str"></i></th>
+                        <th class="filter-th" scope="col" data-type="filter-complex">{{ __('table.birthday') }}
+                            <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="birthday_str"></i></th>
                         <th class="filter-th" scope="col">{{ __('button.edit') }}</th>
                         <th class="filter-th" scope="col">{{ __('button.watch') }}</th>
                         <th class="filter-th" scope="col">{{ __('button.relations') }}</th>
@@ -151,7 +160,7 @@
 
                             <td scope="row">{{ $data->id }}</td>
 
-                            <td contenteditable="true" spellcheck="false">
+                            <td>
 
                                 @if (count($data->first_name) > 0)
                                     @php
@@ -168,7 +177,7 @@
                                     {{ $content_first_name }}
                                 @endif
                             </td>
-                            <td contenteditable="true" spellcheck="false">
+                            <td>
                                 @if (count($data->last_name))
                                     @php
                                         $content_last_name = '';
@@ -182,7 +191,7 @@
                                     {{ $content_last_name }}
                                 @endif
                             </td>
-                            <td contenteditable="true" spellcheck="false">
+                            <td >
                                 @if (count($data->middle_name))
                                     @php
                                         $content_middle_name = '';
@@ -196,7 +205,7 @@
                                     {{ $content_middle_name }}
                                 @endif
                             </td>
-                            <td contenteditable="true" spellcheck="false">
+                            <td >
                                 {{ $data->birthday_str != null ? $data->birthday_str : null }}
                             </td>
 
@@ -211,7 +220,6 @@
 
                                 <a target="blank">
                                     <i class="bi bi-eye open-eye" data-id="{{ $data->id }}"></i>
-                                    <span></span>
                                 </a>
                             </td>
                         </tr>

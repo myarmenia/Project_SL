@@ -45,45 +45,38 @@ class CheckedUserListController extends Controller
         }
         $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
         $reportType = $status;
-        // dd($reportType);
-        if($reportType=="like"){
-            $reportType="Բազայում առկա";
+       
+        if($reportType == "like"){
+            $reportType = "Առկա";
         }
-        if($reportType=="some"){
-            $reportType="Ոմն";
+        if($reportType == "some"){
+            $reportType = "Ոմն";
         }
-        if($reportType=="new"){
-            $reportType="Բոլորովին նոր";
+        if($reportType == "new"){
+            $reportType = "Նոր";
         }
 
         $name = sprintf('%s_%s.docx', $reportType, $now);
+        $message = "";
         if (count($get_user_status) > 0) {
             $user = Auth::user()->first_name . ' ' . Auth::user()->last_name;
             $datetime = \Carbon\Carbon::now()->format('d-m-Y H:i');
             $day = \Carbon\Carbon::now()->format('d-m-Y');
 
-
             $result = Artisan::call('generate:word_doc_after_search', ['name' => $name, 'datetime' => $datetime, 'user' => $user, 'role_name' => $role_name, 'data' => $get_user_status, 'reportType' => $reportType,'day'=>$day]);
 
-            $message = "";
             if ($result) {
-                $message ='file_has_been_generated';
-            }else{
-                $message ='response_file_not_generated';
+                $file_path = "public/generate_file/". $name;
+
+                $message = $file_path;
             }
-            return response()->json(['message' => $message]);
+
         } else {
 
-            $validated = [
-                'status_abssent' => ['required'],
+            $message="No_persons_with_such_status_were_found_in_the_base";
 
-            ];
-
-            $validator = Validator::make($request->all(), $validated);
-            if ($validator->fails()) {
-                return response()->json(['message' => $validator->errors()]);
-            }
         }
+        return response()->json(['message' => $message]);
     }
 
     /**

@@ -76,7 +76,7 @@ tfoot,thead,tr,th,td{
 }
 .forForm{
     position: relative;
-    width: 80%;
+    width: 70%;
     float: left;
     text-align: right;
     /* overflow: hidden; */
@@ -699,7 +699,7 @@ Table Style - This is what you want
 
 /* search  select block */
 
-.distance{
+.distance,.date-search-select{
     position:absolute;
     top: 3;
     right: -210;
@@ -708,3 +708,11 @@ Table Style - This is what you want
     font-size: 15px;
 
 }
+/* .date-search-input{
+    position:absolute;
+    top: 3;
+    right: -315 ;
+    max-width: 100px;
+    max-height: 24px;
+    font-size: 15px;
+} */

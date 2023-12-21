@@ -31,6 +31,8 @@
         <li id="keepAdv">{{ __('content.keep_signal') }}</li>
     </ul>
 </div>
+<x-fullscreen-modal/>
+
 
 @section('js-include')
 

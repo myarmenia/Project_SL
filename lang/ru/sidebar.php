@@ -146,7 +146,8 @@ return [
     'external_sign' => 'Внешние приметы',
     'translate' => 'Система обучения',
     'controll' => 'Контроль',
-
+    'checked-file-data' => 'Ввод данных через файлы',
+    'keepSignal' => 'Ведение сигналов',
 
 
 ];

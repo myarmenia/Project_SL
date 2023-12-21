@@ -68,7 +68,7 @@ return [
         ],
         'generate_file' => [
             'driver' => 'local',
-            'root' => storage_path('app/generate_file/new_file'),
+            'root' => storage_path('app/public/generate_file'),
         ],
         'answer_file' => [
             'driver' => 'local',

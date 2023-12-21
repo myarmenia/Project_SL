@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+
 @endsection
 
 @section('content')
@@ -59,10 +59,12 @@
 
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" value="{{ $criminal_case->opened_date ?? null }}"
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" data-check="date" placeholder="" value="{{ $criminal_case->opened_date ?? null }}"
                                     id="opened_date" tabindex="2" data-type="update_field"
-                                    class="form-control save_input_data" name="opened_date" />
+                                    class="form-control save_input_data calendarInput" name="opened_date"
+                                    autocomplete="off" onblur="handleBlur(this)" />
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="opened_date" class="form-label">4)
                                     {{ __('content.criminal_proceedings_date') }}</label>
                             </div>
@@ -275,7 +277,7 @@
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                                <x-teg name="id" :item="$criminal_case->bibliography" inputName="bibliography" :label="__('content.short_bibl')"
+                                <x-teg name="id" :item="$criminal_case" relation="bibliography" :label="__('content.short_bibl')"
                                     tableName="bibliography" related :edit="[
                                         'page' => 'bibliography.edit',
                                         'main_route' => 'criminal_case.edit',
@@ -304,8 +306,6 @@
         let parent_id = "{{ $criminal_case->id }}"
         let updated_route = "{{ route('criminal_case.update', $criminal_case->id) }}"
         let delete_item = "{{ route('delete_tag') }}"
-
-        let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.criminal_case') }}"
     </script>
     <script src='{{ asset('assets/js/script.js') }}'></script>
@@ -314,6 +314,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src='{{ asset('assets/js/criminalCase/script.js') }}'></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 @endsection

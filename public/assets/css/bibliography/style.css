@@ -79,6 +79,10 @@
     color: green;
     border: 1px solid green;
     font-weight: bold;
+    display:block;
+}
+.change-video-display-none{
+    display:none;
 }
 
 

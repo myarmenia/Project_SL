@@ -1,15 +1,7 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
-@endsection
-
 @section('content')
 
-
-    <!-- End Page Title -->
-    <!-- add Perrson Table -->
     <section class="section">
         <div class="col">
             <div class="card">
@@ -145,22 +137,19 @@
                                         @endif --}}
                                         @if(request()->model === 'bibliography')
                                             <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'organization', 'id' => $organization->id]) }}">
+                                                <a href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'organization', 'id' => $organization->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @elseif (isset(request()->main_route) && isset(request()->relation))
                                             <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
+                                                <a href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @elseif(isset(request()->main_route) && !isset(request()->relation))
                                             <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'organization', 'route_name' => request()->route_name, 'model_id' => $organization->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
+                                                <a href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'organization', 'route_name' => request()->route_name, 'model_id' => $organization->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect, 'model_relation' => request()->model_relation]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
@@ -174,14 +163,9 @@
                                         @endcan
                                     </tr>
                                 @endforeach
-
-
                             </tbody>
                         </table>
-
                     </div>
-
-
                 </div>
                 <div id="countries-list"></div>
             </div>
@@ -228,7 +212,7 @@
 
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
-        let ties = "{{ __('content.ties') }}"
+
         let parent_table_name = "{{ __('content.organization') }}"
         let fieldName = 'organization_id'
         let relation = "{{ request()->relation }}"
@@ -249,10 +233,14 @@
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
         // filter translate //
+        let bibliography_id = null
+
+            @if (isset($bibliography_id))
+                bibliography_id = "{{ $bibliography_id }}"
+            @endif
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
 @endsection
 
 @endsection

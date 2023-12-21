@@ -137,6 +137,7 @@ class FileUploadService
 
     public function deleteItem(Request $request)
     {
+
 // dd($request->all());
         $id = $request['id'];
         // $pivot_table_name=$request['pivot_table_name'];
@@ -147,19 +148,35 @@ class FileUploadService
         $file = File::find($request['id']);
         $file_exst = explode('.', $file->real_name);
 
-        if ($file_exst[1] == 'mp4' || $file_exst[1] == 'mov') {
-            $bibliography->update([
-                'video' => 0,
-            ]);
-        }
 
         $bibliography->files()->detach($request['id']);
 
+        // dd($bibliography->files);
+        if ($file_exst[1] == 'mp4' || $file_exst[1] == 'mov') {
+            $count=0;
+            foreach($bibliography->files as $fl){
+                if($fl->video==1){
+                    $count+=1;
+
+                }
+                // dd($fl->video);
+            }
+            $bibliography->update([
+                        'video' => $count>0 ? 1:0,
+                    ]);
+
+        }
+
+
+
         Storage::delete($file->path);
         $file->delete();
+        return response()->json(['message'=>$bibliography]);
 
-        return response()->noContent();
+        // return response()->noContent();
     }
+
+
 
 
 }

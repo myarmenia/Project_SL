@@ -4,11 +4,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/company/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+
 @endsection
 
 @section('content')
@@ -49,10 +48,12 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" value="{{ $organization->reg_date }}" id="reg_date"
-                                    tabindex="4" data-type="update_field" class="form-control save_input_data"
-                                    name="reg_date" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" data-check="date" placeholder="" value="{{ $organization->reg_date }}" id="reg_date"
+                                    tabindex="4" data-type="update_field" class="form-control save_input_data calendarInput"
+                                    name="reg_date" 
+                                    autocomplete="off" onblur="handleBlur(this)"/>
+                                    <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                 <label for="reg_date" class="form-label">
                                     3) {{ __('content.date_formation') }}
                                 </label>
@@ -120,7 +121,7 @@
                             <a
                                 href="{{ route('phone.create', ['model' => 'organization', 'id' => $organization->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="phone" name="number" tableName="phone" related
-                            :label="__('content.short_phone')":label="__('content.short_address')" :edit="['page' =>'phone.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']" delete />
+                            :label="__('content.short_phone')" :edit="['page' =>'phone.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']" delete />
                         </div>
 
                         <div class="btn-div">
@@ -185,7 +186,7 @@
                         <div class="btn-div">
                             <label class="form-label">15) {{ __('content.dummy_address') }}</label>
                             <a href="{{ route('open.page', ['page' => 'address', 'main_route' => 'organization.edit','model' => 'organization', 'model_id' => $organization->id, 'relation' => 'dummy_address']) }}">{{ __('content.addTo') }}</a>
-                            <x-teg :item="$organization" inputName="dummy_address" name="id" tableName="dummy_address" related
+                            <x-teg :item="$organization" relation="dummy_address" name="id" tableName="dummy_address" related
                                 :label="__('content.short_address')" delete :edit="['page' =>'address.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']"  />
                         </div>
 
@@ -281,14 +282,9 @@
                         <div class="btn-div">
                             <label class="form-label">27) {{ __('content.ties') }}</label>
                             <div class="tegs-div" id="company-police"></div>
-{{--                            <x-teg :item="$organization" inputName="bibliography" name="id" tableName="bibliography" related--}}
-{{--                                   :label="__('content.short_bibl')" />--}}
-
                             <x-tegs :data="$organization" relation="bibliography" name="id" :label="__('content.short_bibl')"
                                     tableName="bibliography" related delete relationtype="has_many" />
-{{--                          --}}
-{{--                            <x-teg name="id" :item="$organization" inputName="bibliography" :label="__('content.short_bibl')"--}}
-{{--                                tableName="bibliography" related  />--}}
+
                         </div>
                     </div>
                 </div>
@@ -307,13 +303,14 @@
         let updated_route = "{{ route('organization.update', $organization->id) }}"
         let delete_item = "{{ route('delete_tag') }}"
 
-        let ties = "{{ __('content.ties') }}"
+
         let parent_table_name = "{{ __('content.organization') }}"
     </script>
     <script src='{{ asset('assets/js/script.js') }}'></script>
     <script src="{{ asset('assets/js/tag.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src='{{ asset('assets/js/company/script.js') }}'></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 @endsection

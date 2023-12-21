@@ -5,11 +5,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/consistent-search/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
+
 @endsection
 
 @section('content')
-    
+
 
     <section class="section">
         <div class="card">
@@ -59,9 +60,11 @@
                         <small class="text-danger text-end error-msg">{{$message}}</small>
                         @enderror
                         <div class="col">
-                                <div class="form-floating input-date-wrapper">
-                                    <input type="date" id="deadline" class="form-control pb-0 pt-0" name="deadline"
-                                           min="{{ Carbon\Carbon::today()->format("Y-m-d") }}"/>
+                                <div class="form-floating input-date-wrapper calendar-container">
+                                    <input type="text" data-check="date"  id="deadline" class="form-control pb-0 pt-0 calendarInput" name="deadline"
+                                           min="{{ Carbon\Carbon::today()->format("Y-m-d") }}"
+                                           autocomplete="off" onblur="handleBlur(this)"/>
+                                           <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                     <label for="deadline" class="form-label">{{ __('search.control_deadline') }}</label>
                                 </div>
                         </div>
@@ -188,6 +191,8 @@
         <script src="{{ asset('js/jquery.js') }}"></script>
         <script src="{{ asset('assets/js/select2.min.js') }}"></script>
         <script src="{{ asset('assets/js/consistent-search/script.js') }}"></script>
+        <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
     @endsection
 @endsection
 

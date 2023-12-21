@@ -9,6 +9,7 @@ use App\Models\Man\Man;
 use App\Models\Weapon;
 use App\Services\Filter\ResponseResultService;
 use App\Services\Fusion\FusionService;
+use App\Services\Log\LogService;
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,9 +45,10 @@ class FusionController extends Controller
     public function fusion($lang, Request $request, $table_name, $first_id, $second_id)
     {
         // dd($request->all());
-
+        $ids = ['first_id' => $first_id,'second_id' => $second_id];
         $data = FusionService::fusion($request, $table_name, $first_id, $second_id);
         $result = $data === true ? __('messages.fusion_successfully') : __("messages.error");
+         LogService::store($ids, null , $table_name,'fusion');
         return redirect()->route('fusion.name', $table_name)->with('result', $result);
     }
 
@@ -54,11 +56,11 @@ class FusionController extends Controller
     public function fusion_more_ids($lang, Request $request)
     {
         // dd($request->all());
-
+        $arr_ids = $request->all_fusion_id;
         $data = FusionService::fusion_more_ids($request);
 
-        $result = $data === true ? __('messages.fusion_successfully') : ($data == '' ? __("messages.data_discrepancy_exists") : __("messages.error"));
-
+        $result = $data === true ? __('messages.fusion_successfully') : ($data == 'data_discrepancy_exists' ? __("messages.data_discrepancy_exists") : __("messages.error"));
+        LogService::store($arr_ids, null , $request->tb_name,'fusion');
         return response()->json(['result' => $result]);
     }
 

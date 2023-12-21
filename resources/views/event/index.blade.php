@@ -5,9 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -41,13 +40,14 @@
                         </div>
 
                         <div class="col">
-                            <div class="form-floating input-date-wrapper">
-
-                                <input type="date" placeholder=""
-                                    value="{{ $event->date ? date('Y-m-d', strtotime($event->date)) : null }}"
-                                    id="item2" tabindex="2" data-type="update_field"
-                                    class="form-control save_input_data" name="date" />
+                            <div class="form-floating input-date-wrapper calendar-container">
+                                <input type="text" placeholder=""
+                                autocomplete="off" onblur="handleBlur(this)"
+                                    value="{{ $event->date }}"
+                                    id="item2" tabindex="2" data-type="update_field" data-check="date"
+                                    class="form-control save_input_data calendarInput" name="date" />
                                 <label for="item2" class="form-label">2) {{ __('content.date_security_date') }}</label>
+                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                             </div>
                         </div>
 
@@ -64,21 +64,16 @@
 
                         <div class="btn-div">
                             <label class="form-label">4) {{ __('content.place_event_address') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'model_name' => 'event', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
-                            <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" tableName="address" related
-                                delete :edit="['page' =>'address.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']"/>
-
+                            <a href="{{ route('open.page', ['page' => 'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'model_name' => 'event', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+                            <x-teg :item="$event" relation="address" :label="__('content.short_address')" tableName="address" related delete :edit="['page' =>'address.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">5) {{ __('content.place_event_organization') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" tableName="organization"
+                            <a  href="{{ route('open.page', ['page' => 'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
+                            <x-teg :item="$event" relation="organization" :label="__('content.short_organ')" tableName="organization"
                                 related :edit="['page' =>'organization.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
                         </div>
-
 
                         <div class="col">
                             <div class="form-floating">
@@ -233,9 +228,8 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.ties') }}</label>
-                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                                <x-teg name="id" :item="$event" inputName="bibliography" :label="__('content.short_bibl')"
-                                    tableName="bibliography" related :edit="['page' =>'bibliography.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" />
+                            <div class="file-upload-content tegs-div" id="company-police">
+                                <x-teg :item="$event" relation="bibliography" name="id" :label="__('content.short_bibl')" tableName="bibliography" related />
                             </div>
 
                         </div>
@@ -253,11 +247,12 @@
 
 @section('js-scripts')
     <script>
+
         let parent_id = "{{ $event->id }}"
 
         let updated_route = "{{ route('event.update', $event->id) }}"
         let delete_item = "{{ route('delete_tag') }}"
-        let ties = "{{ __('content.ties') }}"
+
         let parent_table_name = "{{ __('content.event') }}"
     </script>
     <script src='{{ asset('assets/js/script.js') }}'></script>
@@ -266,6 +261,7 @@
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src='{{ asset('assets/js/event/script.js') }}'></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+
 @endsection
 @endsection
