@@ -308,6 +308,8 @@ function fetchInputTitle(el, fnName = null) {
                         const option = document.createElement('option')
                         option.innerText = element.name
                         option.setAttribute('data-modelid', element.id)
+                        element.id = element.id
+
                         el.closest('.col').querySelector('datalist').appendChild(option)
 
                     })
@@ -507,10 +509,11 @@ function onBlur(e) {
 
     const hasValue = current_tags.some(c_tag => c_tag === checkvalue)
 
-    console.log(!hasValue  ,this.value !== '',current_tags)
-    // console.log(!hasValue  && inputCurrentValue !== '' || (inputCurrentValue === '' && this.value !== ''))
-    if (!hasValue  && this.value !== '') {
-        // console.log('--------fetch----')
+    console.log(inputCurrentValue  , this.value )
+
+    if (!hasValue  && inputCurrentValue != '' || (inputCurrentValue != this.value )) {
+
+        console.log('--------fetch----')
         fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){
