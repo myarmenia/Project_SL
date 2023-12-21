@@ -1,4 +1,4 @@
-<div class="modal fade" id="additional_information" tabindex="-1" aria-labelledby="exampleModalLgLabel"
+<div class="modal fade file-modal" id="additional_information" tabindex="-1" aria-labelledby="exampleModalLgLabel"
      style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

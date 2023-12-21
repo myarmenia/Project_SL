@@ -75,7 +75,7 @@
                                     data-check="date"
                                     autocomplete="off" onblur="handleBlur(this)"
                                 />
-                                <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
+                                <span class="calendar-icon " onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
 
                                 <label for="inputDate1" class="form-label"
                                 >3) {{__('content.start_employment')}}</label

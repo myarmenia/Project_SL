@@ -1,8 +1,8 @@
 let picker = {};
 let element = null
+const date_inp_text = document.querySelectorAll('.calendarInput')
 function openCalendar(el) {
-  let input = el.closest('.calendar-container').querySelector('.calendarInput')
-  element = input
+  element = el.closest('.calendar-container').querySelector('.calendarInput')
   let elementId = element.name
 
   if (!picker[elementId]) {
@@ -14,7 +14,6 @@ function openCalendar(el) {
     });
   }
   picker[elementId].show();
-
 }
 
 function handleBlur(inp) {
@@ -29,19 +28,18 @@ function handleBlur(inp) {
     }
     return chunks.join("-");
   }
-  // Example usage:
+
   let resultString = addHyphenEveryTwo(val);
   const day = resultString;
-  // let year = match[3];
+
   let year = end_val
   let arr_day = day.split('-')
   if (parseInt(year, 10) < 41 && year.length == 2) {
     year = '20' + year;
     const formattedDate = `${day}-${year}`;
     inp.value = formattedDate.split('-').reverse().join('-');
-
-
   }
+
   else if (parseInt(year, 10) > 41 && year.length == 2) {
     year = '19' + year;
     const formattedDate = `${day}-${year}`;
@@ -49,11 +47,10 @@ function handleBlur(inp) {
     console.log(formattedDate);
 
   }
+
   else{
     const formattedDate = `${day}-${year}`;
     inp.value = formattedDate.split('-').reverse().join('-');
-    console.log(formattedDate);
-
   }
 
   if (year.length != 4) {
@@ -95,18 +92,17 @@ function updateInput(date) {
 }
 
 
-const date_inp_text = document.querySelectorAll('.calendarInput')
-// date_inp_text.forEach(el => {
-//   const revVal = el.value.split('-').reverse().join('-')
-//   el.value = revVal
-// })
-
-
-
-
-
 function handleInput() {
   date_inp_text.forEach(el => {
+
+    let elVal = el.value.split(' ')
+    el.value = elVal[0].split('-').reverse().join('-')
+
+    const parentEl = el.closest('.col')
+    if (parentEl.querySelector('input').disabled){
+        parentEl.querySelector('.calendar-icon').classList.add('disabled')
+    }
+
     el.addEventListener('input', (e) => {
       let regex = /[^a-zA-Z]/;
       if (!regex.test(e.target.value)) {
@@ -116,17 +112,4 @@ function handleInput() {
   });
 }
 
-
-
-
 handleInput()
-
-
-  date_inp_text.forEach(el => {
-    let elVal = el.value.split(' ')
-    let elValJoin = elVal[0].split('-').reverse().join('-')
-    el.value = elValJoin
-  });
-
-
-
