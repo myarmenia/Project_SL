@@ -35,7 +35,7 @@ function processFile(file) {
 
         const alertMsgs = {
             am : 'Ընտրեք միայն "doc", "docx", "txt" ֆորմատի ֆայլեր',
-            ru : 'rus text',
+            ru : 'Выбирайте только файлы формата «doc», «docx», «txt».',
         }
 
         alert(alertMsgs[match[1]])
