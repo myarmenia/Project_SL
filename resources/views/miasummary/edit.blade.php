@@ -36,9 +36,6 @@
                                     value="{{ $miaSummary->date ?? null }}" data-type="update_field" 
                                     autocomplete="off" onblur="handleBlur(this)"/>
                                     <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
-
-                                <input type="date" id="inputDate1" class="form-control save_input_data" name="date"
-                                    value="{{ $miaSummary->date ?? null }}" data-type="update_field" />
                                 <label for="inputDate1" class="form-label">1) {{ __('content.date_registration_reports') }}</label>
                                 <!-- </div> -->
                             </div>
