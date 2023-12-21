@@ -988,6 +988,23 @@
     var searchInput;
 
     $(document).ready(function(){
+        
+         // =============================================
+            // interval jquery
+            // =============================================
+
+            $('.date-search-select').on('change', function() {
+                var el = $(this);
+                var simpelsearch_date_input = el.closest('.date-search-block').find('.date-search-input');
+                if (el.val() === '<=>') {
+                    simpelsearch_date_input.show();
+                } else {
+                    simpelsearch_date_input.hide();
+                }
+            });
+            // =============================================
+            // interval jquery
+            // =============================================
 
         $('input').map(function(){
             if($(this).hasClass('oneInputSaveEnter')){
