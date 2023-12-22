@@ -17,10 +17,11 @@
     </select>
     {{-- <input name="{{ $inpName }}" type="date" class="date-search-input" style="display: none"> --}}
     @if ($name == 'search_count_days')
-        <input type="text" name="{{ $inpName }}" id="signalDateOf" onkeydown="validateNumber(event,'signalDateOf',12)" class="oneInputSaveEnter" />
+        <input type="text" name="{{ $inpName }}" id="signalDateOf" onkeydown="validateNumber(event,'signalDateOf',12)" class="date-search-input oneInputSaveEnter " style="display: none;" />
     @else
         <input type="text" name="{{ $inpName }}" id="searchDateOf" style="display: none; width: 505px;"
         onkeydown="validateNumber(event,'searchDateOf',12)" class="oneInputSaveDateMan oneInputSaveEnter date-search-input" />
+
     @endif
 
 </div>

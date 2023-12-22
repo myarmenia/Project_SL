@@ -189,7 +189,10 @@
             <label for="searchKeepNameOperatives">{{ __('content.name_operatives') }}</label>
             <input type="text" name="worker[]" id="searchKeepNameOperatives" class="oneInputSaveEnter"/>
 
-            <x-select-distance name="worker_distance" class="distance distance_searchKeepNameOperatives"/>
+            <x-select-distance
+                :search-data="$search_params['worker_distance'] ?? '' " 
+                name="worker_distance" 
+                class="distance distance_searchKeepNameOperatives"/>
 
             @if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchKeepNameOperativesOp">{{ __('content.or') }}</span>

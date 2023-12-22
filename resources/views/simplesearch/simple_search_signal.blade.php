@@ -1018,22 +1018,24 @@
     var searchInput;
 
     $(document).ready(function(){
-        
-         // =============================================
-            // interval jquery
+                let f = @json($search_params['date_search_birthday'])
+                console.log(f);
+            // =============================================
+               // interval jquery
             // =============================================
 
             $('.date-search-select').on('change', function() {
                 var el = $(this);
                 var simpelsearch_date_input = el.closest('.date-search-block').find('.date-search-input');
-                if (el.val() === '<=>') {
+                if (el.val() === '<=>' || simpelsearch_date_input !== '') {
                     simpelsearch_date_input.show();
                 } else {
                     simpelsearch_date_input.hide();
                 }
             });
+
             // =============================================
-            // interval jquery
+               // interval jquery
             // =============================================
 
         $('input').map(function(){
@@ -1425,6 +1427,7 @@
         });
 
         <?php if (isset($search_params)) { ?>
+            $('#searchDateOf').hide();
             $('#searchSignalRegNumberSignal').val(`{{  html_entity_decode($search_params['reg_num'][sizeof($search_params['reg_num'])-1]) }}`);
             $('#searchSignalContentsInformationSignal').val(`{{  html_entity_decode($search_params['content'][sizeof($search_params['content'])-1]) }}`);
             $('#searchSignalLineWhichVerified').val(`{{  html_entity_decode($search_params['check_line'][sizeof($search_params['check_line'])-1]) }}`);

@@ -84,8 +84,8 @@ td a i {
 
 .dinamic_div {
     padding: 20px;
-    overflow-y: auto;
     height: 400px;
+    overflow: auto;
 }
 
 .dinamic-table {

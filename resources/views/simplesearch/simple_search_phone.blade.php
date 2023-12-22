@@ -44,7 +44,10 @@
             <label for="searchPhonePhoneNumber">{{ __('content.phone_number') }}</label>
             <input type="text" name="number[]" id="searchPhonePhoneNumber" onkeydown="validateNumber(event,'searchPhonePhoneNumber',20)" class="oneInputSaveEnter"/>
 
-            <x-select-distance name="number_distance" class="distance distance_searchPhonePhoneNumber"/>
+            <x-select-distance 
+                :search-data="$search_params['number_distance'] ?? '' "
+                name="number_distance" 
+                class="distance distance_searchPhonePhoneNumber"/>
 
             @if (isset($search_params['number_type']) && $search_params['number_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">{{ __('content.or') }}</span>
@@ -174,7 +177,10 @@
             <label for="searchPhoneAdditionalData">{{ __('content.additional_data') }}</label>
             <input type="text" name="more_data[]" id="searchPhoneAdditionalData" class="oneInputSaveEnter"/>
 
-            <x-select-distance name="more_data_distance" class="distance distance_searchPhoneAdditionalData"/>
+            <x-select-distance
+                :search-data="$search_params['more_data_distance'] ?? '' " 
+                name="more_data_distance" 
+                class="distance distance_searchPhoneAdditionalData"/>
 
             @if (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">{{ __('content.or') }}</span>

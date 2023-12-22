@@ -197,7 +197,10 @@
             <label for="searchEventResultsEvent">{{ __('content.results_event') }}</label>
             <input type="text" name="result[]" id="searchEventResultsEvent" class="oneInputSaveEnter" />
 
-            <x-select-distance name="result_distance" class="distance distance_searchEventResultsEvent"/>
+            <x-select-distance 
+                :search-data="$search_params['result_distance'] ?? '' "
+                name="result_distance" 
+                class="distance distance_searchEventResultsEvent"/>
 
             @if (isset($search_params['result_type']) && $search_params['result_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventResultsEventOp">{{ __('content.or') }}</span>

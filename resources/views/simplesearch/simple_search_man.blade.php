@@ -83,7 +83,10 @@
                 <label for="searchManFirstName">{{ __('content.first_name') }}</label>
                 <input type="text" name="first_name[]" id="searchManFirstName" class="getName oneInputSaveEnter" />
 
-                <x-select-distance :search-data="$search_params['first_name_distance'] ?? '' " name="first_name_distance" class="distance distance_searchManFirstName" />
+                <x-select-distance 
+                    :search-data="$search_params['first_name_distance'] ?? '' " 
+                    name="first_name_distance" 
+                    class="distance distance_searchManFirstName" />
 
                 @if (isset($search_params['first_name_type']) && $search_params['first_name_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -118,7 +121,10 @@
                 <label for="searchManMiddleName">{{ __('content.middle_name') }}</label>
                 <input type="text" name="middle_name[]" id="searchManMiddleName" class="getName oneInputSaveEnter" />
 
-                <x-select-distance :search-data="$search_params['middle_name_distance'] ?? '' " name="middle_name_distance" class="distance distance_searchManMiddleName" />
+                <x-select-distance 
+                    :search-data="$search_params['middle_name_distance'] ?? '' " 
+                    name="middle_name_distance" 
+                    class="distance distance_searchManMiddleName" />
 
                 @if (isset($search_params['middle_name_type']) && $search_params['middle_name_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -232,7 +238,10 @@
                 <label for="searchManPassportNumber">{{ __('content.passport_number') }}</label>
                 <input type="text" name="passport[]" id="searchManPassportNumber" class="oneInputSaveEnter" />
 
-                <x-select-distance :search-data="$search_params['password_distance'] ?? '' " name="password_distance" class="distance distance_searchManPassportNumber" />
+                <x-select-distance 
+                    :search-data="$search_params['password_distance'] ?? '' " 
+                    name="password_distance" 
+                    class="distance distance_searchManPassportNumber" />
 
                 @if (isset($search_params['passport_type']) && $search_params['passport_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -521,9 +530,9 @@
                 <input type="text" name="region[]" id="searchManPlaceOfBirthArea" class="oneInputSaveEnter" />
 
                 <x-select-distance
-                 :search-data="$search_params['region_name_distance'] ?? '' "
-                 name="region_name_distance"
-                 class="distance distance_searchManPlaceOfBirthArea" />
+                    :search-data="$search_params['region_name_distance'] ?? '' "
+                    name="region_name_distance"
+                    class="distance distance_searchManPlaceOfBirthArea" />
 
                 @if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
