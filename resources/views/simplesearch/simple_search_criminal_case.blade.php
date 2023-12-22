@@ -76,7 +76,10 @@
             <label for="searchCriminalCriminalCode">{{ __('content.criminal_code') }}</label>
             <input type="text" name="artical[]" id="searchCriminalCriminalCode" class="oneInputSaveEnter oneInputSaveCriminalCase"  />
 
-            <x-select-distance name="artical_distance" class="distance distance_searchCriminalCriminalCode"/>
+            <x-select-distance
+                :search-data="$search_params['artical_distance'] ?? '' " 
+                name="artical_distance" 
+                class="distance distance_searchCriminalCriminalCode"/>
 
             @if (isset($search_params['artical_type']) && $search_params['artical_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalCriminalCodeOp">{{ __('content.or') }}</span>
@@ -255,7 +258,10 @@
             <label for="searchCriminalWorker">{{ __('content.name_operatives') }}</label>
             <input type="text" name="worker[]" id="searchCriminalWorker"  class="oneInputSaveEnter oneInputSaveCriminalCase"/>
 
-            <x-select-distance name="worker_distance" class="distance distance_searchCriminalWorker"/>
+            <x-select-distance 
+                :search-data="$search_params['worker_distance'] ?? '' "
+                name="worker_distance" 
+                class="distance distance_searchCriminalWorker"/>
 
             @if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalWorkerOp">{{ __('content.or') }}</span>
@@ -336,7 +342,10 @@
             <label for="searchCriminalNatureMaterialsPaint">{{ __('content.nature_materials_paint') }}</label>
             <input type="text" name="character[]" id="searchCriminalNatureMaterialsPaint" class="oneInputSaveEnter oneInputSaveCriminalCase"  />
 
-            <x-select-distance name="character_distance" class="distance distance_searchCriminalNatureMaterialsPaint"/>
+            <x-select-distance 
+                :search-data="$search_params['character_distance'] ?? '' "
+                name="character_distance" 
+                class="distance distance_searchCriminalNatureMaterialsPaint"/>
 
             @if (isset($search_params['character_type']) && $search_params['character_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalNatureMaterialsPaintOp">{{ __('content.or') }}</span>
@@ -368,7 +377,10 @@
             <label for="searchCriminalInitiatedDow">{{ __('content.initiated_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchCriminalInitiatedDow" class="oneInputSaveEnter oneInputSaveCriminalCase" />
 
-            <x-select-distance name="opened_dou_distance" class="distance distance_searchCriminalInitiatedDow"/>
+            <x-select-distance 
+                :search-data="$search_params['opened_dou_distance'] ?? '' "
+                name="opened_dou_distance" 
+                class="distance distance_searchCriminalInitiatedDow"/>
 
             @if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInitiatedDowOp">{{ __('content.or') }}</span>

@@ -1018,22 +1018,24 @@
     var searchInput;
 
     $(document).ready(function(){
-        
-         // =============================================
-            // interval jquery
+                let f = @json($search_params['date_search_birthday'])
+                console.log(f);
+            // =============================================
+               // interval jquery
             // =============================================
 
             $('.date-search-select').on('change', function() {
                 var el = $(this);
                 var simpelsearch_date_input = el.closest('.date-search-block').find('.date-search-input');
-                if (el.val() === '<=>') {
+                if (el.val() === '<=>' || simpelsearch_date_input !== '') {
                     simpelsearch_date_input.show();
                 } else {
                     simpelsearch_date_input.hide();
                 }
             });
+
             // =============================================
-            // interval jquery
+               // interval jquery
             // =============================================
 
          // =============================================
@@ -1460,7 +1462,6 @@
         });
 
         <?php if (isset($search_params)) { ?>
-
             @if (!isset($search_params['end_subunit_date']))
                  $("input[name='end_subunit_date']").hide();
             @endif

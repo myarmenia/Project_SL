@@ -38,7 +38,10 @@
             <label for="searchWeaponCategory">{{ __('content.weapon_cat') }}</label>
             <input type="text" name="category[]" id="searchWeaponCategory" class="oneInputSaveEnter" />
 
-            <x-select-distance name="category_distance" class="distance distance_searchWeaponCategory"/>
+            <x-select-distance
+                :search-data="$search_params['category_distance'] ?? '' " 
+                name="category_distance" 
+                class="distance distance_searchWeaponCategory"/>
 
             @if (isset($search_params['category_type']) && $search_params['category_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCategoryOp">{{ __('content.or') }}</span>
@@ -70,7 +73,10 @@
             <label for="searchWeaponView">{{ __('content.view') }}</label>
             <input type="text" name="view[]" id="searchWeaponView" class="oneInputSaveEnter" />
 
-            <x-select-distance name="view_distance" class="distance distance_searchWeaponView"/>
+            <x-select-distance 
+                :search-data="$search_params['view_distance'] ?? '' " 
+                name="view_distance" 
+                class="distance distance_searchWeaponView"/>
 
             @if (isset($search_params['view_type']) && $search_params['view_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponViewOp">{{ __('content.or') }}</span>
@@ -102,7 +108,10 @@
             <label for="searchWeaponType">{{ __('content.type') }}</label>
             <input type="text" name="type[]" id="searchWeaponType" class="oneInputSaveEnter" />
 
-            <x-select-distance name="type_distance" class="distance distance_searchWeaponType"/>
+            <x-select-distance 
+                :search-data="$search_params['type_distance'] ?? '' " 
+                name="type_distance" 
+                class="distance distance_searchWeaponType"/>
 
             @if (isset($search_params['type_type']) && $search_params['type_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponTypeOp">{{ __('content.or') }}</span>
@@ -134,7 +143,10 @@
             <label for="searchWeaponMark">{{ __('content.mark') }}</label>
             <input type="text" name="model[]"  id="searchWeaponMark" class="oneInputSaveEnter" />
 
-            <x-select-distance name="model_distance" class="distance distance_searchWeaponMark"/>
+            <x-select-distance 
+                :search-data="$search_params['model_distance'] ?? '' " 
+                name="model_distance" 
+                class="distance distance_searchWeaponMark"/>
 
             @if (isset($search_params['model_type']) && $search_params['model_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponMarkOp">{{ __('content.or') }}</span>
@@ -166,7 +178,10 @@
             <label for="searchWeaponAccountNumber">{{ __('content.account_number') }}</label>
             <input type="text" name="reg_num[]" id="searchWeaponAccountNumber" class="oneInputSaveEnter" />
 
-            <x-select-distance name="reg_num_distance" class="distance distance_searchWeaponAccountNumber"/>
+            <x-select-distance 
+                :search-data="$search_params['reg_num_distance'] ?? '' " 
+                name="reg_num_distance" 
+                class="distance distance_searchWeaponAccountNumber"/>
 
             @if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponAccountNumberOp">{{ __('content.or') }}</span>

@@ -22,6 +22,7 @@
     @else
         <input type="text" name="{{ $inpName }}" id="searchDateOf" style="width: 505px;"
         onkeydown="validateNumber(event,'searchDateOf',12)" class="oneInputSaveDateMan oneInputSaveEnter date-search-input" />
+
     @endif
 
 </div>
