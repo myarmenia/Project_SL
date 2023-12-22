@@ -22,7 +22,125 @@ async function postDataRelation(propsData, typeAction, rowTitle) {
     }
 }
 
+
 // --------------------- fetch post end ------------------ //
+
+// =============================================
+    // show table data
+// =============================================
+function showInfo(data,li) {
+    let openTable = li.closest("ul").querySelector(".table");
+    if (li.getAttribute("check")) {
+        openTable?.remove();
+        li.removeAttribute("check");
+        li
+            .querySelector("i")
+            .setAttribute("class", "bi bi-caret-down-fill");
+    } else {
+        openTable?.previousElementSibling
+            .querySelector("i")
+            .setAttribute("class", "bi bi-caret-down-fill");
+        openTable?.previousElementSibling.removeAttribute("check");
+        openTable?.remove();
+        let elmIndex = li.getAttribute("element-index");
+        let openCloseClass = li.children[0]?.className;
+        let icon = li.querySelector("i");
+        openCloseClass === "bi bi-caret-down-fill"
+            ? icon.setAttribute("class", "bi bi-caret-up-fill ")
+            : icon.setAttribute("class", "bi bi-caret-down-fill");
+        let table = document.createElement("table");
+        table.setAttribute("class", "table person_table");
+        let tbody = document.createElement("tbody");
+        table.appendChild(tbody);
+        
+        for (let el in data) {
+            let fieldKey = el;
+            let fieldValue = data[el];
+            let tr = document.createElement("tr");
+            let tdKey = document.createElement("td");
+            tdKey.innerText = fieldKey;
+            let tdValue = document.createElement("td");
+            fieldValue !== null
+                ? (tdValue.innerText = fieldValue)
+                : (tdValue.innerText = "");
+            tr.append(tdKey, tdValue);
+            tbody.appendChild(tr);
+        }
+
+        function contactPost() {
+            showLoader()
+            let table_name =
+                this.closest(".table").previousElementSibling.getAttribute(
+                    "relation_name"
+                );
+            let table_id =
+                this.closest(".table").previousElementSibling.getAttribute(
+                    "relation_id"
+                );
+            let rowTitle =
+                this.closest("tr").querySelectorAll("td")[0].innerText;
+            let dataObj = {
+                table_name: table_name,
+                table_id: table_id,
+            };
+            postDataRelation(dataObj, "fetchContactPostBtn", rowTitle);
+        }
+
+        let buttonContact = document.createElement("span");
+        buttonContact.innerText = ties;
+        buttonContact.className = "button-contact";
+
+        let tr = document.createElement("tr");
+        let tdKey = document.createElement("td");
+        let tdValue = document.createElement("td");
+        tdValue.style.textAlign = "center";
+        tdKey.innerText = li.innerText;
+        tdValue.appendChild(buttonContact);
+        tr.append(tdKey, tdValue);
+        tbody.appendChild(tr);
+
+        li.insertAdjacentElement("afterend", table);
+        li.setAttribute("check", "true");
+    }
+
+    let contactButtons = document.querySelectorAll(".button-contact");
+
+    contactButtons.forEach((el) =>
+        el.addEventListener("click",contactPost)
+    );
+}
+// =============================================
+    // show table data end
+// =============================================
+
+// ==============================================
+   // fetch relation table
+// ==============================================
+async function postRelationTable(propsData,li) {
+    const postUrl = "/" + lang + "/get-single-relation";
+    try {
+        const response = await fetch(postUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(propsData),
+        });
+
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        } else {
+            const responseData = await response.json();
+            let data = responseData.data[0].fields
+            showInfo(data,li)
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+// ==============================================
+   // fetch relation table end
+// ==============================================
 
 // --------------------- contact js ---------------------- //
 
@@ -127,7 +245,6 @@ function showContactDiv(data, props, typeAction, rowTitle) {
                 setTimeout(() => {
                     window.scrollTo(0, 0);
                 }, 0);
-
                 el.closest(".contact_block").classList.add("maximized");
                 el.closest(".contact_block")
                     .querySelector(".content")
@@ -161,91 +278,20 @@ function showContactDiv(data, props, typeAction, rowTitle) {
         })
     );
 
+
     let li = document.querySelectorAll(".content ul li");
-    function showInfo(e) {
-        let openTable = e.target.closest("ul").querySelector(".table");
-
-        if (e.target.getAttribute("check")) {
-            openTable?.remove();
-            e.target.removeAttribute("check");
-            e.target
-                .querySelector("i")
-                .setAttribute("class", "bi bi-caret-down-fill");
-        } else {
-            openTable?.previousElementSibling
-                .querySelector("i")
-                .setAttribute("class", "bi bi-caret-down-fill");
-            openTable?.previousElementSibling.removeAttribute("check");
-            openTable?.remove();
-            let elmIndex = e.target.getAttribute("element-index");
-            let openCloseClass = e.target.children[0]?.className;
-            let icon = e.target.querySelector("i");
-            openCloseClass === "bi bi-caret-down-fill"
-                ? icon.setAttribute("class", "bi bi-caret-up-fill ")
-                : icon.setAttribute("class", "bi bi-caret-down-fill");
-            let table = document.createElement("table");
-            table.setAttribute("class", "table person_table");
-            let tbody = document.createElement("tbody");
-            table.appendChild(tbody);
-            let fields = data[elmIndex].fields;
-
-            for (let el in fields) {
-                let fieldKey = el;
-                let fieldValue = fields[el];
-                let tr = document.createElement("tr");
-                let tdKey = document.createElement("td");
-                tdKey.innerText = fieldKey;
-                let tdValue = document.createElement("td");
-                fieldValue !== null
-                    ? (tdValue.innerText = fieldValue)
-                    : (tdValue.innerText = "");
-                tr.append(tdKey, tdValue);
-                tbody.appendChild(tr);
-            }
-            function contactPost() {
-                showLoader()
-                let table_name =
-                    this.closest(".table").previousElementSibling.getAttribute(
-                        "relation_name"
-                    );
-                let table_id =
-                    this.closest(".table").previousElementSibling.getAttribute(
-                        "relation_id"
-                    );
-                let rowTitle =
-                    this.closest("tr").querySelectorAll("td")[0].innerText;
-                let dataObj = {
-                    table_name: table_name,
-                    table_id: table_id,
-                };
-                postDataRelation(dataObj, "fetchContactPostBtn", rowTitle);
-            }
-
-            let buttonContact = document.createElement("span");
-            buttonContact.innerText = ties;
-            buttonContact.className = "button-contact";
-
-            let tr = document.createElement("tr");
-            let tdKey = document.createElement("td");
-            let tdValue = document.createElement("td");
-            tdValue.style.textAlign = "center";
-            tdKey.innerText = e.target.innerText;
-            tdValue.appendChild(buttonContact);
-            tr.append(tdKey, tdValue);
-            tbody.appendChild(tr);
-
-            e.target.insertAdjacentElement("afterend", table);
-            e.target.setAttribute("check", "true");
+    function fetchContactTable(el) {
+        let relation_name = el.getAttribute('relation_name')
+        let relation_id = el.getAttribute('relation_id')
+        let obj = {
+            table_name: relation_name,
+            table_id: relation_id
         }
-
-        let contactButtons = document.querySelectorAll(".button-contact");
-
-        contactButtons.forEach((el) =>
-            el.addEventListener("click",contactPost)
-        );
+        postRelationTable(obj,el)
     }
 
-    li.forEach((el) => el.addEventListener("click", (e) => showInfo(e)));
+    // li.forEach((el) => el.addEventListener("click", (e) => showInfo(e)));
+    li.forEach((el) => el.addEventListener("click", (e) => fetchContactTable(el)));
 
     const draggableDivs = document.querySelectorAll(".minMaxClose-block");
     let isDragging = false;
@@ -282,7 +328,6 @@ function showContactDiv(data, props, typeAction, rowTitle) {
 
 openEye.forEach((el) => el.addEventListener("click", (e) => showCnntact(e)));
 function showCnntact(e) {
-    console.log( e.target.getAttribute("data-id"));
     let table_id = e.target.getAttribute("data-id");
     let table_name = e.target.closest(".table").getAttribute("data-table-name");
     if (document.querySelector(".table").classList.contains("notifications-table")) {

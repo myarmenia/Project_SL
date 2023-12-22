@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Services\FindDataService;
 use App\Services\SearchService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -14,16 +15,18 @@ class AddNewSearchedManJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $newManArray;
+    protected $dataToInsert;
+    protected $fileDetails;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($newManArray)
+    public function __construct($dataToInsert, $fileDetails)
     {
-        $this->newManArray = $newManArray;
+        $this->dataToInsert = $dataToInsert;
+        $this->fileDetails = $fileDetails;
     }
 
     /**
@@ -31,11 +34,8 @@ class AddNewSearchedManJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle(SearchService $searchService)
+    public function handle(FindDataService $findDataService, SearchService $searchService)
     {
-        foreach ($this->newManArray as $key => $item) {
-            $dataOrId = ['fileItemId' => $item];
-            $searchService->newFileDataItem($dataOrId);
-        }
+        $findDataService->addFindDataToInsertAct($this->dataToInsert, $this->fileDetails);
     }
 }

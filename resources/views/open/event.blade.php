@@ -170,7 +170,7 @@
 
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
-       
+
         let parent_table_name = "{{ __('content.event') }}"
         let fieldName = 'event_id'
         let relation = "{{ request()->relation }}"

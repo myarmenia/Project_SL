@@ -51,9 +51,9 @@ return [
     'also_known_as' => 'Հայտնի է նաև որպես',
     'face_face' => 'Անձ - Անձ',
     'date_of_birth' => 'Ծննդյան տարեթիվ (օր, ամիս, տարի)',
-    'date_of_birth_d' => 'Ծննդյան տարեթիվ (օր)',
-    'date_of_birth_y' => 'Ծննդյան տարեթիվ (տարի)',
-    'date_of_birth_m' => 'Ծննդյան տարեթիվ (ամիս)',
+    'date_of_birth_d' => 'Ծննդյան օր',
+    'date_of_birth_y' => 'Ծննդյան տարի',
+    'date_of_birth_m' => 'Ծննդյան ամիս',
     'approximate_year' => 'Ծննդյան մոտավոր տարեթիվ',
     'passport_number' => 'Անձնագրի համարը',
     'gender' => 'Սեռ',
@@ -298,7 +298,8 @@ return [
     'summary_man' => 'Ամփոփագրով անցնող անձինք',
     'summary_organizations' => 'Ամփոփագրով անցնող կազմակերպություններ',
     'summary_auto' => 'Ավելացնել ինքնաշխատ կերպով',
-    //criminal_case
+    'document_content' => 'Փաստաթղթի բովանդակութըունը',
+//criminal_case
     'number_case' => 'Գործի համարը',
     'case_person' => 'Գործը վերաբերում է անձին',
     'case_organization' => 'Գործը վերաբերում է կազմակերպությանը',
@@ -338,6 +339,8 @@ return [
     'measures_taken' => 'Ձեռնարկված միջոցներ',
     'according_result_dow' => 'Ստուգման արդյունքներով բացվել է ՕՀԳ',
     'according_test_result' => 'Ստուգման արդյունքներով հարուցվել է քրեական գործ',
+    'error_val_img' => 'Պատկերը չպետք է լինի 64 կիլոբայթից ավելի',
+    
     //    'objects_check_signal' => 'Ահազանգի ստուգման օբյեկտները',
     'objects_check_signal_man' => 'Ահազանգի ստուգման օբյեկտները (անձ)',
     'objects_check_signal_organization' =>  "Ահազանգի ստուգման օբյեկտները (կազմակերպություն)",

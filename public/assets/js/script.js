@@ -308,6 +308,8 @@ function fetchInputTitle(el, fnName = null) {
                         const option = document.createElement('option')
                         option.innerText = element.name
                         option.setAttribute('data-modelid', element.id)
+                        element.id = element.id
+
                         el.closest('.col').querySelector('datalist').appendChild(option)
 
                     })
@@ -448,7 +450,7 @@ function onBlur(e) {
                 value: get_model_id ?? this.value,
                 fieldName: this.name
             }
-           
+
             if(this.value=='' ){
                 newInfo.delete_relation=true
 
@@ -476,10 +478,10 @@ function onBlur(e) {
 
         const pivot_table_name = this.getAttribute('data-pivot-table')
         const field_name = this.getAttribute('data-fieldname')
-      
-        let current_tags = []
 
+        let current_tags = []
         let checkvalue;
+
         if(this.closest('.col')){
 
             const check = this.closest('.col')?.querySelectorAll('.check_tag')
@@ -500,22 +502,18 @@ function onBlur(e) {
 
         }
 
-        if(this.getAttribute("data-check") == "date"){
-            
-                let elVal = this.value.split(' ')
-                let elValJoin = elVal[0].split('-').reverse().join('-')
-                this.value = elValJoin
+    if(this.getAttribute("data-check") === "date"){
+            let elVal = this.value.split(' ')
+              this.value = elVal[0].split('-').reverse().join('-')
+    }
 
-                console.log(this.value +'kkkkkkkkk');
-        }
-
-        
     const hasValue = current_tags.some(c_tag => c_tag === checkvalue)
 
-    console.log(!hasValue  ,this.value !== '',current_tags)
-    // console.log(!hasValue  && inputCurrentValue !== '' || (inputCurrentValue === '' && this.value !== ''))
-    if (!hasValue  && this.value !== '') {
-        // console.log('--------fetch----')
+    console.log(inputCurrentValue  , this.value )
+
+    if (!hasValue  && inputCurrentValue != '' || (inputCurrentValue != this.value )) {
+
+        console.log('--------fetch----')
         fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){

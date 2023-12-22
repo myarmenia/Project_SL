@@ -299,7 +299,8 @@ return [
     'summary_man' => 'По сводке проходят лица',
     'summary_organizations' => 'По сводке проходят орг-ии',
     'summary_auto' => 'Добавить автоматически',
-    //criminal_case
+    'document_content' => 'Содержание документа',
+//criminal_case
     'number_case' => 'Номер дела',
     'case_person' => 'Дело относится к лицу',
     'case_organization' => 'Дело относится к организации',
@@ -346,6 +347,7 @@ return [
     'brought_signal' => 'Управление, которое завело сигнал',
     'department_brought' => 'Отдел, который завел сигнал',
     'unit_brought' => 'Подразделение, которое завело сигнал',
+    'error_val_img' => 'Изображение не должно быть больше 64 килобайт.',
     //man_bean_country
     'purpose_visit' => 'Цель въезда',
     'country_ate' => 'Страна, АТЕ',
@@ -493,7 +495,7 @@ return [
     'active' => "Действующие",
     'report_search' => "Отчет",
     'report_search_signal' => "Отчет по сигналам",
-    'report_by_coloring' => "Отчет по раскраске",
+    'report_by_coloring' => "Отчет по окраскам",
     'consistent_search' => 'Последовательный поиск',
     'synonyms' => 'С синонимами',
 
@@ -789,11 +791,11 @@ return [
     'some' => 'Некие',
     'radio_new' => 'Отсутствующий',
     'radio_some' => 'Некий',
-    'radio_like' => 'Похожий',
+    'radio_like' => 'Проходящий',
     'like' => 'Присутствуют',
-    'singular_new' => 'Новый',
-    'singular_some' => 'Некий',
-    'singular_like' => 'Похожий',
+    'singular_new' => 'Отсутствующие',
+    'singular_some' => 'Некие',
+    'singular_like' => 'Проходящие',
 
 
     //     fusion result

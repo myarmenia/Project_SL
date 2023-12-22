@@ -32,7 +32,10 @@ class ManExternalSignPhotoCreateRequest extends FormRequest
     public function messages (): array
     {
         return [
-            'image' => __('validation.required', ['attribute' => __('content.upload')])
+            'image' => [
+                'required' => __('validation.required', ['attribute' => __('content.upload')]),
+                'max' => __('content.error_val_img')
+            ]
         ];
     }
 }

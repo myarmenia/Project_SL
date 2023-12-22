@@ -64,7 +64,7 @@ function craeteFileData() {
         value: textarea.value,
     };
 
-    if (requestData.text !== "") {
+    if (requestData.value) {
         fetch(updated_route, {
             method: "PATCH",
             headers: {
@@ -83,8 +83,6 @@ function craeteFileData() {
             })
     }
 }
-
-
 
 
 addBtn.addEventListener("click", craeteFileData);
