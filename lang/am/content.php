@@ -104,7 +104,7 @@ return [
     'uses_machine' => 'Օգտագործվող ավտոմեքենա',
     'bibliography' => 'Նյութեր',
     'answer' => 'Պատասխան',
-
+    'man_file' => 'Անձին կցված ֆայլեր',
     // phone adding
     'phone_number' => 'Հեռախոսահամար',
     'nature_character' => 'Սեփականության բնույթը',

@@ -39,7 +39,8 @@ function handleBlur(inp) {
     inp.value = formattedDate.split('-').reverse().join('-');
   }
 
-  else if (parseInt(year, 10) > 41 && year.length === 2) {
+  else if (parseInt(year, 10) >= 41 && year.length == 2) {
+
     year = '19' + year;
     const formattedDate = `${day}-${year}`;
     inp.value = formattedDate.split('-').reverse().join('-');
