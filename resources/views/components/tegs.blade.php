@@ -42,12 +42,3 @@
         @endif
     </div>
 </div>
-
-@section('js-scripts')
-    @parent
-    @once
-        <script>
-
-        </script>
-    @endonce
-@endsection

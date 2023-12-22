@@ -23,6 +23,8 @@
                                 route('work.store', ['model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$modelData->redirect])}}">
                         @if( Route::currentRouteName() !== 'work.create')
                             @method('PUT')
+                        @else
+                            @method('POST')
                         @endif
 
                     <x-back-previous-url submit/>
@@ -102,6 +104,7 @@
                                 >4) {{__('content.end_employment')}}</label>
                             </div>
                         </div>
+
                         <div class="btn-div">
                             @if($modelData->name === 'man')
                                 <label class="form-label">5) {{__('content.jobs_organization')}}</label>
@@ -110,6 +113,9 @@
                                     <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
                                 @elseif(Route::currentRouteName() !== 'work.edit')
                                      <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
+                                @else
+                                    {{$modelData->name.'_id'}}
+                                    <input hidden name="{{$modelData->name.'_id'}}" value="{{$modelData->model[$modelData->name.'_id']}}">
                                 @endif
                             @else
                                 <label class="form-label">5) {{__('content.data_employment_persons')}}</label>
