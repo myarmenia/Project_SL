@@ -380,13 +380,15 @@ Route::group(
                 Route::resource('operational-interest-organization-man', ManOperationalInterestOrganization::class)->only('create', 'store');
 
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
+
+                Route::get('more_data/{moreData}',[MoreDataController::class, 'get']);
+                Route::patch('more_data/{moreData}',[MoreDataController::class, 'update']);
             });
 
             Route::get('man-attached-file/{id}',[ManFileController::class,'index'])->name('man-attached-file.index');
             Route::post('man-attached-paragraph',[ManFileController::class,'store'])->name('man-attached-file.store');
             Route::get('download',[ManFileController::class,'download'])->name('download_path');
 
-            Route::get('more_data/{moreData}',MoreDataController::class);
             Route::resource('manBeanCountry', ManBeanCountryController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('address', AddressController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('weapon', WeaponController::class)->only('create', 'store', 'edit', 'update');

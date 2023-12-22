@@ -36,7 +36,7 @@ class OrganizationHasController extends Controller
         return view('work-activity.index', compact('modelData', 'teg'));
     }
 
-    public function edit(OrganizationHasMan $organizationHasMan, Request $request)
+    public function edit($lang, OrganizationHasMan $organizationHasMan, Request $request)
     {
         $modelData = HelpersTraits::getModelFromUrl($organizationHasMan);
 
@@ -50,7 +50,7 @@ class OrganizationHasController extends Controller
         return view('work-activity.index', compact('modelData', 'teg'));
     }
 
-    public function update(OrganizationHasMan $organizationHasMan, OrganizationHasCreateRequest $request)
+    public function update($lang,OrganizationHasMan $organizationHasMan, OrganizationHasCreateRequest $request)
     {
         OrganizationHasService::update($organizationHasMan, $request->validated());
 

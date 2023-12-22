@@ -24,7 +24,7 @@
                 </div>
                 <div class="modal-buttons">
                     <button class="btn btn-primary add-file-btn" data-bs-dismiss="modal">{{ __('button.save') }}</button>
-                    <button class="btn btn-secondary close-button" data-bs-dismiss="modal">{{ __('button.cancel') }}</button>
+                    <button class="btn btn-secondary close-button close-button" data-bs-dismiss="modal">{{ __('button.cancel') }}</button>
                 </div>
 
             </div>

@@ -18,7 +18,6 @@ function openCalendar(el) {
 
 function handleBlur(inp) {
   const val_rep = inp.value.replace(/[-,/,.]/g, '')
-  console.log(val_rep +'llllllll');
   const val = val_rep.slice(0, 4)
   const end_val = val_rep.slice(4, val_rep.length)
   function addHyphenEveryTwo(val) {
@@ -84,13 +83,10 @@ function updateInput(date) {
   const day = date.getDate().toString().padStart(2, '0');
   const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
   const year = date.getFullYear().toString();
-
   element.value = `${day}-${month}-${year}`
-
   element.focus()
 }
 
-console.log(date_inp_text.length)
 function handleInput() {
   date_inp_text.forEach((el) => {
 
