@@ -47,28 +47,7 @@
     @parent
     @once
         <script>
-            const content = document.querySelector('.file-modal')
-            const textArea = content.querySelector('.text_area_modal')
-            const button = content.querySelector('.add-file-btn')
 
-            document.querySelectorAll('.get-data').forEach(el => {
-                el.addEventListener('click', function () {
-                    const element = el.closest('.Myteg').querySelector('.xMark');
-                    const table = element.getAttribute('data-table')
-                    const id = element.getAttribute('data-delete-id')
-
-                    fetch(`/${lang}/${table}/${id}`,{
-                        method: 'GET',
-                        headers: {'Content-Type':'application/json'},
-                    })
-                    .then(async res => {
-                        const data = await res.json()
-                        textArea.value = data.result
-                        button.setAttribute('data-table', table)
-                        button.setAttribute('data-delete-id', id)
-                    })
-                })
-            })
         </script>
     @endonce
 @endsection

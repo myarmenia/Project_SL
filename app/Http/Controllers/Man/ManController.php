@@ -10,7 +10,6 @@ use App\Services\ManService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 
 class ManController extends Controller
 {
@@ -39,7 +38,7 @@ class ManController extends Controller
     public function store()
     {
         $man=$this->manService->store();
-        $log = LogService::store(null, $man, 'man', 'create');
+        LogService::store(null, $man, 'man', 'create');
 
         return $man;
     }
@@ -68,7 +67,6 @@ class ManController extends Controller
         $man->load('gender','nation','knows_languages');
 
         return view('man.index', compact('man'));
-
     }
 
     /**

@@ -209,7 +209,10 @@
                 <label for="searchAddressRegion">{{ __('content.region') }}</label>
                 <input type="text" name="region[]" id="searchAddressRegion" class="oneInputSaveEnter" />
 
-                <x-select-distance name="region_name_distance" class="distance distance_searchAddressRegion" />
+                <x-select-distance
+                    :search-data="$search_params['region_name_distance'] ?? '' "
+                    name="region_name_distance"
+                    class="distance distance_searchAddressRegion" />
 
                 @if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -244,7 +247,10 @@
                 <label for="addressLocality">{{ __('content.locality') }}</label>
                 <input type="text" name="locality[]" id="searchAddressLocality" class="oneInputSaveEnter" />
 
-                <x-select-distance name="locality_name_distance" class="distance distance_searchAddressLocality" />
+                <x-select-distance
+                    :search-data="$search_params['locality_name_distance'] ?? '' "
+                    name="locality_name_distance"
+                    class="distance distance_searchAddressLocality" />
 
                 @if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -279,7 +285,10 @@
                 <label for="addressStreet">{{ __('content.street') }}</label>
                 <input type="text" name="street[]" id="searchAddressStreet" class="oneInputSaveEnter" />
 
-                <x-select-distance name="street_distance" class="distance distance_searchAddressStreet" />
+                <x-select-distance
+                    :search-data="$search_params['street_distance'] ?? '' "
+                    name="street_distance"
+                    class="distance distance_searchAddressStreet" />
 
                 @if (isset($search_params['street_type']) && $search_params['street_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -314,7 +323,10 @@
                 <label for="searchAddressTrack">{{ __('content.track') }}</label>
                 <input type="text" name="track[]" id="searchAddressTrack" class="oneInputSaveEnter" />
 
-                <x-select-distance name="track_distance" class="distance distance_searchAddressTrack" />
+                <x-select-distance
+                    :search-data="$search_params['track_distance'] ?? '' "
+                    name="track_distance"
+                    class="distance distance_searchAddressTrack" />
 
                 @if (isset($search_params['track_type']) && $search_params['track_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -349,7 +361,10 @@
                 <label for="searchAddressHomeNum">{{ __('content.home_num') }}</label>
                 <input type="text" name="home_num[]" id="searchAddressHomeNum" class="oneInputSaveEnter" />
 
-                <x-select-distance name="home_num_distance" class="distance distance_searchAddressHomeNum" />
+                <x-select-distance
+                    :search-data="$search_params['home_num_distance'] ?? '' "
+                    name="home_num_distance"
+                    class="distance distance_searchAddressHomeNum" />
 
                 @if (isset($search_params['home_num_type']) && $search_params['home_num_type'] == 'OR')
                     <span style="width: 30px;position: absolute;margin-left: -570px;"
@@ -385,7 +400,10 @@
                 <label for="searchAddressHousingNum">{{ __('content.housing_num') }}</label>
                 <input type="text" name="housing_num[]" id="searchAddressHousingNum" class="oneInputSaveEnter" />
 
-                <x-select-distance name="housing_num_distance" class="distance distance_searchAddressHousingNum" />
+                <x-select-distance
+                    :search-data="$search_params['housing_num_distance'] ?? '' "
+                    name="housing_num_distance"
+                    class="distance distance_searchAddressHousingNum" />
 
                 @if (isset($search_params['housing_num_type']) && $search_params['housing_num_type'] == 'OR')
                     <span style="width: 30px;position: absolute;margin-left: -570px;"
@@ -420,7 +438,10 @@
                 <label for="searchAddressAptNum">{{ __('content.apt_num') }}</label>
                 <input type="text" name="apt_num[]" id="searchAddressAptNum" class="oneInputSaveEnter" />
 
-                <x-select-distance name="apt_num_distance" class="distance distance_searchAddressAptNum" />
+                <x-select-distance
+                    :search-data="$search_params['apt_num_distance'] ?? '' "
+                    name="apt_num_distance"
+                    class="distance distance_searchAddressAptNum" />
 
                 @if (isset($search_params['apt_num_type']) && $search_params['apt_num_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -454,7 +475,7 @@
 
 @section('js-include')
 <script src="{{ asset('assets-include/js/script.js') }}"></script>
-   
+
     <script>
         var currentInputNameAddress;
         var currentInputIdAddress;
@@ -602,7 +623,7 @@
             $('#searchAddressHomeNum').val("<?php echo html_entity_decode($search_params['home_num'][sizeof($search_params['home_num']) - 1]); ?>");
             $('#searchAddressHousingNum').val("<?php echo html_entity_decode($search_params['housing_num'][sizeof($search_params['housing_num']) - 1]); ?>");
             $('#searchAddressAptNum').val("<?php echo html_entity_decode($search_params['apt_num'][sizeof($search_params['apt_num']) - 1]); ?>");
-            
+
             <?php } ?>
 
 

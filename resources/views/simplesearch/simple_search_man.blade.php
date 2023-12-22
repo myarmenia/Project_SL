@@ -1148,10 +1148,21 @@
         var searchInput;
 
         $(document).ready(function() {
-
             // =============================================
             // interval jquery
             // =============================================
+            @if (!isset($search_params['end_birthday']))
+                 $("input[name='end_birthday']").hide();
+            @endif
+            @if (!isset($search_params['end_start_wanted']))
+                 $("input[name='end_start_wanted']").hide();
+            @endif
+            @if (!isset($search_params['end_entry_date']))
+                 $("input[name='end_entry_date']").hide();
+            @endif
+            @if (!isset($search_params['end_exit_date']))
+                 $("input[name='end_exit_date']").hide();
+            @endif
 
             $('.date-search-select').on('change', function() {
                 var el = $(this);
@@ -1530,8 +1541,13 @@
                 $('#' + searchInput).focus();
             });
 
-
             <?php if (isset($search_params)) { ?>
+
+            $("input[name='end_birthday']").val(@json($search_params['end_birthday']));
+            $("input[name='end_start_wanted']").val(@json($search_params['end_start_wanted']));
+            $("input[name='end_entry_date']").val(@json($search_params['end_entry_date']));
+            $("input[name='end_exit_date']").val(@json($search_params['end_exit_date']));
+
             $('#searchManLastName').val("<?php echo html_entity_decode($search_params['last_name'][sizeof($search_params['last_name']) - 1]); ?>");
             $('#searchManFirstName').val("<?php echo html_entity_decode($search_params['first_name'][sizeof($search_params['first_name']) - 1]); ?>");
             $('#searchManMiddleName').val("<?php echo html_entity_decode($search_params['middle_name'][sizeof($search_params['middle_name']) - 1]); ?>");
