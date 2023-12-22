@@ -70,12 +70,12 @@ async function getFileData(files) {
 // checket input js
 // ============================================
 
-let all_checked_input = document.querySelector(".all-checked-input");
+// let all_checked_input = document.querySelector(".all-checked-input");
 let checked_input = document.querySelectorAll(".checked-input");
 
-all_checked_input?.addEventListener("change", (e) => {
-    checked_input.forEach((el) => (el.checked = all_checked_input.checked));
-});
+// all_checked_input?.addEventListener("change", (e) => {
+//     checked_input.forEach((el) => (el.checked = all_checked_input.checked));
+// });
 
 checked_input.forEach((el) => {
     el.addEventListener("change", () => {
@@ -192,14 +192,23 @@ function showLoaderFIle (){
 
     let search_input_num = document.querySelector('.search-input-num')
     let distance_fileSearch = document.querySelector('.distance_fileSearch')
+    let search_input = document.getElementById("search_input");
+    let search_inp_lable = document.querySelector('.search_inp_lable')
+    
     if(search_input_num.value !== ''){
         distance_fileSearch.value = 1
         distance_fileSearch.setAttribute('disabled','disabled')
     }
-    search_input_num.addEventListener('input', (e) => {
+
+    search_input_num.addEventListener('input', () => searchInpNumValidate (search_input_num))
+
+    function searchInpNumValidate (search_input_num){
+
         let checked_input = document.querySelectorAll('.search-input')
-        if(isNaN(+e.target.value) || e.target.value === ''){
-            e.target.value = ''
+        textInputValidate(search_input)
+
+        if(isNaN(+search_input_num.value) || search_input_num.value === ''){
+            search_input_num.value = ''
             checked_input.forEach(el =>  el.removeAttribute('disabled'))
             distance_fileSearch.removeAttribute('disabled')
             distance_fileSearch.selectedIndex = 0
@@ -212,8 +221,8 @@ function showLoaderFIle (){
             distance_fileSearch.setAttribute('disabled','disabled')
 
         }
-        if(e.target.value !== ''){
 
+        if(search_input_num.value !== '' && +search_input_num.value !== 0){
                 checked_input.forEach(el =>  {
                     el.checked = false
                     el.setAttribute('disabled','disabled')
@@ -221,18 +230,121 @@ function showLoaderFIle (){
                 distance_fileSearch.value = 1
                 distance_fileSearch.setAttribute('disabled','disabled')
 
-
         }else{
+            search_input_num.value = ''
+            search_inp_lable.innerText = ''
             checked_input.forEach(el =>  el.removeAttribute('disabled'))
             distance_fileSearch.removeAttribute('disabled')
             distance_fileSearch.selectedIndex = 0
         }
-    })
+
+    }
+
+    
 
 
 
 // ============================================
 // search-input-number js  end
 // ============================================
+
+// ============================================
+    // search select validate 
+// ============================================
+distance_fileSearch.addEventListener('change', () => fileSelectValidate(distance_fileSearch))
+
+function fileSelectValidate (distance_fileSearch){
+    let checked_input = document.querySelectorAll('.search-input')
+    let revers_word = document.getElementById('revers_word')
+
+    if(distance_fileSearch.value == 2){
+
+        revers_word.checked = false
+        revers_word.setAttribute('disabled','disabled')
+        search_input_num.setAttribute('disabled','disabled')
+        checked_input.forEach(el =>  {
+            el.checked = false
+            el.setAttribute('disabled','disabled')
+        })
+
+    }else{
+        revers_word.removeAttribute('disabled')
+        search_input_num.removeAttribute('disabled')
+        checked_input.forEach(el =>  {
+            el.removeAttribute('disabled')
+        })
+
+    }
+}
+// ============================================
+    // search select validate end
+// ============================================
+// ============================================
+    // search input text validate 
+// ============================================
+ function textInputValidate(search_input){
+    let result = search_input.value.replace(/^\s+|\s+$/g, '')
+    let inp_value = result.split(' ')
+    if(inp_value.length === 2  ||  search_input_num.value === ''){
+        search_inp_lable.innerText = ''
+        search_file_btn.removeAttribute('disabled')
+
+    }else{
+
+        search_file_btn.setAttribute('disabled','disabled')
+        search_inp_lable.innerText = `${search_error_mesage}`
+
+    }
+ }
+ search_input.addEventListener('input', () => textInputValidate(search_input))
+// ============================================
+    // search input text validate end
+// ============================================
+
+// ============================================
+    // chechked input validate 
+// ============================================
+let chechked_inputs = document.querySelectorAll('.search-input')
+let synonyms_input = chechked_inputs[0]
+let car_input = chechked_inputs[1]
+
+car_input.addEventListener('change', () => {
+    if(car_input.checked){
+        synonyms_input.checked = !car_input.checked
+        distance_fileSearch.value = 1
+        distance_fileSearch.setAttribute('disabled','disabled')
+        revers_word.checked = false
+        revers_word.setAttribute('disabled','disabled')
+        search_input_num.setAttribute('disabled','disabled')
+    }else{
+        synonyms_input.checked = synonyms_input.checked 
+        distance_fileSearch.removeAttribute('disabled')
+        distance_fileSearch.selectedIndex = 0
+        revers_word.removeAttribute('disabled')
+        search_input_num.removeAttribute('disabled')
+    }
+})
+
+synonyms_input.addEventListener('change', () => {
+    if(synonyms_input.checked){
+        car_input.checked = !synonyms_input.checked
+        distance_fileSearch.value = 1
+        distance_fileSearch.setAttribute('disabled','disabled')
+        revers_word.checked = false
+        revers_word.setAttribute('disabled','disabled')
+        search_input_num.setAttribute('disabled','disabled')
+    }else{
+        car_input.checked =  car_input.checked 
+        distance_fileSearch.removeAttribute('disabled')
+        distance_fileSearch.selectedIndex = 0
+        revers_word.removeAttribute('disabled')
+        search_input_num.removeAttribute('disabled')
+    }
+})
+// ============================================
+    // chechked input validate end
+// ============================================
+
+
 
 
