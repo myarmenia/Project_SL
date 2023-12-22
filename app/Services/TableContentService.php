@@ -22,7 +22,7 @@ class TableContentService
 
     public function get($request)
     {
-
+// dd($request);
 
         $bibliographyId = $request['bibliography_id'];
         $lang = $request['lang'];
@@ -113,140 +113,173 @@ class TableContentService
                                     $dataToInsert = self::get_birthday($key, $data, $column_name, $item, $dataToInsert);
                                     $dataToInsert = self::get_address($key, $data, $column_name, $item, $dataToInsert);
                                     // dd($dataToInsert[$data]);
-                                } elseif ($key == $column_name['first_name']) {
-                                    // dd($item->getElements()[0]->getElements()[0]->getText());
+                                }
+                                elseif ($key == $column_name['first_name']) {
 
-                                    if ($lang != 'armenian') {
-                                        $translate_text = $item->getElements()[0]->getElements()[0]->getText();
+                                    $fonetic_variable=isset($request['fonetic']) ? true: false;
 
-                                        $result = LearningSystemService::get_info($translate_text);
+                                    $check_full_cel = self::check_full_cell($key,$lang, $item,$column_name, $fonetic_variable );
+                                    $dataToInsert[$data]['name']=$check_full_cel;
 
-                                        $translated_name = $result['armenian'];
-                                        $dataToInsert[$data]['name'] = $translated_name;
-                                    } else {
+                                }
+                                // elseif ($key == $column_name['first_name']) {
 
-                                        $cell_arr = '';
-
-
-                                        if (isset($request['fonetic'])) {
-
-                                            if (count($item->getElements()[0]->getElements()) >= 1) {
-
-                                                foreach ($item->getElements()[0]->getElements() as $unic_item) {
-
-                                                    $cell_arr .= $unic_item->getText();
-                                                }
-                                            }
-                                            $unicude_result = ConvertUnicode::convertArm($cell_arr);
-
-                                            $cell_arr = $unicude_result;
-                                        }else{
-
-                                            $get_multiple_data = self::check_multiple_string($item);
-
-                                            $cell_arr = $get_multiple_data;
+                                //     // dd($item->getElements()[0]->getElements()[0]->getText());
 
 
-                                        }
+                                //     if ($lang != 'armenian') {
+                                //             // dd($item->getElements()[0]->getElements());
+                                //         $translate_text = $item->getElements()[0]->getElements()[0]->getText();
+
+                                //         $result = LearningSystemService::get_info($translate_text);
+
+                                //         $translated_name = $result['armenian'];
+                                //         $dataToInsert[$data]['name'] = $translated_name;
+                                //     } else {
+
+                                //         $cell_arr = '';
 
 
-                                        $dataToInsert[$data]['name'] = $cell_arr;
+                                //         if (isset($request['fonetic'])) {
 
+                                //             if (count($item->getElements()[0]->getElements()) >= 1) {
 
-                                        // dd($dataToInsert[$data]['name']);
+                                //                 foreach ($item->getElements()[0]->getElements() as $unic_item) {
 
-                                    }
-                                } elseif ($key == $column_name['last_name']) {
-                                    if ($lang != 'armenian') {
-                                        // dd($item->getElements()[0]);
-                                        $full_lastName = '';
-                                        // dd($item->getElements()[0]->getElements());
-                                        foreach ($item->getElements()[0]->getElements() as $last_elem) {
-                                            // dd($last_elem);
-                                            if (str_contains($last_elem->getText(), "-")) {
-                                                $explode_elem = explode("-", $last_elem->getText());
+                                //                     $cell_arr .= $unic_item->getText();
+                                //                 }
+                                //             }
+                                //             $unicude_result = ConvertUnicode::convertArm($cell_arr);
 
-                                                $translate_text = $explode_elem[0];
+                                //             $cell_arr = $unicude_result;
+                                //         }else{
 
-                                                $result = LearningSystemService::get_info($translate_text);
-                                                $translated_name = $result['armenian'];
+                                //             $get_multiple_data = self::check_multiple_string($item);
 
-                                                $full_lastName .= $translated_name . '-';
-                                            } else {
-                                                $translate_text = $last_elem->getText();
+                                //             $cell_arr = $get_multiple_data;
 
-                                                $result = LearningSystemService::get_info($translate_text);
-                                                $translated_name = $result['armenian'];
+                                //         }
 
-                                                $full_lastName .= $translated_name;
-                                            }
-                                        }
+                                //         $dataToInsert[$data]['name'] = $cell_arr;
 
-                                        $dataToInsert[$data]['surname'] = $full_lastName;
-                                    } else {
-                                        $cell_arr = '';
-                                        if (isset($request['fonetic'])) {
+                                //     }
+                                // }
+                                elseif ($key == $column_name['last_name']){
 
-                                            if (count($item->getElements()[0]->getElements()) >= 1) {
+                                    $fonetic_variable = isset($request['fonetic']) ? true: false;
 
-                                                foreach ($item->getElements()[0]->getElements() as $unic_item) {
-                                                    // dd($unic_item);
-                                                    $cell_arr .= $unic_item->getText();
-                                                }
-                                            }
-                                            $unicude_result = ConvertUnicode::convertArm($cell_arr);
+                                    $check_full_cel = self::check_full_cell($key,$lang, $item,$column_name, $fonetic_variable );
+                                    $dataToInsert[$data]['surname'] = $check_full_cel;
 
-                                            $cell_arr = $unicude_result;
-                                        } else {
+                                }
+                                //  elseif ($key == $column_name['last_name']) {
+                                //     if ($lang != 'armenian') {
+                                //         // dd($item->getElements()[0]);
+                                //         $full_lastName = '';
+                                //         // dd($item->getElements()[0]->getElements());
+                                //         foreach ($item->getElements()[0]->getElements() as $last_elem) {
+                                //             // dd($last_elem);
+                                //             if (str_contains($last_elem->getText(), "-")) {
+                                //                 $explode_elem = explode("-", $last_elem->getText());
 
-                                            // $cell_arr = $item->getElements()[0]->getElements()[0]->getText();
-                                            $get_multiple_data=self::check_multiple_string($item);
-                                            $cell_arr = $get_multiple_data;
-                                        }
+                                //                 $translate_text = $explode_elem[0];
 
-                                        //    $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
-                                        $dataToInsert[$data]['surname'] = $cell_arr;
-                                    }
-                                } elseif ($key == $column_name['middle_name']) {
-                                    // dd($item->getElements()[0]);
+                                //                 $result = LearningSystemService::get_info($translate_text);
+                                //                 $translated_name = $result['armenian'];
+
+                                //                 $full_lastName .= $translated_name . '-';
+                                //             } else {
+                                //                 $translate_text = $last_elem->getText();
+
+                                //                 $result = LearningSystemService::get_info($translate_text);
+                                //                 $translated_name = $result['armenian'];
+
+                                //                 $full_lastName .= $translated_name;
+                                //             }
+                                //         }
+
+                                //         $dataToInsert[$data]['surname'] = $full_lastName;
+                                //     } else {
+                                //         $cell_arr = '';
+                                //         if (isset($request['fonetic'])) {
+
+                                //             if (count($item->getElements()[0]->getElements()) >= 1) {
+
+                                //                 foreach ($item->getElements()[0]->getElements() as $unic_item) {
+                                //                     // dd($unic_item);
+                                //                     $cell_arr .= $unic_item->getText();
+                                //                 }
+                                //             }
+                                //             $unicude_result = ConvertUnicode::convertArm($cell_arr);
+
+                                //             $cell_arr = $unicude_result;
+                                //         } else {
+
+                                //             // $cell_arr = $item->getElements()[0]->getElements()[0]->getText();
+                                //             $get_multiple_data=self::check_multiple_string($item);
+                                //             $cell_arr = $get_multiple_data;
+                                //         }
+
+                                //         //    $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
+                                //         $dataToInsert[$data]['surname'] = $cell_arr;
+                                //     }
+                                // }
+                                elseif ($key == $column_name['middle_name']) {
 
                                     if ($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun) {
-                                        // dd($item);
-                                        if ($lang != 'armenian') {
-                                            $translate_text = $item->getElements()[0]->getElements()[0]->getText();
-                                            $result = LearningSystemService::get_info($translate_text);
-                                            $translated_name = $result['armenian'];
+                                        $fonetic_variable = isset($request['fonetic']) ? true: false;
 
-                                            $dataToInsert[$data]['patronymic'] = $translated_name;
-                                        } else {
-                                            $cell_arr = '';
-                                            if (isset($request['fonetic'])) {
+                                        $check_full_cel = self::check_full_cell($key,$lang, $item,$column_name, $fonetic_variable );
+                                        $dataToInsert[$data]['patronymic'] = $check_full_cel;
 
-                                                if (count($item->getElements()[0]->getElements()) >= 1) {
-
-                                                    foreach ($item->getElements()[0]->getElements() as $unic_item) {
-
-                                                        $cell_arr .= $unic_item->getText();
-                                                    }
-                                                }
-                                                $unicude_result = ConvertUnicode::convertArm($cell_arr);
-
-                                                $cell_arr = $unicude_result;
-                                            } else {
-
-                                                $get_multiple_data = self::check_multiple_string($item);
-
-                                                $cell_arr = $get_multiple_data;
-
-                                                // $cell_arr = count($item->getElements()[0]->getElements()) == 0 ? null : $item->getElements()[0]->getElements()[0]->getText();
-                                            }
-
-                                            $dataToInsert[$data]['patronymic'] = $cell_arr;
-                                        }
-                                    } else {
+                                    }
+                                    else {
                                         $dataToInsert[$data]['patronymic'] = null;
                                     }
-                                } elseif ($key == $column_name['birthday']) {
+
+                                }
+
+                                // elseif ($key == $column_name['middle_name']) {
+                                //     // dd($item->getElements()[0]);
+
+                                //     if ($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun) {
+                                //         // dd($item);
+                                //         if ($lang != 'armenian') {
+                                //             $translate_text = $item->getElements()[0]->getElements()[0]->getText();
+                                //             $result = LearningSystemService::get_info($translate_text);
+                                //             $translated_name = $result['armenian'];
+
+                                //             $dataToInsert[$data]['patronymic'] = $translated_name;
+                                //         } else {
+                                //             $cell_arr = '';
+                                //             if (isset($request['fonetic'])) {
+
+                                //                 if (count($item->getElements()[0]->getElements()) >= 1) {
+
+                                //                     foreach ($item->getElements()[0]->getElements() as $unic_item) {
+
+                                //                         $cell_arr .= $unic_item->getText();
+                                //                     }
+                                //                 }
+                                //                 $unicude_result = ConvertUnicode::convertArm($cell_arr);
+
+                                //                 $cell_arr = $unicude_result;
+                                //             } else {
+
+                                //                 $get_multiple_data = self::check_multiple_string($item);
+
+                                //                 $cell_arr = $get_multiple_data;
+
+
+                                //             }
+
+                                //             $dataToInsert[$data]['patronymic'] = $cell_arr;
+                                //         }
+                                //     } else {
+                                //         $dataToInsert[$data]['patronymic'] = null;
+                                //     }
+                                // }
+                                 elseif ($key == $column_name['birthday']) {
 
                                     $dataToInsert = self::get_birthday($key, $data, $column_name, $item, $dataToInsert);
                                 }
@@ -269,7 +302,6 @@ class TableContentService
 
                 foreach ($checked_user_list as $item) {
 
-                    // $item->man()->delete();
                     $item->man()->detach();
                     $item->delete();
                 }
@@ -419,35 +451,31 @@ class TableContentService
     }
     public static function get_full_name($lang, $key, $data, $column_name, $item, $text, $dataToInsert)
     {
-        // dd($item);
-        // dd($item->getElements()[0]);
+
         $arr = $item->getElements()[0]->getElements();
-        // dd($arr);
+
 
         $names_array = array_filter($arr, function ($value) {
-            // dd($value->getText());
+
             return
                 $value->getText() !== ' ';
         });
-        //   dd($names_array);
-        //    $text='first_name-middle_name-last_name';
+
         $keys_array = explode('-', $text);
-        //   dd( $keys_array );
+
         $k = [];
         $a = 0;
-        //   dd($names_array);
+
         foreach ($names_array as  $exploded_key) {
-            // dd($keys_array[$a]);
+
             $k[$keys_array[$a]] = $exploded_key->getText();
-            //   dd($k);
+
             $a++;
         }
-        //   dd($k);
 
         if ($lang != 'armenian') {
 
             foreach ($k as $i => $word) {
-                // dd($k[$i]);
 
                 $translate_text = $word;
 
@@ -455,23 +483,21 @@ class TableContentService
                 $k[$i] = $result['armenian'];
             }
         }
-        //dd($k);
+
 
         if (isset($request['fonetic'])) {
-            // dd($k);
+
 
             $k['first_name'] = ConvertUnicode::convertArm($k['first_name']);
-            // dd($k['first_name']);
+
             $k['middle_name'] = ConvertUnicode::convertArm($k['middle_name']);
-            // dd($k['middle_name']);
+
             $k['last_name'] = ConvertUnicode::convertArm($k['last_name']);
-            // dd($k['last_name']);
+
         }
 
 
-        // $dataToInsert[$data]['name'] = $k['first_name'];
-        // $dataToInsert[$data]['patronymic'] = $k['middle_name'];
-        // $dataToInsert[$data]['surname'] = $k['last_name'];
+
         if (isset($k['first_name'])) {
             $dataToInsert[$data]['name'] = $k['first_name'];
         } else {
@@ -497,20 +523,15 @@ class TableContentService
                         $exp_last_name = explode(' ', $surname);
                         if (count($exp_last_name) > 1) {
                             $total = count($exp_last_name);
-                            //dd($exp_last_name[$total-1]);
                             $dataToInsert[$data]['surname'] = $exp_last_name[1];
                             $dataToInsert[$data]['patronymic'] =  $exp_last_name[0];
                         }
                     }
                 }
             }
-            // $dataToInsert[$data]['surname'] =null;
 
 
         }
-
-
-        //dd($dataToInsert);
 
         return $dataToInsert;
     }
@@ -536,4 +557,95 @@ class TableContentService
         return  $collect_items;
 
     }
+    public  static function check_full_cell($key,$lang,$item, $column_name, $fonetic){
+
+        $translate_text = $item->getElements()[0]->getElements();
+
+
+        $cell_arr = '';
+        // if($key==$column_name['first_name']){
+        // if($key == $column_name['last_name']){
+        // if($key == $column_name['middle_name']){
+            // dd($translate_text);
+
+
+            foreach($translate_text as $k=>$txt){
+
+                $get_text = $txt->getText();
+
+                if($k == 0 && $get_text == '-' ){
+                    return  $cell_arr = null;
+                }
+
+                if($lang == 'english' || $lang == 'russian'){
+
+                    if( $lang == 'russian' && $fonetic){
+
+                        $unicude_result = ConvertUnicode::convertRus($get_text);
+                        $get_text = $unicude_result;
+                    }
+
+                    if($get_text!=="" ){
+                        // dd($get_text);
+                        // if($get_text!=='-'){
+                        //     if(str_contains( $get_text, "-")) {
+                        //     // dd($get_text);
+
+                        //         $explode_elem = explode("-", $get_text);
+                        //         dd($explode_elem);
+                        //         if(count($explode_elem)){
+                        //          $get_text = $explode_elem[0];
+                        //         }
+
+                        //     }
+
+                        // }
+                        // if($k==4){
+                            // dd($get_text);
+
+
+                        $result = LearningSystemService::get_info($get_text);
+
+                        $translated_name = $result['armenian'];
+                        // dd($translated_name);
+
+
+                        // if(str_contains($txt->getText(), "-")) {
+
+                        //     $cell_arr .=$translated_name.'-';
+                        // }else{
+                            // $cell_arr .= $translated_name;
+                        // }
+                        $cell_arr .= $translated_name;
+                    }else{
+                        $cell_arr=null;
+                    }
+
+
+
+                }else{
+                    // dd($get_text);
+                    if($get_text!==""){
+
+                        if($fonetic){
+
+                            $unicude_result = ConvertUnicode::convertArm($get_text);
+                            $get_text = $unicude_result;
+                        }
+
+                            $cell_arr .=$get_text;
+
+                    }else{
+                        $cell_arr=null;
+                    }
+
+                }
+
+            }
+        // }
+
+        return $cell_arr;
+
+    }
+
 }

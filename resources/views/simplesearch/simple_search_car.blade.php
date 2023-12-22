@@ -145,7 +145,10 @@
                 <label for="searchCarColor">{{ __('content.color') }}</label>
                 <input  type="text" name="color[]" id="searchCarColor" class="oneInputSaveEnter" />
 
-                <x-select-distance name="color_distance" class="distance distance_searchCarColor"/>
+                <x-select-distance  
+                    :search-data="$search_params['color_distance'] ?? '' "
+                    name="color_distance" 
+                    class="distance distance_searchCarColor"/>
 
             @if (isset($search_params['color_type']) && $search_params['color_type'] == 'OR')
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarColorOp">{{ __('content.or') }}</span>
@@ -186,7 +189,10 @@
             <label for="searchCarCarNumber">{{ __('content.car_number') }}</label>
             <input class="oneInputSaveEnter" type="text" name="number[]" id="searchCarCarNumber"/>
 
-            <x-select-distance name="car_number_distance" class="distance distance_searchCarCarNumber"/>
+            <x-select-distance
+                :search-data="$search_params['car_number_distance'] ?? '' " 
+                name="car_number_distance" 
+                class="distance distance_searchCarCarNumber"/>
 
             @if (isset($search_params['number_type']) && $search_params['number_type'] == 'OR')
              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCarNumberOp">{{ __('content.or') }}</span>
@@ -250,7 +256,10 @@
             <label for="searchCarAdditionalData">{{ __('content.additional_data') }}</label>
             <input class="oneInputSaveEnter" type="text" name="note[]" id="searchCarAdditionalData" />
 
-            <x-select-distance name="additional_data_distance" class="distance distance_searchCarAdditionalData"/>
+            <x-select-distance
+                :search-data="$search_params['additional_data_distance'] ?? '' "
+                name="additional_data_distance" 
+                class="distance distance_searchCarAdditionalData"/>
 
             @if (isset($search_params['note_type']) && $search_params['note_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarAdditionalDataOp">{{ __('content.or') }}</span>

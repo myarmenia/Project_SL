@@ -47,24 +47,7 @@
     @parent
     @once
         <script>
-            const content = document.querySelector('.text_area_modal')
 
-            document.querySelectorAll('.get-data').forEach(el => {
-                el.addEventListener('click', function () {
-                    const element = el.closest('.Myteg').querySelector('.xMark');
-                    const table = element.getAttribute('data-table')
-                    const id = element.getAttribute('data-delete-id')
-
-                    fetch(`/${lang}/${table}/${id}`,{
-                        method: 'GET',
-                        headers: {'Content-Type':'application/json'},
-                    })
-                        .then(async res => {
-                            const data = await res.json()
-                            content.value = data.result
-                        })
-                })
-            })
         </script>
     @endonce
 @endsection

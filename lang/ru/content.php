@@ -496,7 +496,7 @@ return [
     'active' => "Действующие",
     'report_search' => "Отчет",
     'report_search_signal' => "Отчет по сигналам",
-    'report_by_coloring' => "Отчет по раскраске",
+    'report_by_coloring' => "Отчет по окраскам",
     'consistent_search' => 'Последовательный поиск',
     'synonyms' => 'С синонимами',
 
@@ -792,11 +792,11 @@ return [
     'some' => 'Некие',
     'radio_new' => 'Отсутствующий',
     'radio_some' => 'Некий',
-    'radio_like' => 'Похожий',
+    'radio_like' => 'Проходящий',
     'like' => 'Присутствуют',
-    'singular_new' => 'Новый',
-    'singular_some' => 'Некий',
-    'singular_like' => 'Похожий',
+    'singular_new' => 'Отсутствующие',
+    'singular_some' => 'Некие',
+    'singular_like' => 'Проходящие',
 
 
     //     fusion result

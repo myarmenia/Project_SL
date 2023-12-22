@@ -241,7 +241,10 @@ class BreadCrumbs
 
                     array_pop($crumbs);
                 }
+                if (str_contains(url()->previous(), '?') && str_contains(url()->previous(), 'man')) {
 
+                    array_pop($crumbs);
+                }
 
                 $arr_asoc['title'] = request()->segment(2) ?? '';
                 $arr_asoc['url'] = $url;

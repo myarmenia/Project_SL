@@ -505,6 +505,7 @@
                                 <label for="opened_dou" class="form-label">39) {{ __('content.face_opened') }}</label>
                             </div>
                         </div>
+
                         <div class="btn-div">
                             <label class="form-label">40) {{ __('content.member_actions') }}</label>
                             <a href="{{ route('open.page', ['page' => 'action', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>

@@ -1,4 +1,4 @@
-<div class="modal fade" id="additional_information" tabindex="-1" aria-labelledby="exampleModalLgLabel"
+<div class="modal fade file-modal" id="additional_information" tabindex="-1" aria-labelledby="exampleModalLgLabel"
      style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -24,7 +24,7 @@
                 </div>
                 <div class="modal-buttons">
                     <button class="btn btn-primary add-file-btn" data-bs-dismiss="modal">{{ __('button.save') }}</button>
-                    <button class="btn btn-secondary close-button" data-bs-dismiss="modal">{{ __('button.cancel') }}</button>
+                    <button class="btn btn-secondary close-button close-button" data-bs-dismiss="modal">{{ __('button.cancel') }}</button>
                 </div>
 
             </div>

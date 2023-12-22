@@ -10,7 +10,7 @@
     <div class="inContent">
         <form id="bibliographyForm" action="/{{ app()->getLocale() }}/simplesearch/result_bibliography" method="post">
             @if (!empty($checkUrl) && $checkUrl !== 'advancedsearch')
-                {{-- <x-back-previous-url /> --}}
+                <x-back-previous-url />
             @endif
             <div class="buttons">
                 <input type="button" class="k-button" value="{{ __('content.and') }}" id="bibl_and" />
@@ -27,7 +27,6 @@
                 <input type="text" id="searchBibleCreated" name="created_at" style="width: 505px;"
                     onkeydown="validateNumber(event ,'searchBibleCreated',12)"
                     class="oneInputSaveEnter oneInputSaveDateBibliography" />
-                    {{-- <x-date-filter-search /> --}}
             </div>
 
             <?php if (isset($search_params)) { ?>
@@ -175,7 +174,10 @@
                 <label for="searchRegNumber">{{ __('content.reg_document') }}</label>
                 <input type="text" id="searchRegNumber" name="reg_number[]" class="oneInputSave oneInputSaveEnter" />
 
-                <x-select-distance name="reg_number_distance" class="distance distance_searchRegNumber" />
+                <x-select-distance
+                    :search-data="$search_params['reg_number_distance'] ?? '' "
+                    name="reg_number_distance"
+                    class="distance distance_searchRegNumber" />
 
                 @if (isset($search_params['reg_number_type']) && $search_params['reg_number_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -194,7 +196,6 @@
                 <input type="text" id="searchBiblSourceDate" name="reg_date" style="width: 505px;"
                     onkeydown="validateNumber(event ,'searchBiblSource',12)"
                     class="oneInputSaveEnter oneInputSaveDateBibliography" />
-                    {{-- <x-date-filter-search /> --}}
             </div>
 
             <?php if (isset($search_params)) { ?>
@@ -219,7 +220,10 @@
                 <input type="text" name="worker_name[]" id="searchBiblWorkerName"
                     class="oneInputSave oneInputSaveEnter" />
 
-                <x-select-distance name="worker_name_distance" class="distance distance_searchBiblWorkerName" />
+                <x-select-distance
+                    :search-data="$search_params['worker_name_distance'] ?? '' "
+                    name="worker_name_distance"
+                    class="distance distance_searchBiblWorkerName" />
 
                 @if (isset($search_params['worker_name_type']) && $search_params['worker_name_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -297,7 +301,10 @@
                 <input type="text" name="source_address[]" id="searchBiblSourceAddress"
                     class="oneInputSave oneInputSaveEnter" />
 
-                <x-select-distance name="source_address_distance" class="distance distance_searchBiblSourceAddress" />
+                <x-select-distance
+                    :search-data="$search_params['source_address_distance'] ?? '' "
+                    name="source_address_distance"
+                    class="distance distance_searchBiblSourceAddress" />
 
                 @if (isset($search_params['source_address_type']) && $search_params['source_address_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -333,7 +340,10 @@
                 <input type="text" id="searchBiblShortDesc" name="short_desc[]"
                     class="oneInputSave oneInputSaveEnter" />
 
-                <x-select-distance name="short_desc_distance" class="distance distance_searchBiblShortDesc" />
+                <x-select-distance
+                    :search-data="$search_params['short_desc_distance'] ?? '' "
+                    name="short_desc_distance"
+                    class="distance distance_searchBiblShortDesc" />
 
                 @if (isset($search_params['short_desc_type']) && $search_params['short_desc_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -370,7 +380,10 @@
                 <input type="text" id="searchBiblRelatedYear" name="related_year[]"
                     onkeydown="validateNumber(event ,'searchBiblRelatedYear',4)" class="oneInputSave oneInputSaveEnter" />
 
-                <x-select-distance name="related_year_distance" class="distance distance_searchBiblRelatedYear" />
+                <x-select-distance
+                    :search-data="$search_params['related_year_distance'] ?? '' "
+                    name="related_year_distance"
+                    class="distance distance_searchBiblRelatedYear" />
 
                 @if (isset($search_params['related_year_type']) && $search_params['related_year_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -405,7 +418,10 @@
                 <label for="searchBiblSource">{{ __('content.source_inf') }}</label>
                 <input type="text" id="searchBiblSource" name="source[]" class="oneInputSave oneInputSaveEnter" />
 
-                <x-select-distance name="source_distance" class="distance distance_searchBiblSource" />
+                <x-select-distance
+                    :search-data="$search_params['source_distance'] ?? '' "
+                    name="source_distance"
+                    class="distance distance_searchBiblSource" />
 
                 @if (isset($search_params['source_type']) && $search_params['source_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -480,7 +496,10 @@
                 <label for="searchBiblTheme">{{ __('content.name_subject') }}</label>
                 <input type="text" id="searchBiblTheme" name="theme[]" class="oneInputSave oneInputSaveEnter" />
 
-                <x-select-distance name="theme_distance" class="distance distance_searchBiblTheme" />
+                <x-select-distance
+                    :search-data="$search_params['theme_distance'] ?? '' "
+                    name="theme_distance"
+                    class="distance distance_searchBiblTheme" />
 
                 @if (isset($search_params['theme_type']) && $search_params['theme_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
@@ -516,7 +535,10 @@
                 <input type="text" id="searchBiblTitle" name="title[]" class="oneInputSave oneInputSaveEnter"
                     lastItem="1" />
 
-                <x-select-distance name="title_distance" class="distance distance_searchBiblTitle" />
+                <x-select-distance
+                    :search-data="$search_params['title_distance'] ?? '' "
+                    name="title_distance"
+                    class="distance distance_searchBiblTitle" />
 
                 @if (isset($search_params['title_type']) && $search_params['title_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"
