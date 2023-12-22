@@ -112,6 +112,7 @@ const addInputTxt = document.querySelectorAll('.addInputTxt')
 const modal = document.querySelector('.modal')
 const modal_inp_label = document.querySelector('.modal_inp_label')
 let plusBtn
+
 plusIcon.forEach(plus => {
     plus.addEventListener('click', openModal)
 })

@@ -42,7 +42,10 @@
             <label for="searchOrganNameOrganization">{{ __('content.name_organization') }}</label>
             <input type="text" name="name_organization[]" id="searchOrganNameOrganization" class="oneInputSaveEnter" />
 
-            <x-select-distance name="name_organization_distance" class="distance distance_searchOrganNameOrganization"/>
+            <x-select-distance 
+                :search-data="$search_params['name_organization_distance'] ?? '' " 
+                name="name_organization_distance" 
+                class="distance distance_searchOrganNameOrganization"/>
 
             @if (isset($search_params['name_organization_type']) && $search_params['name_organization_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">{{ __('content.or') }}</span>
@@ -305,7 +308,10 @@
             <label for="searchOrganAttention">{{ __('content.attention') }}</label>
             <input type="text" name="attension[]" id="searchOrganAttention" class="oneInputSaveEnter" />
 
-            <x-select-distance name="attention_distance" class="distance distance_searchOrganAttention"/>
+            <x-select-distance 
+                :search-data="$search_params['attention_distance'] ?? '' " 
+                name="attention_distance" 
+                class="distance distance_searchOrganAttention"/>
 
             @if (isset($search_params['attension_type']) && $search_params['attension_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">{{ __('content.or') }}</span>
@@ -337,7 +343,10 @@
             <label for="searchOrganOrganizationDow">{{ __('content.organization_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchOrganOrganizationDow" class="oneInputSaveEnter" />
 
-            <x-select-distance name="organization_dow_distance" class="distance distance_searchOrganOrganizationDow"/>
+            <x-select-distance 
+                :search-data="$search_params['organization_dow_distance'] ?? '' " 
+                name="organization_dow_distance" 
+                class="distance distance_searchOrganOrganizationDow"/>
 
             @if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">{{ __('content.or') }}</span>

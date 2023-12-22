@@ -51,7 +51,9 @@
                 <input type="text" name="material_content[]" id="searchActionContentMaterialsActions"
                     class="oneInputSaveEnter" />
 
-                <x-select-distance name="material_content_distance"
+                <x-select-distance
+                    :search-data="$search_params['material_content_distance'] ?? '' "
+                    name="material_content_distance"
                     class="distance distance_searchActionContentMaterialsActions" />
 
                 @if (isset($search_params['material_content_type']) && $search_params['material_content_type'] == 'OR')
@@ -310,7 +312,9 @@
                 <input type="text" name="source[]" id="searchActionSourceInformationActions"
                     class="oneInputSaveEnter oneInputSaveAction" />
 
-                <x-select-distance name="source_distance"
+                <x-select-distance
+                    :search-data="$search_params['source_distance'] ?? '' "
+                    name="source_distance"
                     class="distance distance_searchActionSourceInformationActions" />
 
                 @if (isset($search_params['source_type']) && $search_params['source_type'] == 'OR')
@@ -348,7 +352,10 @@
                 <input type="text" name="opened_dou[]" id="searchActionOpenedDow"
                     class="oneInputSaveEnter oneInputSaveAction" />
 
-                <x-select-distance name="opened_dou_distance" class="distance distance_searchActionOpenedDow" />
+                <x-select-distance
+                    :search-data="$search_params['opened_dou_distance'] ?? '' "
+                    name="opened_dou_distance"
+                    class="distance distance_searchActionOpenedDow" />
 
                 @if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;"

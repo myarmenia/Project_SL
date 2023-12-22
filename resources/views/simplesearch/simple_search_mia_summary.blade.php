@@ -43,7 +43,10 @@
             <label for="miaContentInf">{{ __('content.content_inf') }}</label>
             <input type="text" name="content[]" id="miaContentInf" class="oneInputSaveEnter" />
 
-            <x-select-distance name="content_distance" class="distance distance_miaContentInf"/>
+            <x-select-distance 
+                :search-data="$search_params['content_distance'] ?? '' " 
+                name="content_distance" 
+                class="distance distance_miaContentInf"/>
 
             @if (isset($search_params['content_type']) && $search_params['content_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">{{ __('content.or') }}</span>

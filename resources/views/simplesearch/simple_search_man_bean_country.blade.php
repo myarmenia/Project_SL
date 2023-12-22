@@ -248,7 +248,10 @@
             <label for="searchMbcRegion">{{ __('content.region') }}</label>
             <input type="text" name="region[]" id="searchMbcRegion" class="oneInputSaveEnter" />
 
-            <x-select-distance name="region_name_distance" class="distance distance_searchMbcRegion"/>
+            <x-select-distance 
+                :search-data="$search_params['region_name_distance'] ?? '' "
+                name="region_name_distance" 
+                class="distance distance_searchMbcRegion"/>
 
             @if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionOp">{{ __('content.or') }}</span>
@@ -280,7 +283,10 @@
             <label for="searchMbcLocality">{{ __('content.locality') }}</label>
             <input type="text" name="locality[]" id="searchMbcLocality" class="oneInputSaveEnter" />
 
-            <x-select-distance name="locality_name_distance" class="distance distance_searchMbcLocality"/>
+            <x-select-distance 
+                :search-data="$search_params['locality_name_distance'] ?? '' "
+                name="locality_name_distance" 
+                class="distance distance_searchMbcLocality"/>
 
             @if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityOp">{{ __('content.or') }}</span>

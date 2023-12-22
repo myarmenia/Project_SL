@@ -505,6 +505,7 @@
                                 <label for="opened_dou" class="form-label">39) {{ __('content.face_opened') }}</label>
                             </div>
                         </div>
+
                         <div class="btn-div">
                             <label class="form-label">40) {{ __('content.member_actions') }}</label>
                             <a href="{{ route('open.page', ['page' => 'action', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
@@ -623,8 +624,8 @@
                         </div>
 
                         <div class="btn-div" style=" display: flex; justify-content: start; ">
-                            <label class="form-label" style="width: 200px !important">53) Անձին կցված ֆայլեր</label>
-                            <a href="{{ route('man-attached-file.index',$man->id) }}" class="btn btn-primary" style="width: 100px">Առաջ</a>
+                            <label class="form-label" style="width: 200px !important">53) {{ __('content.man_file') }}</label>
+                            <a href="{{ route('man-attached-file.index',$man->id) }}" class="btn btn-primary" style="width: 100px">{{ __('content.forward') }}</a>
                         </div>
                     </div>
 
@@ -637,11 +638,11 @@
         </div>
     </section>
 
-    <x-fullscreen-modal />
-    <x-file-modal />
-    <x-scroll-up />
-    <x-large-modal :dataId="$man->id" />
     <x-errorModal />
+    <x-fullscreen-modal />
+    <x-scroll-up />
+    <x-file-modal />
+    <x-large-modal :dataId="$man->id" />
 
 @section('js-scripts')
     <script>

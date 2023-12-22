@@ -10,3 +10,7 @@
     transform: translateY(-50%);
     cursor: pointer;
   }
+
+  .calendar-icon.disabled{
+      pointer-events: none;
+  }

@@ -47,7 +47,10 @@
                 <label for="searchEmailEmail">{{ __('content.address') }}</label>
                 <input type="text" name="address[]" id="searchEmailEmail" class="oneInputSaveEnter" />
 
-                <x-select-distance name="address_distance" class="distance distance_searchEmailEmail"/>
+                <x-select-distance 
+                    :search-data="$search_params['address_distance'] ?? '' "
+                    name="address_distance" 
+                    class="distance distance_searchEmailEmail"/>
 
                 @if (isset($search_params['address_type']) && $search_params['address_type'] == 'OR')
                     <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchEmailEmailOp">{{ __('content.or') }}</span>

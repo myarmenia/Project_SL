@@ -1018,6 +1018,60 @@
     var searchInput;
 
     $(document).ready(function(){
+                let f = @json($search_params['date_search_birthday'])
+                console.log(f);
+            // =============================================
+               // interval jquery
+            // =============================================
+
+            $('.date-search-select').on('change', function() {
+                var el = $(this);
+                var simpelsearch_date_input = el.closest('.date-search-block').find('.date-search-input');
+                if (el.val() === '<=>' || simpelsearch_date_input !== '') {
+                    simpelsearch_date_input.show();
+                } else {
+                    simpelsearch_date_input.hide();
+                }
+            });
+
+            // =============================================
+               // interval jquery
+            // =============================================
+
+         // =============================================
+            // interval jquery
+            // =============================================
+
+            @if (!isset($search_params['end_subunit_date']))
+                 $("input[name='end_subunit_date']").hide();
+            @endif
+            @if (!isset($search_params['end_check_date']))
+                 $("input[name='end_check_date']").hide();
+            @endif
+            @if (!isset($search_params['end_check_date_id']))
+                 $("input[name='end_check_date_id']").hide();
+            @endif
+            @if (!isset($search_params['end_end_date']))
+                 $("input[name='end_end_date']").hide();
+            @endif
+            @if (!isset($search_params['end_count_days']))
+                 $("input[name='end_count_days']").hide();
+            @endif
+
+
+
+            $('.date-search-select').on('change', function() {
+                var el = $(this);
+                var simpelsearch_date_input = el.closest('.date-search-block').find('.date-search-input');
+                if (el.val() === '<=>') {
+                    simpelsearch_date_input.show();
+                } else {
+                    simpelsearch_date_input.hide();
+                }
+            });
+            // =============================================
+            // interval jquery
+            // =============================================
 
         $('input').map(function(){
             if($(this).hasClass('oneInputSaveEnter')){
@@ -1408,6 +1462,28 @@
         });
 
         <?php if (isset($search_params)) { ?>
+            @if (!isset($search_params['end_subunit_date']))
+                 $("input[name='end_subunit_date']").hide();
+            @endif
+            @if (!isset($search_params['end_check_date']))
+                 $("input[name='end_check_date']").hide();
+            @endif
+            @if (!isset($search_params['end_check_date_id']))
+                 $("input[name='end_check_date_id']").hide();
+            @endif
+            @if (!isset($search_params['end_end_date']))
+                 $("input[name='end_end_date']").hide();
+            @endif
+            @if (!isset($search_params['end_count_days']))
+                 $("input[name='end_count_days']").hide();
+            @endif
+
+            $("input[name='end_subunit_date']").val(@json($search_params['end_subunit_date']));
+            $("input[name='end_check_date']").val(@json($search_params['end_check_date']));
+            $("input[name='end_check_date_id']").val(@json($search_params['end_check_date_id']));
+            $("input[name='end_end_date']").val(@json($search_params['end_end_date']));
+            $("input[name='end_count_days']").val(@json($search_params['end_count_days']));
+
             $('#searchSignalRegNumberSignal').val(`{{  html_entity_decode($search_params['reg_num'][sizeof($search_params['reg_num'])-1]) }}`);
             $('#searchSignalContentsInformationSignal').val(`{{  html_entity_decode($search_params['content'][sizeof($search_params['content'])-1]) }}`);
             $('#searchSignalLineWhichVerified').val(`{{  html_entity_decode($search_params['check_line'][sizeof($search_params['check_line'])-1]) }}`);
