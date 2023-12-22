@@ -43,13 +43,17 @@
                            {{--     <option value="3" @if (isset($distance) && $distance == 3) selected @endif>70%-100%
                                     {{ __('content.match') }}</option>
                                 <option value="4" @if (isset($distance) && $distance == 4) selected @endif>50%-100%
-                                    {{ __('content.match') }}</option>
-                            </select> --}}
-
-                            <input name="search_input" type="text" class="form-control" id="search_input"
-                                value="{{ old('search_input', '') }}"  style="width: 35%" />
-                            <button class="btn btn-primary search-file-btn"
-                                id="serach_button">{{ __('content.search') }}</button>
+                                    {{ __('content.match') }}</option>--}}
+                            </select> 
+                             <div class="search_text_block" style="width: 35%">
+                                 <input name="search_input" type="text" class="form-control" id="search_input"
+                                     value="{{ old('search_input', '') }}"  style="width: 100%" />
+                                     <label for="" class="search_inp_lable"></label>
+                             </div>
+                             <div>
+                                 <button class="btn btn-primary search-file-btn"
+                                     id="serach_button">{{ __('content.search') }}</button>
+                             </div>
                         </div>
 
                     </form>
@@ -253,6 +257,7 @@
 @section('js-scripts')
     <script src="{{ asset('assets/js/main/table.js') }}"></script>
     <script>
+        let search_error_mesage = "{{ __('content.search_error_mesage') }}"
         let create_response = "{{ __('content.create_response') }}"
         let association = "{{ __('content.association') }}"
         let keyword = "{{ __('content.keyword') }}"

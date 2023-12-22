@@ -748,6 +748,7 @@ return [
     'short_video' => "Վիդեո",
 
     //search policen
+    'search_error_mesage' => 'Դաշտում լրացրեք երկու բառ',
     'yes' => 'Այո',
     'no'  => 'Ոչ',
     //matching
