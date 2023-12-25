@@ -18,7 +18,9 @@
             <div class="card-body">
              <x-form-error />
                 <!-- Vertical Form -->
-                <form action="{{Route::currentRouteName() !== 'weapon.create' ? route('weapon.update', [$modelData->model->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) : route('weapon.store',['model' => $modelData->name ?? null,'id'=>$modelData->id ?? null,'relation'=>$modelData->relation]) }}" method="POST">
+                <form action="{{Route::currentRouteName() !== 'weapon.create' ?
+                         route('weapon.update', [$modelData->model->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :
+                         route('weapon.store',['model' => $modelData->name ?? null,'id'=>$modelData->id ?? null,'relation'=>$modelData->relation]) }}" method="POST">
                     @if (Route::currentRouteName() !== 'weapon.create')
                         @method('PUT')
                     @endif
@@ -91,7 +93,7 @@
 
 @section('js-scripts')
 <script>
-    
+
     let parent_table_name = "{{ __('content.weapon') }}"
     console.log(ties)
     console.log(parent_table_name)

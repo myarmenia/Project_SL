@@ -134,7 +134,6 @@
                             </datalist>
                         </div>
 
-
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
@@ -171,66 +170,52 @@
 
                         <div class="btn-div">
                             <label class="form-label">11) {{ __('content.action_related_event_action') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'action', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="action" name="id" :label="__('content.short_action')"
-                                tableName="action" related delete />
+                            <a  href="{{ route('open.page', ['page' => 'action', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$action" relation="action" name="id" :label="__('content.short_action')" tableName="action" related delete :edit="['page' =>'action.edit', 'main_route' => 'action.edit', 'id' => $action->id,'model' => 'action']"/>
                         </div>
 
                         <div class="btn-div">
 
                             <label class="form-label">12) {{ __('content.action_related_event') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'event', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :label="__('content.short_event')" :data="$action" relation="event" name="id" tableName="event" related delete />
-
+                            <a href="{{ route('open.page', ['page' => 'event', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :label="__('content.short_event')" :data="$action" relation="event" name="id" tableName="event" related delete :edit="['page' =>'event.edit', 'main_route' => 'action.edit', 'id' => $action->id,'model' => 'action']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">13) {{ __('content.object_action_man') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :label="__('content.short_man')" :data="$action" relation="man" name="id" tableName="man" related delete />
+                            <a href="{{ route('open.page', ['page' => 'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :label="__('content.short_man')" :data="$action" relation="man" name="id" tableName="man" related delete :edit="['page' =>'man.edit', 'main_route' => 'action.edit', 'id' => $action->id,'model' => 'action']"/>
                         </div>
 
                         <div class="btn-div">
-
                             <label class="form-label">14) {{ __('content.object_action_event') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :label="__('content.short_event')" :data="$action" relation="man" name="id" tableName="man" related delete />
-
+                            <a href="{{ route('open.page', ['page' => 'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :label="__('content.short_event')" :data="$action" relation="event" name="id" tableName="man" related delete :edit="['page' =>'event.edit', 'main_route' => 'action.edit', 'id' => $action->id,'model' => 'action']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">15) {{ __('content.object_action_organization') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :label="__('content.short_organ')" :data="$action" relation="organization" name="id" tableName="organization"
-                                related delete />
+                            <a href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :label="__('content.short_organ')" :data="$action" relation="organization" name="id" tableName="organization" related delete :edit="['page' =>'organization.edit', 'main_route' => 'action.edit', 'id' => $action->id,'model' => 'action']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">16) {{ __('content.object_action_phone') }}</label>
-                            <a
-                                href="{{ route('phone.create', ['model' => 'action', 'id' => $action->id]) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('phone.create', ['model' => 'action', 'id' => $action->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="phone" name="number" :label="__('content.short_phone')" tableName="phone"
                                 related delete :edit="['page' =>'phone.edit', 'main_route' => 'action.edit', 'id' => $action->id, 'model' => 'action']" />
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">17) {{ __('content.object_action_weapon') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'weapon', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :label="__('content.short_weapon')" :data="$action" relation="weapon" name="id" tableName="weapon" related
-                                delete />
+                            <a href="{{ route('open.page', ['page' => 'weapon', 'main_route' => 'action.edit','model' => 'action', 'model_id' => $action->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :label="__('content.short_weapon')" :data="$action" relation="weapon" name="id" tableName="weapon" related delete :edit="['page' =>'weapon.edit', 'main_route' => 'action.edit', 'id' => $action->id,'model' => 'action']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">18) {{ __('content.object_action_car') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'car', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :label="__('content.short_car')" :data="$action" relation="car" name="id" tableName="car" related delete />
+                            <a href="{{ route('open.page', ['page' => 'car', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :label="__('content.short_car')" :data="$action" relation="car" name="id" tableName="car" related delete  :edit="['page' =>'car.edit', 'main_route' => 'action.edit', 'id' => $action->id,'model' => 'action']"/>
                         </div>
 
                         <div class="col">
@@ -245,10 +230,8 @@
 
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.checking_signal') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :label="__('content.short_signal')" :data="$action" relation="signal" name="id" tableName="signal" related
-                                delete />
+                            <a href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :label="__('content.short_signal')" :data="$action" relation="signal" name="id" tableName="signal" related delete :edit="['page' =>'signal.edit', 'main_route' => 'action.edit', 'id' => $action->id, 'model' => 'action']"/>
                         </div>
 
                         <div class="col">
@@ -262,83 +245,71 @@
 
                         <div class="btn-div">
                             <label class="form-label">22) {{ __('content.criminal_case') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
+                            <a  href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :label="__('content.short_criminal')" :data="$action" relation="criminal_case" name="id" tableName="criminal_case"
-                                related delete />
+                                related delete :edit="['page' =>'criminal_case.edit', 'main_route' => 'action.edit', 'id' => $action->id, 'model' => 'action']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">23) {{ __('content.place_action') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
-                            {{--                         {{dd($action->address)}} --}}
-                            <x-teg :item="$action->address" inputName="address_id" :label="__('content.short_address')" tableName="address"
-                                related delete />
+                            <a  href="{{ route('open.page', ['page' => 'address', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+                            <x-teg :item="$action->address" inputName="address_id" :label="__('content.short_address')" tableName="address" related delete :edit="['page' =>'address.edit', 'main_route' => 'action.edit', 'id' => $action->id, 'model' => 'action']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">24) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
-                                <div class="tegs-div-content">
-                                    <div class="Myteg">
-                                        <span><a href="">dddd</a></span>
-                                    </div>
-                                    <div class="Myteg">
-                                        <span><a href="">ffff</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+{{--{{dd(gettype($action->bibliography))}}--}}
+    {{--{ <x-teg :data="$action->bibliography" relation="files" name="id" />--}}
+</div>
+</div>
 
-                        <div class="col">
-                            <div class="form-floating">
-                                <select class="form-select form-control select_class" id="selectElement">
-                                <option selected disabled value="" hidden></option>
-                                <option class="event_option" data-url="{{route('bibliography.summery_automatic',  ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.mia_summary_avto') }}</option>
-                                <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.table_avto') }}</option>
-                                <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id])}}" value="1">{{ __('content.reference') }}</option>
+<div class="col">
+<div class="form-floating">
+ <select class="form-select form-control select_class" id="selectElement">
+     <option selected disabled value="" hidden></option>
+     <option class="event_option" data-url="{{route('bibliography.summery_automatic',  ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.mia_summary_avto') }}</option>
+     <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.table_avto') }}</option>
+     <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id])}}" value="1">{{ __('content.reference') }}</option>
+ </select>
+ <label class="form-label">25) {{ __('content.event_auto') }}</label>
+</div>
+</div>
 
-                                </select>
+<div class="btn-div">
+<label class="form-label">26) {{ __('content.ties') }}</label>
+<x-teg name="id" :item="$action" relation="bibliography" :label="__('content.short_bibl')"
+ tableName="bibliography" related />
+</div>
+<!-- Vertical Form -->
+<x-men  :parentModel="$action" relation="man"/>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-                                <label class="form-label">25) {{ __('content.event_auto') }}</label>
-                            </div>
-                        </div>
-
-                        <div class="btn-div">
-                            <label class="form-label">26) {{ __('content.ties') }}</label>
-                            <x-teg name="id" :item="$action" relation="bibliography" :label="__('content.short_bibl')"
-                                tableName="bibliography" related />
-                        </div>
-                        <!-- Vertical Form -->
-                        <x-men  :parentModel="$action" relation="man"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <x-fullscreen-modal />
-    <x-file-modal />
-    <x-scroll-up />
-    <x-large-modal :dataId="$action->id" />
-    <x-errorModal />
+<x-fullscreen-modal />
+<x-file-modal />
+<x-scroll-up />
+<x-large-modal :dataId="$action->id" />
+<x-errorModal />
 
 @section('js-scripts')
-    <script>
-        let parent_id = "{{ $action->id }}"
-        let updated_route = "{{ route('action.update', $action->id) }}"
-        let delete_item = "{{ route('delete_tag') }}"
-        let parent_table_name = "{{ __('content.action') }}"
-    </script>
-    <script src='{{ asset('assets/js/script.js') }}'></script>
-    <script src='{{ asset('assets/js/more_info_popup.js') }}'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
-    <script src="{{ asset('assets/js/tag.js') }}"></script>
-    <script src="{{ asset('assets/js/select_options.js') }}"></script>
-    <script src="{{ asset('assets/js/error_modal.js') }}"></script>
-    <script src='{{ asset('assets/js/action/script.js') }}'></script>
-    <script src='{{ asset('assets/js/main/date.js') }}'></script>
+<script>
+let parent_id = "{{ $action->id }}"
+let updated_route = "{{ route('action.update', $action->id) }}"
+let delete_item = "{{ route('delete_tag') }}"
+let parent_table_name = "{{ __('content.action') }}"
+</script>
+<script src='{{ asset('assets/js/script.js') }}'></script>
+<script src='{{ asset('assets/js/more_info_popup.js') }}'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
+<script src="{{ asset('assets/js/tag.js') }}"></script>
+<script src="{{ asset('assets/js/select_options.js') }}"></script>
+<script src="{{ asset('assets/js/error_modal.js') }}"></script>
+<script src='{{ asset('assets/js/action/script.js') }}'></script>
+<script src='{{ asset('assets/js/main/date.js') }}'></script>
 
 @endsection
 @endsection

@@ -580,7 +580,6 @@
                             <label class="form-label">48) {{ __('content.presence_weapons') }}</label>
                             <a href="{{ route('open.page', ['page' => 'weapon', 'main_route' => 'man.edit','model' => 'man', 'model_id' => $man->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man"  :label="__('content.short_weapon')" relation="weapon" name="id" tableName="weapon" related delete :edit="['page' =>'weapon.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man','relation' => 'weapon']"/>
-
                         </div>
 
                         <div class="btn-div">

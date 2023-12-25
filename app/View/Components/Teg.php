@@ -42,6 +42,7 @@ class Teg extends Component
         string|null $label = null,
         array|null $labels = null,
     ) {
+
         $this->item = $item;
         $this->relation = $relation;
         $this->relations = $relations;
