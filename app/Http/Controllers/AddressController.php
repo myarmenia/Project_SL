@@ -50,8 +50,8 @@ class AddressController extends Controller
     public function store(AddressCreateRequest $request)
     {
         $modelData = HelpersTraits::getModelFromUrl();
-
-        AddressService::store($modelData, $request->validated(),(request()->relation === 'dummy_address' || request()->model === 'event'));
+        
+        AddressService::store($modelData, $request->validated(), request()->updateRelation);
 
         return  HelpersTraits::backToRoute('address');
     }

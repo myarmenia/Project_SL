@@ -55,7 +55,6 @@ class AddRelationService
             }
 
         }elseif ($hasColumn && $relation_type == 'BelongsTo'){
-            //validation
             $dataModel->update($newData);
         }
 

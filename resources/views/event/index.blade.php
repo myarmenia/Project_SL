@@ -64,7 +64,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">4) {{ __('content.place_event_address') }}</label>
-                            <a href="{{ route('open.page', ['page' => 'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'model_name' => 'event', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' => 'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'model_name' => 'event', 'relation' => 'address', 'updateRelation' => true]) }}">{{ __('content.addTo') }}</a>
                             <x-teg :item="$event" relation="address" :label="__('content.short_address')" tableName="address" related delete :edit="['page' =>'address.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']"/>
                         </div>
 

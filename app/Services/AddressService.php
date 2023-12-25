@@ -9,7 +9,7 @@ use App\Models\Street;
 
 class AddressService
 {
-    public static function store(object $modelData, array $attributes, $dummy): void
+    public static function store(object $modelData, array $attributes, $update): void
     {
         if (isset($attributes['region'])) {
             $attributes['region_id'] =  Region::create(['name' => $attributes['region']])->id;
@@ -26,7 +26,7 @@ class AddressService
 
        $model = $modelData->model->address()->create($attributes);
 
-       if ($dummy){
+       if ($update){
            $modelData->model->update(['address_id' => $model->id]);
        }
     }
