@@ -6,6 +6,7 @@ use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\CheckedUserListController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\ContentTagController;
 use App\Http\Controllers\Controll\ControllController;
 use App\Http\Controllers\CriminalCase\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
@@ -50,8 +51,6 @@ use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
-use App\Models\ManExternalSignHasSign;
-use App\Models\ManExternalSignHasSignPhoto;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
 use App\Services\Relation\AddRelationService;
@@ -157,8 +156,8 @@ Route::group(
             // Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name('show.all.file');
 
             Route::prefix('show-file/content-tag')->group(function () {
-                Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
-                Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
+                Route::post('/store', [ContentTagController::class, 'store'])->name('content.tag.store');
+                Route::get('/', [ContentTagController::class, 'index']);
             })->name('content.tag');
 
 
@@ -520,8 +519,8 @@ Route::group(
         });
 
         Route::prefix('content-tag')->group(function () {
-            Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
-            Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
+            Route::post('/store', [ContentTagController::class, 'store'])->name('content.tag.store');
+            Route::get('/', [ContentTagController::class, 'index']);
         })->name('content.tag');
 
 

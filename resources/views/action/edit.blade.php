@@ -28,13 +28,12 @@
                             <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
                                 data-bs-target="#additional_information">{{ __('content.addTo') }}
                             </button>
-                            <x-tegs :data="$action" relation="material_content" name="id" delete />
-
+                            <x-tegs :data="$action" relation="material_content" name="content" delete moreData/>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text" class="required form-control fetch_input_title save_input_data get_datalist"
                                     id="action_qualification_id" placeholder="" name="action_qualification_id"
                                     value="{{ $action->qualification_column?->name }}" tabindex="1"
                                     data-type="update_field" data-fieldname="name" list="action_qualification_list" />
@@ -61,7 +60,8 @@
                                      />
                                      <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
                                     <label for="start_date" class="form-label"> 3)
-                                    {{ __('content.start_action_date') }}</label>
+                                      {{ __('content.start_action_date') }}
+                                    </label>
                             </div>
                         </div>
 
@@ -84,7 +84,6 @@
                                         id="end_date" tabindex="4" data-type="date" data-check="date" class="form-control save_input_data calendarInput"
                                         name="end_date" />
                                         <span class="calendar-icon" onclick="openCalendar(this)"><i class="bi bi-calendar"></i></span>
-
                                 <label for="end_date" class="form-label"> 5) {{ __('content.end_action_date') }}</label>
                             </div>
                         </div>
@@ -195,7 +194,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">15) {{ __('content.object_action_organization') }}</label>
-                            <a href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'action.edit','model' => 'action', 'model_id' => $action->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :label="__('content.short_organ')" :data="$action" relation="organization" name="id" tableName="organization" related delete :edit="['page' =>'organization.edit', 'main_route' => 'action.edit', 'id' => $action->id,'model' => 'action']"/>
                         </div>
 
@@ -214,7 +213,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">18) {{ __('content.object_action_car') }}</label>
-                            <a href="{{ route('open.page', ['page' => 'car', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' => 'car', 'main_route' => 'action.edit','model' => 'action', 'model_id' => $action->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :label="__('content.short_car')" :data="$action" relation="car" name="id" tableName="car" related delete  :edit="['page' =>'car.edit', 'main_route' => 'action.edit', 'id' => $action->id,'model' => 'action']"/>
                         </div>
 

@@ -36,8 +36,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
     @yield('style')
     @yield('head-scripts')
-
-
 </head>
 
 <body class="toggle-sidebar">

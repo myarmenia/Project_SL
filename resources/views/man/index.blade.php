@@ -547,8 +547,7 @@
                         </div>
 
                         <div class="btn-div">
-
-                            <label class="form-label">44){{ __('content.passes_signal') }}</label>
+                            <label class="form-label">44) {{ __('content.passes_signal') }}</label>
                             <a  href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'man_passed_by_signal']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="man_passed_by_signal" name="id" tableName="signal" :label="__('content.short_signal')"
                                 related delete :edit="['page' =>'signal.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
@@ -557,8 +556,7 @@
                         <div class="btn-div">
                             <label class="form-label">45) {{ __('content.criminal_case') }}</label>
                             <a href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="criminal_case" name="id" tableName="criminal_case"
-                            :label="__('content.short_criminal')"
+                            <x-tegs :data="$man" relation="criminal_case" name="id" tableName="criminal_case" :label="__('content.short_criminal')"
                                 related delete :edit="['page' =>'criminal_case.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
 
@@ -656,7 +654,6 @@
     <script src="{{ asset('assets/js/tag.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src='{{ asset('assets/js/main/date.js') }}'></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
 @endsection
 @endsection

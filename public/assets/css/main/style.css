@@ -1547,7 +1547,6 @@ position: relative;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  align-items: center;
 }
 
 
@@ -1617,4 +1616,8 @@ span.form-label{
 
 .open-relation-field{
   cursor: pointer;
+}
+
+.form-control.required{
+    outline:3px solid red;
 }

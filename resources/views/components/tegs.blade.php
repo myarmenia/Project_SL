@@ -15,7 +15,7 @@
                                     <i class="bi bi-pen"></i>
                                 </button>
                              @else
-                              <a href="{{route($edit['page'],array_merge($edit,[$item['id']]))}}">
+                              <a href="{{route($edit['page'], array_merge($edit,[$item['id']]))}}">
                                   <i class="bi bi-pen"></i>
                               </a>
                              @endif
@@ -31,9 +31,10 @@
                             class="xMark @if ($comment) delete-items-from-db @else delete-from-db check_tag @endif"
                             data-delete-id="{{ $item->id }}" data-table="{{ $relation }}"
                             data-model-id="{{ $dataItem->id }}" data-pivot-table="{{ $relation }}"
-                            @if ($comment) data-model-name="Bibliography"
-                              @else
-                                  data-value="{{ $item[$name] }}" @endif
+                            @if ($comment)
+                                data-model-name="Bibliography"
+                            @else
+                                data-value="{{ $item[$name] }}" @endif
                             @if (isset($relationtype)) data-relation-type="{{ $relationtype }}" @endif>X
                         </span>
                     @endif
