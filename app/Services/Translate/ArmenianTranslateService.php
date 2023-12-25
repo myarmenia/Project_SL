@@ -92,7 +92,12 @@ class ArmenianTranslateService
                 }
             } else {
 
-                $k1 = $alphabet_am[$letter];
+                try {
+                    $k1 = $alphabet_am[$letter];
+                } catch (\Throwable $th) {
+                   
+                }
+
             }
 
 
