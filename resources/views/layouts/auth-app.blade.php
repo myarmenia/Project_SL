@@ -62,7 +62,7 @@
 
             {{-- @if (!request()->routeIs('home') ) --}}
 
-                @if (!request()->routeIs('home') && request()->segment(2) !== 'advancedsearch' && request()->segment(2) !== 'simplesearch')
+                @if (!request()->routeIs('home') &&  !request()->routeIs('searche')  && !request()->routeIs('police-search')  &&  request()->segment(2) !== 'advancedsearch' && request()->segment(2) !== 'simplesearch')
 
                 <div class="pagetitle-wrapper">
                     <div class="pagetitle">

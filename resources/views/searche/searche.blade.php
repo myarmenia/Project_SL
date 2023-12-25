@@ -6,6 +6,11 @@
 @section('content')
 
     <!-- End Page Title -->
+    <div class="pagetitle-wrapper">
+        <div class="pagetitle">
+            <h1 id="title">{{__('pagetitle.main') }}</h1>
+        </div>
+    </div>
 
     <section class="section">
         <div class="card">

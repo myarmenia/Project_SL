@@ -156,10 +156,10 @@ Route::group(
             Route::get('/show-file/{filename}', [SearchController::class, 'showFile'])->name('file.show-file');
             // Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name('show.all.file');
 
-            Route::prefix('show-file/content-tag')->group(function () {
-                Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
-                Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
-            })->name('content.tag');
+            // Route::prefix('show-file/content-tag')->group(function () {
+            //     Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
+            //     Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
+            // })->name('content.tag');
 
 
             // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
@@ -269,7 +269,7 @@ Route::group(
                 Route::get('/organization', [AdvancedsearchController::class, 'organization'])->name('advanced_organization');
                 Route::match(['get', 'post'], '/result_organization', [AdvancedsearchController::class, 'result_organization'])->name('advanced_result_organization');
                 //advanced_search_mia_summary
-                Route::get('/mia_summary', [AdvancedsearchController::class, 'organization'])->name('advanced_organization');
+                Route::get('/mia_summary', [AdvancedsearchController::class, 'organization'])->name('advanced_mia_summary');
                 Route::match(['get', 'post'], '/result_mia_summary', [AdvancedsearchController::class, 'result_mia_summary'])->name('advanced_result_mia_summary');
                 //advanced_search_mia_summary
                 Route::get('/criminal_case', [AdvancedsearchController::class, 'criminal_case'])->name('advanced_criminal_case');
@@ -407,6 +407,7 @@ Route::group(
             Route::resource('sign', SignController::class)->only('create', 'store', 'edit')->names([
                 'create' => 'man.sign.create',
                 'store' => 'man.sign.store',
+                'edit' => 'man.sign.edit',
             ]);
 
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'edit'])->name('sign.edit');
@@ -519,10 +520,10 @@ Route::group(
             Route::get('/consistent-notifications/download-file', [ConsistentNotificationController::class, 'downloadFile'])->name('consistent_notifications.download_file');
         });
 
-        Route::prefix('content-tag')->group(function () {
-            Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
-            Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
-        })->name('content.tag');
+        // Route::prefix('content-tag')->group(function () {
+        //     Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
+        //     Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
+        // })->name('content.tag');
 
 
         // Route::get('/home', [HomeController::class, 'index'])->name('home');
