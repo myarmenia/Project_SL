@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
 
 @endsection
-
-
 @section('content')
 
     <!-- End Page Title -->
@@ -113,9 +111,6 @@
                                     <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
                                 @elseif(Route::currentRouteName() !== 'work.edit')
                                      <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
-                                @else
-                                    {{$modelData->name.'_id'}}
-                                    <input hidden name="{{$modelData->name.'_id'}}" value="{{$modelData->model[$modelData->name.'_id']}}">
                                 @endif
                             @else
                                 <label class="form-label">5) {{__('content.data_employment_persons')}}</label>
@@ -153,7 +148,6 @@
         <script src="{{ asset('assets/js/saveFields.js') }}"></script>
         <script src="{{ asset('assets/js/script.js') }}"></script>
         <script src='{{ asset('assets/js/main/date.js') }}'></script>
-
     @endsection
 @endsection
 

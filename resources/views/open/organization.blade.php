@@ -10,12 +10,7 @@
                 @endif
 
                 <!-- global button -->
-                <x-btn-create-clear-component route="organization.create"  :routeParams="[
-                    'model' => request()->route_name,
-                    'id' => request()->model_id,
-                    'redirect' => request()->main_route,
-                    'relation' => request()->relation,
-                ]"/>
+                <x-btn-create-clear-component route="organization.create"  :routeParams="request()->query()"/>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">

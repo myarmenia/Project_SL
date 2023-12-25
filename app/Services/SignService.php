@@ -18,10 +18,6 @@ class SignService
 
     public static function update(object $manExternalSignHasSign, array $attributes): void
     {
-       if ($attributes['fixed_date']){
-           $attributes['fixed_date'] = HelpersTraits::getDateTimeFormat($attributes['fixed_date'],true);
-       }
-
         $manExternalSignHasSign->update($attributes);
     }
 }
