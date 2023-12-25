@@ -2,12 +2,16 @@
 
 namespace App\Traits;
 
-use App\Models\FirstName;
+use App\Services\LearningSystemService;
 use App\Services\SearchService;
 
 
 trait FullTextSearch
 {
+    function transl(LearningSystemService $learningSystemService, $content)
+    {
+        return $learningSystemService->get_info($content);
+    }
     function arifDateString(array $data): string
     {
         $query = '';
@@ -99,7 +103,7 @@ trait FullTextSearch
                     $query = " AND MATCH ({$columns}) AGAINST ('$sear' IN BOOLEAN MODE)";
                 }
                 else{
-                    $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
+                    $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~','"'];
                     $term = str_replace($reservedSymbols, '', $term);
 
                     $query = "";
@@ -113,14 +117,20 @@ trait FullTextSearch
                                 $distance = 1;
                             }
 
-                            $query .=  " AND LEVENSHTEIN($col, '$term') <= ".$distance;
+                            $term = explode(' ',$term);
+                            $query .=  " AND (LEVENSHTEIN({$col}, '$term[0]') <= ".$distance
+                                        . " OR LEVENSHTEIN({$col}, '$term[1]') <= ".$distance
+                                        . " OR LEVENSHTEIN({$col}, '$term[2]') <= ".$distance.")";
                         }
                     }else{
                         if (mb_strlen($term,'UTF-8') <= 6) {
 
                             $distance = 1;
                         }
-                        $query .=  " AND LEVENSHTEIN({$columns}, '$term') <= ".$distance;
+                        $term = explode(' ',$term);
+                        $query .=  " AND (LEVENSHTEIN({$columns}, '$term[0]') <= ".$distance
+                                    . " OR LEVENSHTEIN({$columns}, '$term[1]') <= ".$distance
+                                    . " OR LEVENSHTEIN({$columns}, '$term[2]') <= ".$distance.")";
                     }
 
                 }

@@ -10,6 +10,7 @@ use App\Traits\FullTextSearch;
 
 use App\Services\ConvertUnicode;
 use App\Services\FindDataService;
+use App\Services\LearningSystemService;
 use App\Services\SimpleSearch\LengthDataFormat;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -1067,7 +1068,9 @@ class SimplesearchModel extends Model
                     }
 
                 }elseif(!is_null($data['first_name'][0]) && !isset($data['soundArmenianInput'])){
-                    $q = $this->search(['first_name.first_name'],$data['first_name'][0],$data['first_name_distance']);
+                    $trans = $this->transl(new LearningSystemService,$data['first_name'][0]);
+                    $implod_date = implode('" "', $trans);
+                    $q = $this->search(['first_name.first_name'],$implod_date,$data['first_name_distance']);
                     $query .= $q;
                 }
 
@@ -1085,7 +1088,6 @@ class SimplesearchModel extends Model
                    }else {
                      $q = " AND LEVENSHTEIN(first_name, '$first') <=  $distance";
                    }
-
                    $query .= $q;
 
                 }
@@ -1130,7 +1132,9 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
                 }elseif(!is_null($data['last_name'][0]) && !isset($data['soundArmenianInput'])){
-                    $q = $this->search(['last_name.last_name'],$data['last_name'][0],$data['last_name_distance']);
+                    $trans = $this->transl(new LearningSystemService,$data['last_name'][0]);
+                    $implod_date = implode('" "', $trans);
+                    $q = $this->search(['last_name.last_name'],$implod_date,$data['last_name_distance']);
                     $query .= $q;
                 }
 
@@ -1188,8 +1192,9 @@ class SimplesearchModel extends Model
                     }
 
                 }elseif(!is_null($data['middle_name'][0]) && !isset($data['soundArmenianInput'])){
-
-                    $q = $this->search(['middle_name.middle_name'],$data['middle_name'][0],$data['middle_name_distance']);
+                    $trans = $this->transl(new LearningSystemService,$data['middle_name'][0]);
+                    $implod_date = implode('" "', $trans);
+                    $q = $this->search(['middle_name.middle_name'],$implod_date,$data['middle_name_distance']);
                     $query .= $q;
                 }
 
