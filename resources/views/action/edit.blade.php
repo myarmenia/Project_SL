@@ -252,8 +252,10 @@
 
                         <div class="btn-div">
                             <label class="form-label">23) {{ __('content.place_action') }}</label>
-                            <a  href="{{ route('open.page', ['page' => 'address', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
-                            <x-teg :item="$action->address" inputName="address_id" :label="__('content.short_address')" tableName="address" related delete :edit="['page' =>'address.edit', 'main_route' => 'action.edit', 'id' => $action->id, 'model' => 'action']"/>
+                            <a  href="{{ route('open.page', ['page' => 'address', 'main_route' => 'action.edit','model' => 'action', 'model_id' => $action->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+                            <x-teg :item="$action" relation="address" name="id" tableName="address" related
+                                   :label="__('content.short_address')" delete :edit="['page' =>'address.edit', 'main_route' => 'action.edit', 'id' => $action->id, 'model' => 'action', 'relation' => 'action']"/>
+
                         </div>
 
                         <div class="btn-div">

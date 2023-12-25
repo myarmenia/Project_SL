@@ -6,17 +6,14 @@
                     {{ $item->label }}
                     <input hidden name="{{$inputName}}" value="{{$item['id']}}">
                 @endif
-                @if($item->$relation || $relations || $edit)
-
-                     @if($edit)
-{{--                         {{dd($edit)}}--}}
-                        <span class="edit-pen"><a href="{{route($edit['page'], array_merge($edit,[$item['id']]))}}">
-                                <i class="bi bi-pen"></i></a>
-                        </span>
-                        @else
-                            <span  class="open-relation-field" @if($related) data-table-name="{{$item->curentModel ?? $tableName }}"  data-id="{{ $item->curentId ?? $item->$relation?->id }}" @endif>
+                @if($item->$relation || $relations)
+                    <span  class="open-relation-field" @if($related) data-table-name="{{$item->curentModel ?? $tableName }}"  data-id="{{ $item->curentId ?? $item->$relation?->id }}" @endif>
                         {{ $item->label }}
                      </span>
+                     @if($edit)
+                        <span class="edit-pen"><a href="{{route($edit['page'], array_merge($edit,[$item->$relation?->id]))}}">
+                                <i class="bi bi-pen"></i></a>
+                        </span>
                      @endif
                 @endif
                 @if($delete)
