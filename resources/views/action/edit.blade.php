@@ -259,57 +259,56 @@
                         <div class="btn-div">
                             <label class="form-label">24) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
-{{--{{dd(gettype($action->bibliography))}}--}}
-    {{--{ <x-teg :data="$action->bibliography" relation="files" name="id" />--}}
-</div>
-</div>
+                                <x-tegs :data="$action->bibliography" relation="files"  name="id"/>
+                            </div>
+                        </div>
 
-<div class="col">
-<div class="form-floating">
- <select class="form-select form-control select_class" id="selectElement">
-     <option selected disabled value="" hidden></option>
-     <option class="event_option" data-url="{{route('bibliography.summery_automatic',  ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.mia_summary_avto') }}</option>
-     <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.table_avto') }}</option>
-     <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id])}}" value="1">{{ __('content.reference') }}</option>
- </select>
- <label class="form-label">25) {{ __('content.event_auto') }}</label>
-</div>
-</div>
+                        <div class="col">
+                            <div class="form-floating">
+                                <select class="form-select form-control select_class" id="selectElement">
+                                    <option selected disabled value="" hidden></option>
+                                    <option class="event_option" data-url="{{route('bibliography.summery_automatic',  ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.mia_summary_avto') }}</option>
+                                    <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.table_avto') }}</option>
+                                    <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id])}}" value="1">{{ __('content.reference') }}</option>
+                                </select>
+                                <label class="form-label">25) {{ __('content.event_auto') }}</label>
+                            </div>
+                        </div>
 
-<div class="btn-div">
-<label class="form-label">26) {{ __('content.ties') }}</label>
-<x-teg name="id" :item="$action" relation="bibliography" :label="__('content.short_bibl')"
- tableName="bibliography" related />
-</div>
-<!-- Vertical Form -->
-<x-men  :parentModel="$action" relation="man"/>
-</div>
-</div>
-</div>
-</div>
-</section>
+                        <div class="btn-div">
+                            <label class="form-label">26) {{ __('content.ties') }}</label>
+                            <x-teg name="id" :item="$action" relation="bibliography" :label="__('content.short_bibl')"
+                                tableName="bibliography" related />
+                        </div>
+                        <!-- Vertical Form -->
+                        <x-men  :parentModel="$action" relation="man"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<x-fullscreen-modal />
-<x-file-modal />
-<x-scroll-up />
-<x-large-modal :dataId="$action->id" />
-<x-errorModal />
+    <x-fullscreen-modal />
+    <x-file-modal />
+    <x-scroll-up />
+    <x-large-modal :dataId="$action->id" />
+    <x-errorModal />
 
 @section('js-scripts')
-<script>
-let parent_id = "{{ $action->id }}"
-let updated_route = "{{ route('action.update', $action->id) }}"
-let delete_item = "{{ route('delete_tag') }}"
-let parent_table_name = "{{ __('content.action') }}"
-</script>
-<script src='{{ asset('assets/js/script.js') }}'></script>
-<script src='{{ asset('assets/js/more_info_popup.js') }}'></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
-<script src="{{ asset('assets/js/tag.js') }}"></script>
-<script src="{{ asset('assets/js/select_options.js') }}"></script>
-<script src="{{ asset('assets/js/error_modal.js') }}"></script>
-<script src='{{ asset('assets/js/action/script.js') }}'></script>
-<script src='{{ asset('assets/js/main/date.js') }}'></script>
+    <script>
+        let parent_id = "{{ $action->id }}"
+        let updated_route = "{{ route('action.update', $action->id) }}"
+        let delete_item = "{{ route('delete_tag') }}"
+        let parent_table_name = "{{ __('content.action') }}"
+    </script>
+    <script src='{{ asset('assets/js/script.js') }}'></script>
+    <script src='{{ asset('assets/js/more_info_popup.js') }}'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
+    <script src="{{ asset('assets/js/tag.js') }}"></script>
+    <script src="{{ asset('assets/js/select_options.js') }}"></script>
+    <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+    <script src='{{ asset('assets/js/action/script.js') }}'></script>
+    <script src='{{ asset('assets/js/main/date.js') }}'></script>
 
 @endsection
 @endsection

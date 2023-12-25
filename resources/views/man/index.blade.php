@@ -586,7 +586,6 @@
                             <label class="form-label">49) {{ __('content.uses_machine') }}</label>
                             <a href="{{ route('open.page', ['page' => 'car', 'main_route' => 'man.edit','model' => 'man', 'model_id' => $man->id, 'relation' => 'use_car']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man"  :label="__('content.short_car')" relation="use_car" name="id" tableName="car" related delete :edit="['page' =>'car.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man','relation' => 'use_car']"/>
-
                         </div>
 
                         <!-- File input -->
