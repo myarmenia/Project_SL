@@ -74,7 +74,12 @@ class RussianTranslateService
                 }
             } else {
 
-                $k1 = $alphabet_ru[$letter];
+                try {
+                    $k1 = $alphabet_ru[$letter];
+                } catch (\Throwable $th) {
+                   
+                }
+
             }
 
             $translated_en .= $k1['en'];
