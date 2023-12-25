@@ -259,7 +259,7 @@
                         <div class="btn-div">
                             <label class="form-label">24) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
-                                <x-tegs :data="$action->bibliography" relation="files"  name="id"/>
+                                <x-tegs :data="$action->bibliography" relation="files"  name="name"/>
                             </div>
                         </div>
 
