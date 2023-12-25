@@ -85,7 +85,13 @@ class EnglishTranslateService
                 }
             } else {
 
-                $k1 = $alphabet_en[$letter];
+                try {
+                    $k1 = $alphabet_en[$letter];
+
+                } catch (\Throwable $th) {
+                    
+                }
+
             }
 
             $translated_hy .= $k1['hy'];
