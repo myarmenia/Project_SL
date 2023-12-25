@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/calendar.css') }}">
 
 @endsection
-
-
 @section('content')
 
     <!-- End Page Title -->
@@ -23,6 +21,8 @@
                                 route('work.store', ['model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$modelData->redirect])}}">
                         @if( Route::currentRouteName() !== 'work.create')
                             @method('PUT')
+                        @else
+                            @method('POST')
                         @endif
 
                     <x-back-previous-url submit/>
@@ -102,6 +102,7 @@
                                 >4) {{__('content.end_employment')}}</label>
                             </div>
                         </div>
+
                         <div class="btn-div">
                             @if($modelData->name === 'man')
                                 <label class="form-label">5) {{__('content.jobs_organization')}}</label>
@@ -147,7 +148,6 @@
         <script src="{{ asset('assets/js/saveFields.js') }}"></script>
         <script src="{{ asset('assets/js/script.js') }}"></script>
         <script src='{{ asset('assets/js/main/date.js') }}'></script>
-
     @endsection
 @endsection
 

@@ -25,21 +25,26 @@ class OrganizationHasCreateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $model =  request()->model === 'man' ? 'organization' : 'man';
-        return [
-            $model.'_id' => ['required:organization_id',"exists:$model,id"],
+        $data = [
             'title' => ['nullable'],
             'period' => ['nullable'],
             'start_date' => ['nullable'],
             'end_date' => ['nullable'],
         ];
+
+        if ($this->_method === 'POST'){
+            $model =  request()->model === 'man' ? 'organization' : 'man';
+            $data[$model.'_id'] = ['required',"exists:$model,id"];
+        }
+
+        return $data;
     }
 
     public function messages(): array
     {
         $model = request()->model;
         return [
-            $model.'_id' => __('validation.required', ['attribute' => __("content.$model")]),
+            $model.'_id' => __('validation.required_with', ['attribute' => __("content.$model")]),
         ];
     }
 }

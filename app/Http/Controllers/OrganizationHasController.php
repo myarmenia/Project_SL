@@ -11,7 +11,6 @@ use App\Traits\HelpersTraits;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class OrganizationHasController extends Controller
 {
@@ -24,14 +23,7 @@ class OrganizationHasController extends Controller
     {
         $modelData = HelpersTraits::getModelFromUrl();
 
-        $teg = null;
-        if (isset($request->model_name)) {
-            if ($request->model_name === 'organization') {
-                $teg = Organization::find($request->model_id);
-            } else {
-                $teg = Man::find($request->model_id);
-            }
-        }
+        $teg = isset($request->model_name) ? $request->model_name === 'organization' ? Organization::find($request->model_id) : Man::find($request->model_id) : null;
 
         return view('work-activity.index', compact('modelData', 'teg'));
     }
@@ -40,17 +32,12 @@ class OrganizationHasController extends Controller
     {
         $modelData = HelpersTraits::getModelFromUrl($organizationHasMan);
 
-        $teg = null;
-        if ($request->model === 'man') {
-            $teg = Organization::find($organizationHasMan->organization_id);
-        } else {
-            $teg = Man::find($organizationHasMan->man_id);
-        }
+        $teg = $request->model === 'man' ? Organization::find($organizationHasMan->organization_id) :  Man::find($organizationHasMan->man_id) ;
 
         return view('work-activity.index', compact('modelData', 'teg'));
     }
 
-    public function update($lang,OrganizationHasMan $organizationHasMan, OrganizationHasCreateRequest $request)
+    public function update($lang, OrganizationHasMan $organizationHasMan, OrganizationHasCreateRequest $request)
     {
         OrganizationHasService::update($organizationHasMan, $request->validated());
 

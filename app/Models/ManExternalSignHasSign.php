@@ -51,7 +51,7 @@ class ManExternalSignHasSign extends Model
         return $this->belongsTo(Man::class, 'man_id');
     }
 
-    public function setFidexDateAttribute($value): void
+    public function setFixedDateAttribute($value): void
     {
         $this->attributes['fixed_date'] = HelpersTraits::getDateTimeFormat($value,true);
     }

@@ -28,7 +28,7 @@ function drowTeg(parent_model_id,pivot_table_name,data,field_name,data_relation 
 
     return  `
         <div class="Myteg">
-            <span ><a href="#" class="date_text" >${revfield_name}</a></span>
+            <span class="date_text teg-text"><a href="#">${revfield_name}</a></span>
            ${editTegs ?? ''}
             <span
                  class="delete-from-db check_tag xMark"
