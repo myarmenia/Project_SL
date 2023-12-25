@@ -126,3 +126,10 @@ color: white;
   .help_icon:active{
     color: black;
   }
+  .search_text_block{
+    display: flex;
+    flex-direction: column;
+  }
+  .search_inp_lable{
+    color: red;
+  }

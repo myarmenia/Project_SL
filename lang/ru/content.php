@@ -748,6 +748,7 @@ return [
     'short_video' => "Видео",
 
     //search policen
+    'search_error_mesage' => 'Заполните два слова в поле',
     'yes' => 'Да',
     'no'  => 'Нет',
 
